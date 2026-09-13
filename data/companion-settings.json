@@ -1,0 +1,32 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "hotkey": "F10",
+  "sound": true,
+  "autostart": true,
+  "character": "",
+  "mode": "stash",
+  "swap": false,
+  "location": "",
+  "topmost": false,
+  "regions": {
+    "stat_screen": [
+      0,
+      0,
+      0.58,
+      1
+    ],
+    "runes": [
+      0,
+      0,
+      0.65,
+      0.95
+    ]
+  },
+  "mode_hotkeys": {
+    "stash": "F9",
+    "character": "F11",
+    "merc": "F12",
+    "runes": "F8",
+    "stat_screen": "F7"
+  }
+}

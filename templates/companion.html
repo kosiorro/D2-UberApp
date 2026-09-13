@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>D2 UberApp · Panel</title>
+    <link rel="icon" href="/static/images/uberapp.ico">
+    <link rel="stylesheet" href="/static/sanctuary.css">
+    <link rel="stylesheet" href="/static/uberapp.css">
+    <link rel="stylesheet" href="/static/companion.css">
+</head>
+{% macro hotkey_options(include_none=false) %}
+    {% if include_none %}<option value="">Brak</option>{% endif %}
+    <optgroup label="Podstawowe (F1–F12)">
+        {% for n in range(1,13) %}<option value="F{{ n }}">F{{ n }}</option>{% endfor %}
+    </optgroup>
+    <optgroup label="Kombinacje z Alt (F1–F12)">
+        {% for n in range(1,13) %}<option value="Alt+F{{ n }}">Alt+F{{ n }}</option>{% endfor %}
+    </optgroup>
+    <optgroup label="Kombinacje z Alt (Cyfry 1–9)">
+        {% for n in range(1,10) %}<option value="Alt+{{ n }}">Alt+{{ n }}</option>{% endfor %}
+    </optgroup>
+    <optgroup label="Kombinacje z Alt (Gaming)">
+        {% for k in ['Q','W','E','R','A','S','D','Z','X','C','V'] %}<option value="Alt+{{ k }}">Alt+{{ k }}</option>{% endfor %}
+    </optgroup>
+    <optgroup label="Kombinacje z Ctrl (F1–F12)">
+        {% for n in range(1,13) %}<option value="Ctrl+F{{ n }}">Ctrl+F{{ n }}</option>{% endfor %}
+    </optgroup>
+    <optgroup label="Kombinacje z Ctrl (Cyfry 1–9)">
+        {% for n in range(1,10) %}<option value="Ctrl+{{ n }}">Ctrl+{{ n }}</option>{% endfor %}
+    </optgroup>
+    <optgroup label="Klawisze nawigacyjne">
+        <option value="Insert">Insert</option>
+        <option value="Delete">Delete</option>
+        <option value="Home">Home</option>
+        <option value="End">End</option>
+        <option value="PageUp">PageUp</option>
+        <option value="PageDown">PageDown</option>
+    </optgroup>
+{% endmacro %}
+<body class="companion-shell">
+    <header class="desktop-header">
+        <div class="header-brand">
+            <img src="/static/images/uberapp.svg" alt="D2 UberApp">
+            <div>
+                <h1>D2 UberApp</h1>
+                <small class="brand-subtitle-full">{{ t("companion_sub") }}</small>
+                <small class="brand-subtitle-mini" style="display:none;">MINI HUD</small>
+            </div>
+        </div>
+        <div class="window-actions">
+            <button type="button" onclick="switchCompanionLanguage()" id="btn-lang-toggle" title="{{ t('lang_switch_title') }}" style="font-size: 10px; font-weight: 700; color: #d0b074; padding: 2px 6px; border: 1px solid #4a3e20; border-radius: 2px; background: #131710; cursor: pointer;">{{ lang|upper }}</button>
+            <button onclick="toggleMiniMode()" id="btn-mini-toggle" title="{{ lang == 'en' and 'Toggle Mini HUD / Full View' or 'Przełącz widok Mini HUD / Pełny' }}">
+                <svg class="icon-svg icon-mini-view" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="13" x2="21" y2="13"/></svg>
+                <svg class="icon-svg icon-full-view" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </button>
+            <button onclick="settingsOpen()" title="{{ lang == 'en' and 'AI and Hotkey Settings' or 'Ustawienia AI i skrótów' }}">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+            <button onclick="nativeCall('minimize')" title="{{ lang == 'en' and 'Minimize' or 'Minimalizuj' }}">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <button onclick="nativeCall('quit')" title="{{ lang == 'en' and 'Exit Application' or 'Zakończ aplikację' }}">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="web-nav-bar full-view-section">
+        <div class="panel-kicker">{{ lang == 'en' and 'WEB BROWSER' or 'PRZEGLĄDARKA WWW' }}</div>
+        <div class="web-nav-buttons">
+            <button onclick="nativeCall('open_web','items')">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8z"/><path d="M3 8l3-5h12l3 5"/><circle cx="12" cy="14" r="1.5"/></svg>
+                <span>{{ t("companion_nav_vault") }}</span>
+            </button>
+            <button onclick="nativeCall('open_web','runes')">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 18 3 22 9 12 22 2 9"/></svg>
+                <span>{{ t("companion_nav_runes") }}</span>
+            </button>
+            <button onclick="nativeCall('open_web','character')">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>{{ t("companion_nav_characters") }}</span>
+            </button>
+            <button onclick="nativeCall('open_web','trade')">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/></svg>
+                <span>{{ t("companion_nav_trade") }}</span>
+            </button>
+        </div>
+    </div>
+
+    <main class="companion-content">
+        <!-- STATUS NASŁUCHU -->
+        <section class="capture-card">
+            <div class="capture-card-header">
+                <div class="panel-kicker">{{ t("companion_status_title") }}</div>
+                <div class="char-picker-wrap">
+                    <select id="mini-hero-choice" class="mini-hero-select" onchange="selectHeroFromMini(this)" title="{{ lang == 'en' and 'Select active hero' or 'Wybierz aktywną postać' }}"></select>
+                </div>
+            </div>
+            <div class="status-row-hud">
+                <div class="status-row">
+                    <div class="status-dot" id="status-dot"></div>
+                    <div class="status-info">
+                        <h2 id="capture-state">{{ t("companion_connecting") }}</h2>
+                        <p id="capture-message">{{ t("companion_ready") }}</p>
+                    </div>
+                </div>
+                <button class="capture-toggle gold" onclick="action({action:'toggle'})" id="capture-toggle" title="{{ lang == 'en' and 'Toggle listener' or 'Przełącz nasłuch' }}">
+                    <svg class="toggle-icon-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                    <svg class="toggle-icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                    <span class="hotkey-badge hotkey">F10</span>
+                    <span id="capture-toggle-text" class="full-view-section">{{ t("companion_listening") }}</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- TRYB SKANOWANIA -->
+        <section class="session-card">
+            <div class="panel-kicker">{{ t("companion_mode_title") }}</div>
+            <div class="mode-buttons-grid">
+                <button type="button" class="mode-btn active" data-mode="stash" onclick="setMode('stash')" title="{{ lang == 'en' and 'Scan items from stash' or 'Skanuj przedmioty ze skrzyni' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8z"/><path d="M3 8l3-5h12l3 5"/><circle cx="12" cy="14" r="1.5"/></svg>
+                    <span>{{ t("companion_nav_vault") }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="stash">F5</span>
+                </button>
+                <button type="button" class="mode-btn" data-mode="character" onclick="setMode('character')" title="{{ lang == 'en' and 'Scan hero equipment' or 'Skanuj ekwipunek postaci' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span>{{ t("companion_mode_character") }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="character">F6</span>
+                </button>
+                <button type="button" class="mode-btn" data-mode="merc" onclick="setMode('merc')" title="{{ lang == 'en' and 'Scan mercenary gear' or 'Skanuj rynsztunek najemnika' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>{{ t("companion_mode_merc") }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="merc">F7</span>
+                </button>
+                <button type="button" class="mode-btn" data-mode="runes" onclick="setMode('runes')" title="{{ lang == 'en' and 'Scan runes tab' or 'Skanuj zakładkę z runami' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 18 3 22 9 12 22 2 9"/></svg>
+                    <span>{{ t("companion_nav_runes") }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="runes">F8</span>
+                </button>
+                <button type="button" class="mode-btn" data-mode="stat_screen" onclick="setMode('stat_screen')" title="{{ lang == 'en' and 'Scan character stats window (A/C)' or 'Skanuj okno statystyk (A)' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    <span>{{ t("companion_mode_stats") }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="stat_screen">F9</span>
+                </button>
+            </div>
+            <div class="checkbox-row full-view-section">
+                <label id="swap-option" hidden><input type="checkbox" id="capture-swap" onchange="changeSession()"> {{ lang == 'en' and 'Weapon Set II (Swap)' or 'Zestaw II (Swap)' }}</label>
+            </div>
+
+            <!-- BIEŻĄCA POSTAĆ (PEŁNY WIDOK) -->
+            <div class="full-view-section">
+                <div class="panel-kicker" style="margin-top:12px;">{{ t("companion_hero_title") }}</div>
+                <label class="form-group">
+                    <span>{{ lang == 'en' and 'Active hero:' or 'Aktywna postać:' }}</span>
+                    <select id="hero-choice" onchange="selectHero()" aria-label="{{ lang == 'en' and 'Hero' or 'Postać' }}"></select>
+                </label>
+                <div class="hero-actions">
+                    <button class="gold" onclick="wizardStart()">{{ t("companion_btn_new_hero") }}</button>
+                    <button onclick="editHero()">{{ t("companion_btn_edit") }}</button>
+                </div>
+            </div>
+
+            <!-- OPCJE WIDOKU & OKNA -->
+            <div class="topmost-row">
+                <label><input type="checkbox" id="on-top" onchange="appearance()"> {{ t("companion_topmost") }}</label>
+                
+            </div>
+        </section>
+
+        <!-- OSTATNIE SKANY (UKRYWANE W MINI) -->
+        <section class="history-card full-view-section">
+            <div class="panel-kicker">{{ t("companion_recent_title") }}</div>
+            <div id="scan-history" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <div id="toast" role="status" hidden></div>
+
+    <!-- DIALOGI -->
+    <dialog id="wizard-dialog">
+        <form onsubmit="wizardConfirm(event)">
+            <div class="panel-kicker">{{ lang == 'en' and 'ADD CHARACTER · WIZARD' or 'DODAWANIE POSTACI · KREATOR' }}</div>
+            <h2 id="wizard-title">{{ lang == 'en' and '1. Scan character stats' or '1. Zeskanuj statystyki' }}</h2>
+            <p>{{ lang == 'en' and 'Go to the game, open the character stats window and press ' or 'Przejdź do gry, otwórz okno statystyk postaci i naciśnij ' }}<kbd class="hotkey">F10</kbd>{{ lang == 'en' and '. Return here after scan.' or '. Wróć tutaj po odczycie.' }}</p>
+            <p id="wizard-status">{{ lang == 'en' and 'Waiting for capture…' or 'Oczekiwanie na zrzut…' }}</p>
+            <div id="wizard-result" hidden>
+                <label>{{ lang == 'en' and 'Name' or 'Nazwa' }}<input id="wizard-name" required></label>
+                <label>{{ lang == 'en' and 'Level' or 'Poziom' }}<input id="wizard-level" type="number" min="1" max="99" required></label>
+                <div id="wizard-summary" class="wizard-stats"></div>
+                <h3>{{ lang == 'en' and '2. Add equipped gear?' or '2. Czy dodać wyposażenie?' }}</h3>
+                <label><input id="wizard-items" type="checkbox" checked> {{ lang == 'en' and 'Yes — scan items for this character after saving' or 'Tak — po zapisaniu skanuję itemy tej postaci' }}</label>
+                <p>{{ lang == 'en' and 'After confirming, hover over equipped items in game and press the hotkey.' or 'Po zatwierdzeniu najeżdżaj na przedmioty założone na postaci i naciskaj skrót.' }}</p>
+            </div>
+            <div class="dialog-actions">
+                <button type="button" onclick="wizardCancel()">{{ lang == 'en' and 'Cancel' or 'Anuluj' }}</button>
+                <button id="wizard-submit" class="gold" type="submit" disabled>{{ lang == 'en' and 'Save Character' or 'Zapisz postać' }}</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="edit-dialog">
+        <form onsubmit="saveHero(event)">
+            <div class="panel-kicker">{{ lang == 'en' and 'CHARACTER' or 'POSTAĆ' }}</div>
+            <h2>{{ lang == 'en' and 'Edit Hero' or 'Edycja bohatera' }}</h2>
+            <div id="edit-fields" class="edit-grid"></div>
+            <div class="dialog-actions">
+                <button type="button" onclick="document.getElementById('edit-dialog').close()">{{ lang == 'en' and 'Cancel' or 'Anuluj' }}</button>
+                <button type="submit" class="gold">{{ lang == 'en' and 'Save Changes' or 'Zapisz zmiany' }}</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="settings-dialog">
+        <form onsubmit="saveSettings(event)">
+            <div class="panel-kicker">{{ lang == 'en' and 'D2 UBERAPP SETTINGS' or 'USTAWIENIA D2 UBERAPP' }}</div>
+            <h2>{{ lang == 'en' and 'Capture & AI' or 'Przechwytywanie i AI' }}</h2>
+            <div class="edit-grid">
+                <label>{{ lang == 'en' and 'Capture Hotkey' or 'Skrót zrzutu' }}
+                    <select id="set-hotkey">
+                        {{ hotkey_options(false) }}
+                    </select>
+                </label>
+                <label>{{ lang == 'en' and 'Gemini Model' or 'Model Gemini' }}<input id="set-model" required></label>
+                <label>{{ lang == 'en' and 'API Key' or 'Klucz API' }}<input id="set-key" type="password" placeholder="{{ lang == 'en' and 'Leave empty to keep saved key' or 'Puste pole zachowuje zapisany klucz' }}" autocomplete="off"></label>
+                <label>{{ lang == 'en' and 'Stash Location' or 'Lokalizacja skrzyni' }}<input id="set-location"></label>
+            </div>
+            <label><input id="set-sound" type="checkbox"> {{ lang == 'en' and 'Sound Effects' or 'Dźwięki' }}</label>
+            <label><input id="set-autostart" type="checkbox"> {{ lang == 'en' and 'Listen on Startup' or 'Nasłuch po uruchomieniu' }}</label>
+            <h3>{{ lang == 'en' and 'Scan Mode Hotkeys' or 'Skróty trybów skanowania' }}</h3>
+            <p>{{ lang == 'en' and 'Quick mode switching in game without opening the panel.' or 'Szybkie przełączanie trybu w grze bez otwierania panelu.' }}</p>
+            <div class="edit-grid mode-hotkeys-grid">
+                <label>{{ t("companion_mode_stash") }}
+                    <select id="set-mode-hk-stash">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+                <label>{{ t("companion_mode_character") }}
+                    <select id="set-mode-hk-character">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+                <label>{{ t("companion_mode_merc") }}
+                    <select id="set-mode-hk-merc">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+                <label>{{ t("companion_mode_runes") }}
+                    <select id="set-mode-hk-runes">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+                <label>{{ t("companion_mode_stats") }}
+                    <select id="set-mode-hk-stat_screen">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+            </div>
+
+            <h3>{{ lang == 'en' and 'Crop Regions' or 'Obszary wycinania' }}</h3>
+            <p>{{ lang == 'en' and 'Values from 0 to 1: X, Y, width, height.' or 'Wartości od 0 do 1: X, Y, szerokość, wysokość.' }}</p>
+            <label>{{ t("companion_mode_stats") }}<input id="set-stat-region" required placeholder="0, 0, 0.58, 1"></label>
+            <label>{{ t("companion_mode_runes") }}<input id="set-rune-region" required placeholder="0, 0, 0.65, 0.95"></label>
+            <div class="dialog-actions">
+                <button type="button" onclick="document.getElementById('settings-dialog').close()">{{ lang == 'en' and 'Back' or 'Wróć' }}</button>
+                <button class="gold" type="submit">{{ lang == 'en' and 'Save Settings' or 'Zapisz ustawienia' }}</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script>
+    window.APP_LANG = "{{ lang }}";
+    window.I18N = {
+        ready: "{{ t('companion_ready') }}",
+        listening: "{{ t('companion_listening') }}",
+        paused: "{{ t('companion_paused') }}",
+        connecting: "{{ t('companion_connecting') }}",
+        mode_stash: "{{ t('companion_mode_stash') }}",
+        mode_character: "{{ t('companion_mode_character') }}",
+        mode_merc: "{{ t('companion_mode_merc') }}",
+        mode_runes: "{{ t('companion_mode_runes') }}",
+        mode_stats: "{{ t('companion_mode_stats') }}"
+    };
+</script>
+<script src="/static/companion.js"></script>
+</body>
+</html>

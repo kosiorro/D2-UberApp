@@ -1,0 +1,50 @@
+{% set hero = selected_character or {} %}
+<section class="uber-character">
+  <aside class="uber-sheet stone-panel">
+    <div class="uber-engraving">{{ t('char_sheet_title') }}</div>
+    <div class="uber-hero-heading"><img src="{{ hero.get('class_icon','/static/images/uberapp.png') }}" alt=""><div><h2>{{ hero.get('name', t('char_default_name')) }}</h2><p>{{ t('char_level_prefix') }} {{ hero.get('level','—') }} · {{ hero.get('class_name', t('char_add_prompt')) }}</p></div></div>
+    <div class="uber-experience"><span></span></div><p class="uber-caption">{{ t('char_exp_label', val=hero.get('experience') or t('char_no_exp')) }}</p>
+    <div class="uber-attributes">
+      {% for key,label_key in [('strength','attr_strength'),('dexterity','attr_dexterity'),('vitality','attr_vitality'),('energy','attr_energy')] %}
+      <div><span>{{ t(label_key) }}</span><strong>{{ hero.get(key) if hero.get(key) is not none else '—' }}</strong></div>
+      {% endfor %}
+    </div>
+    <div class="uber-vitals">
+      {% for key,label_key in [('main_skill','vital_main_skill'),('damage','vital_damage'),('defense','vital_defense'),('stamina','vital_stamina'),('life','vital_life'),('mana','vital_mana')] %}
+      <div><span>{{ t(label_key) }}</span><strong>{{ hero.get(key) or '—' }}</strong></div>
+      {% endfor %}
+    </div>
+    <div class="uber-resistances">
+      {% for key,label_key in [('fire_res','res_fire'),('light_res','res_light'),('cold_res','res_cold'),('poison_res','res_poison')] %}
+      <div><span>{{ t(label_key) }}</span><strong>{{ hero.get(key) or '—' }}</strong></div>
+      {% endfor %}
+    </div>
+    <p class="uber-caption">{{ t('char_sheet_note') }}</p>
+    <button class="btn-d2 btn-gold" onclick="openCompanion()">{{ t('btn_manage_companion') }}</button>
+  </aside>
+  <div class="stone-panel uber-equipment">
+    <div class="uber-engraving">{{ t('char_gear_title') }}</div>
+    <div class="uber-tabs" role="tablist" aria-label="Gear tabs">
+      {% for key,label_key in [('main','gear_tab_main'),('swap','gear_tab_swap'),('merc','gear_tab_merc')] %}<button role="tab" id="tab-{{ key }}" aria-controls="gear-{{ key }}" aria-selected="{{ 'true' if key=='main' else 'false' }}" class="{{ 'active' if key=='main' else '' }}" onclick="uberSetGear('{{ key }}')">{{ t(label_key) }}</button>{% endfor %}
+    </div>
+    {% for key,label_key in [('main','gear_tab_main'),('swap','gear_tab_swap'),('merc','gear_tab_merc')] %}
+    <section id="gear-{{ key }}" class="uber-gear-view" role="tabpanel" aria-labelledby="tab-{{ key }}" {% if key!='main' %}hidden{% endif %}>
+      {% set prefix = 'merc_' if key=='merc' else '' %}
+      {% set slots = [('merc_head','slot_head','head'),('merc_armor','slot_armor','armor'),('merc_weapon','slot_weapon','weapon'),('merc_offhand','slot_offhand','offhand')] if key=='merc' else [('head','slot_head','head'),('armor','slot_armor','armor'),('weapon2' if key=='swap' else 'weapon1','slot_weapon','weapon'),('shield2' if key=='swap' else 'shield1','slot_offhand','offhand'),('amulet','slot_amulet','amulet'),('gloves','slot_gloves','gloves'),('boots','slot_boots','boots'),('belt','slot_belt','belt'),('ring1','slot_ring1','ring1'),('ring2','slot_ring2','ring2')] %}
+      <div class="uber-doll {{ 'merc' if key=='merc' else '' }}">
+        {% for slot,title_key,position in slots %}{% set item=report.equipment.get(slot) %}{% set title_str=t(title_key) %}
+        <button {% if item %}data-item='{{ item|tojson|forceescape }}'{% endif %} class="uber-slot position-{{ position }} {{ 'occupied' if item else '' }}" title="{{ item_title(item) if item else title_str }}" {% if item %}onclick="openItemModal('{{ item.id }}')"{% else %}onclick="openCompanion()"{% endif %}>
+          {% if item %}<img src="{{ item.image_path }}" alt="{{ item_title(item) }}">{% else %}<span class="uber-empty-mark">◇</span>{% endif %}<small>{{ title_str }}</small>
+        </button>{% endfor %}
+      </div>
+      {% if key!='merc' %}<div class="uber-charms"><span>{{ t('charms_title') }}</span><div>{% for item in report.equipment.charms %}<button data-item='{{ item|tojson|forceescape }}' title="{{ item_title(item) }}" onclick="openItemModal('{{ item.id }}')"><img src="{{ item.image_path }}" alt="{{ item_title(item) }}"></button>{% else %}<p>{{ t('charms_empty') }}</p>{% endfor %}</div></div>{% endif %}
+      <div class="uber-bonus-header"><h3>{{ t('gear_bonus_header', label=t(label_key)) }}</h3><span>{{ t('items_count', count=report.groups[key]['items']|length) }}</span></div>
+      <div class="uber-bonus-grid">{% for total in report.groups[key].totals %}<div title="{{ total.sources|join('
+') }}"><span>{{ total.label }}</span><strong>{{ total.value }}{{ total.unit }}</strong></div>{% else %}<p>{{ t('gear_bonus_empty') }}</p>{% endfor %}</div>
+      {% if report.groups[key].unaggregated %}<details class="uber-properties"><summary>{{ t('gear_unaggregated_title', count=report.groups[key].unaggregated|length) }}</summary>{% for prop in report.groups[key].unaggregated %}<p><strong>{{ prop.text }}</strong><br><small>{{ prop.sources|join(' · ') }}</small></p>{% endfor %}</details>{% endif %}
+      <details class="uber-properties" open><summary>{{ t('gear_properties_title') }}</summary>
+        {% for item in report.groups[key]['items'] %}<article data-item='{{ item|tojson|forceescape }}'><img src="{{ item.image_path }}" alt=""><div><button class="uber-item-title" onclick="openItemModal('{{ item.id }}')">{{ item_title(item) }}</button><small>{{ item.slot_label }} · {{ item.base }}</small>{% for stat in item.stats %}<p>{{ stat }}</p>{% endfor %}{% if item.defense %}<p class="uber-caption">{{ t('item_defense_note', val=item.defense) }}</p>{% endif %}{% if item.damage %}<p class="uber-caption">{{ t('item_damage_note', val=item.damage) }}</p>{% endif %}</div></article>{% else %}<p>{{ t('gear_scan_hint', mode=t('companion_mode_merc') if key=='merc' else t('companion_mode_character')) }}</p>{% endfor %}
+      </details>
+    </section>{% endfor %}
+  </div>
+</section>

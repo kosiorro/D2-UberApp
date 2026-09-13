@@ -1,0 +1,3731 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D2 UberApp · Skarbiec i postacie</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/uberapp.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0a0a0c;
+            --bg-panel: #131418;
+            --bg-panel-dark: #0d0e12;
+            --bg-slot: #09090b;
+            --gold-main: #c7b377;
+            --gold-bright: #f0d38d;
+            --gold-dark: #6e5c32;
+            --gold-border: #4d3e20;
+            --stone-border: #2c2d33;
+            --stone-light: #444652;
+            --text-main: #e2dfd2;
+            --text-muted: #8e8e96;
+            --d2-unique: #bca262;
+            --d2-set: #00e000;
+            --d2-rare: #e5e54d;
+            --d2-magic: #5566ee;
+            --d2-craft: #ea8523;
+            --d2-normal: #dcdcdc;
+            --d2-blue: #5472eb;
+            --d2-red: #c83232;
+            --d2-green: #38a838;
+            --d2-orange: #d47a24;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #08080a radial-gradient(circle at 50% 10%, #171822 0%, #08080a 100%) no-repeat fixed;
+            color: var(--text-main);
+            font-family: 'Exo 2', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 80px;
+        }
+
+        /* ========================================================================= */
+        /* HEADER & NAVIGATION */
+        /* ========================================================================= */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(8, 10, 14, 0.45) 0%, rgba(12, 14, 20, 0.75) 100%),
+                        url('/static/images/header.jpg') center 20% / cover no-repeat;
+            border-bottom: 2px solid var(--gold-border);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.9), inset 0 -1px 0 rgba(220, 100, 30, 0.25);
+            overflow: hidden;
+        }
+        .header-backdrop-fade {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 140px;
+            background: url('/static/images/header.jpg') center top / cover no-repeat;
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+            pointer-events: none;
+            margin-bottom: -140px;
+        }
+        .header-ember-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .header-inner {
+            position: relative;
+            z-index: 2;
+            max-width: 1680px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .brand-logo {
+            width: 34px;
+            height: 34px;
+            filter: drop-shadow(0 0 8px rgba(199, 179, 119, 0.4));
+        }
+        .brand-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--gold-main);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* NAVIGATION TABS */
+        .nav-tabs {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .nav-tab {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: #14151a;
+            border: 1px solid var(--stone-border);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .nav-tab:hover {
+            background: #1f2027;
+            color: var(--gold-bright);
+            border-color: var(--gold-dark);
+        }
+        .nav-tab.active {
+            background: linear-gradient(180deg, #2a2517 0%, #1a1710 100%);
+            border-color: var(--gold-main);
+            color: var(--gold-bright);
+            box-shadow: inset 0 0 10px rgba(199, 179, 119, 0.2);
+        }
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.8));
+        }
+        .badge-count {
+            background: #902020;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .header-char-more-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: rgba(24, 22, 16, 0.9);
+            border: 1px solid #5b4a2d;
+            border-radius: 16px;
+            color: #d8c395;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .header-char-more-btn:hover {
+            border-color: #d0b074;
+            background: rgba(45, 38, 22, 0.95);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+        .header-chars-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: #0d100e;
+            border: 1px solid #6b5530;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 15px rgba(180, 140, 60, 0.2);
+            min-width: 190px;
+            max-height: 280px;
+            overflow-y: auto;
+            z-index: 1050;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .header-char-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.15s;
+            border: 1px solid transparent;
+        }
+        .header-char-dropdown-item:hover {
+            background: rgba(60, 48, 24, 0.6);
+            border-color: #8c703b;
+        }
+        .header-char-dropdown-item.active {
+            background: rgba(80, 60, 20, 0.8);
+            border-color: #d0b074;
+        }
+        .lang-switch-wrap {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(14, 16, 12, 0.85);
+            border: 1px solid #4a3e25;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .lang-btn {
+            background: transparent;
+            border: 0;
+            color: #8a887b;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 2px;
+            transition: all 0.15s;
+        }
+        .lang-btn:hover {
+            color: #d7cc85;
+        }
+        .lang-btn.active {
+            color: #f7d27e;
+            text-shadow: 0 0 6px rgba(247, 210, 126, 0.6);
+        }
+        .lang-sep {
+            color: #4a4533;
+            font-size: 0.7rem;
+        }
+
+        /* Header Characters Chips */
+        .header-chars-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-chars-list {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-char-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px 4px 5px;
+            background: rgba(18, 19, 26, 0.85);
+            backdrop-filter: blur(4px);
+            border: 1px solid #333644;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+        .header-char-chip:hover {
+            border-color: var(--gold-main);
+            background: rgba(28, 30, 42, 0.95);
+            transform: translateY(-1px);
+        }
+        .header-char-chip.active {
+            border-color: var(--gold-bright);
+            background: linear-gradient(135deg, rgba(48, 38, 18, 0.9), rgba(22, 18, 10, 0.95));
+            box-shadow: 0 0 12px rgba(255, 210, 125, 0.35);
+        }
+        .header-char-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold-dark);
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+            flex-shrink: 0;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .header-char-chip:hover .header-char-icon {
+            border-color: var(--gold-main);
+            transform: scale(1.05);
+        }
+        .header-char-chip.active .header-char-icon {
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 10px rgba(255, 210, 125, 0.5);
+        }
+        .header-char-meta {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .header-char-name {
+            font-family: 'Cinzel', serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #e0ded9;
+        }
+        .header-char-chip.active .header-char-name {
+            color: var(--gold-bright);
+        }
+        .header-char-lvl {
+            font-size: 0.65rem;
+            color: #aaa;
+        }
+        .header-char-del {
+            background: none;
+            border: none;
+            color: #777;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 0 2px;
+            margin-left: 2px;
+            line-height: 1;
+        }
+        .header-char-del:hover {
+            color: #ff5555;
+        }
+
+        /* BUTTONS */
+        .btn-d2 {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .btn-gold {
+            background: linear-gradient(180deg, #443718 0%, #261f0d 100%);
+            border-color: var(--gold-main);
+            color: var(--gold-bright);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+        .btn-gold:hover {
+            background: linear-gradient(180deg, #594921 0%, #362c14 100%);
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 12px rgba(240, 211, 141, 0.4);
+        }
+        .btn-stone {
+            background: #191b22;
+            border-color: var(--stone-light);
+            color: var(--text-main);
+        }
+        .btn-stone:hover {
+            background: #252833;
+            border-color: var(--gold-dark);
+            color: #fff;
+        }
+        .btn-danger {
+            background: #3b1616;
+            border-color: #6b2626;
+            color: #ff9d9d;
+        }
+        .btn-danger:hover {
+            background: #541c1c;
+            border-color: #993232;
+            color: #fff;
+        }
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 0.72rem;
+        }
+        .btn-icon {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+
+        /* ICON ACTION BUTTONS (FOR TABLE) */
+        .btn-icon-action {
+            background: #181a24;
+            border: 1px solid #333647;
+            color: var(--gold-main);
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-icon-action:hover {
+            background: #282c3d;
+            border-color: var(--gold-main);
+            color: var(--gold-bright);
+        }
+        .btn-icon-action.btn-del {
+            color: #cc6666;
+            border-color: #4d2626;
+        }
+        .btn-icon-action.btn-del:hover {
+            background: #441616;
+            border-color: #aa3333;
+            color: #ff9999;
+        }
+
+        /* LIVE SCANNING BANNER */
+        .scan-banner {
+            background: linear-gradient(90deg, #2b1808 0%, #4a280c 50%, #2b1808 100%);
+            border-bottom: 2px solid #ea8523;
+            padding: 10px 20px;
+            box-shadow: 0 4px 15px rgba(234, 133, 35, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            position: sticky;
+            top: 52px;
+            z-index: 90;
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { border-bottom-color: #ea8523; }
+            50% { border-bottom-color: #ffd27d; }
+        }
+        .scan-banner-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .scan-banner-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #ffd885;
+            letter-spacing: 1px;
+        }
+        .scan-banner-desc {
+            font-size: 0.82rem;
+            color: #e5cdb0;
+        }
+
+        /* QUALITY BADGES */
+        .badge-quality {
+            display: inline-block;
+            font-family: 'Cinzel', serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 2px 7px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+        .badge-unique   { background: #352c16; color: var(--d2-unique); border: 1px solid #75622e; }
+        .badge-runeword { background: #382410; color: #f5a442; border: 1px solid #7a4a17; }
+        .badge-set      { background: #123312; color: #55ee55; border: 1px solid #1f6b1f; }
+        .badge-rare     { background: #333312; color: #ffff66; border: 1px solid #6b6b1f; }
+        .badge-magic    { background: #162038; color: #75a4f5; border: 1px solid #233b6e; }
+        .badge-normal   { background: #202229; color: #b5b5b5; border: 1px solid #3c3e4a; }
+        .badge-craft    { background: #3d2212; color: #f58742; border: 1px solid #824119; }
+
+        /* ROLL EVALUATION BADGES */
+        .badge-rating {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 3px;
+            margin-left: 6px;
+            display: inline-block;
+        }
+        .rating-perf { background: #3c2a04; color: #f5d475; border: 1px solid #755513; }
+        .rating-high { background: #113611; color: #75f575; border: 1px solid #206120; }
+        .rating-mid  { background: #162438; color: #75cbf5; border: 1px solid #1c3c66; }
+        .rating-low  { background: #3b1717; color: #f59575; border: 1px solid #6b2626; }
+        .rating-min  { background: #301010; color: #ff7777; border: 1px solid #551515; }
+
+        /* CONTAINER */
+        main {
+            max-width: 1600px;
+            width: 100%;
+            margin: 18px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* PANELS */
+        .stone-panel {
+            background: #111216 radial-gradient(circle at 50% 0%, #1d1e28 0%, #111216 100%);
+            border: 2px solid var(--gold-border);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 8px 30px rgba(0,0,0,0.8);
+            border-radius: 6px;
+            padding: 20px;
+            position: relative;
+        }
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gold-border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .panel-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .panel-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            color: var(--gold-main);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .panel-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ========================================================================= */
+        /* CHARACTER VIEW & STAT SHEET */
+        /* ========================================================================= */
+        .character-view-container {
+            display: grid;
+            grid-template-columns: 460px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+        @media (max-width: 1200px) {
+            .character-view-container { grid-template-columns: 1fr; }
+        }
+
+        .d2r-sheet-card {
+            background: #090a0e;
+            border: 1px solid #332714;
+            padding: 18px;
+            border-radius: 4px;
+        }
+        .char-title-bar {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #2d261b;
+        }
+        .char-hero-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold-bright);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .char-hero-details {
+            font-size: 0.9rem;
+            color: #a09e96;
+            margin-top: 4px;
+        }
+        .char-exp-bar {
+            background: #15161c;
+            border: 1px solid #332d20;
+            height: 12px;
+            border-radius: 3px;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .char-exp-fill {
+            background: linear-gradient(90deg, #7a5c1e, #f0d38d);
+            height: 100%;
+            width: 78%;
+        }
+        .char-exp-text {
+            font-size: 0.7rem;
+            color: #888;
+            text-align: center;
+        }
+
+        .stat-section {
+            margin-top: 15px;
+            background: #101116;
+            border: 1px solid #22232c;
+            border-radius: 4px;
+            padding: 12px;
+        }
+        .stat-section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--gold-main);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #25241f;
+            padding-bottom: 4px;
+        }
+        .stat-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 16px;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        .stat-label { color: #b0ada6; }
+        .stat-val-attr {
+            color: var(--d2-blue);
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+        }
+        .stat-val-red { color: var(--d2-red); font-weight: 700; font-family: 'Cinzel', serif; }
+        .stat-val-blue { color: var(--d2-blue); font-weight: 700; font-family: 'Cinzel', serif; }
+        .stat-val-white { color: #e5e5e5; font-weight: 600; }
+
+        .res-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+            text-align: center;
+        }
+        .res-box {
+            background: #0d0e12;
+            border: 1px solid #262730;
+            padding: 8px 4px;
+            border-radius: 4px;
+        }
+        .res-title { font-size: 0.72rem; text-transform: uppercase; margin-bottom: 4px; }
+        .res-title.fire { color: #f26849; }
+        .res-title.light { color: #ecd645; }
+        .res-title.cold { color: #5aa4f2; }
+        .res-title.poison { color: #57d457; }
+        .res-val { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 700; color: #fff; }
+
+        /* PAPER DOLL */
+        .doll-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .doll-stone-plate {
+            background: #090a0d radial-gradient(circle at 50% 30%, #151722 0%, #08090c 100%);
+            border: 2px solid var(--gold-border);
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.95), 0 10px 30px rgba(0,0,0,0.9);
+            border-radius: 8px;
+            padding: 24px;
+            position: relative;
+            user-select: none;
+        }
+        .doll-layout {
+            display: grid;
+            grid-template-columns: 100px 70px 120px 70px 100px;
+            grid-template-rows: 95px 65px 145px 95px;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+        .doll-slot {
+            background: #050608;
+            border: 2px solid #332d20;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .doll-slot:hover {
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 10px rgba(199, 179, 119, 0.4);
+        }
+        .doll-slot.equipped {
+            background: #080a0f;
+            border-color: #554422;
+        }
+        .doll-slot-label {
+            position: absolute;
+            bottom: 4px;
+            font-size: 0.65rem;
+            color: #555866;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+        .doll-sprite {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.9));
+            pointer-events: none;
+        }
+        .slot-weapon1 { grid-column: 1; grid-row: 1 / span 3; width: 100px; height: 260px; }
+        .slot-shield1 { grid-column: 5; grid-row: 1 / span 3; width: 100px; height: 260px; }
+        .slot-head    { grid-column: 3; grid-row: 1; width: 110px; height: 95px; justify-self: center; }
+        .slot-amulet  { grid-column: 4; grid-row: 1; width: 60px; height: 60px; justify-self: center; align-self: end; }
+        .slot-armor   { grid-column: 3; grid-row: 2 / span 2; width: 120px; height: 160px; justify-self: center; }
+        .slot-gloves  { grid-column: 1; grid-row: 4; width: 95px; height: 95px; }
+        .slot-belt    { grid-column: 3; grid-row: 4; width: 120px; height: 55px; justify-self: center; align-self: start; }
+        .slot-boots   { grid-column: 5; grid-row: 4; width: 95px; height: 95px; }
+        .slot-ring1   { grid-column: 2; grid-row: 4; width: 55px; height: 55px; justify-self: center; align-self: center; }
+        .slot-ring2   { grid-column: 4; grid-row: 4; width: 55px; height: 55px; justify-self: center; align-self: center; }
+
+        .swap-tabs {
+            position: absolute;
+            top: -14px;
+            display: flex;
+            gap: 2px;
+            background: #111216;
+            border: 1px solid var(--gold-border);
+            border-radius: 3px;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .swap-tab-btn {
+            padding: 2px 10px;
+            background: #16171f;
+            color: #8e8e96;
+            border: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.72rem;
+            cursor: pointer;
+        }
+        .swap-tab-btn.active {
+            background: #473919;
+            color: var(--gold-bright);
+            font-weight: 700;
+        }
+
+        .inventory-card {
+            width: 100%;
+            background: #090a0d;
+            border: 1px solid var(--gold-border);
+            border-radius: 6px;
+            padding: 16px;
+        }
+        .inv-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--gold-main);
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .inv-grid-10x4 {
+            display: grid;
+            grid-template-columns: repeat(10, 48px);
+            grid-template-rows: repeat(4, 48px);
+            gap: 4px;
+            background: #050608;
+            border: 2px solid #25241f;
+            padding: 8px;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        .inv-cell {
+            background: #0c0d12;
+            border: 1px solid #1f212a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+        .inv-cell:hover { border-color: var(--gold-main); background: #171822; }
+        .inv-cell.charm-occupied { background: #12141c; border-color: #383526; }
+
+        /* ========================================================================= */
+        /* Stash Items Cards View */
+        /* ========================================================================= */
+        .stash-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .stash-filters {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .input-d2, .select-d2 {
+            background: #111216;
+            border: 1px solid var(--stone-border);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.85rem;
+        }
+        .input-d2:focus, .select-d2:focus { outline: none; border-color: var(--gold-main); }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 16px;
+        }
+        .item-card {
+            background: #101116;
+            border: 1px solid #262733;
+            border-radius: 6px;
+            padding: 16px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+        .item-card:hover {
+            border-color: var(--gold-dark);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+        }
+        .item-card-top {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .item-card-img-wrap {
+            width: 75px;
+            height: 85px;
+            background: #090a0e;
+            border: 1px solid #22232c;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            cursor: pointer;
+        }
+        .item-card-img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .item-card-details { flex: 1; }
+        .item-card-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 2px;
+        }
+        .item-card-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .item-card-base { font-size: 0.8rem; color: #8e8e96; text-transform: uppercase; }
+
+        .item-base-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 6px;
+            font-size: 0.76rem;
+            color: #dcdcdc;
+        }
+        .chip {
+            background: #181a24;
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid #272a38;
+        }
+
+        /* Highlighted Variable Stats */
+        .highlighted-variable-stats {
+            margin-top: 10px;
+            background: #0d0f16;
+            border: 1px solid #282a3b;
+            border-radius: 4px;
+            padding: 8px 10px;
+        }
+        .var-stat-line {
+            font-size: 0.82rem;
+            color: #f2f0e8;
+            margin: 3px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        /* FULL STATS LIST (NO CUTOFF!) */
+        .item-stats-full {
+            margin-top: 10px;
+            font-size: 0.82rem;
+            color: var(--d2-blue);
+            line-height: 1.45;
+            background: #090a0f;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 3px solid var(--gold-border);
+        }
+        .item-stat-line { margin: 2px 0; }
+
+        .item-card-footer {
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid #1c1d25;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        /* Table View */
+        .excel-table-wrap {
+            background: #101116;
+            border: 1px solid var(--stone-border);
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+        .excel-table th {
+            background: #161820;
+            color: var(--gold-main);
+            font-family: 'Cinzel', serif;
+            padding: 10px 14px;
+            border-bottom: 2px solid var(--gold-border);
+            letter-spacing: 0.5px;
+        }
+        .excel-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #1d1f2a;
+            color: #dedede;
+        }
+        .excel-table tr:hover td { background: #161822; }
+
+        /* ========================================================================= */
+        /* Runes & Runewords */
+        /* ========================================================================= */
+        .d2r-rune-stash-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            gap: 6px;
+            background: #08090d;
+            border: 2px solid #2e2616;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 1000px) {
+            .d2r-rune-stash-grid { grid-template-columns: repeat(6, 1fr); }
+        }
+        .rune-cell {
+            background: #0e0f14;
+            border: 1px solid #22232c;
+            border-radius: 4px;
+            padding: 6px 2px;
+            text-align: center;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .rune-cell.empty {
+            opacity: 0.35;
+        }
+        .rune-cell.owned.tier-low {
+            border: 1px solid #8f5829;
+            background: #1a120a;
+            box-shadow: inset 0 0 6px rgba(143, 88, 41, 0.4);
+        }
+        .rune-cell.owned.tier-mid {
+            border: 1px solid #2d78d4;
+            background: #0c1626;
+            box-shadow: inset 0 0 8px rgba(45, 120, 212, 0.4);
+        }
+        .rune-cell.owned.tier-high {
+            border: 1px solid #f5b72a;
+            background: #241b08;
+            box-shadow: inset 0 0 10px rgba(245, 183, 42, 0.5);
+        }
+        .rune-cell-img { width: 32px; height: 32px; object-fit: contain; }
+        .rune-cell-name {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gold-main);
+        }
+        .rune-cell-count {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* RUNEWORD FILTERS */
+        .rw-filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--gold-border);
+            padding-bottom: 10px;
+        }
+        .rw-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+        .rw-tab-btn {
+            background: #12141c;
+            border: 1px solid var(--stone-border);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .rw-tab-btn.active {
+            background: #382d16;
+            color: var(--gold-bright);
+            border-color: var(--gold-main);
+        }
+        .rw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 16px;
+        }
+        .rw-card {
+            background: #0f1015;
+            border: 1px solid #332714;
+            border-radius: 6px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .rw-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .rw-base-img-wrap {
+            width: 44px;
+            height: 44px;
+            background: #08090d;
+            border: 1px solid #262835;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .rw-base-img { width: 34px; height: 34px; object-fit: contain; }
+        .rw-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            color: var(--gold-bright);
+            font-weight: 700;
+        }
+        .rw-bases { font-size: 0.8rem; color: #888; margin-top: 2px; }
+        .rw-runes-row {
+            display: flex;
+            gap: 6px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .rw-rune-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 7px;
+            background: #0a0b10;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+        .rw-rune-badge.tier-low  { border: 1px solid #754a1d; color: #e5b98f; }
+        .rw-rune-badge.tier-mid  { border: 1px solid #23589c; color: #8fc2e5; }
+        .rw-rune-badge.tier-high { border: 1px solid #c99318; color: #f5d475; }
+        .rw-rune-badge.missing   { border-color: #a82020 !important; background: #260a0a; color: #ff8888; animation: pulseGlow 2s infinite ease-in-out; }
+        .rw-rune-img { width: 20px; height: 20px; object-fit: contain; }
+
+        .rw-stats-list {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--d2-blue);
+            line-height: 1.4;
+            border-top: 1px solid #222;
+            padding-top: 8px;
+        }
+        .rw-stat-aura { color: var(--gold-bright); font-weight: 700; }
+
+        /* ========================================================================= */
+        /* AUTHENTIC FLOATING TOOLTIP */
+        /* ========================================================================= */
+        #d2ItemTooltip {
+            position: fixed;
+            z-index: 99999;
+            pointer-events: none;
+            display: none;
+            background: rgba(8, 8, 10, 0.96);
+            border: 2px solid #5a4b2c;
+            box-shadow: 0 0 0 1px #111, inset 0 0 0 1px #221c11, 0 10px 30px rgba(0,0,0,0.95);
+            padding: 14px 18px;
+            border-radius: 4px;
+            min-width: 270px;
+            max-width: 420px;
+            text-align: center;
+            line-height: 1.45;
+            font-family: 'Cinzel', serif;
+        }
+        .tt-name { font-size: 1.15rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 2px; }
+        .tt-base { font-size: 0.88rem; color: #dcdcdc; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .tt-runes { font-size: 0.95rem; color: var(--d2-orange); font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+        .tt-divider { height: 1px; background: linear-gradient(90deg, transparent, #44371f, transparent); margin: 6px 0; }
+        .tt-base-stats { font-size: 0.85rem; color: #dcdcdc; font-family: 'Exo 2', sans-serif; margin-bottom: 6px; }
+        .tt-affixes { font-size: 0.88rem; color: var(--d2-blue); font-family: 'Exo 2', sans-serif; font-weight: 600; text-align: center; }
+        .tt-affix-line { margin: 3px 0; }
+        .tt-crop-preview { margin-top: 10px; border-top: 1px solid #332714; padding-top: 8px; text-align: center; }
+        .tt-crop-img { max-height: 120px; max-width: 100%; object-fit: contain; }
+
+        /* ========================================================================= */
+        /* Activity Radar Widget */
+        /* ========================================================================= */
+        .live-radar-widget {
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            z-index: 1000;
+            background: #0d0e14 radial-gradient(circle at 10% 20%, #1a1b24 0%, #0d0e14 100%);
+            border: 2px solid var(--gold-border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.85), inset 0 0 10px rgba(0,0,0,0.9);
+            border-radius: 6px;
+            padding: 10px 16px;
+            font-size: 0.82rem;
+            transition: all 0.25s ease-in-out;
+            max-width: 480px;
+        }
+        .radar-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            cursor: pointer;
+        }
+        .radar-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #55ee55;
+            box-shadow: 0 0 8px #55ee55;
+            animation: radarPulse 1.8s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+        .radar-light.analyzing {
+            background: #4a8bf5;
+            box-shadow: 0 0 8px #4a8bf5;
+        }
+        .radar-light.error {
+            background: #e84545;
+            box-shadow: 0 0 8px #e84545;
+        }
+        @keyframes radarPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+        .radar-text-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--gold-main);
+            letter-spacing: 0.5px;
+        }
+        .radar-text-msg { color: #d0cbb8; }
+
+        /* EXPANDED PANEL IN WIDGET */
+        .radar-expanded-content {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #282a38;
+        }
+        .live-radar-widget.expanded .radar-expanded-content { display: block; }
+        .queue-badge {
+            background: #1c2130;
+            color: #8bb4f0;
+            border: 1px solid #303e5c;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+        .activity-logs-list {
+            margin-top: 8px;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.76rem;
+        }
+        .log-entry {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            border-bottom: 1px solid #1a1c24;
+            color: #aaa;
+        }
+
+        /* ========================================================================= */
+        /* MODALS (WIZARD & ITEM DETAILS) */
+        /* ========================================================================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-card {
+            background: #101116 radial-gradient(circle at 50% 10%, #1e1f2b 0%, #101116 100%);
+            border: 2px solid var(--gold-main);
+            box-shadow: 0 0 35px rgba(0,0,0,0.95);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 750px;
+            padding: 24px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--gold-border);
+        }
+        .modal-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            color: var(--gold-bright);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-close-btn:hover { color: #fff; }
+
+        .d2-spinner {
+            width: 44px;
+            height: 44px;
+            border: 4px solid #332714;
+            border-top: 4px solid var(--gold-bright);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    
+        /* TRADE LIST & PRESET CHIPS */
+        .chip-preset {
+            background: #191b24;
+            border: 1px solid #3d3420;
+            color: #dcdcdc;
+            font-size: 0.72rem;
+            padding: 2px 7px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .chip-preset:hover {
+            background: #362912;
+            border-color: #c99318;
+            color: #ffd27d;
+        }
+        .btn-trade-active {
+            background: #443213 !important;
+            border-color: #e5b33d !important;
+            color: #ffd700 !important;
+            box-shadow: 0 0 8px rgba(229, 179, 61, 0.4);
+        }
+        .trade-export-textarea {
+            width: 100%;
+            height: 380px;
+            background: #08090d;
+            border: 1px solid #4a3e28;
+            color: #e0ded8;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.88rem;
+            padding: 14px;
+            border-radius: 4px;
+            line-height: 1.5;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .trade-export-options {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 12px 16px;
+            background: #12141c;
+            border: 1px solid #2f2718;
+            border-radius: 4px;
+            margin-bottom: 14px;
+            align-items: center;
+        }
+        .trade-export-option-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.84rem;
+            color: #d0cbb8;
+            cursor: pointer;
+            user-select: none;
+        }
+
+    
+        /* AUTHENTIC CHARMS INVENTORY GRID (10x4) */
+        .inv-grid-10x4 {
+            display: grid;
+            grid-template-columns: repeat(10, 48px);
+            grid-template-rows: repeat(4, 48px);
+            gap: 4px;
+            background: #050608;
+            border: 2px solid #25241f;
+            padding: 8px;
+            position: relative;
+        }
+        .inv-bg-cell {
+            width: 48px;
+            height: 48px;
+            background: #0b0c10;
+            border: 1px solid #1a1c24;
+            border-radius: 2px;
+            box-sizing: border-box;
+        }
+        .inv-charm-item {
+            background: rgba(14, 16, 24, 0.9);
+            border: 2px solid #4a3e28;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.85);
+            z-index: 2;
+            padding: 2px;
+            box-sizing: border-box;
+        }
+        .inv-charm-item:hover {
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 14px rgba(229, 179, 61, 0.6);
+            z-index: 5;
+        }
+        .charm-img-h1 {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.9));
+        }
+        .charm-img-h2 {
+            width: 42px;
+            height: 90px;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.9));
+        }
+        .charm-img-h3 {
+            width: 44px;
+            height: 140px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.9));
+        }
+
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sanctuary.css') }}">
+<link rel="stylesheet" href="/static/uberapp.css">
+<link rel="stylesheet" href="/static/shared-repair.css">
+</head>
+<body class="{{ 'embedded' if request.args.get('embedded') == '1' else '' }}">
+
+    <!-- AUDIO FOR DIABLO II ITEM SOUNDS (GEM CLICK) -->
+    <audio id="sfxGem" src="/static/sfx/gem.wav" preload="auto"></audio>
+    <audio id="sfxDrop" src="/static/sfx/drop.wav" preload="auto"></audio>
+
+    <!-- HEADER -->
+    <header>
+        <canvas id="headerEmberCanvas" class="header-ember-canvas"></canvas>
+        <div class="header-inner">
+            <a href="/" class="brand">
+                <img src="/static/images/uberapp.svg" class="brand-logo" alt="Diablo II">
+                <div>
+                    <div class="brand-title">D2 UberApp</div><div class="brand-subtitle">{{ t("brand_subtitle") }}</div>
+                </div>
+            </a>
+
+            <div class="lang-switch-wrap" title="{{ t('lang_switch_title') }}">
+                <button type="button" class="lang-btn {% if lang == 'pl' %}active{% endif %}" onclick="setAppLanguage('pl')">{{ t('lang_pl') }}</button>
+                <span class="lang-sep">|</span>
+                <button type="button" class="lang-btn {% if lang == 'en' %}active{% endif %}" onclick="setAppLanguage('en')">{{ t('lang_en') }}</button>
+            </div>
+            <button class="companion-link" onclick="openCompanion()" title="{{ t('companion_title_hint') }}">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:4px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                {{ t('companion_btn') }}
+            </button><!-- NAVIGATION TABS -->
+            <nav class="nav-tabs">
+                <a href="/?tab=items" class="nav-tab {% if active_tab == 'items' %}active{% endif %}">
+                    <img src="/static/images/database/misc/kamie-duszy-mefista--mss.png" class="nav-icon" alt="">
+                    <span>{{ t("nav_stash") }}</span>
+                </a>
+                <a href="/?tab=character" class="nav-tab {% if active_tab == 'character' %}active{% endif %}">
+                    <img src="/static/images/database/armor/fs-korona--crn.png" class="nav-icon" alt="">
+                    <span>{{ t("nav_character") }}</span>
+                </a>
+                <a href="/?tab=runes" class="nav-tab {% if active_tab == 'runes' %}active{% endif %}">
+                    <img src="/static/images/database/rune/runa-jah--r31.png" class="nav-icon" alt="">
+                    <span>{{ t("nav_runes") }}</span>
+                </a>
+                <a href="/?tab=trade" class="nav-tab {% if active_tab == 'trade' %}active{% endif %}">
+                    <img src="/static/images/database/gem/doskona-y-topaz--gpy.png" class="nav-icon" alt="">
+                    <span>{{ t("nav_trade") }}</span>
+                    {% if trade_count and trade_count > 0 %}
+                    <span class="badge-count">{{ trade_count }}</span>
+                    {% endif %}
+                </a>
+                <a href="/?tab=duplicates" class="nav-tab {% if active_tab == 'duplicates' %}active{% endif %}">
+                    <img src="/static/images/database/gem/czaszka--sku.png" class="nav-icon" alt="">
+                    <span>{{ t("nav_duplicates") }}</span>
+                    {% if dup_count and dup_count > 0 %}
+                    <span class="badge-count">{{ dup_count }}</span>
+                    {% endif %}
+                </a>
+                <a href="/?tab=costs" class="nav-tab {% if active_tab == 'costs' %}active{% endif %}">
+                    <img src="/static/images/database/gem/doskona-y-rubin--gpr.png" class="nav-icon" alt="">
+                    <span>{{ t("nav_costs") }}</span>
+                </a>
+            </nav>
+
+            <!-- Header Characters Chips (Max 4 + Dropdown) -->
+            <div class="header-chars-container">
+                <div class="header-chars-list">
+                    {% for c in all_characters[:4] %}
+                    <div class="header-char-chip {% if selected_character and selected_character.name == c.name %}active{% endif %}"
+                         onclick="switchCharacter('{{ c.name }}')"
+                         title="{{ c.name }} ({{ c.class_name }} Lvl {{ c.level }})">
+                        <img src="{{ c.class_icon }}" class="header-char-icon" alt="">
+                        <div class="header-char-meta">
+                            <span class="header-char-name">{{ c.name }}</span>
+                            <span class="header-char-lvl">Lvl {{ c.level }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% if all_characters|length > 4 %}
+                    <div class="header-char-more-wrap" style="position: relative; display: inline-block;">
+                        <button type="button" class="header-char-more-btn" onclick="toggleMoreChars(event)" title="{{ t('chars_all_title') }}">
+                            <span>{{ t('chars_more', count=all_characters|length - 4) }}</span>
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                        </button>
+                        <div id="headerMoreCharsDropdown" class="header-chars-dropdown" style="display: none;">
+                            {% for c in all_characters[4:] %}
+                            <div class="header-char-dropdown-item {% if selected_character and selected_character.name == c.name %}active{% endif %}"
+                                 onclick="switchCharacter('{{ c.name }}')"
+                                 title="{{ c.name }} ({{ c.class_name }} Lvl {{ c.level }})">
+                                <img src="{{ c.class_icon }}" class="header-char-icon" alt="">
+                                <div class="header-char-meta">
+                                    <span class="header-char-name">{{ c.name }}</span>
+                                    <span class="header-char-lvl">{{ c.class_name }} · Lvl {{ c.level }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="header-backdrop-fade"></div>
+
+    <!-- LIVE CHARACTER SCANNING BANNER (IF ACTIVE) -->
+    <div id="liveScanBanner" class="scan-banner" style="display: {% if is_character_scanning %}flex{% else %}none{% endif %};">
+        <div class="scan-banner-info">
+            <img src="/static/images/database/weapon/ms-korbacz--fla.png" class="nav-icon" alt="">
+            <div>
+                <div class="scan-banner-title">{{ t("banner_scan_mode") }} <span id="activeScanCharName">{{ active_scan_character }}</span></div>
+                <div class="scan-banner-desc">{{ t("banner_scan_desc", hotkey=hotkey_name) }}</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button id="btnToggleSwap" class="btn-d2 btn-stone">
+                <span>{{ t("swap_weapon_label") }} <strong id="swapLabel">{{ t("swap_main") }}</strong></span>
+            </button>
+            <button id="btnStopGearScan" class="btn-d2 btn-danger">
+                <span>{{ t("btn_stop_scan") }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <section class="sanctuary-intro">
+            <div><div class="sanctuary-kicker">{{ t("kicker_collection") }}</div>
+            <h1>{{ {'items':t('intro_title_items'),'character':t('intro_title_character'),'runes':t('intro_title_runes'),'trade':t('intro_title_trade'),'duplicates':t('intro_title_duplicates'),'costs':t('intro_title_costs')}.get(active_tab, t('intro_title_default')) }}</h1>
+            <p>{{ t("intro_quote") }}</p></div>
+            <div class="collection-total">{{ all_characters|length }}<small>{{ t("hero_count_label") }}</small></div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- TAB: CHARACTER VIEW -->
+        <!-- ========================================================================= -->
+        {% if active_tab == 'character' %}
+        {% include 'uber-character.html' %}
+        {% elif active_tab == 'items' %}
+        <div class="stone-panel">
+            <div class="stash-header">
+                <div class="panel-title-group">
+                    <img src="/static/images/database/misc/kamie-duszy-mefista--mss.png" class="nav-icon" alt="">
+                    <div>
+                        <div class="panel-title">{{ t("stash_title") }}</div>
+                        <div class="panel-subtitle">{{ t("stash_subtitle") }}</div>
+                    </div>
+                </div>
+
+                <!-- FILTERS & VIEW SWITCH -->
+                <div class="stash-filters">
+                    <input type="text" id="stashSearch" class="input-d2" placeholder="{{ t('stash_search_placeholder') }}" value="{{ search_query or '' }}" onkeyup="handleStashSearch(event)">
+                    
+                    <select id="stashQuality" class="select-d2" onchange="filterStash()">
+                        <option value="">{{ t("stash_all_qualities") }}</option>
+                        <option value="unikalny" {% if quality_filter == 'unikalny' %}selected{% endif %}>{{ t("quality_unique_opt") }}</option>
+                        <option value="runiczne" {% if quality_filter == 'runiczne' %}selected{% endif %}>{{ t("quality_runeword_opt") }}</option>
+                        <option value="zestaw" {% if quality_filter == 'zestaw' %}selected{% endif %}>{{ t("quality_set_opt") }}</option>
+                        <option value="rzadki" {% if quality_filter == 'rzadki' %}selected{% endif %}>{{ t("quality_rare_opt") }}</option>
+                        <option value="magiczny" {% if quality_filter == 'magiczny' %}selected{% endif %}>{{ t("quality_magic_opt") }}</option>
+                    </select>
+
+                    <select id="stashLocation" class="select-d2" onchange="filterStash()">
+                        <option value="">{{ t("stash_all_locations") }}</option>
+                        {% for loc in distinct_locations %}
+                        <option value="{{ loc }}" {% if location_filter == loc %}selected{% endif %}>{{ loc }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <div style="display: flex; gap: 4px; margin-left: 10px;">
+                        <button class="btn-d2 btn-stone {% if view_mode != 'table' %}btn-gold{% endif %}" onclick="setViewMode('cards')">
+                            {{ t("btn_cards") }}
+                        </button>
+                        <button class="btn-d2 btn-stone {% if view_mode == 'table' %}btn-gold{% endif %}" onclick="setViewMode('table')">
+                            {{ t("btn_table") }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards View -->
+            {% if view_mode != 'table' %}
+            <div class="items-grid">
+                {% for it in items %}
+                <div class="item-card" data-item='{{ it|tojson|forceescape }}'>
+                    <div>
+                        <div class="item-card-top">
+                            <div class="item-card-img-wrap" onclick="openItemModal('{{ it.id }}')">
+                                <img src="{{ it.image_path }}" class="item-card-img" alt="">
+                            </div>
+                            <div class="item-card-details">
+                                <div class="item-card-header-row">
+                                    <div class="item-card-name quality-{{ it.quality }}">{{ it.display_name or it.name }}</div>
+                                    <!-- QUALITY BADGE -->
+                                    {% if it.quality == 'unikalny' %}
+                                    <span class="badge-quality badge-unique">{{ t("quality_unique") }}</span>
+                                    {% elif it.quality == 'runiczne' %}
+                                    <span class="badge-quality badge-runeword">{{ t("quality_runeword") }}</span>
+                                    {% elif it.quality == 'zestaw' %}
+                                    <span class="badge-quality badge-set">{{ t("quality_set") }}</span>
+                                    {% elif it.quality == 'rzadki' %}
+                                    <span class="badge-quality badge-rare">{{ t("quality_rare") }}</span>
+                                    {% elif it.quality == 'magiczny' %}
+                                    <span class="badge-quality badge-magic">{{ t("quality_magic") }}</span>
+                                    {% else %}
+                                    <span class="badge-quality badge-normal">{{ it.quality|upper }}</span>
+                                    {% endif %}
+                                </div>
+                                {% if it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                <div style="font-size: 0.8rem; color: #aaa;">{{ it.name_en }}</div>
+                                {% endif %}
+                                {% if (it.display_name or it.name) != it.base and it.base %}
+                                <div class="item-card-base">{{ it.base }}</div>
+                                {% endif %}
+
+                                <!-- BASE STATS CHIPS -->
+                                <div class="item-base-chips">
+                                    {% if it.defense %}<span class="chip">{{ t("chip_defense", val=it.defense) }}</span>{% endif %}
+                                    {% if it.damage %}<span class="chip">{{ t("chip_damage", val=it.damage) }}</span>{% endif %}
+                                    {% if it.level_req %}<span class="chip">{{ t("chip_level", val=it.level_req) }}</span>{% endif %}
+                                    {% if it.req_str %}<span class="chip">{{ t("chip_str", val=it.req_str) }}</span>{% endif %}
+                                    {% if it.req_dex %}<span class="chip">{{ t("chip_dex", val=it.req_dex) }}</span>{% endif %}
+                                    {% if it.sockets and it.sockets > 0 %}<span class="chip">{{ t("label_sockets") }} {{ it.sockets }}</span>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Highlighted Variable Stats -->
+                        {% if it.rolls_eval and it.rolls_eval|length > 0 %}
+                        <div class="highlighted-variable-stats">
+                            {% for r in it.rolls_eval %}
+                            <div class="var-stat-line">
+                                <div>
+                                    <strong style="color: #fff;">{{ r.label or r.property_pl or r.property }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                    {% if r.min is defined and r.max is defined and r.min != r.max %}
+                                    <span style="color: #888; font-size: 0.75rem;">[{{ r.min }} - {{ r.max }}]</span>
+                                    {% endif %}
+                                </div>
+                                {% if r.rating %}
+                                <span class="badge-rating rating-{{ r.rating|lower }}">{{ r.rating }}{% if r.percent is defined %} ({{ r.percent }}%){% elif r.pct is defined %} ({{ r.pct }}%){% endif %}</span>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <!-- FULL STATS LIST (NO CUTOFF!) -->
+                        <div class="item-stats-full">
+                            {% for stat in it.stats %}
+                            <div class="item-stat-line">• {{ stat }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="item-card-footer">
+                        <span>{{ lang == "en" and "Location:" or "Lokalizacja:" }} <strong>{{ it.location or (lang == 'en' and 'General Stash' or 'Skrzynia ogólna') }}</strong></span>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn-icon-action" title="{{ lang == 'en' and 'View details / Screenshot' or 'Zobacz więcej / Zrzut' }}" onclick="openItemModal('{{ it.id }}', this)">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            </button>
+                            <button class="btn-icon-action btn-del" title="{{ lang == 'en' and 'Delete item' or 'Usuń przedmiot' }}" onclick="deleteItem('{{ it.id }}')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <!-- Table View -->
+            <div class="excel-table-wrap">
+                <table class="excel-table">
+                    <thead>
+                        <tr>
+                            <th>{{ lang == "en" and "ICON" or "GRAFIKA" }}</th>
+                            <th>{{ lang == "en" and "NAME" or "NAZWA" }}</th>
+                            <th>{{ lang == "en" and "TYPE" or "RODZAJ" }}</th>
+                            <th>{{ lang == "en" and "BASE" or "BAZA" }}</th>
+                            <th>{{ t("th_table_def_dmg") }}</th>
+                            <th>{{ lang == "en" and "REQS" or "WYMOGI" }}</th>
+                            <th>{{ lang == "en" and "VARIABLE ROLLS" or "ZMIENNE STATYSTYKI" }}</th>
+                            <th>{{ lang == "en" and "LOCATION" or "LOKALIZACJA" }}</th>
+                            <th>{{ t("th_table_actions") }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for it in items %}
+                        <tr data-item='{{ it|tojson|forceescape }}'>
+                            <td style="text-align: center;">
+                                <img src="{{ it.image_path }}" style="width: 32px; height: 32px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
+                            </td>
+                            <td>
+                                <strong class="quality-{{ it.quality }}">{{ it.display_name or it.name }}</strong>
+                                {% if (it.display_name or it.name) != it.name %}
+                                <div style="font-size: 0.72rem; color: #777;">{{ it.name }}</div>
+                                {% elif it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                <div style="font-size: 0.75rem; color: #888;">{{ it.name_en }}</div>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if it.quality == 'unikalny' %}
+                                <span class="badge-quality badge-unique">{{ t("quality_unique") }}</span>
+                                {% elif it.quality == 'runiczne' %}
+                                <span class="badge-quality badge-runeword">{{ t("quality_runeword") }}</span>
+                                {% elif it.quality == 'zestaw' %}
+                                <span class="badge-quality badge-set">{{ t("quality_set") }}</span>
+                                {% elif it.quality == 'rzadki' %}
+                                <span class="badge-quality badge-rare">{{ t("quality_rare") }}</span>
+                                {% elif it.quality == 'magiczny' %}
+                                <span class="badge-quality badge-magic">{{ t("quality_magic") }}</span>
+                                {% else %}
+                                <span class="badge-quality badge-normal">{{ it.quality|upper }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ it.base }}</td>
+                            <td>{{ it.defense or it.damage or '—' }}</td>
+                            <td>Lvl {{ it.level_req or 1 }}{% if it.req_str %}, Str {{ it.req_str }}{% endif %}</td>
+                            <td>
+                                {% if it.rolls_eval and it.rolls_eval|length > 0 %}
+                                    {% for r in it.rolls_eval[:3] %}
+                                    <div style="font-size: 0.8rem; line-height: 1.4; margin-bottom: 2px;">
+                                        <strong style="color: #ffd27d;">{{ r.label or r.property_pl or r.property }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                        {% if r.min is defined and r.max is defined and r.min != r.max %}
+                                        <span style="color: #888; font-size: 0.75rem;">[{{ r.min }}-{{ r.max }}]</span>
+                                        {% endif %}
+                                        {% if r.rating %}
+                                        <span class="badge-rating rating-{{ r.rating|lower }}">{{ r.rating }}{% if r.percent is defined %} ({{ r.percent }}%){% elif r.pct is defined %} ({{ r.pct }}%){% endif %}</span>
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                    {% if it.rolls_eval|length > 3 %}<small style="color: #888;">+ {{ it.rolls_eval|length - 3 }} {{ lang == "en" and "more..." or "więcej..." }}</small>{% endif %}
+                                {% else %}
+                                    <span style="color: #666; font-size: 0.78rem;">{{ lang == "en" and "Fixed" or "Stałe" }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ it.location or (lang == 'en' and 'General' or 'Ogólna') }}</td>
+                            <td>
+                                <div style="display: flex; gap: 6px;">
+                                    <button class="btn-icon-action {% if it.is_in_trade %}btn-trade-active{% endif %}" 
+                                            title="{% if it.is_in_trade %}{{ lang == 'en' and 'Listed for trade (Price: ' ~ it.trade_price ~ ')' or 'Wystawiono na sprzedaż (Cena: ' ~ it.trade_price ~ ')' }}{% else %}{{ lang == 'en' and 'Add to trade list' or 'Dodaj do listy sprzedaży' }}{% endif %}" 
+                                            onclick="toggleTrade('{{ it.id }}', event)">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v12M15 9.5a3.5 3.5 0 0 0-7 0c0 2 2 3 5 4s3 2 3 4a3.5 3.5 0 0 1-7 0"></path></svg>
+                                    </button>
+                                    <button class="btn-icon-action" title="{{ lang == 'en' and 'View details / Screenshot' or 'Zobacz więcej / Zrzut' }}" onclick="openItemModal('{{ it.id }}', this)">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                    </button>
+                                    <button class="btn-icon-action btn-del" title="{{ lang == 'en' and 'Delete item' or 'Usuń przedmiot' }}" onclick="deleteItem('{{ it.id }}')">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- Tab: Runes & Runewords -->
+        <!-- ========================================================================= -->
+        {% elif active_tab == 'runes' %}
+        <div class="stone-panel">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <img src="/static/images/database/rune/runa-jah--r31.png" class="nav-icon" alt="">
+                    <div>
+                        <div class="panel-title">{{ t("rune_stash_title") }}</div>
+                        <div class="panel-subtitle">{{ lang == "en" and "Authentic 33 runes grid with tier breakdown (Low, Mid, High)" or "Dokładny układ 33 run z gry z podziałem tierów (Low, Mid, High)" }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rune Stash Grid -->
+            <div class="d2r-rune-stash-grid">
+                {% for r in runes_data.runes %}
+                <div class="rune-cell {% if r.count > 0 %}owned tier-{{ r.tier }}{% else %}empty{% endif %}">
+                    <img src="{{ r.icon }}" class="rune-cell-img" alt="{{ r.name }}">
+                    <div class="rune-cell-name">{{ r.name }}</div>
+                    <div class="rune-cell-count">{{ r.count }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Runeword Filter Bar -->
+            <div class="rw-filter-bar">
+                <div class="rw-tabs">
+                    <button class="rw-tab-btn active" onclick="showRwTab('ready')">
+                        {{ lang == "en" and "CRAFTABLE NOW" or "GOTOWE (100% RUN)" }} [{{ runewords_crafting.ready_count }}]
+                    </button>
+                    <button class="rw-tab-btn" onclick="showRwTab('missing_one')">
+                        {{ lang == "en" and "MISSING 1 RUNE" or "BRAKUJE 1 RUNY" }} [{{ runewords_crafting.missing_one_count }}]
+                    </button>
+                    <button class="rw-tab-btn" onclick="showRwTab('missing_two')">
+                        {{ lang == "en" and "MISSING 2 RUNES" or "BRAKUJE 2 RUN" }} [{{ runewords_crafting.missing_two_count }}]
+                    </button>
+                    <button class="rw-tab-btn" onclick="showRwTab('missing_three')">
+                        {{ lang == "en" and "MISSING 3 RUNES" or "BRAKUJE 3 RUN" }} [{{ runewords_crafting.missing_three_count }}]
+                    </button>
+                </div>
+
+                <div>
+                    <select id="rwBaseFilter" class="select-d2" onchange="filterRwByBase(this.value)">
+                        <option value="">{{ t("all_base_types") }}</option>
+                        <option value="Zbroja">{{ lang == "en" and "Armors" or "Zbroje" }}</option>
+                        <option value="Hełm">{{ lang == "en" and "Helms" or "Hełmy" }}</option>
+                        <option value="Tarcza">{{ lang == "en" and "Shields" or "Tarcze" }}</option>
+                        <option value="Broń">{{ lang == "en" and "Weapons / Swords" or "Bronie / Miecze" }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- RUNEWORD SECTIONS -->
+            <div id="rwSectionReady" class="rw-grid">
+                {% for rw in runewords_crafting.ready %}
+                <div class="rw-card" data-rw-cat="{{ rw.category }}">
+                    <div>
+                        <div class="rw-card-header">
+                            <div class="rw-base-img-wrap">
+                                <img src="{{ rw.base_icon }}" class="rw-base-img" alt="">
+                            </div>
+                            <div>
+                                <div class="rw-name">{{ rw.name }} ({{ rw.name_en }})</div>
+                                <div class="rw-bases">{{ rw.bases }} • Lvl {{ rw.level_req }} • {{ t("label_sockets") }} {{ rw.sockets }}</div>
+                            </div>
+                        </div>
+                        <div class="rw-runes-row">
+                            {% for rn in rw.runes %}
+                            <div class="rw-rune-badge tier-{{ rn.tier }}" title="{{ rn.name }} ({{ lang == 'en' and 'Owned: ' or 'Posiadasz: ' }}{{ rn.owned }}/{{ rn.needed }})">
+                                <img src="{{ rn.icon }}" class="rw-rune-img" alt="{{ rn.name }}">
+                                <span>{{ rn.name }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="rw-stats-list">
+                        {% for st in rw.stats %}
+                        <div class="{% if st.is_aura %}rw-stat-aura{% endif %}">• {{ st.text }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id="rwSectionMissingOne" class="rw-grid" style="display: none;">
+                {% for rw in runewords_crafting.missing_one %}
+                <div class="rw-card" data-rw-cat="{{ rw.category }}">
+                    <div>
+                        <div class="rw-card-header">
+                            <div class="rw-base-img-wrap">
+                                <img src="{{ rw.base_icon }}" class="rw-base-img" alt="">
+                            </div>
+                            <div>
+                                <div class="rw-name">{{ rw.name }} ({{ rw.name_en }})</div>
+                                <div class="rw-bases">{{ rw.bases }} • Lvl {{ rw.level_req }} • {{ t("label_sockets") }} {{ rw.sockets }}</div>
+                            </div>
+                        </div>
+                        <div class="rw-runes-row">
+                            {% for rn in rw.runes %}
+                            <div class="rw-rune-badge tier-{{ rn.tier }} {% if not rn.has %}missing{% endif %}" title="{{ rn.name }} ({{ lang == 'en' and 'Owned: ' or 'Posiadasz: ' }}{{ rn.owned }}/{{ rn.needed }})">
+                                <img src="{{ rn.icon }}" class="rw-rune-img" alt="{{ rn.name }}">
+                                <span>{{ rn.name }}</span>
+                                {% if not rn.has %}<span style="font-size: 0.65rem; background: #881111; color: #fff; padding: 1px 4px; border-radius: 2px;">{{ t("badge_missing_rune") }}</span>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="rw-stats-list">
+                        {% for st in rw.stats %}
+                        <div class="{% if st.is_aura %}rw-stat-aura{% endif %}">• {{ st.text }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id="rwSectionMissingTwo" class="rw-grid" style="display: none;">
+                {% for rw in runewords_crafting.missing_two %}
+                <div class="rw-card" data-rw-cat="{{ rw.category }}">
+                    <div>
+                        <div class="rw-card-header">
+                            <div class="rw-base-img-wrap">
+                                <img src="{{ rw.base_icon }}" class="rw-base-img" alt="">
+                            </div>
+                            <div>
+                                <div class="rw-name">{{ rw.name }} ({{ rw.name_en }})</div>
+                                <div class="rw-bases">{{ rw.bases }} • Lvl {{ rw.level_req }} • {{ t("label_sockets") }} {{ rw.sockets }}</div>
+                            </div>
+                        </div>
+                        <div class="rw-runes-row">
+                            {% for rn in rw.runes %}
+                            <div class="rw-rune-badge tier-{{ rn.tier }} {% if not rn.has %}missing{% endif %}" title="{{ rn.name }} ({{ lang == 'en' and 'Owned: ' or 'Posiadasz: ' }}{{ rn.owned }}/{{ rn.needed }})">
+                                <img src="{{ rn.icon }}" class="rw-rune-img" alt="{{ rn.name }}">
+                                <span>{{ rn.name }}</span>
+                                {% if not rn.has %}<span style="font-size: 0.65rem; background: #881111; color: #fff; padding: 1px 4px; border-radius: 2px;">{{ t("badge_missing_rune") }}</span>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="rw-stats-list">
+                        {% for st in rw.stats %}
+                        <div class="{% if st.is_aura %}rw-stat-aura{% endif %}">• {{ st.text }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id="rwSectionMissingThree" class="rw-grid" style="display: none;">
+                {% for rw in runewords_crafting.missing_three %}
+                <div class="rw-card" data-rw-cat="{{ rw.category }}">
+                    <div>
+                        <div class="rw-card-header">
+                            <div class="rw-base-img-wrap">
+                                <img src="{{ rw.base_icon }}" class="rw-base-img" alt="">
+                            </div>
+                            <div>
+                                <div class="rw-name">{{ rw.name }} ({{ rw.name_en }})</div>
+                                <div class="rw-bases">{{ rw.bases }} • Lvl {{ rw.level_req }} • {{ t("label_sockets") }} {{ rw.sockets }}</div>
+                            </div>
+                        </div>
+                        <div class="rw-runes-row">
+                            {% for rn in rw.runes %}
+                            <div class="rw-rune-badge tier-{{ rn.tier }} {% if not rn.has %}missing{% endif %}" title="{{ rn.name }} ({{ lang == 'en' and 'Owned: ' or 'Posiadasz: ' }}{{ rn.owned }}/{{ rn.needed }})">
+                                <img src="{{ rn.icon }}" class="rw-rune-img" alt="{{ rn.name }}">
+                                <span>{{ rn.name }}</span>
+                                {% if not rn.has %}<span style="font-size: 0.65rem; background: #881111; color: #fff; padding: 1px 4px; border-radius: 2px;">{{ t("badge_missing_rune") }}</span>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="rw-stats-list">
+                        {% for st in rw.stats %}
+                        <div class="{% if st.is_aura %}rw-stat-aura{% endif %}">• {{ st.text }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- TAB: COSTS & API USAGE -->
+        <!-- ========================================================================= -->
+        {% elif active_tab == 'costs' %}
+        <div class="stone-panel">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <img src="/static/images/database/gem/doskona-y-rubin--gpr.png" class="nav-icon" alt="">
+                    <div>
+                        <div class="panel-title">{{ lang == "en" and "COST SUMMARY & API USAGE HISTORY" or "PODSUMOWANIE KOSZTÓW & HISTORIA ZUŻYCIA API" }}</div>
+                        <div class="panel-subtitle">Model: {{ ai_model }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                <div style="background: #0c0d12; border: 1px solid #232530; border-radius: 6px; padding: 16px; text-align: center;">
+                    <div style="font-size: 0.8rem; color: #888;">{{ lang == "en" and "TOTAL SCANS" or "ŁĄCZNE WYWOŁANIA" }}</div>
+                    <div style="font-size: 1.6rem; font-weight: 700; color: #fff; margin-top: 4px;">{{ api_summary.total_calls or 0 }}</div>
+                </div>
+                <div style="background: #0c0d12; border: 1px solid #232530; border-radius: 6px; padding: 16px; text-align: center;">
+                    <div style="font-size: 0.8rem; color: #888;">{{ lang == "en" and "CONSUMED TOKENS" or "ZUŻYTE TOKENY" }}</div>
+                    <div style="font-size: 1.6rem; font-weight: 700; color: #8ec5fc; margin-top: 4px;">{{ "{:,}".format(api_summary.total_tokens or 0) }}</div>
+                </div>
+                <div style="background: #0c0d12; border: 1px solid #232530; border-radius: 6px; padding: 16px; text-align: center;">
+                    <div style="font-size: 0.8rem; color: #888;">{{ lang == "en" and "ESTIMATED COST (USD)" or "SZACOWANY KOSZT (USD)" }}</div>
+                    <div style="font-size: 1.6rem; font-weight: 700; color: #ffd27d; margin-top: 4px;">${{ "%.4f"|format(api_summary.total_cost_usd or 0) }}</div>
+                </div>
+                <div style="background: #0c0d12; border: 1px solid #232530; border-radius: 6px; padding: 16px; text-align: center;">
+                    <div style="font-size: 0.8rem; color: #888;">{{ lang == "en" and "ESTIMATED COST (PLN)" or "SZACOWANY KOSZT (PLN)" }}</div>
+                    <div style="font-size: 1.6rem; font-weight: 700; color: #9cfc9c; margin-top: 4px;">{{ "%.4f"|format(api_summary.total_cost_pln or 0) }} {{ lang == "en" and "PLN" or "zł" }}</div>
+                </div>
+            </div>
+
+            {% include 'api-calls.html' %}
+        </div>
+        {% elif active_tab == 'trade' %}
+        <div class="stone-panel">
+            <div class="stash-header" style="flex-wrap: wrap; gap: 15px;">
+                <div class="panel-title-group">
+                    <img src="/static/images/database/gem/doskona-y-topaz--gpy.png" class="nav-icon" alt="">
+                    <div>
+                        <div class="panel-title">{{ lang == "en" and "TRADE LIST" or "LISTA SPRZEDAŻY" }}</div>
+                        <div class="panel-subtitle">{{ t("trade_sub") }}</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center; margin-left: auto; flex-wrap: wrap;">
+                    <button class="btn-d2 btn-stone" onclick="openTradeAddModal()" style="padding: 9px 16px; font-size: 0.88rem;">
+                        <span>{{ lang == "en" and "➕ ADD FROM STASH / HERO" or "➕ DODAJ ZE SKRZYNI / POSTACI" }}</span>
+                    </button>
+                    <button class="btn-d2 btn-gold" onclick="openExportModal()" style="padding: 9px 16px; font-size: 0.88rem; background: linear-gradient(180deg, #3d6e2e 0%, #1e4215 100%); border-color: #6ed352;">
+                        <span>{{ lang == "en" and "📋 EXPORT TEXT" or "📋 EKSPORTUJ TEKST" }}</span>
+                    </button>
+                    <button class="btn-d2 btn-gold" onclick="openMarketSyncModal()" style="padding: 9px 18px; font-size: 0.88rem; background: linear-gradient(180deg, #5b286b 0%, #301438 100%); border-color: #b366ff; box-shadow: 0 0 10px rgba(179, 102, 255, 0.25);">
+                        <span>{{ lang == "en" and "🌐 ONLINE MARKET (SYNC)" or "🌐 GIEŁDA ONLINE (SYNC)" }}</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- FILTERS & STATS BAR -->
+            <div style="display: flex; gap: 12px; margin-bottom: 20px; background: rgba(0,0,0,0.4); padding: 12px 16px; border-radius: 4px; border: 1px solid #332a1e; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="tradeSearchInput" class="input-d2" placeholder="{{ lang == "en" and "Filter offers by name, base or shorthand (e.g. Shako, Hoto, FCR, Pul)..." or "Filtruj listę ofert po nazwie, bazie lub skrócie (np. Shako, Hoto, FCR, Pul)..." }}" onkeyup="filterTradeListUI()" style="min-width: 320px; flex: 1;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #ffd27d; font-size: 0.88rem; background: rgba(184, 134, 11, 0.12); padding: 7px 14px; border-radius: 4px; border: 1px solid #705820; user-select: none;">
+                    <input type="checkbox" id="masterTradeShorthandToggle" onchange="toggleMasterTradeShorthand(this.checked)" style="accent-color: #d4af37; width: 16px; height: 16px; cursor: pointer;">
+                    <span>⚡ <strong>{{ lang == "en" and "Trade Jargon & Shorthands" or "Nazwy zwyczajowe i skróty handlowe" }}</strong></span>
+                </label>
+                <div style="color: #aaa; font-size: 0.88rem; margin-left: auto;">
+                    {{ lang == "en" and "Active listings" or "Wystawionych ofert" }}: <strong style="color: #d4af37;" id="tradeItemsCount">{{ trade_items|length }}</strong>
+                </div>
+            </div>
+
+            <!-- TRADE ITEMS TABLE -->
+            {% if trade_items and trade_items|length > 0 %}
+            <div class="excel-table-wrap">
+                <table class="excel-table" id="tradeTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">GRAFIKA</th>
+                            <th>{{ t("th_table_item") }}</th>
+                            <th>{{ lang == "en" and "TYPE / BASE" or "RODZAJ / BAZA" }}</th>
+                            <th>{{ lang == "en" and "VARIABLE ROLLS" or "ZMIENNE STATYSTYKI" }}</th>
+                            <th style="min-width: 240px;">{{ lang == "en" and "PRICE (RUNES / ITEM / FG / OFFER)" or "CENA (RUNY / PRZEDMIOT / FG / OFERTA)" }}</th>
+                            <th style="min-width: 200px;">{{ lang == "en" and "YOUR NOTE / DETAILS" or "TWOJA NOTATKA / ADNOTACJA" }}</th>
+                            <th>{{ lang == "en" and "LOCATION" or "LOKALIZACJA" }}</th>
+                            <th style="width: 120px; text-align: center;">AKCJE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for it in trade_items %}
+                        <tr id="trade-row-{{ it.id }}" class="trade-row-item" data-search="{{ (it.name or '')|lower }} {{ (it.name_en or '')|lower }} {{ (it.colloquial_name or '')|lower }} {{ (it.base or '')|lower }} {{ (it.base_shorthand or '')|lower }} {{ (it.trade_price or '')|lower }} {{ (it.trade_notes or '')|lower }}">
+                            <td style="text-align: center;">
+                                <img src="{{ it.image_path }}" style="width: 38px; height: 38px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
+                            </td>
+                            <td>
+                                <strong class="quality-{{ it.quality }} trade-name-standard" style="font-size: 0.95rem; cursor: pointer;" onclick="openItemModal('{{ it.id }}')">{{ it.display_name or it.name }}</strong>
+                                <strong class="quality-{{ it.quality }} trade-name-shorthand" style="font-size: 0.95rem; cursor: pointer; display: none;" onclick="openItemModal('{{ it.id }}')">{{ it.colloquial_name or it.display_name or it.name }}</strong>
+                                {% if it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                <div class="trade-name-en" style="font-size: 0.78rem; color: #888;">{{ it.name_en }}</div>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div style="margin-bottom: 4px;">
+                                    {% if it.quality == 'unikalny' %}
+                                    <span class="badge-quality badge-unique">{{ t("quality_unique") }}</span>
+                                    {% elif it.quality == 'runiczne' or 'słowo' in it.quality %}
+                                    <span class="badge-quality badge-runeword">{{ t("quality_runeword") }}</span>
+                                    {% elif it.quality == 'zestaw' %}
+                                    <span class="badge-quality badge-set">{{ t("quality_set") }}</span>
+                                    {% elif it.quality == 'rzadki' %}
+                                    <span class="badge-quality badge-rare">{{ t("quality_rare") }}</span>
+                                    {% elif it.quality == 'magiczny' %}
+                                    <span class="badge-quality badge-magic">{{ t("quality_magic") }}</span>
+                                    {% else %}
+                                    <span class="badge-quality badge-normal">{{ it.quality|upper }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="trade-base-standard" style="color: #bbb; font-size: 0.82rem;">{{ it.base }}</div>
+                                <div class="trade-base-shorthand" style="color: #bbb; font-size: 0.82rem; display: none;">{{ it.base_shorthand or it.base }}</div>
+                                {% if it.sockets and it.sockets > 0 %}
+                                <div style="font-size: 0.75rem; color: #7f9bb3;">{{ t("label_sockets") }} {{ it.sockets }}</div>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if it.rolls_eval and it.rolls_eval|length > 0 %}
+                                    <div class="trade-rolls-standard">
+                                        {% for r in it.rolls_eval %}
+                                        <div style="font-size: 0.8rem; line-height: 1.4; margin-bottom: 2px;">
+                                            <strong style="color: #ffd27d;">{{ r.label or r.property_pl or r.property }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                            {% if r.min is defined and r.max is defined and r.min != r.max %}
+                                            <span style="color: #888; font-size: 0.75rem;">[{{ r.min }}-{{ r.max }}]</span>
+                                            {% endif %}
+                                            {% if r.rating %}
+                                            <span class="badge-rating rating-{{ r.rating|lower }}">{{ r.rating }}{% if r.percent is defined %} ({{ r.percent }}%){% elif r.pct is defined %} ({{ r.pct }}%){% endif %}</span>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="trade-rolls-shorthand" style="display: none; font-size: 0.85rem; line-height: 1.4;">
+                                        {% for r in it.rolls_eval %}
+                                        <span class="badge-rating" style="background: #1e2617; border: 1px solid #4a5c37; color: #ffd27d; margin-right: 4px; display: inline-block; padding: 2px 6px; font-weight: 700; margin-bottom: 3px;">
+                                            {{ r.shorthand }}
+                                        </span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div style="color: #888; font-size: 0.8rem;">
+                                        {% for s in it.stats[:3] %}
+                                        <div>• {{ s }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div style="display: flex; flex-direction: column; gap: 5px;">
+                                    <input type="text" class="input-d2" id="price-{{ it.id }}" value="{{ it.trade_price }}" 
+                                           placeholder="np. Ist, Ber, 100 fg, Oferty"
+                                           onchange="saveTradeItem('{{ it.id }}')" style="font-size: 0.85rem; padding: 5px 8px;">
+                                    <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Oferty')">Oferty</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Pul')">Pul</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Um')">Um</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Mal')">Mal</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Ist')">Ist</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Gul')">Gul</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Vex')">Vex</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Ohm')">Ohm</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Ber')">Ber</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Jah')">Jah</button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" class="input-d2" id="notes-{{ it.id }}" value="{{ it.trade_notes }}" 
+                                       placeholder="{{ lang == 'en' and 'Custom note (e.g. perf roll, eth, bundle)' or 'Własna notatka (np. perf roll, eth, pakiet)' }}"
+                                       onchange="saveTradeItem('{{ it.id }}')" style="font-size: 0.85rem; padding: 6px 10px; width: 100%;">
+                            </td>
+                            <td>
+                                <span style="font-size: 0.82rem; color: #bbb;">{{ it.location or 'Skrzynia' }}</span>
+                            </td>
+                            <td style="text-align: center;">
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 6px;">
+                                    <button type="button" class="btn-d2 btn-stone btn-sm" onclick="uberTradeOptions('{{ it.id }}')" title="{{ lang == 'en' and 'Options, aliases and variable stats selection' or 'Opcje, aliasy i wybór zmiennych statystyk' }}" style="padding: 5px 9px; font-size: 0.8rem; white-space: nowrap;">
+                                        {{ lang == "en" and "⚙ Options" or "⚙ Opcje" }}
+                                    </button>
+                                    <button class="btn-icon-action btn-del" title="{{ lang == 'en' and 'Remove from trade list' or 'Usuń z listy sprzedaży' }}" onclick="removeFromTrade('{{ it.id }}')">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 60px 20px; background: rgba(0,0,0,0.3); border: 1px dashed #443725; border-radius: 6px;">
+                <img src="/static/images/database/gem/doskona-y-topaz--gpy.png" style="width: 48px; opacity: 0.6; margin-bottom: 12px;" alt="">
+                <h3 style="color: #d4af37; margin-bottom: 8px;">{{ lang == "en" and "Trade list is empty" or "Lista sprzedaży jest pusta" }}</h3>
+                <p style="color: #888; max-width: 520px; margin: 0 auto 20px;">{{ lang == "en" and "You can list items for trade by clicking the trade icon on any item or by using the button below." or "Możesz dodać przedmioty do sprzedaży klikając ikonę monety (💰) na liście przedmiotów lub skorzystać z poniższego wyboru." }}</p>
+                <button class="btn-d2 btn-gold" onclick="openTradeAddModal()">
+                    <span>{{ lang == "en" and "➕ ADD ITEMS FROM STASH / HERO" or "➕ DODAJ PRZEDMIOTY ZE SKRZYNI / POSTACI" }}</span>
+                </button>
+            </div>
+            {% endif %}
+        </div>
+
+
+        <!-- TAB: DUPLICATES -->
+        <!-- ========================================================================= -->
+        {% elif active_tab == 'duplicates' %}
+        <div class="stone-panel">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <img src="/static/images/database/gem/czaszka--sku.png" class="nav-icon" alt="">
+                    <div>
+                        <div class="panel-title">{{ t("dup_title") }}</div>
+                        <div class="panel-subtitle">{{ t("dup_sub") }}</div>
+                    </div>
+                </div>
+            </div>
+
+            {% if duplicates_groups and duplicates_groups|length > 0 %}
+                {% for grp in duplicates_groups %}
+                <div style="background: #0b0c10; border: 1px solid #332714; border-radius: 6px; padding: 16px; margin-bottom: 16px;">
+                    <div style="font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold-main); font-weight: 700; margin-bottom: 10px;">
+                        {{ grp.name }} ({{ grp.base }}) — {{ grp.duplicates|length }} {{ t("dup_repeats", count=grp.duplicates|length) }}
+                    </div>
+                    {% for dup in grp.duplicates %}
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; border-top: 1px solid #222;">
+                        <div>
+                            <span>{{ lang == "en" and "Scanned" or "Zeskanowano" }}: {{ dup.created_at }}</span>
+                            <span style="color: #888; margin-left: 10px;">{{ lang == "en" and "Location" or "Lokalizacja" }}: {{ dup.location or (lang == 'en' and 'None' or 'Brak') }}</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-d2 btn-stone btn-sm" onclick="separateDuplicate('{{ dup.id }}')">{{ lang == "en" and "KEEP AS SEPARATE" or "ZATWIERDŹ JAKO OSOBNY" }}</button>
+                            <button class="btn-d2 btn-danger btn-sm" onclick="deleteItem('{{ dup.id }}')">{{ lang == "en" and "DELETE" or "USUŃ" }}</button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            {% else %}
+            <div style="text-align: center; padding: 40px; color: #888;">
+                {{ t("dup_empty") }}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- Activity Radar Widget -->
+    <!-- ========================================================================= -->
+    <footer class="sanctuary-footer"><strong>D2 UberApp</strong><span>{{ lang == "en" and "Diablo II: Resurrected · Your gear vault, always at hand" or "Diablo II: Resurrected · Twoja kolekcja, zawsze pod ręką" }}</span><span>{{ lang == "en" and "Capture & AI running in Companion App" or "Przechwytywanie i AI w aplikacji towarzyszącej" }}</span></footer>
+    <button class="update-notice" id="stashUpdateNotice" hidden onclick="window.location.reload()">{{ lang == "en" and "New items in vault · Refresh view ↻" or "Nowe dane w skarbcu · Odśwież widok ↻" }}</button>
+    <div id="d2ItemTooltip"></div>
+
+    <!-- ========================================================================= -->
+    <!-- ITEM DETAIL MODAL ("ZOBACZ WIĘCEJ") -->
+    <!-- ========================================================================= -->
+    <div id="itemDetailModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <img src="/static/images/database/misc/kamie-duszy-mefista--mss.png" class="btn-icon" alt="">
+                    <span id="modalItemTitle">{{ t("modal_details_title") }}</span>
+                </div>
+                <button class="modal-close-btn" onclick="closeItemModal()">&times;</button>
+            </div>
+            <div id="modalItemBody" style="display: grid; grid-template-columns: 240px 1fr; gap: 20px;">
+                <!-- Filled dynamically by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- Character Creation Wizard Modal -->
+    <!-- ========================================================================= -->
+    <div id="charWizardModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <img src="/static/images/database/armor/fs-korona--crn.png" class="nav-icon" alt="">
+                    <span>{{ lang == "en" and "HERO CREATOR: SCAN CHARACTER STATS" or "KREATOR BOHATERA: ZESKANUJ STATYSTYKI" }}</span>
+                </div>
+                <button class="modal-close-btn" onclick="closeWizard()">&times;</button>
+            </div>
+
+            <!-- STEP 1: AWAITING {{ hotkey_name }} IN GAME -->
+            <div id="wizardStep1" style="text-align: center; padding: 25px 10px;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.25rem; color: var(--gold-bright); font-weight: 700; margin-bottom: 12px;">
+                    {{ lang == "en" and "NOW SCAN STATS IN DIABLO II" or "TERAZ ZESKANUJ STATYSTYKI W DIABLO II" }}
+                </div>
+                <div style="font-size: 0.95rem; color: #d0cbb8; line-height: 1.7; max-width: 500px; margin: 0 auto 25px;">
+                    {{ lang == "en" and "1. Switch to the game and open your character stat sheet (key <strong>'A'</strong> or <strong>'C'</strong>).<br>" or "1. Wejdź do gry i otwórz okno statystyk postaci (klawisz <strong>'A'</strong> lub <strong>'C'</strong>).<br>" }}
+                    {{ lang == "en" and "2. Press <strong data-capture-hotkey>" ~ hotkey_name ~ "</strong> in game.<br>" or "2. Naciśnij klawisz <strong data-capture-hotkey>" ~ hotkey_name ~ "</strong>.<br>" }}
+                    <span style="color: #888;">{{ lang == "en" and "The app will automatically capture your screen and parse hero stats!" or "Aplikacja automatycznie przechwyci ekran, odczyta nazwę i statystyki bohatera!" }}</span>
+                </div>
+
+                <div id="wizardListeningIndicator" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; background: #161822; border: 2px solid var(--gold-border); border-radius: 30px;">
+                    <span style="width: 10px; height: 10px; background: #60d060; border-radius: 50%; box-shadow: 0 0 10px #60d060; animation: radarPulse 1.5s infinite;"></span>
+                    <span style="font-family: 'Cinzel', serif; color: var(--gold-bright); font-weight: 700; letter-spacing: 1px;">
+                        {{ lang == "en" and "LISTENING FOR " ~ hotkey_name ~ " IN GAME..." or "NASŁUCHIWANIE " ~ hotkey_name ~ " W GRZE..." }}
+                    </span>
+                </div>
+
+                <!-- Dynamic Analyzing Loader -->
+                <div id="wizardAnalyzingLoader" style="display: none; margin-top: 20px;">
+                    <div class="d2-spinner"></div>
+                    <div style="font-family: 'Cinzel', serif; font-size: 1.1rem; color: #ffd27d; font-weight: 700;">
+                        {{ lang == "en" and "SCREENSHOT CAPTURED!" or "PRZECHWYCONO ZRZUT EKRANU!" }}
+                    </div>
+                    <div style="font-size: 0.85rem; color: #aaa; margin-top: 4px;">
+                        {{ lang == "en" and "AI is reading stats and hero name..." or "Trwa odczytywanie statystyk i nazwy w AI..." }}
+                    </div>
+                </div>
+
+                <div id="wizardErrorMsg" style="display: none; margin-top: 20px; padding: 12px; background: #280e0e; border: 1px solid #782626; border-radius: 6px; color: #ff9d9d; font-size: 0.88rem;">
+                </div>
+            </div>
+
+            <!-- Step 2: Confirmed & Choose Gear Scan -->
+            <div id="wizardStep2" style="display: none;">
+                <div style="font-family: 'Cinzel', serif; font-size: 1.15rem; color: var(--gold-bright); font-weight: 700; margin-bottom: 12px;">
+                    {{ lang == "en" and "CHARACTER STATS RECOGNIZED!" or "STATYSTYKI POSTACI ROZPOZNANE!" }}
+                </div>
+
+                <div class="wizard-preview-card" id="wizardParsedCard" style="background: #0a0b0e; border: 1px solid #332714; border-radius: 6px; padding: 18px; margin-bottom: 20px;">
+                    <!-- Filled by JS -->
+                </div>
+
+                <div style="font-size: 0.9rem; color: #aaa; margin-bottom: 20px;">
+                    {{ lang == "en" and "Would you like to scan your equipped gear now (weapon, armor, charms, etc.)?" or "Czy chcesz od razu zeskanować założone przedmioty (broń, zbroję, talizmany itp.)?" }}
+                </div>
+
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn-d2 btn-gold" onclick="wizardProceedToGearScan()" style="flex: 1.3;">
+                        <img src="/static/images/database/weapon/ms-korbacz--fla.png" class="btn-icon" alt="">
+                        <span>{{ lang == "en" and "START: SCAN ITEMS NOW" or "START: SKANUJ ITEMY TERAZ" }}</span>
+                    </button>
+                    <button class="btn-d2 btn-stone" onclick="wizardSaveOnly()" style="flex: 1;">
+                        <span>{{ lang == "en" and "STOP: SAVE CHARACTER ONLY" or "STOP: ZAPISZ SAMĄ POSTAĆ" }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- ========================================================================= -->
+    <!-- TRADE EXPORT MODAL -->
+    <!-- ========================================================================= -->
+    <div id="tradeExportModal" class="modal-overlay">
+        <div class="modal-card" style="max-width: 780px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <img src="/static/images/database/gem/doskona-y-topaz--gpy.png" class="btn-icon" alt="">
+                    <span>{{ lang == "en" and "EXPORT TRADE LIST (D2R TEXT)" or "EKSPORT LISTY SPRZEDAŻY (TEKST D2R)" }}</span>
+                </div>
+                <button class="modal-close-btn" onclick="closeExportModal()">&times;</button>
+            </div>
+            
+            <div style="padding: 10px 0;">
+                <!-- LANGUAGE & OPTIONS CONTROLS -->
+                <div class="trade-export-options">
+                    <div style="font-weight: 700; color: #ffd27d; font-family: 'Cinzel', serif; margin-right: 8px;">{{ lang == "en" and "ITEM NAMES LANGUAGE:" or "JĘZYK NAZW:" }}</div>
+                    <label class="trade-export-option-label">
+                        <input type="radio" name="exportLang" value="pl" checked onchange="updateExportText()">
+                        <span>{{ lang == "en" and "Polish (PL)" or "Polski (PL)" }}</span>
+                    </label>
+                    <label class="trade-export-option-label">
+                        <input type="radio" name="exportLang" value="en" onchange="updateExportText()">
+                        <span>{{ lang == "en" and "English (EN)" or "Angielski (EN)" }}</span>
+                    </label>
+
+                    <div style="width: 1px; height: 18px; background: #3d3420; margin: 0 8px;"></div>
+
+                    <label class="trade-export-option-label">
+                        <input type="checkbox" id="optExportRolls" checked onchange="updateExportText()">
+                        <span>{{ lang == "en" and "Variable rolls" or "Zmienne (rolls)" }}</span>
+                    </label>
+                    <label class="trade-export-option-label">
+                        <input type="checkbox" id="optExportBase" checked onchange="updateExportText()">
+                        <span>{{ lang == "en" and "Base" or "Baza" }}</span>
+                    </label>
+                    <label class="trade-export-option-label">
+                        <input type="checkbox" id="optExportSockets" checked onchange="updateExportText()">
+                        <span>{{ lang == "en" and "Sockets" or "Gniazda" }}</span>
+                    </label>
+                    <label class="trade-export-option-label">
+                        <input type="checkbox" id="optExportPrice" checked onchange="updateExportText()">
+                        <span>{{ lang == "en" and "Price" or "Cena" }}</span>
+                    </label>
+                    <label class="trade-export-option-label">
+                        <input type="checkbox" id="optExportNotes" checked onchange="updateExportText()">
+                        <span>{{ lang == "en" and "Notes" or "Notatki" }}</span>
+                    </label>
+                    <label class="trade-export-option-label" style="color: #ffd27d; font-weight: 700;">
+                        <input type="checkbox" id="optExportShorthand" onchange="updateExportText()">
+                        <span>⚡ {{ lang == "en" and "Trade shorthands / Colloquial" or "Skróty handlowe / Nazwy zwyczajowe" }}</span>
+                    </label>
+                </div>
+
+                <!-- EXPORT TEXTAREA -->
+                <textarea id="tradeExportTextarea" class="trade-export-textarea" readonly></textarea>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+                    <span id="tradeExportFeedback" style="color: #6ed352; font-size: 0.9rem; font-weight: 700; display: none;">
+                        {{ lang == "en" and "✓ Copied list to clipboard!" or "✓ Skopiowano listę do schowka!" }}
+                    </span>
+                    <div style="display: flex; gap: 10px; margin-left: auto;">
+                        <button class="btn-d2 btn-stone" onclick="closeExportModal()">ZAMKNIJ</button>
+                        <button class="btn-d2 btn-gold" id="btnCopyExport" onclick="copyExportText()" style="min-width: 180px;">
+                            <span>{{ lang == "en" and "📋 COPY TO CLIPBOARD" or "📋 KOPIUJ DO SCHOWKA" }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- MARKETPLACE ONLINE SYNC MODAL -->
+    <!-- ========================================================================= -->
+    <div id="marketSyncModal" class="modal-overlay">
+        <div class="modal-card" style="max-width: 820px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <img src="/static/images/database/misc/kamie-duszy-mefista--mss.png" class="btn-icon" alt="">
+                    <span>{{ lang == "en" and "EXPORT & SYNC WITH ONLINE MARKET" or "EKSPORT I SYNCHRONIZACJA Z GIEŁDĄ ONLINE" }}</span>
+                </div>
+                <button class="modal-close-btn" onclick="closeMarketSyncModal()">&times;</button>
+            </div>
+
+            <div style="padding: 10px 0;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+                    <div>
+                        <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Online Market Server URL:" or "Adres serwera giełdy online:" }}</label>
+                        <input type="text" id="marketServerUrl" class="input-d2" value="http://localhost:5050" placeholder="http://localhost:5050">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Your Market Profile API Token:" or "Twój Token API z profilu giełdy:" }}</label>
+                        <input type="text" id="marketApiToken" class="input-d2" placeholder="{{ lang == 'en' and 'Paste API Token (optional)' or 'Wklej Token API (opcjonalnie)' }}">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; border: 1px solid #2b3042;">
+                    <div>
+                        <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "OR Username (if no token):" or "LUB Nazwa użytkownika (jeśli brak tokena):" }}</label>
+                        <input type="text" id="marketUsername" class="input-d2" placeholder="{{ lang == 'en' and 'Market username' or 'Login z giełdy' }}">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Password:" or "Hasło użytkownika:" }}</label>
+                        <input type="password" id="marketPassword" class="input-d2" placeholder="{{ lang == 'en' and 'Market password' or 'Hasło z giełdy' }}">
+                    </div>
+                </div>
+
+                <!-- WYBÓR TRYBU REALM DLA EKSPORTU -->
+                <div style="background: rgba(184, 134, 11, 0.08); border: 1px solid #705820; padding: 12px 16px; border-radius: 4px; margin-bottom: 16px;">
+                    <div style="font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--gold-main); margin-bottom: 8px;">
+                        {{ lang == "en" and "🎯 TARGET GAME MODE (REALM FOR OFFERS):" or "🎯 DOCELOWY TRYB GRY (REALM DLA PUBLIKOWANYCH OFERT):" }}
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                        <div>
+                            <label style="font-size:0.78rem; color:#aaa; display:block; margin-bottom:3px;">{{ lang == "en" and "Game mode:" or "Tryb życia:" }}</label>
+                            <select id="marketSyncScHc" class="select-d2">
+                                <option value="sc">Softcore (SC)</option>
+                                <option value="hc">Hardcore (HC)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size:0.78rem; color:#aaa; display:block; margin-bottom:3px;">{{ lang == "en" and "Ladder:" or "Drabinka:" }}</label>
+                            <select id="marketSyncLadder" class="select-d2">
+                                <option value="ladder">Ladder</option>
+                                <option value="non_ladder">Non-Ladder</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size:0.78rem; color:#aaa; display:block; margin-bottom:3px;">{{ lang == "en" and "Expansion / Version:" or "Wersja / Dodatek:" }}</label>
+                            <select id="marketSyncExpansion" class="select-d2">
+                                <option value="lod">Lord of Destruction (LoD)</option>
+                                <option value="classic">{{ lang == "en" and "Classic (No Expansion)" or "Classic (Bez dodatku)" }}</option>
+                                <option value="warlock">{{ lang == "en" and "New Expansion (Warlock)" or "Nowy dodatek (Warlock)" }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.85rem; color: #aaa;">{{ lang == "en" and "Select items to list" or "Wybierz przedmioty do opublikowania" }} ({{ trade_items|length }} {{ lang == "en" and "on trade list):" or "na liście sprzedaży):" }}</span>
+                    <button type="button" class="btn-d2 btn-stone btn-sm" onclick="toggleAllMarketSync(true)">{{ lang == "en" and "Select all" or "Zaznacz wszystkie" }}</button>
+                </div>
+
+                <!-- LISTA PRZEDMIOTÓW DO ZAZNACZENIA -->
+                <div id="marketSyncItemsList" style="max-height: 220px; overflow-y: auto; background: #08090d; border: 1px solid #232738; border-radius: 4px; padding: 8px;">
+                    {% for it in trade_items %}
+                    <label style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; border-bottom: 1px solid #1a1c26; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" class="sync-item-check" value="{{ it.id }}" checked style="accent-color: #ffd27d; width: 16px; height: 16px;">
+                            <img src="{{ it.image_path }}" style="width: 24px; height: 24px; object-fit: contain;" alt="">
+                            <span class="quality-{{ it.quality }}" style="font-weight: 600; font-size: 0.88rem;">{{ it.display_name or it.name }}</span>
+                            <span style="font-size: 0.75rem; color: #888;">({{ it.base }})</span>
+                        </div>
+                        <span style="color: #ffd27d; font-size: 0.82rem; font-weight: 600;">{{ it.trade_price }}</span>
+                    </label>
+                    {% else %}
+                    <div style="text-align: center; padding: 20px; color: #777;">{{ lang == "en" and "Add items to the Trade List first." or "Najpierw dodaj przedmioty do Listy Sprzedaży." }}</div>
+                    {% endfor %}
+                </div>
+
+                <div id="marketSyncResult" style="display: none; margin-top: 14px; padding: 12px; border-radius: 4px;"></div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <button class="btn-d2 btn-stone" onclick="closeMarketSyncModal()">{{ lang == "en" and "CANCEL" or "ANULUJ" }}</button>
+                    <button class="btn-d2 btn-gold" id="btnDoMarketSync" onclick="performMarketSync()" style="min-width: 220px; background: linear-gradient(180deg, #6b2e6e 0%, #3a1542 100%); border-color: #d896ff;">
+                        <span>{{ lang == "en" and "🚀 PUBLISH TO ONLINE MARKET" or "🚀 OPUBLIKUJ NA GIEŁDZIE ONLINE" }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- TRADE ADD ITEMS MODAL -->
+    <!-- ========================================================================= -->
+    <div id="tradeAddModal" class="modal-overlay">
+        <div class="modal-card" style="max-width: 840px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <img src="/static/images/database/misc/kamie-duszy-mefista--mss.png" class="btn-icon" alt="">
+                    <span>{{ lang == "en" and "ADD ITEMS TO TRADE LIST" or "DODAJ PRZEDMIOTY DO LISTY SPRZEDAŻY" }}</span>
+                </div>
+                <button class="modal-close-btn" onclick="closeTradeAddModal()">&times;</button>
+            </div>
+            
+            <div style="padding: 10px 0;">
+                <input type="text" id="tradeAddSearch" class="input-d2" placeholder="{{ lang == 'en' and 'Search item by name or base...' or 'Wyszukaj przedmiot po nazwie lub bazie...' }}" onkeyup="filterTradeAddModal()" style="width: 100%; margin-bottom: 15px; box-sizing: border-box;">
+                
+                <div id="tradeAddListContainer" style="max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Filled dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const tooltip = document.getElementById('d2ItemTooltip');
+        const sfxGem = document.getElementById('sfxGem');
+        const sfxDrop = document.getElementById('sfxDrop');
+
+        // =========================================================================
+        
+function toggleMoreChars(event) {
+    if (event) event.stopPropagation();
+    const dd = document.getElementById('headerMoreCharsDropdown');
+    if (dd) {
+        const isHidden = dd.style.display === 'none' || !dd.style.display;
+        dd.style.display = isHidden ? 'flex' : 'none';
+    }
+}
+
+document.addEventListener('click', function(e) {
+    const dd = document.getElementById('headerMoreCharsDropdown');
+    const btn = document.querySelector('.header-char-more-btn');
+    if (dd && dd.style.display !== 'none' && (!btn || !btn.contains(e.target)) && !dd.contains(e.target)) {
+        dd.style.display = 'none';
+    }
+});
+
+window.APP_LANG = '{{ lang }}';
+window.I18N = {
+    defense: '{{ lang == "en" and "Defense:" or "Obrona:" }}',
+    damage: '{{ lang == "en" and "Damage:" or "Obrażenia:" }}',
+    req_level: '{{ lang == "en" and "Required Level:" or "Wymagany poziom:" }}',
+    req_str: '{{ lang == "en" and "Required Strength:" or "Wymagana siła:" }}',
+    req_dex: '{{ lang == "en" and "Required Dexterity:" or "Wymagana zręczność:" }}',
+    sockets: '{{ lang == "en" and "Sockets:" or "Gniazda:" }}',
+    catalog_rolls: '{{ lang == "en" and "CATALOG VARIABLE ROLLS" or "ZMIENNE WIDEŁKI KATALOGOWE" }}',
+    location: '{{ lang == "en" and "Location" or "Lokalizacja" }}',
+    scanned: '{{ lang == "en" and "Scanned" or "Zeskanowano" }}',
+    affix_name: '{{ lang == "en" and "Full affix name" or "Pełna nazwa afiksów" }}',
+    delete_item: '{{ lang == "en" and "DELETE ITEM" or "USUŃ PRZEDMIOT" }}',
+    options: '{{ lang == "en" and "⚙ Options" or "⚙ Opcje" }}',
+    general: '{{ lang == "en" and "General" or "Ogólna" }}'
+};
+
+async function setAppLanguage(newLang) {
+    try {
+        await fetch('/api/set_language', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({lang: newLang})
+        });
+    } catch(e) {}
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', newLang);
+    window.location.href = url.toString();
+}
+
+// D2 FLOATING TOOLTIP
+        // =========================================================================
+        function renderTooltipContent(item) {
+            if (!item) return '';
+            let qualityClass = (item.quality || 'normal').toLowerCase();
+            let name = item.name || (window.APP_LANG === 'en' ? 'Unknown' : 'Nieznany');
+            let nameEn = item.name_en && item.name_en !== item.name ? ` (${item.name_en})` : '';
+            let base = item.base || '';
+
+            let html = `<div class="tt-name ${qualityClass}">${name}${nameEn}</div>`;
+            if (base) html += `<div class="tt-base">${base}</div>`;
+
+            if (qualityClass === 'runiczne' || (item.rolls_eval && item.rolls_eval.some(r => r.property === 'runes'))) {
+                let runesFormula = item.rolls_eval?.find(r => r.property === 'runes')?.roll || '';
+                if (runesFormula) html += `<div class="tt-runes">'${runesFormula}'</div>`;
+            }
+
+            html += `<div class="tt-divider"></div>`;
+
+            let baseStats = [];
+            if (item.defense) baseStats.push(`${window.I18N.defense} ${item.defense}`);
+            if (item.damage) baseStats.push(`${window.I18N.damage} ${item.damage}`);
+            if (item.level_req) baseStats.push(`${window.I18N.req_level} ${item.level_req}`);
+            if (item.req_str) baseStats.push(`${window.I18N.req_str} ${item.req_str}`);
+            if (item.req_dex) baseStats.push(`${window.I18N.req_dex} ${item.req_dex}`);
+
+            if (baseStats.length > 0) {
+                html += `<div class="tt-base-stats">${baseStats.join('<br>')}</div><div class="tt-divider"></div>`;
+            }
+
+            let stats = item.stats || [];
+            let rolls = item.rolls_eval || [];
+
+            if (stats.length > 0) {
+                html += `<div class="tt-affixes">`;
+                stats.forEach(st => {
+                    let matchRoll = rolls.find(r => r.property && st.toLowerCase().includes(r.property.toLowerCase()));
+                    let badge = '';
+                    if (matchRoll && matchRoll.rating) {
+                        let rat = matchRoll.rating.toUpperCase();
+                        let badgeClass = 'rating-mid';
+                        if (rat.includes('PERF')) badgeClass = 'rating-perf';
+                        else if (rat.includes('HIGH')) badgeClass = 'rating-high';
+                        else if (rat.includes('LOW') || rat.includes('MIN')) badgeClass = 'rating-low';
+                        badge = `<span class="badge-rating ${badgeClass}">${matchRoll.roll} [${matchRoll.min}-${matchRoll.max}] • ${rat}</span>`;
+                    }
+                    html += `<div class="tt-affix-line">${st} ${badge}</div>`;
+                });
+                html += `</div>`;
+            }
+
+            if (item.sockets && item.sockets > 0) {
+                html += `<div style="color: var(--d2-blue); font-size: 0.85rem; margin-top: 4px;">Gniazda (${item.sockets})</div>`;
+            }
+
+            // In-game crop preview in tooltip
+            if (item.preview_filename) {
+                html += `<div class="tt-crop-preview"><img src="/previews/${item.preview_filename}" class="tt-crop-img"></div>`;
+            }
+
+            return html;
+        }
+
+        function showTooltip(e, item) {
+            if (!item) return;
+            tooltip.innerHTML = renderTooltipContent(item);
+            tooltip.style.display = 'block';
+            positionTooltip(e);
+        }
+
+        function positionTooltip(e) {
+            let x = e.clientX + 16;
+            let y = e.clientY + 16;
+            let ttW = tooltip.offsetWidth;
+            let ttH = tooltip.offsetHeight;
+
+            if (x + ttW > window.innerWidth - 12) x = e.clientX - ttW - 16;
+            if (y + ttH > window.innerHeight - 12) y = window.innerHeight - ttH - 12;
+            if (y < 10) y = 10;
+            if (x < 10) x = 10;
+
+            tooltip.style.left = x + 'px';
+            tooltip.style.top = y + 'px';
+        }
+
+        function hideTooltip() {
+            tooltip.style.display = 'none';
+        }
+
+        document.querySelectorAll('[data-item]').forEach(el => {
+            el.addEventListener('mouseenter', e => {
+                let raw = el.getAttribute('data-item');
+                if (raw) {
+                    try { showTooltip(e, JSON.parse(raw)); } catch (err) {}
+                }
+            });
+            el.addEventListener('mousemove', e => {
+                if (tooltip.style.display === 'block') positionTooltip(e);
+            });
+            el.addEventListener('mouseleave', hideTooltip);
+        });
+
+        // =========================================================================
+        // ITEM DETAIL MODAL ("ZOBACZ WIĘCEJ")
+        // =========================================================================
+        function renderItemModalContent(it) {
+            let isNonNamed = ['normalny', 'normal', 'superior', 'magiczny', 'magic', 'rzadki', 'rare'].includes((it.quality || '').toLowerCase());
+            let title = (window.APP_LANG === 'en' && it.name_en) ? it.name_en : (isNonNamed ? (it.display_name || it.base || it.name) : (it.display_name || it.name));
+            document.getElementById('modalItemTitle').textContent = `${title} (${it.base || it.quality})`;
+            
+            let rollsHtml = '';
+            if (it.rolls_eval && it.rolls_eval.length > 0) {
+                rollsHtml = `
+                    <div class="highlighted-variable-stats" style="margin-top: 12px;">
+                        <div style="font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--gold-main); margin-bottom: 6px;">${window.I18N.catalog_rolls}</div>
+                        ${it.rolls_eval.map(r => `
+                            <div class="var-stat-line">
+                                <div>
+                                    <strong style="color: #fff;">${(window.APP_LANG === 'en' && r.property) ? r.property : (r.property_pl || r.property)}: ${r.roll}</strong>
+                                    <span style="color: #888; font-size: 0.75rem;">[${r.min} - ${r.max}]</span>
+                                </div>
+                                <span class="badge-rating rating-${r.rating ? r.rating.toLowerCase() : 'mid'}">${r.rating} (${r.pct}%)</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            document.getElementById('modalItemBody').innerHTML = `
+                <div>
+                    <div style="background: #06070a; border: 1px solid #282833; border-radius: 6px; padding: 10px; text-align: center;">
+                        ${it.preview_filename ? `<img src="/previews/${it.preview_filename}" style="max-width: 100%; max-height: 260px; object-fit: contain;">` : `<img src="${it.image_path || '/static/images/database/misc/klucz--key.png'}" style="max-width: 100px; height: 100px; object-fit: contain;">`}
+                    </div>
+                    <div style="margin-top: 12px; font-size: 0.85rem; color: #aaa;">
+                        <div>${window.I18N.location}: <strong>${it.location || window.I18N.general}</strong></div>
+                        <div>${window.I18N.scanned}: <span style="color: #666;">${it.created_at || '—'}</span></div>
+                    </div>
+                    <button class="btn-d2 btn-danger btn-sm" style="width: 100%; margin-top: 15px;" onclick="deleteItem('${it.id}')">
+                        ${window.I18N.delete_item}
+                    </button>
+                </div>
+                <div>
+                    <div style="font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold-bright);">
+                        ${title} ${(!isNonNamed && it.name_en && it.name_en !== it.name) ? `(${it.name_en})` : ''}
+                    </div>
+                    ${(isNonNamed && it.name && it.name !== title) ? `<div style="font-size: 0.82rem; color: #888; margin-top: 3px;">${window.I18N.affix_name}: ${it.name}</div>` : ''}
+                    <div style="font-size: 0.85rem; color: #888; text-transform: uppercase; margin-top: 4px;">
+                        ${it.quality} • ${it.base}
+                    </div>
+
+                    <div class="item-base-chips" style="margin: 10px 0;">
+                        ${it.defense ? `<span class="chip">${window.I18N.defense} ${it.defense}</span>` : ''}
+                        ${it.damage ? `<span class="chip">${window.I18N.damage} ${it.damage}</span>` : ''}
+                        ${it.level_req ? `<span class="chip">${window.I18N.req_level} ${it.level_req}</span>` : ''}
+                        ${it.req_str ? `<span class="chip">${window.I18N.req_str} ${it.req_str}</span>` : ''}
+                        ${it.req_dex ? `<span class="chip">${window.I18N.req_dex} ${it.req_dex}</span>` : ''}
+                        ${it.sockets ? `<span class="chip">${window.I18N.sockets} ${it.sockets}</span>` : ''}
+                    </div>
+
+                    ${rollsHtml}
+
+                    <div class="item-stats-full" style="margin-top: 14px;">
+                        ${(it.stats || []).map(s => `<div class="item-stat-line">• ${s}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('itemDetailModal').classList.add('active');
+        }
+
+        function openItemModal(itemId, btnEl = null) {
+            // Natychmiastowe otwarcie z lokalnych danych data-item
+            let cardOrRow = btnEl ? btnEl.closest('[data-item]') : document.querySelector(`[data-item*="${itemId}"]`);
+            if (cardOrRow) {
+                try {
+                    let raw = cardOrRow.getAttribute('data-item');
+                    if (raw) {
+                        let it = JSON.parse(raw);
+                        if (it && (it.id === itemId || !itemId)) {
+                            renderItemModalContent(it);
+                            return;
+                        }
+                    }
+                } catch(err) {}
+            }
+
+            // Zapasowe pobranie z API
+            fetch(`/api/items/${itemId}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.item) {
+                        renderItemModalContent(data.item);
+                    }
+                })
+                .catch(err => {
+                    console.error("Błąd otwierania modala przedmiotu:", err);
+                });
+        }
+
+        function openSlotItemModal(el) {
+            let raw = el.getAttribute('data-item');
+            if (!raw) return;
+            try {
+                let it = JSON.parse(raw);
+                if (it) renderItemModalContent(it);
+            } catch (err) {}
+        }
+
+        function closeItemModal() {
+            document.getElementById('itemDetailModal').classList.remove('active');
+        }
+
+        document.getElementById('itemDetailModal')?.addEventListener('click', function(e) {
+            if (e.target === this) closeItemModal();
+        });
+        document.getElementById('charWizardModal')?.addEventListener('click', function(e) {
+            if (e.target === this) closeWizard();
+        });
+
+        // =========================================================================
+        // Activity Radar Poller
+        // =========================================================================
+        async function openCompanion() {
+            if (window.parent !== window) { window.parent.postMessage({uberManageCharacter:true}, location.origin); return; }
+            try {
+                const response = await fetch('/api/companion/open', {method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'});
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || (window.APP_LANG === 'en' ? 'Could not open Companion app.' : 'Nie można otworzyć aplikacji towarzyszącej.'));
+            } catch(error) { alert(error.message); }
+        }
+        let lastActivityTimestamp = null;
+        async function pollLiveActivity() {
+            try {
+                if (document.hidden) return;
+                const response = await fetch('/api/live_activity');
+                if (!response.ok) return;
+                const data = await response.json(), act = data.activity || {};
+                if (lastActivityTimestamp !== null && act.timestamp > lastActivityTimestamp && ['item_added','success','stat_screen_success'].includes(act.state)) {
+                    document.getElementById('stashUpdateNotice').hidden = false;
+                }
+                lastActivityTimestamp = act.timestamp || lastActivityTimestamp;
+                document.querySelectorAll('[data-capture-hotkey]').forEach(el => el.textContent = data.hotkey);
+            } catch(error) { /* A stopped companion must not interrupt inventory browsing. */ }
+            finally { setTimeout(pollLiveActivity, 3000); }
+        }
+        pollLiveActivity();
+        let wizardPollInterval = null;
+        let detectedCharacterData = null;
+
+        function openWizard() {
+            document.getElementById('charWizardModal').classList.add('active');
+            document.getElementById('wizardStep1').style.display = 'block';
+            document.getElementById('wizardStep2').style.display = 'none';
+            document.getElementById('wizardListeningIndicator').style.display = 'inline-flex';
+            document.getElementById('wizardAnalyzingLoader').style.display = 'none';
+            let errEl = document.getElementById('wizardErrorMsg');
+            if (errEl) errEl.style.display = 'none';
+            detectedCharacterData = null;
+
+            fetch('/api/character/wizard_listen', { method: 'POST' })
+                .then(() => startWizardPolling());
+        }
+
+        function closeWizard() {
+            document.getElementById('charWizardModal').classList.remove('active');
+            stopWizardPolling();
+            fetch('/api/character/stop_gear_scan', { method: 'POST' });
+        }
+
+        function startWizardPolling() {
+            stopWizardPolling();
+            wizardPollInterval = setInterval(() => {
+                fetch('/api/character/wizard_poll')
+                    .then(r => r.json())
+                    .then(res => {
+                        let scan = res.data;
+                        if (!scan) return;
+
+                        if (scan.status === 'scanning') {
+                            document.getElementById('wizardListeningIndicator').style.display = 'none';
+                            document.getElementById('wizardAnalyzingLoader').style.display = 'block';
+                            let errEl = document.getElementById('wizardErrorMsg');
+                            if (errEl) errEl.style.display = 'none';
+                        } else if (scan.status === 'success') {
+                            let char = scan.character || scan.data;
+                            if (char && char.name && String(char.name).toLowerCase() !== 'none') {
+                                stopWizardPolling();
+                                try { sfxDrop.play(); } catch(e) {}
+                                handleCharacterDetected(char);
+                            }
+                        } else if (scan.status === 'error') {
+                            document.getElementById('wizardAnalyzingLoader').style.display = 'none';
+                            document.getElementById('wizardListeningIndicator').style.display = 'inline-flex';
+                            let errEl = document.getElementById('wizardErrorMsg');
+                            if (errEl) {
+                                errEl.textContent = scan.message || (window.APP_LANG === 'en'
+                                    ? "Character screen not recognized. Open the 'A'/'C' screen in-game and press {{ hotkey_name }} again."
+                                    : "Nie rozpoznano okna postaci. Otwórz okno 'A'/'C' w grze i naciśnij {{ hotkey_name }} ponownie.");
+                                errEl.style.display = 'block';
+                            }
+                        }
+                    })
+                    .catch(e => {});
+            }, 400);
+        }
+
+        function stopWizardPolling() {
+            if (wizardPollInterval) {
+                clearInterval(wizardPollInterval);
+                wizardPollInterval = null;
+            }
+        }
+
+        function handleCharacterDetected(char) {
+            detectedCharacterData = char;
+            document.getElementById('wizardStep1').style.display = 'none';
+            document.getElementById('wizardStep2').style.display = 'block';
+
+            let card = document.getElementById('wizardParsedCard');
+            card.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 12px;">
+                    <img src="${char.class_icon || '/static/images/database/armor/fs-korona--crn.png'}" style="width: 44px; height: 44px; object-fit: contain;" alt="">
+                    <div>
+                        <div style="font-family: 'Cinzel', serif; font-size: 1.35rem; font-weight: 900; color: var(--gold-bright);">
+                            ${char.name}
+                        </div>
+                        <div style="font-size: 0.85rem; color: #a09e96;">
+                            ${window.APP_LANG === 'en' ? 'LEVEL' : 'POZIOM'} ${char.level} • ${(char.class_name || (window.APP_LANG === 'en' ? 'PALADIN' : 'PALADYN')).toUpperCase()}
+                        </div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px; font-size: 0.85rem; border-top: 1px solid #25241f; padding-top: 8px;">
+                    <div>${window.APP_LANG === 'en' ? 'Strength' : 'Siła'}: <strong style="color: var(--d2-blue);">${char.strength || 0}</strong></div>
+                    <div>${window.APP_LANG === 'en' ? 'Dexterity' : 'Zręczność'}: <strong style="color: var(--d2-blue);">${char.dexterity || 0}</strong></div>
+                    <div>${window.APP_LANG === 'en' ? 'Vitality' : 'Żywotność'}: <strong style="color: var(--d2-blue);">${char.vitality || 0}</strong></div>
+                    <div>${window.APP_LANG === 'en' ? 'Energy' : 'Energia'}: <strong style="color: var(--d2-blue);">${char.energy || 0}</strong></div>
+                    <div>${window.APP_LANG === 'en' ? 'Defense' : 'Obrona'}: <strong>${char.defense || 0}</strong></div>
+                    <div>${window.APP_LANG === 'en' ? 'Life' : 'Życie'}: <strong style="color: var(--d2-red);">${char.life || 0}</strong></div>
+                    <div>${window.APP_LANG === 'en' ? 'Mana' : 'Mana'}: <strong style="color: var(--d2-blue);">${char.mana || 0}</strong></div>
+                    <div>${window.APP_LANG === 'en' ? 'Resistances' : 'Odporności'}: <strong>${char.fire_res || '0%'}/${char.light_res || '0%'}/${char.cold_res || '0%'}/${char.poison_res || '0%'}</strong></div>
+                </div>
+            `;
+        }
+
+        function wizardSaveOnly() {
+            if (!detectedCharacterData) return;
+            fetch('/api/character/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(detectedCharacterData)
+            })
+            .then(() => {
+                window.location.href = `/?tab=character&name=${encodeURIComponent(detectedCharacterData.name)}`;
+            });
+        }
+
+        function wizardProceedToGearScan() {
+            if (!detectedCharacterData) return;
+            fetch('/api/character/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(detectedCharacterData)
+            })
+            .then(() => {
+                return fetch('/api/character/start_gear_scan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ character_name: detectedCharacterData.name })
+                });
+            })
+            .then(() => {
+                window.location.href = `/?tab=character&name=${encodeURIComponent(detectedCharacterData.name)}&scanning=1`;
+            });
+        }
+
+        function startGearScanForCurrentChar() {
+            let sel = document.getElementById('selectCharacter');
+            let charName = sel ? sel.value : 'KOSIOR';
+            fetch('/api/character/start_gear_scan', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ character_name: charName })
+            })
+            .then(() => {
+                window.location.href = `/?tab=character&name=${encodeURIComponent(charName)}&scanning=1`;
+            });
+        }
+
+        document.getElementById('btnStopGearScan')?.addEventListener('click', () => {
+            fetch('/api/character/stop_gear_scan', { method: 'POST' })
+                .then(() => {
+                    let sel = document.getElementById('selectCharacter');
+                    let charName = sel ? sel.value : '';
+                    window.location.href = `/?tab=character&name=${encodeURIComponent(charName)}`;
+                });
+        });
+
+        // Swap Button Event Listener
+        let currentSwap = false;
+        document.getElementById('btnToggleSwap')?.addEventListener('click', () => {
+            currentSwap = !currentSwap;
+            fetch('/api/session/settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ is_swap: currentSwap })
+            })
+            .then(() => {
+                document.getElementById('swapLabel').textContent = currentSwap ? 'SWAP (II)' : (window.APP_LANG === 'en' ? 'MAIN (I)' : 'GŁÓWNY (I)');
+                setDollSwap(currentSwap);
+                try { sfxGem.play(); } catch(e) {}
+            });
+        });
+
+        
+
+        function switchCharacter(name) {
+            window.location.href = `/?tab=character&name=${encodeURIComponent(name)}`;
+        }
+
+        function deleteSpecificChar(name) {
+            if (!confirm(window.APP_LANG === 'en' ? `Are you sure you want to delete character ${name}? Equipped items will return to stash.` : `Czy na pewno usunąć postać ${name}? Założone przedmioty powrócą do skrzyni.`)) return;
+            fetch(`/api/character/${encodeURIComponent(name)}`, { method: 'DELETE' })
+                .then(() => window.location.href = '/?tab=character');
+        }
+
+        function deleteCurrentChar() {
+            let sel = document.getElementById('selectCharacter');
+            if (sel) deleteSpecificChar(sel.value);
+        }
+
+        // =========================================================================
+        // FILTERS & STASH
+        // =========================================================================
+        function filterStash() {
+            let q = document.getElementById('stashSearch').value;
+            let l = document.getElementById('stashLocation').value;
+            let s = document.getElementById('stashQuality').value;
+            window.location.href = `/?tab=items&quality=${encodeURIComponent(s)}&location=${encodeURIComponent(l)}&search=${encodeURIComponent(q)}`;
+        }
+
+        function handleStashSearch(e) {
+            if (e.key === 'Enter') filterStash();
+        }
+
+        function setViewMode(mode) {
+            let url = new URL(window.location.href);
+            url.searchParams.set('view', mode);
+            window.location.href = url.toString();
+        }
+
+        function deleteItem(id) {
+            if (!confirm(window.APP_LANG === 'en' ? 'Are you sure you want to delete this item?' : 'Czy na pewno usunąć ten przedmiot?')) return;
+            fetch(`/api/items/${id}`, { method: 'DELETE' })
+                .then(() => window.location.reload());
+        }
+
+        function separateDuplicate(id) {
+            fetch(`/api/duplicates/${id}/separate`, { method: 'POST' })
+                .then(() => window.location.reload());
+        }
+
+        // =========================================================================
+        // Runeword Tabs & Base Filter
+        // =========================================================================
+        function showRwTab(tab) {
+            document.querySelectorAll('.rw-tab-btn').forEach(btn => btn.classList.remove('active'));
+            ['Ready', 'MissingOne', 'MissingTwo', 'MissingThree'].forEach(t => {
+                let sec = document.getElementById(`rwSection${t}`);
+                if (sec) sec.style.display = 'none';
+            });
+
+            if (tab === 'ready') {
+                document.querySelectorAll('.rw-tab-btn')[0].classList.add('active');
+                document.getElementById('rwSectionReady').style.display = 'grid';
+            } else if (tab === 'missing_one') {
+                document.querySelectorAll('.rw-tab-btn')[1].classList.add('active');
+                document.getElementById('rwSectionMissingOne').style.display = 'grid';
+            } else if (tab === 'missing_two') {
+                document.querySelectorAll('.rw-tab-btn')[2].classList.add('active');
+                document.getElementById('rwSectionMissingTwo').style.display = 'grid';
+            } else if (tab === 'missing_three') {
+                document.querySelectorAll('.rw-tab-btn')[3].classList.add('active');
+                document.getElementById('rwSectionMissingThree').style.display = 'grid';
+            }
+        }
+
+        function filterRwByBase(cat) {
+            document.querySelectorAll('.rw-card').forEach(card => {
+                if (!cat || card.getAttribute('data-rw-cat') === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // SWAP TABS (DOLL)
+        function setDollSwap(swap) {
+            currentSwap = swap;
+            let slotW = document.getElementById('slot_weapon');
+            let slotS = document.getElementById('slot_shield');
+            let lblW = document.getElementById('label_weapon');
+            let lblS = document.getElementById('label_shield');
+            let imgW = document.getElementById('img_weapon');
+            let imgS = document.getElementById('img_shield');
+            let swapLbl = document.getElementById('swapLabel');
+            if (swapLbl) swapLbl.textContent = swap ? 'SWAP (II)' : (window.APP_LANG === 'en' ? 'MAIN (I)' : 'GŁÓWNY (I)');
+
+            if (slotW && slotS) {
+                lblW.textContent = swap ? (window.APP_LANG === 'en' ? 'WEAPON II (SWAP)' : 'BROŃ II (SWAP)') : (window.APP_LANG === 'en' ? 'WEAPON I' : 'BROŃ I');
+                lblS.textContent = swap ? (window.APP_LANG === 'en' ? 'SHIELD II (SWAP)' : 'TARCZA II (SWAP)') : (window.APP_LANG === 'en' ? 'SHIELD I' : 'TARCZA I');
+                document.getElementById('btnSwapTab1')?.classList.toggle('active', !swap);
+                document.getElementById('btnSwapTab2')?.classList.toggle('active', swap);
+                document.getElementById('btnSwapTabShield1')?.classList.toggle('active', !swap);
+                document.getElementById('btnSwapTabShield2')?.classList.toggle('active', swap);
+
+                // Podmiana danych broni (I vs II)
+                let rawW1 = slotW.getAttribute('data-item-main') || slotW.getAttribute('data-item') || '';
+                let rawW2 = slotW.getAttribute('data-item-swap') || '';
+                if (!slotW.getAttribute('data-item-main')) slotW.setAttribute('data-item-main', rawW1);
+                let activeW = swap ? rawW2 : rawW1;
+                slotW.setAttribute('data-item', activeW);
+                if (activeW) {
+                    try {
+                        let itW = JSON.parse(activeW);
+                        if (imgW) imgW.src = itW.image_path || '';
+                        slotW.classList.add('equipped');
+                    } catch(e) {}
+                } else {
+                    if (imgW) imgW.src = '';
+                    slotW.classList.remove('equipped');
+                }
+
+                // Podmiana danych tarczy (I vs II)
+                let rawS1 = slotS.getAttribute('data-item-main') || slotS.getAttribute('data-item') || '';
+                let rawS2 = slotS.getAttribute('data-item-swap') || '';
+                if (!slotS.getAttribute('data-item-main')) slotS.setAttribute('data-item-main', rawS1);
+                let activeS = swap ? rawS2 : rawS1;
+                slotS.setAttribute('data-item', activeS);
+                if (activeS) {
+                    try {
+                        let itS = JSON.parse(activeS);
+                        if (imgS) imgS.src = itS.image_path || '';
+                        slotS.classList.add('equipped');
+                    } catch(e) {}
+                } else {
+                    if (imgS) imgS.src = '';
+                    slotS.classList.remove('equipped');
+                }
+            }
+        }
+    
+        // =========================================================================
+        // TRADE LIST JAVASCRIPT LOGIC
+        // =========================================================================
+
+        async function toggleTrade(itemId, event) {
+            if (event) event.stopPropagation();
+            try {
+                // Check if already in trade
+                let btn = event ? event.currentTarget : null;
+                let isCurrentlyInTrade = btn ? btn.classList.contains('btn-trade-active') : false;
+
+                if (isCurrentlyInTrade) {
+                    let resp = await fetch('/api/trade/remove', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({item_id: itemId})
+                    });
+                    let data = await resp.json();
+                    if (data.status === 'success') {
+                        if (btn) {
+                            btn.classList.remove('btn-trade-active');
+                            btn.title = window.APP_LANG === 'en' ? "Add to trade list" : "Dodaj do listy sprzedaży";
+                        }
+                        updateTradeBadges(data.trade_count);
+                    }
+                } else {
+                    let resp = await fetch('/api/trade/add', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({item_id: itemId, price: window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę', notes: ''})
+                    });
+                    let data = await resp.json();
+                    if (data.status === 'success') {
+                        if (btn) {
+                            btn.classList.add('btn-trade-active');
+                            btn.title = window.APP_LANG === 'en' ? "Listed for trade. Click to remove." : "Wystawiono na sprzedaż. Kliknij, aby usunąć.";
+                        }
+                        updateTradeBadges(data.trade_count);
+                    }
+                }
+            } catch (err) {
+                console.error("Błąd toggleTrade:", err);
+            }
+        }
+
+        async function saveTradeItem(itemId) {
+            let priceEl = document.getElementById(`price-${itemId}`);
+            let notesEl = document.getElementById(`notes-${itemId}`);
+            let price = priceEl ? priceEl.value : (window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę');
+            let notes = notesEl ? notesEl.value : '';
+
+            try {
+                let resp = await fetch('/api/trade/update', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({item_id: itemId, price: price, notes: notes})
+                });
+                let data = await resp.json();
+                if (data.status === 'success') {
+                    if (priceEl) {
+                        priceEl.style.borderColor = '#6ed352';
+                        setTimeout(() => priceEl.style.borderColor = '', 1000);
+                    }
+                }
+            } catch (err) {
+                console.error("Błąd saveTradeItem:", err);
+            }
+        }
+
+        function setPricePreset(itemId, preset) {
+            let priceEl = document.getElementById(`price-${itemId}`);
+            if (priceEl) {
+                priceEl.value = preset;
+                saveTradeItem(itemId);
+            }
+        }
+
+        async function removeFromTrade(itemId) {
+            if (!confirm(window.APP_LANG === 'en' ? "Are you sure you want to remove this item from the trade list?" : "Czy na pewno chcesz usunąć ten przedmiot z listy sprzedaży?")) return;
+            try {
+                let resp = await fetch('/api/trade/remove', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({item_id: itemId})
+                });
+                let data = await resp.json();
+                if (data.status === 'success') {
+                    let row = document.getElementById(`trade-row-${itemId}`);
+                    if (row) {
+                        row.style.transition = 'all 0.3s';
+                        row.style.opacity = '0';
+                        row.style.transform = 'translateX(20px)';
+                        setTimeout(() => row.remove(), 300);
+                    }
+                    updateTradeBadges(data.trade_count);
+                }
+            } catch (err) {
+                console.error("Błąd removeFromTrade:", err);
+            }
+        }
+
+        function updateTradeBadges(count) {
+            let badgeCount = document.getElementById('tradeItemsCount');
+            if (badgeCount) badgeCount.innerText = count;
+        }
+
+        function stripPl(s) {
+            return (s || '').toLowerCase()
+                .replace(/[ąćęłńóśźż]/g, c => ({'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z'}[c] || c));
+        }
+
+        function filterTradeListUI() {
+            let query = stripPl(document.getElementById('tradeSearchInput')?.value || '').trim();
+            let rows = document.querySelectorAll('.trade-row-item');
+            let visibleCount = 0;
+            rows.forEach(r => {
+                let text = stripPl(r.getAttribute('data-search') || '');
+                if (!query || text.includes(query)) {
+                    r.style.display = '';
+                    visibleCount++;
+                } else {
+                    r.style.display = 'none';
+                }
+            });
+            let countEl = document.getElementById('tradeItemsCount');
+            if (countEl) countEl.textContent = visibleCount;
+        }
+
+        function toggleMasterTradeShorthand(enabled) {
+            localStorage.setItem('uber_trade_shorthand', enabled ? '1' : '0');
+            applyTradeShorthandUI(enabled);
+        }
+
+        function applyTradeShorthandUI(enabled) {
+            document.querySelectorAll('.trade-name-standard').forEach(el => el.style.display = enabled ? 'none' : '');
+            document.querySelectorAll('.trade-name-shorthand').forEach(el => el.style.display = enabled ? '' : 'none');
+            document.querySelectorAll('.trade-base-standard').forEach(el => el.style.display = enabled ? 'none' : '');
+            document.querySelectorAll('.trade-base-shorthand').forEach(el => el.style.display = enabled ? '' : 'none');
+            document.querySelectorAll('.trade-rolls-standard').forEach(el => el.style.display = enabled ? 'none' : '');
+            document.querySelectorAll('.trade-rolls-shorthand').forEach(el => el.style.display = enabled ? '' : 'none');
+            let exportChk = document.getElementById('optExportShorthand');
+            if (exportChk) exportChk.checked = enabled;
+        }
+
+        // =========================================================================
+        // EXPORT MODAL LOGIC
+        // =========================================================================
+
+        async function openExportModal() {
+            let modal = document.getElementById('tradeExportModal');
+            if (!modal) return;
+            let opt = document.getElementById('optExportShorthand');
+            if (opt) opt.checked = localStorage.getItem('uber_trade_shorthand') === '1';
+            modal.style.display = 'flex';
+            await updateExportText();
+        }
+
+        function closeExportModal() {
+            let modal = document.getElementById('tradeExportModal');
+            if (modal) modal.style.display = 'none';
+            let fb = document.getElementById('tradeExportFeedback');
+            if (fb) fb.style.display = 'none';
+        }
+
+        async function updateExportText() {
+            let lang = document.querySelector('input[name="exportLang"]:checked')?.value || 'pl';
+            let include_rolls = document.getElementById('optExportRolls')?.checked ?? true;
+            let include_base = document.getElementById('optExportBase')?.checked ?? true;
+            let include_sockets = document.getElementById('optExportSockets')?.checked ?? true;
+            let include_price = document.getElementById('optExportPrice')?.checked ?? true;
+            let include_notes = document.getElementById('optExportNotes')?.checked ?? true;
+            let use_shorthand = document.getElementById('optExportShorthand')?.checked ?? (localStorage.getItem('uber_trade_shorthand') === '1');
+
+            try {
+                let resp = await fetch('/api/trade/export', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        lang: lang,
+                        include_rolls: include_rolls,
+                        include_base: include_base,
+                        include_sockets: include_sockets,
+                        include_price: include_price,
+                        include_notes: include_notes,
+                        use_shorthand: use_shorthand
+                    })
+                });
+                let data = await resp.json();
+                if (data.status === 'success') {
+                    let ta = document.getElementById('tradeExportTextarea');
+                    if (ta) ta.value = data.text;
+                }
+            } catch (err) {
+                console.error("Błąd exportu:", err);
+            }
+        }
+
+        function copyExportText() {
+            let ta = document.getElementById('tradeExportTextarea');
+            if (!ta || !ta.value) return;
+            navigator.clipboard.writeText(ta.value).then(() => {
+                let fb = document.getElementById('tradeExportFeedback');
+                if (fb) {
+                    fb.style.display = 'inline-block';
+                    setTimeout(() => fb.style.display = 'none', 3000);
+                }
+                let btn = document.getElementById('btnCopyExport');
+                if (btn) {
+                    let prevText = btn.innerHTML;
+                    btn.innerHTML = '<span>✓ SKOPIOWANO!</span>';
+                    setTimeout(() => btn.innerHTML = prevText, 2500);
+                }
+            });
+        }
+
+        // =========================================================================
+        // MARKETPLACE ONLINE SYNC LOGIC
+        // =========================================================================
+
+        function openMarketSyncModal() {
+            let modal = document.getElementById('marketSyncModal');
+            if (!modal) return;
+            modal.style.display = 'flex';
+
+            let savedUrl = localStorage.getItem('d2_market_url') || 'http://localhost:5050';
+            let savedToken = localStorage.getItem('d2_market_token') || '';
+            let savedUser = localStorage.getItem('d2_market_user') || '';
+            let savedScHc = localStorage.getItem('d2_market_schc') || 'sc';
+            let savedLadder = localStorage.getItem('d2_market_ladder') || 'ladder';
+            let savedExp = localStorage.getItem('d2_market_expansion') || 'lod';
+
+            let urlEl = document.getElementById('marketServerUrl');
+            if (urlEl) urlEl.value = savedUrl;
+            let tokenEl = document.getElementById('marketApiToken');
+            if (tokenEl) tokenEl.value = savedToken;
+            let userEl = document.getElementById('marketUsername');
+            if (userEl) userEl.value = savedUser;
+            let schcEl = document.getElementById('marketSyncScHc');
+            if (schcEl) schcEl.value = savedScHc;
+            let ladEl = document.getElementById('marketSyncLadder');
+            if (ladEl) ladEl.value = savedLadder;
+            let expEl = document.getElementById('marketSyncExpansion');
+            if (expEl) expEl.value = savedExp;
+
+            let resEl = document.getElementById('marketSyncResult');
+            if (resEl) {
+                resEl.style.display = 'none';
+                resEl.innerHTML = '';
+            }
+        }
+
+        function closeMarketSyncModal() {
+            let modal = document.getElementById('marketSyncModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function toggleAllMarketSync(forceChecked) {
+            let checkboxes = document.querySelectorAll('.sync-item-check');
+            let shouldCheck = typeof forceChecked === 'boolean' ? forceChecked : true;
+            if (typeof forceChecked !== 'boolean') {
+                let anyUnchecked = Array.from(checkboxes).some(c => !c.checked);
+                shouldCheck = anyUnchecked;
+            }
+            checkboxes.forEach(c => c.checked = shouldCheck);
+        }
+
+        async function performMarketSync() {
+            let serverUrl = (document.getElementById('marketServerUrl')?.value || 'http://localhost:5050').trim();
+            let apiToken = (document.getElementById('marketApiToken')?.value || '').trim();
+            let username = (document.getElementById('marketUsername')?.value || '').trim();
+            let password = document.getElementById('marketPassword')?.value || '';
+            let realmScHc = document.getElementById('marketSyncScHc')?.value || 'sc';
+            let realmLadder = document.getElementById('marketSyncLadder')?.value || 'ladder';
+            let realmExp = document.getElementById('marketSyncExpansion')?.value || 'lod';
+
+            let selectedIds = Array.from(document.querySelectorAll('.sync-item-check:checked')).map(c => c.value);
+
+            let resEl = document.getElementById('marketSyncResult');
+            if (!resEl) return;
+
+            if (selectedIds.length === 0) {
+                resEl.style.display = 'block';
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = '⚠️ Wybierz przynajmniej jeden przedmiot do opublikowania!';
+                return;
+            }
+
+            if (!apiToken && (!username || !password)) {
+                resEl.style.display = 'block';
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = window.APP_LANG === 'en'
+                    ? '⚠️ Provide an API Token or Username and Password for your online market account!'
+                    : '⚠️ Podaj Token API lub Login i Hasło do konta na giełdzie online!';
+                return;
+            }
+
+            localStorage.setItem('d2_market_url', serverUrl);
+            if (apiToken) localStorage.setItem('d2_market_token', apiToken);
+            if (username) localStorage.setItem('d2_market_user', username);
+            localStorage.setItem('d2_market_schc', realmScHc);
+            localStorage.setItem('d2_market_ladder', realmLadder);
+            localStorage.setItem('d2_market_expansion', realmExp);
+
+            let btn = document.getElementById('btnDoMarketSync');
+            let prevBtnText = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = window.APP_LANG === 'en' ? '<span>⏳ PUBLISHING OFFERS...</span>' : '<span>⏳ PUBLIKOWANIE OFERT...</span>';
+            }
+
+            resEl.style.display = 'block';
+            resEl.style.background = '#1a1e2b';
+            resEl.style.border = '1px solid #3d4a66';
+            resEl.style.color = '#ffd27d';
+            resEl.innerHTML = window.APP_LANG === 'en' ? 'Connecting to market server and sending offers...' : 'Łączenie z serwerem giełdy i wysyłanie ofert...';
+
+            try {
+                let resp = await fetch('/api/trade/online_sync', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        server_url: serverUrl,
+                        api_token: apiToken,
+                        username: username,
+                        password: password,
+                        realm_sc_hc: realmScHc,
+                        realm_ladder: realmLadder,
+                        realm_expansion: realmExp,
+                        item_ids: selectedIds
+                    })
+                });
+
+                let data = await resp.json();
+                if (resp.ok && data.status === 'success') {
+                    resEl.style.background = '#152b14';
+                    resEl.style.border = '1px solid #32752e';
+                    resEl.style.color = '#8efc88';
+                    let successTitle = window.APP_LANG === 'en' ? `✓ Success! ${data.message || 'Offers published.'}` : `✓ Sukces! ${data.message || 'Opublikowano oferty.'}`;
+                    let syncDesc = window.APP_LANG === 'en'
+                        ? `Synchronized <strong>${data.count}</strong> offers on the market for mode <strong>${realmScHc.toUpperCase()} / ${realmLadder} / ${realmExp.toUpperCase()}</strong>.<br>`
+                        : `Zsynchronizowano <strong>${data.count}</strong> ofert na giełdzie dla trybu <strong>${realmScHc.toUpperCase()} / ${realmLadder} / ${realmExp.toUpperCase()}</strong>.<br>`;
+                    let openMarketText = window.APP_LANG === 'en' ? `↗ Open Online Market (${serverUrl})` : `↗ Otwórz Giełdę Online (${serverUrl})`;
+                    resEl.innerHTML = `
+                        <div style="font-weight:700; font-size:1rem; margin-bottom:6px;">${successTitle}</div>
+                        <div style="font-size:0.85rem; color:#ccc;">
+                            ${syncDesc}
+                            <a href="${serverUrl}" target="_blank" style="color:#ffd27d; font-weight:700; text-decoration:underline; display:inline-block; margin-top:6px;">
+                                ${openMarketText}
+                            </a>
+                        </div>
+                    `;
+                    if (data.api_token) {
+                        let tokenInput = document.getElementById('marketApiToken');
+                        if (tokenInput) tokenInput.value = data.api_token;
+                        localStorage.setItem('d2_market_token', data.api_token);
+                    }
+                } else {
+                    resEl.style.background = '#381212';
+                    resEl.style.border = '1px solid #7a2626';
+                    resEl.style.color = '#ff9d9d';
+                    resEl.innerHTML = window.APP_LANG === 'en'
+                        ? `❌ Sync error: ${data.error || 'Failed to publish offers.'}`
+                        : `❌ Błąd synchronizacji: ${data.error || 'Nie udało się opublikować ofert.'}`;
+                }
+            } catch (err) {
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = window.APP_LANG === 'en'
+                    ? `❌ Network error or market server unreachable at ${serverUrl}. Ensure the market server application is running.`
+                    : `❌ Błąd sieci lub serwer giełdy jest niedostępny pod adresem ${serverUrl}. Upewnij się, że uruchomiono aplikację serwera giełdy.`;
+                console.error("Błąd performMarketSync:", err);
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = prevBtnText;
+                }
+            }
+        }
+
+        // =========================================================================
+        // ADD MODAL LOGIC
+        // =========================================================================
+
+        let allAvailableStashItems = [];
+
+        async function openTradeAddModal() {
+            let modal = document.getElementById('tradeAddModal');
+            if (!modal) return;
+            modal.style.display = 'flex';
+
+            let container = document.getElementById('tradeAddListContainer');
+            if (container) container.innerHTML = `<div style="text-align:center; padding:20px; color:#888;">${window.APP_LANG === 'en' ? 'Loading items...' : 'Ładowanie przedmiotów...'}</div>`;
+
+            try {
+                let resp = await fetch('/api/items');
+                let data = await resp.json();
+                allAvailableStashItems = data.items || [];
+                renderTradeAddList(allAvailableStashItems);
+            } catch (err) {
+                console.error("Błąd openTradeAddModal:", err);
+            }
+        }
+
+        function closeTradeAddModal() {
+            let modal = document.getElementById('tradeAddModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function renderTradeAddList(items) {
+            let container = document.getElementById('tradeAddListContainer');
+            if (!container) return;
+
+            if (!items || items.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding:30px; color:#888;">${window.APP_LANG === 'en' ? 'No items match the criteria.' : 'Brak przedmiotów spełniających kryteria.'}</div>`;
+                return;
+            }
+
+            let html = '';
+            items.forEach(it => {
+                let qClass = (it.quality || 'normal').toLowerCase();
+                let loc = it.location || (it.character_name ? (window.APP_LANG === 'en' ? `Hero: ${it.character_name}` : `Postać: ${it.character_name}`) : (window.APP_LANG === 'en' ? 'Stash' : 'Skrzynia'));
+                let inTrade = it.is_in_trade;
+                let isNonNamed = ['normalny', 'normal', 'superior', 'magiczny', 'magic', 'rzadki', 'rare'].includes(qClass);
+                let titleName = isNonNamed ? (it.display_name || it.base || it.name) : (it.display_name || it.name);
+
+                let statsChips = [];
+                if (it.defense) statsChips.push(`${window.I18N.defense} ${it.defense}`);
+                if (it.damage) statsChips.push(`${window.I18N.damage} ${it.damage}`);
+                if (it.sockets && it.sockets > 0) statsChips.push(`{{ t("label_sockets") }} ${it.sockets}`);
+                let chipsHtml = statsChips.map(c => `<span style="display:inline-block; font-size:0.73rem; background:#1b1d28; color:#d4af37; padding:1px 6px; border-radius:3px; margin-right:4px;">${c}</span>`).join('');
+
+                let statsList = it.stats || [];
+                let statsHtml = '';
+                if (statsList.length > 0) {
+                    statsHtml = `<div style="font-size: 0.76rem; color: #9bb7d4; margin-top: 5px; line-height: 1.35; max-height: 70px; overflow-y: auto; background: rgba(0,0,0,0.35); padding: 4px 8px; border-radius: 3px; border-left: 2px solid #4a6fa5;">` +
+                        statsList.slice(0, 5).map(s => `<div>• ${s}</div>`).join('') +
+                        (statsList.length > 5 ? `<div style="color: #777; font-size: 0.7rem;">+ ${window.APP_LANG === 'en' ? `another ${statsList.length - 5} properties...` : `jeszcze ${statsList.length - 5} właściwości...`}</div>` : '') +
+                        `</div>`;
+                }
+
+                let listedBadge = window.APP_LANG === 'en' ? '✓ LISTED' : '✓ WYSTAWIONY';
+                let listActionText = window.APP_LANG === 'en' ? '➕ LIST FOR TRADE' : '➕ WYSTAW NA SPRZEDAŻ';
+
+                html += `
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; padding: 10px 12px; background: #0f1017; border: 1px solid #282a36; border-radius: 4px; gap: 12px;">
+                    <div style="display: flex; align-items: flex-start; gap: 12px; flex: 1; min-width: 0;">
+                        <img src="${it.image_path}" style="width: 36px; height: 36px; object-fit: contain; margin-top: 2px;" alt="">
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="font-weight: 700; font-size: 0.95rem;" class="quality-${qClass}">${titleName} ${(!isNonNamed && it.name_en && it.name_en !== it.name) ? `<span style="font-size:0.75rem; color:#888;">(${it.name_en})</span>` : ''}</div>
+                            <div style="font-size: 0.78rem; color: #aaa; margin-top: 2px;">
+                                ${(!isNonNamed && it.base && it.base !== titleName) ? `<span>${it.base} • </span>` : ''}
+                                <span style="color:#888;">${loc}</span>
+                                ${chipsHtml ? ` • ${chipsHtml}` : ''}
+                            </div>
+                            ${statsHtml}
+                        </div>
+                    </div>
+                    <div style="margin-top: 4px;">
+                        ${inTrade ? `
+                            <button class="btn-d2 btn-stone btn-sm" disabled style="opacity: 0.6; cursor: default; white-space: nowrap;">
+                                ${listedBadge}
+                            </button>
+                        ` : `
+                            <button class="btn-d2 btn-gold btn-sm" onclick="addFromModal('${it.id}', this)" style="white-space: nowrap;">
+                                ${listActionText}
+                            </button>
+                        `}
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function filterTradeAddModal() {
+            let q = stripPl(document.getElementById('tradeAddSearch')?.value || '').trim();
+            let filtered = allAvailableStashItems.filter(it => {
+                let combined = stripPl(`${it.name || ''} ${it.name_en || ''} ${it.colloquial_name || ''} ${it.base || ''} ${it.base_shorthand || ''}`);
+                return !q || combined.includes(q);
+            });
+            renderTradeAddList(filtered);
+        }
+
+        async function addFromModal(itemId, btn) {
+            try {
+                let resp = await fetch('/api/trade/add', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({item_id: itemId, price: window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę', notes: ''})
+                });
+                let data = await resp.json();
+                if (data.status === 'success') {
+                    if (btn) {
+                        let listedBadge = window.APP_LANG === 'en' ? '✓ LISTED' : '✓ WYSTAWIONY';
+                        btn.outerHTML = `<button class="btn-d2 btn-stone btn-sm" disabled style="opacity: 0.6; cursor: default;">${listedBadge}</button>`;
+                    }
+                    updateTradeBadges(data.trade_count);
+                }
+            } catch (err) {
+                console.error("Błąd addFromModal:", err);
+            }
+        }
+
+        // Check saved trade shorthand on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            let enabled = localStorage.getItem('uber_trade_shorthand') === '1';
+            let toggle = document.getElementById('masterTradeShorthandToggle');
+            if (toggle) {
+                toggle.checked = enabled;
+                applyTradeShorthandUI(enabled);
+            }
+        });
+
+    </script>
+
+<div id="uber-trade-options" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="uber-options-title">
+  <div class="modal-card" style="max-width:580px;padding:25px">
+    <h2 id="uber-options-title" style="color:var(--gold-main);margin-bottom:15px">{{ lang == 'en' and 'Trade Options & Variable Stats' or 'Opcje sprzedaży i zmienne statystyki' }}</h2>
+    <form class="uber-alias-form" onsubmit="uberSaveTradeOptions(event)">
+      <label>{{ lang == 'en' and 'Persistent item name alias' or 'Stały alias nazwy przedmiotu' }}<input id="uber-item_alias" class="input-d2" maxlength="120" placeholder="{{ lang == 'en' and 'e.g. Shako, Hoto, Viper, CTA' or 'np. Shako, Hoto, Viper, CTA' }}"></label>
+      <div id="uber-item-suggestion" hidden></div>
+      <label>{{ lang == 'en' and 'Persistent base alias' or 'Stały alias bazy' }}<input id="uber-base_alias" class="input-d2" maxlength="120" placeholder="{{ lang == 'en' and 'e.g. MP, AP, CV, PB, Mon' or 'np. MP, AP, CV, PB, Mon' }}"></label>
+      <p style="font-size:0.78rem;color:#888;margin:2px 0 8px;">{{ lang == 'en' and 'Aliases apply to all items with this name or base. Empty restores full name.' or 'Aliasy są wspólne dla wszystkich egzemplarzy o tej nazwie lub bazie. Puste pole przywraca pełną nazwę.' }}</p>
+      
+      <div id="uber-rolls-selection" hidden></div>
+
+      <label>{{ lang == 'en' and 'Socket contents for this item' or 'Co jest w gniazdach tego przedmiotu?' }}<input id="uber-socket_contents" class="input-d2" maxlength="500" placeholder="{{ lang == 'en' and 'e.g. Ist, Ber, 15 IAS / 40 ED Jewel' or 'np. Ist, Ber, Klejnot 15 IAS / 40 ED' }}"></label>
+      <label>{{ lang == 'en' and 'Trade stats — optional custom description' or 'Statystyki do sprzedaży — opcjonalny własny opis' }}<textarea id="uber-trade_stats" class="input-d2" rows="2" maxlength="2000" placeholder="{{ lang == 'en' and 'Empty = automatic stats from scan / catalog' or 'Puste = automatyczne statystyki z odczytu / katalogu' }}"></textarea></label>
+      <p style="font-size:0.78rem;color:#888;margin:2px 0 12px;">{{ lang == 'en' and 'Default: name + selected variable stats + sockets. Runeword: name + stats + base.' or 'Standardowo: nazwa + wybrane zmienne statystyki + gniazda. Słowo runiczne: nazwa + statystyki + baza.' }}</p>
+      <div style="display:flex;justify-content:space-between;gap:12px"><button type="button" class="btn-d2 btn-stone" onclick="document.getElementById('uber-trade-options').classList.remove('active')">{{ lang == 'en' and 'Cancel' or 'Anuluj' }}</button><button class="btn-d2 btn-gold" type="submit">{{ lang == 'en' and 'Save options' or 'Zapisz opcje' }}</button></div>
+    </form>
+  </div>
+</div><script src="/static/uberapp.js"></script>
+
+<script>
+if (new URLSearchParams(location.search).get('embedded') === '1') {
+    document.addEventListener('click', event => {
+        const link = event.target.closest('a[href]');
+        if (!link || link.target === '_blank') return;
+        const url = new URL(link.href, location.href);
+        if (url.origin === location.origin && url.pathname === '/') { url.searchParams.set('embedded','1'); link.href=url.href; }
+    });
+    window.addEventListener('message',event => { if(event.origin===location.origin && event.data?.uberUpdated) document.getElementById('stashUpdateNotice').hidden=false; });
+}
+
+// DIABLO II FLAME SPARK & EMBER PARTICLES EFFECT
+(function initDiabloEmbers() {
+    const canvas = document.getElementById('headerEmberCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    const PARTICLE_COUNT = 52;
+    const colors = [
+        'rgba(255, 50, 10, ',   // deep fire red
+        'rgba(255, 110, 20, ',  // fiery orange
+        'rgba(255, 175, 30, ',  // flame gold
+        'rgba(255, 220, 80, ',  // bright spark
+        'rgba(255, 245, 190, '  // hot core
+    ];
+
+    function resize() {
+        if (!canvas.parentElement) return;
+        width = canvas.width = canvas.parentElement.offsetWidth;
+        height = canvas.height = canvas.parentElement.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function createParticle(randomY) {
+        return {
+            x: Math.random() * (width || 800),
+            y: randomY ? Math.random() * (height || 80) : (height || 80) + Math.random() * 8,
+            radius: Math.random() * 2.2 + 0.8,
+            speedY: Math.random() * 0.85 + 0.45,
+            speedX: (Math.random() - 0.5) * 0.4,
+            swaySpeed: Math.random() * 0.035 + 0.015,
+            swayOffset: Math.random() * Math.PI * 2,
+            swayRadius: Math.random() * 1.4 + 0.5,
+            colorBase: colors[Math.floor(Math.random() * colors.length)],
+            alpha: Math.random() * 0.75 + 0.25,
+            decay: Math.random() * 0.007 + 0.003
+        };
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(createParticle(true));
+    }
+
+    let lastTime = performance.now();
+    function animate(time) {
+        const dt = Math.min((time - lastTime) / 16.66, 2.5);
+        lastTime = time;
+
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.y -= p.speedY * dt;
+            p.swayOffset += p.swaySpeed * dt;
+            p.x += (p.speedX + Math.sin(p.swayOffset) * p.swayRadius) * dt;
+            p.alpha -= p.decay * dt;
+
+            if (p.y < -10 || p.alpha <= 0 || p.x < -10 || p.x > width + 10) {
+                particles[i] = createParticle(false);
+                continue;
+            }
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.colorBase + Math.max(0, p.alpha) + ')';
+            ctx.shadowBlur = p.radius * 4;
+            ctx.shadowColor = 'rgba(255, 90, 0, ' + Math.min(1, p.alpha * 1.3) + ')';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+})();
+</script></body>
+</html>

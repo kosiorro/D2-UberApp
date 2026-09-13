@@ -1,0 +1,5634 @@
+{
+  "cap": {
+    "code": "cap",
+    "name": "Cap",
+    "minac": 3,
+    "maxac": 5,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "skp": {
+    "code": "skp",
+    "name": "Skull Cap",
+    "minac": 8,
+    "maxac": 11,
+    "reqstr": 15,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "hlm": {
+    "code": "hlm",
+    "name": "Helm",
+    "minac": 15,
+    "maxac": 18,
+    "reqstr": 26,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "fhl": {
+    "code": "fhl",
+    "name": "Full Helm",
+    "minac": 23,
+    "maxac": 26,
+    "reqstr": 41,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "ghm": {
+    "code": "ghm",
+    "name": "Great Helm",
+    "minac": 30,
+    "maxac": 35,
+    "reqstr": 63,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "crn": {
+    "code": "crn",
+    "name": "Crown",
+    "minac": 25,
+    "maxac": 45,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "msk": {
+    "code": "msk",
+    "name": "Mask",
+    "minac": 9,
+    "maxac": 27,
+    "reqstr": 23,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "qui": {
+    "code": "qui",
+    "name": "Quilted Armor",
+    "minac": 8,
+    "maxac": 11,
+    "reqstr": 12,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "lea": {
+    "code": "lea",
+    "name": "Leather Armor",
+    "minac": 14,
+    "maxac": 17,
+    "reqstr": 15,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "hla": {
+    "code": "hla",
+    "name": "Hard Leather Armor",
+    "minac": 21,
+    "maxac": 24,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "stu": {
+    "code": "stu",
+    "name": "Studded Leather",
+    "minac": 32,
+    "maxac": 35,
+    "reqstr": 27,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "rng": {
+    "code": "rng",
+    "name": "Ring Mail",
+    "minac": 45,
+    "maxac": 48,
+    "reqstr": 36,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "scl": {
+    "code": "scl",
+    "name": "Scale Mail",
+    "minac": 57,
+    "maxac": 60,
+    "reqstr": 44,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "chn": {
+    "code": "chn",
+    "name": "Chain Mail",
+    "minac": 72,
+    "maxac": 75,
+    "reqstr": 48,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "brs": {
+    "code": "brs",
+    "name": "Breast Plate",
+    "minac": 65,
+    "maxac": 68,
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "spl": {
+    "code": "spl",
+    "name": "Splint Mail",
+    "minac": 90,
+    "maxac": 95,
+    "reqstr": 51,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "plt": {
+    "code": "plt",
+    "name": "Plate Mail",
+    "minac": 108,
+    "maxac": 116,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "fld": {
+    "code": "fld",
+    "name": "Field Plate",
+    "minac": 101,
+    "maxac": 105,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "gth": {
+    "code": "gth",
+    "name": "Gothic Plate",
+    "minac": 128,
+    "maxac": 135,
+    "reqstr": 70,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "ful": {
+    "code": "ful",
+    "name": "Full Plate Mail",
+    "minac": 150,
+    "maxac": 161,
+    "reqstr": 80,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "aar": {
+    "code": "aar",
+    "name": "Ancient Armor",
+    "minac": 218,
+    "maxac": 233,
+    "reqstr": 100,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "ltp": {
+    "code": "ltp",
+    "name": "Light Plate",
+    "minac": 90,
+    "maxac": 107,
+    "reqstr": 41,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "buc": {
+    "code": "buc",
+    "name": "Buckler",
+    "minac": 4,
+    "maxac": 6,
+    "reqstr": 12,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "sml": {
+    "code": "sml",
+    "name": "Small Shield",
+    "minac": 8,
+    "maxac": 10,
+    "reqstr": 22,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "lrg": {
+    "code": "lrg",
+    "name": "Large Shield",
+    "minac": 12,
+    "maxac": 14,
+    "reqstr": 34,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "kit": {
+    "code": "kit",
+    "name": "Kite Shield",
+    "minac": 16,
+    "maxac": 18,
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "tow": {
+    "code": "tow",
+    "name": "Tower Shield",
+    "minac": 22,
+    "maxac": 25,
+    "reqstr": 75,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "gts": {
+    "code": "gts",
+    "name": "Gothic Shield",
+    "minac": 30,
+    "maxac": 35,
+    "reqstr": 60,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "lgl": {
+    "code": "lgl",
+    "name": "Leather Gloves",
+    "minac": 2,
+    "maxac": 3,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "vgl": {
+    "code": "vgl",
+    "name": "Heavy Gloves",
+    "minac": 5,
+    "maxac": 6,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "mgl": {
+    "code": "mgl",
+    "name": "Chain Gloves",
+    "minac": 8,
+    "maxac": 9,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "tgl": {
+    "code": "tgl",
+    "name": "Light Gauntlets",
+    "minac": 9,
+    "maxac": 11,
+    "reqstr": 45,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "hgl": {
+    "code": "hgl",
+    "name": "Gauntlets",
+    "minac": 12,
+    "maxac": 15,
+    "reqstr": 60,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "lbt": {
+    "code": "lbt",
+    "name": "Boots",
+    "minac": 2,
+    "maxac": 3,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "vbt": {
+    "code": "vbt",
+    "name": "Heavy Boots",
+    "minac": 5,
+    "maxac": 6,
+    "reqstr": 18,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "mbt": {
+    "code": "mbt",
+    "name": "Chain Boots",
+    "minac": 8,
+    "maxac": 9,
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "tbt": {
+    "code": "tbt",
+    "name": "Light Plated Boots",
+    "minac": 9,
+    "maxac": 11,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "hbt": {
+    "code": "hbt",
+    "name": "Greaves",
+    "minac": 12,
+    "maxac": 15,
+    "reqstr": 70,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "lbl": {
+    "code": "lbl",
+    "name": "Sash",
+    "minac": 2,
+    "maxac": 2,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "vbl": {
+    "code": "vbl",
+    "name": "Light Belt",
+    "minac": 3,
+    "maxac": 3,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "mbl": {
+    "code": "mbl",
+    "name": "Belt",
+    "minac": 5,
+    "maxac": 5,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "tbl": {
+    "code": "tbl",
+    "name": "Heavy Belt",
+    "minac": 6,
+    "maxac": 6,
+    "reqstr": 45,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "hbl": {
+    "code": "hbl",
+    "name": "Plated Belt",
+    "minac": 8,
+    "maxac": 11,
+    "reqstr": 60,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "bhm": {
+    "code": "bhm",
+    "name": "Bone Helm",
+    "minac": 33,
+    "maxac": 36,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "bsh": {
+    "code": "bsh",
+    "name": "Bone Shield",
+    "minac": 10,
+    "maxac": 30,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "spk": {
+    "code": "spk",
+    "name": "Spiked Shield",
+    "minac": 15,
+    "maxac": 25,
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "xap": {
+    "code": "xap",
+    "name": "War Hat",
+    "minac": 45,
+    "maxac": 53,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "xkp": {
+    "code": "xkp",
+    "name": "Sallet",
+    "minac": 52,
+    "maxac": 62,
+    "reqstr": 43,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "xlm": {
+    "code": "xlm",
+    "name": "Casque",
+    "minac": 63,
+    "maxac": 72,
+    "reqstr": 59,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "xhl": {
+    "code": "xhl",
+    "name": "Basinet",
+    "minac": 75,
+    "maxac": 84,
+    "reqstr": 82,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "xhm": {
+    "code": "xhm",
+    "name": "Winged Helm",
+    "minac": 85,
+    "maxac": 98,
+    "reqstr": 115,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "xrn": {
+    "code": "xrn",
+    "name": "Grand Crown",
+    "minac": 78,
+    "maxac": 113,
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "xsk": {
+    "code": "xsk",
+    "name": "Death Mask",
+    "minac": 54,
+    "maxac": 86,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "xui": {
+    "code": "xui",
+    "name": "Ghost Armor",
+    "minac": 102,
+    "maxac": 117,
+    "reqstr": 38,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xea": {
+    "code": "xea",
+    "name": "Serpentskin Armor",
+    "minac": 111,
+    "maxac": 126,
+    "reqstr": 43,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xla": {
+    "code": "xla",
+    "name": "Demonhide Armor",
+    "minac": 122,
+    "maxac": 136,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xtu": {
+    "code": "xtu",
+    "name": "Trellised Armor",
+    "minac": 138,
+    "maxac": 153,
+    "reqstr": 61,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xng": {
+    "code": "xng",
+    "name": "Linked Mail",
+    "minac": 158,
+    "maxac": 172,
+    "reqstr": 74,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xcl": {
+    "code": "xcl",
+    "name": "Tigulated Mail",
+    "minac": 176,
+    "maxac": 190,
+    "reqstr": 86,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xhn": {
+    "code": "xhn",
+    "name": "Mesh Armor",
+    "minac": 198,
+    "maxac": 213,
+    "reqstr": 92,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xrs": {
+    "code": "xrs",
+    "name": "Cuirass",
+    "minac": 188,
+    "maxac": 202,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xpl": {
+    "code": "xpl",
+    "name": "Russet Armor",
+    "minac": 225,
+    "maxac": 243,
+    "reqstr": 97,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xlt": {
+    "code": "xlt",
+    "name": "Templar Coat",
+    "minac": 252,
+    "maxac": 274,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xld": {
+    "code": "xld",
+    "name": "Sharktooth Armor",
+    "minac": 242,
+    "maxac": 258,
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xth": {
+    "code": "xth",
+    "name": "Embossed Plate",
+    "minac": 282,
+    "maxac": 303,
+    "reqstr": 125,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xul": {
+    "code": "xul",
+    "name": "Chaos Armor",
+    "minac": 315,
+    "maxac": 342,
+    "reqstr": 140,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xar": {
+    "code": "xar",
+    "name": "Ornate Armor",
+    "minac": 417,
+    "maxac": 450,
+    "reqstr": 170,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xtp": {
+    "code": "xtp",
+    "name": "Mage Plate",
+    "minac": 225,
+    "maxac": 261,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "xuc": {
+    "code": "xuc",
+    "name": "Defender",
+    "minac": 41,
+    "maxac": 49,
+    "reqstr": 38,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "xml": {
+    "code": "xml",
+    "name": "Round Shield",
+    "minac": 47,
+    "maxac": 55,
+    "reqstr": 53,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "xrg": {
+    "code": "xrg",
+    "name": "Scutum",
+    "minac": 53,
+    "maxac": 61,
+    "reqstr": 71,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "xit": {
+    "code": "xit",
+    "name": "Dragon Shield",
+    "minac": 59,
+    "maxac": 67,
+    "reqstr": 91,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "xow": {
+    "code": "xow",
+    "name": "Pavise",
+    "minac": 68,
+    "maxac": 78,
+    "reqstr": 133,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "xts": {
+    "code": "xts",
+    "name": "Ancient Shield",
+    "minac": 80,
+    "maxac": 93,
+    "reqstr": 110,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "xlg": {
+    "code": "xlg",
+    "name": "Demonhide Gloves",
+    "minac": 28,
+    "maxac": 35,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "xvg": {
+    "code": "xvg",
+    "name": "Sharkskin Gloves",
+    "minac": 33,
+    "maxac": 39,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "xmg": {
+    "code": "xmg",
+    "name": "Heavy Bracers",
+    "minac": 37,
+    "maxac": 44,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "xtg": {
+    "code": "xtg",
+    "name": "Battle Gauntlets",
+    "minac": 39,
+    "maxac": 47,
+    "reqstr": 88,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "xhg": {
+    "code": "xhg",
+    "name": "War Gauntlets",
+    "minac": 43,
+    "maxac": 53,
+    "reqstr": 110,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "xlb": {
+    "code": "xlb",
+    "name": "Demonhide Boots",
+    "minac": 28,
+    "maxac": 35,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "xvb": {
+    "code": "xvb",
+    "name": "Sharkskin Boots",
+    "minac": 33,
+    "maxac": 39,
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "xmb": {
+    "code": "xmb",
+    "name": "Mesh Boots",
+    "minac": 37,
+    "maxac": 44,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "xtb": {
+    "code": "xtb",
+    "name": "Battle Boots",
+    "minac": 39,
+    "maxac": 47,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "xhb": {
+    "code": "xhb",
+    "name": "War Boots",
+    "minac": 43,
+    "maxac": 53,
+    "reqstr": 125,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "zlb": {
+    "code": "zlb",
+    "name": "Demonhide Sash",
+    "minac": 29,
+    "maxac": 34,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "zvb": {
+    "code": "zvb",
+    "name": "Sharkskin Belt",
+    "minac": 31,
+    "maxac": 36,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "zmb": {
+    "code": "zmb",
+    "name": "Mesh Belt",
+    "minac": 35,
+    "maxac": 40,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "ztb": {
+    "code": "ztb",
+    "name": "Battle Belt",
+    "minac": 37,
+    "maxac": 42,
+    "reqstr": 88,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "zhb": {
+    "code": "zhb",
+    "name": "War Belt",
+    "minac": 41,
+    "maxac": 52,
+    "reqstr": 110,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "xh9": {
+    "code": "xh9",
+    "name": "Grim Helm",
+    "minac": 60,
+    "maxac": 125,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "xsh": {
+    "code": "xsh",
+    "name": "Grim Shield",
+    "minac": 50,
+    "maxac": 150,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "xpk": {
+    "code": "xpk",
+    "name": "Barbed Shield",
+    "minac": 58,
+    "maxac": 78,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "dr1": {
+    "code": "dr1",
+    "name": "Wolf Head",
+    "minac": 8,
+    "maxac": 11,
+    "reqstr": 16,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dr2": {
+    "code": "dr2",
+    "name": "Hawk Helm",
+    "minac": 4,
+    "maxac": 15,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dr3": {
+    "code": "dr3",
+    "name": "Antlers",
+    "minac": 18,
+    "maxac": 24,
+    "reqstr": 24,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dr4": {
+    "code": "dr4",
+    "name": "Falcon Mask",
+    "minac": 12,
+    "maxac": 28,
+    "reqstr": 28,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dr5": {
+    "code": "dr5",
+    "name": "Spirit Mask",
+    "minac": 22,
+    "maxac": 35,
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "ba1": {
+    "code": "ba1",
+    "name": "Jawbone Cap",
+    "minac": 10,
+    "maxac": 15,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "ba2": {
+    "code": "ba2",
+    "name": "Fanged Helm",
+    "minac": 15,
+    "maxac": 20,
+    "reqstr": 35,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "ba3": {
+    "code": "ba3",
+    "name": "Horned Helm",
+    "minac": 25,
+    "maxac": 30,
+    "reqstr": 45,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "ba4": {
+    "code": "ba4",
+    "name": "Assault Helmet",
+    "minac": 30,
+    "maxac": 35,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "ba5": {
+    "code": "ba5",
+    "name": "Avenger Guard",
+    "minac": 35,
+    "maxac": 50,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "pa1": {
+    "code": "pa1",
+    "name": "Targe",
+    "minac": 8,
+    "maxac": 12,
+    "reqstr": 16,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pa2": {
+    "code": "pa2",
+    "name": "Rondache",
+    "minac": 10,
+    "maxac": 18,
+    "reqstr": 26,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pa3": {
+    "code": "pa3",
+    "name": "Heraldic Shield",
+    "minac": 16,
+    "maxac": 26,
+    "reqstr": 40,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pa4": {
+    "code": "pa4",
+    "name": "Aerin Shield",
+    "minac": 26,
+    "maxac": 36,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pa5": {
+    "code": "pa5",
+    "name": "Crown Shield",
+    "minac": 30,
+    "maxac": 40,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "ne1": {
+    "code": "ne1",
+    "name": "Preserved Head",
+    "minac": 2,
+    "maxac": 5,
+    "reqstr": 12,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ne2": {
+    "code": "ne2",
+    "name": "Zombie Head",
+    "minac": 4,
+    "maxac": 8,
+    "reqstr": 14,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ne3": {
+    "code": "ne3",
+    "name": "Unraveller Head",
+    "minac": 6,
+    "maxac": 10,
+    "reqstr": 18,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ne4": {
+    "code": "ne4",
+    "name": "Gargoyle Head",
+    "minac": 10,
+    "maxac": 16,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ne5": {
+    "code": "ne5",
+    "name": "Demon Head",
+    "minac": 15,
+    "maxac": 20,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ci0": {
+    "code": "ci0",
+    "name": "Circlet",
+    "minac": 20,
+    "maxac": 30,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "circ",
+    "slot": "head"
+  },
+  "ci1": {
+    "code": "ci1",
+    "name": "Coronet",
+    "minac": 30,
+    "maxac": 40,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "circ",
+    "slot": "head"
+  },
+  "ci2": {
+    "code": "ci2",
+    "name": "Tiara",
+    "minac": 40,
+    "maxac": 50,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "circ",
+    "slot": "head"
+  },
+  "ci3": {
+    "code": "ci3",
+    "name": "Diadem",
+    "minac": 50,
+    "maxac": 60,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "circ",
+    "slot": "head"
+  },
+  "uap": {
+    "code": "uap",
+    "name": "Shako",
+    "minac": 98,
+    "maxac": 141,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "ukp": {
+    "code": "ukp",
+    "name": "Hydraskull",
+    "minac": 101,
+    "maxac": 145,
+    "reqstr": 84,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "ulm": {
+    "code": "ulm",
+    "name": "Armet",
+    "minac": 105,
+    "maxac": 149,
+    "reqstr": 109,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "uhl": {
+    "code": "uhl",
+    "name": "Giant Conch",
+    "minac": 110,
+    "maxac": 154,
+    "reqstr": 142,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "uhm": {
+    "code": "uhm",
+    "name": "Spired Helm",
+    "minac": 114,
+    "maxac": 159,
+    "reqstr": 192,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "urn": {
+    "code": "urn",
+    "name": "Corona",
+    "minac": 111,
+    "maxac": 165,
+    "reqstr": 174,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "usk": {
+    "code": "usk",
+    "name": "Demonhead",
+    "minac": 101,
+    "maxac": 154,
+    "reqstr": 102,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "uui": {
+    "code": "uui",
+    "name": "Dusk Shroud",
+    "minac": 361,
+    "maxac": 467,
+    "reqstr": 77,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "uea": {
+    "code": "uea",
+    "name": "Wyrmhide",
+    "minac": 364,
+    "maxac": 470,
+    "reqstr": 84,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "ula": {
+    "code": "ula",
+    "name": "Scarab Husk",
+    "minac": 369,
+    "maxac": 474,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "utu": {
+    "code": "utu",
+    "name": "Wire Fleece",
+    "minac": 375,
+    "maxac": 481,
+    "reqstr": 111,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "ung": {
+    "code": "ung",
+    "name": "Diamond Mail",
+    "minac": 383,
+    "maxac": 489,
+    "reqstr": 131,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "ucl": {
+    "code": "ucl",
+    "name": "Loricated Mail",
+    "minac": 390,
+    "maxac": 496,
+    "reqstr": 149,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "uhn": {
+    "code": "uhn",
+    "name": "Boneweave",
+    "minac": 399,
+    "maxac": 505,
+    "reqstr": 158,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "urs": {
+    "code": "urs",
+    "name": "Great Hauberk",
+    "minac": 395,
+    "maxac": 501,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "upl": {
+    "code": "upl",
+    "name": "Balrog Skin",
+    "minac": 410,
+    "maxac": 517,
+    "reqstr": 165,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "ult": {
+    "code": "ult",
+    "name": "Hellforge Plate",
+    "minac": 421,
+    "maxac": 530,
+    "reqstr": 196,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "uld": {
+    "code": "uld",
+    "name": "Kraken Shell",
+    "minac": 417,
+    "maxac": 523,
+    "reqstr": 174,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "uth": {
+    "code": "uth",
+    "name": "Lacquered Plate",
+    "minac": 433,
+    "maxac": 541,
+    "reqstr": 208,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "uul": {
+    "code": "uul",
+    "name": "Shadow Plate",
+    "minac": 446,
+    "maxac": 557,
+    "reqstr": 230,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "uar": {
+    "code": "uar",
+    "name": "Sacred Armor",
+    "minac": 487,
+    "maxac": 600,
+    "reqstr": 232,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "utp": {
+    "code": "utp",
+    "name": "Archon Plate",
+    "minac": 410,
+    "maxac": 524,
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "tors",
+    "slot": "armor"
+  },
+  "uuc": {
+    "code": "uuc",
+    "name": "Heater",
+    "minac": 95,
+    "maxac": 110,
+    "reqstr": 77,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "uml": {
+    "code": "uml",
+    "name": "Luna",
+    "minac": 108,
+    "maxac": 123,
+    "reqstr": 100,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "urg": {
+    "code": "urg",
+    "name": "Hyperion",
+    "minac": 119,
+    "maxac": 135,
+    "reqstr": 127,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "uit": {
+    "code": "uit",
+    "name": "Monarch",
+    "minac": 133,
+    "maxac": 148,
+    "reqstr": 156,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "uow": {
+    "code": "uow",
+    "name": "Aegis",
+    "minac": 145,
+    "maxac": 161,
+    "reqstr": 219,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "uts": {
+    "code": "uts",
+    "name": "Ward",
+    "minac": 153,
+    "maxac": 170,
+    "reqstr": 185,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "ulg": {
+    "code": "ulg",
+    "name": "Bramble Mitts",
+    "minac": 54,
+    "maxac": 62,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "uvg": {
+    "code": "uvg",
+    "name": "Vampirebone Gloves",
+    "minac": 56,
+    "maxac": 65,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "umg": {
+    "code": "umg",
+    "name": "Vambraces",
+    "minac": 59,
+    "maxac": 67,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "utg": {
+    "code": "utg",
+    "name": "Crusader Gauntlets",
+    "minac": 59,
+    "maxac": 68,
+    "reqstr": 151,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "uhg": {
+    "code": "uhg",
+    "name": "Ogre Gauntlets",
+    "minac": 62,
+    "maxac": 71,
+    "reqstr": 185,
+    "reqdex": 0,
+    "type": "glov",
+    "slot": "gloves"
+  },
+  "ulb": {
+    "code": "ulb",
+    "name": "Wyrmhide Boots",
+    "minac": 54,
+    "maxac": 62,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "uvb": {
+    "code": "uvb",
+    "name": "Scarabshell Boots",
+    "minac": 56,
+    "maxac": 65,
+    "reqstr": 91,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "umb": {
+    "code": "umb",
+    "name": "Boneweave Boots",
+    "minac": 59,
+    "maxac": 67,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "utb": {
+    "code": "utb",
+    "name": "Mirrored Boots",
+    "minac": 59,
+    "maxac": 68,
+    "reqstr": 163,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "uhb": {
+    "code": "uhb",
+    "name": "Myrmidon Greaves",
+    "minac": 62,
+    "maxac": 71,
+    "reqstr": 208,
+    "reqdex": 0,
+    "type": "boot",
+    "slot": "boots"
+  },
+  "ulc": {
+    "code": "ulc",
+    "name": "Spiderweb Sash",
+    "minac": 55,
+    "maxac": 62,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "uvc": {
+    "code": "uvc",
+    "name": "Vampirefang Belt",
+    "minac": 56,
+    "maxac": 63,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "umc": {
+    "code": "umc",
+    "name": "Mithril Coil",
+    "minac": 58,
+    "maxac": 65,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "utc": {
+    "code": "utc",
+    "name": "Troll Belt",
+    "minac": 59,
+    "maxac": 66,
+    "reqstr": 151,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "uhc": {
+    "code": "uhc",
+    "name": "Colossus Girdle",
+    "minac": 61,
+    "maxac": 71,
+    "reqstr": 185,
+    "reqdex": 0,
+    "type": "belt",
+    "slot": "belt"
+  },
+  "uh9": {
+    "code": "uh9",
+    "name": "Bone Visage",
+    "minac": 100,
+    "maxac": 157,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "helm",
+    "slot": "head"
+  },
+  "ush": {
+    "code": "ush",
+    "name": "Troll Nest",
+    "minac": 158,
+    "maxac": 173,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "upk": {
+    "code": "upk",
+    "name": "Blade Barrier",
+    "minac": 147,
+    "maxac": 163,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "shie",
+    "slot": "armor"
+  },
+  "dr6": {
+    "code": "dr6",
+    "name": "Alpha Helm",
+    "minac": 52,
+    "maxac": 62,
+    "reqstr": 44,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dr7": {
+    "code": "dr7",
+    "name": "Griffon Headress",
+    "minac": 46,
+    "maxac": 68,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dr8": {
+    "code": "dr8",
+    "name": "Hunter's Guise",
+    "minac": 67,
+    "maxac": 81,
+    "reqstr": 56,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dr9": {
+    "code": "dr9",
+    "name": "Sacred Feathers",
+    "minac": 58,
+    "maxac": 87,
+    "reqstr": 62,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dra": {
+    "code": "dra",
+    "name": "Totemic Mask",
+    "minac": 73,
+    "maxac": 98,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "ba6": {
+    "code": "ba6",
+    "name": "Jawbone Visor",
+    "minac": 55,
+    "maxac": 68,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "ba7": {
+    "code": "ba7",
+    "name": "Lion Helm",
+    "minac": 63,
+    "maxac": 75,
+    "reqstr": 73,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "ba8": {
+    "code": "ba8",
+    "name": "Rage Mask",
+    "minac": 78,
+    "maxac": 90,
+    "reqstr": 88,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "ba9": {
+    "code": "ba9",
+    "name": "Savage Helmet",
+    "minac": 85,
+    "maxac": 98,
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "baa": {
+    "code": "baa",
+    "name": "Slayer Guard",
+    "minac": 93,
+    "maxac": 120,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "pa6": {
+    "code": "pa6",
+    "name": "Akaran Targe",
+    "minac": 101,
+    "maxac": 125,
+    "reqstr": 44,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pa7": {
+    "code": "pa7",
+    "name": "Akaran Rondache",
+    "minac": 113,
+    "maxac": 137,
+    "reqstr": 59,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pa8": {
+    "code": "pa8",
+    "name": "Protector Shield",
+    "minac": 129,
+    "maxac": 153,
+    "reqstr": 69,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pa9": {
+    "code": "pa9",
+    "name": "Gilded Shield",
+    "minac": 144,
+    "maxac": 168,
+    "reqstr": 89,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "paa": {
+    "code": "paa",
+    "name": "Royal Shield",
+    "minac": 156,
+    "maxac": 181,
+    "reqstr": 114,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "ne6": {
+    "code": "ne6",
+    "name": "Mummified Trophy",
+    "minac": 38,
+    "maxac": 48,
+    "reqstr": 38,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ne7": {
+    "code": "ne7",
+    "name": "Fetish Trophy",
+    "minac": 41,
+    "maxac": 52,
+    "reqstr": 41,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ne8": {
+    "code": "ne8",
+    "name": "Sexton Trophy",
+    "minac": 44,
+    "maxac": 55,
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ne9": {
+    "code": "ne9",
+    "name": "Cantor Trophy",
+    "minac": 50,
+    "maxac": 64,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "nea": {
+    "code": "nea",
+    "name": "Heirophant Trophy",
+    "minac": 58,
+    "maxac": 70,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "drb": {
+    "code": "drb",
+    "name": "Blood Spirit",
+    "minac": 101,
+    "maxac": 145,
+    "reqstr": 86,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "drc": {
+    "code": "drc",
+    "name": "Sun Spirit",
+    "minac": 98,
+    "maxac": 147,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "drd": {
+    "code": "drd",
+    "name": "Earth Spirit",
+    "minac": 107,
+    "maxac": 152,
+    "reqstr": 104,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "dre": {
+    "code": "dre",
+    "name": "Sky Spirit",
+    "minac": 103,
+    "maxac": 155,
+    "reqstr": 113,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "drf": {
+    "code": "drf",
+    "name": "Dream Spirit",
+    "minac": 109,
+    "maxac": 159,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "pelt",
+    "slot": "head"
+  },
+  "bab": {
+    "code": "bab",
+    "name": "Carnage Helm",
+    "minac": 102,
+    "maxac": 147,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "bac": {
+    "code": "bac",
+    "name": "Fury Visor",
+    "minac": 105,
+    "maxac": 150,
+    "reqstr": 129,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "bad": {
+    "code": "bad",
+    "name": "Destroyer Helm",
+    "minac": 111,
+    "maxac": 156,
+    "reqstr": 151,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "bae": {
+    "code": "bae",
+    "name": "Conqueror Crown",
+    "minac": 114,
+    "maxac": 159,
+    "reqstr": 174,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "baf": {
+    "code": "baf",
+    "name": "Guardian Crown",
+    "minac": 117,
+    "maxac": 168,
+    "reqstr": 196,
+    "reqdex": 0,
+    "type": "phlm",
+    "slot": "head"
+  },
+  "pab": {
+    "code": "pab",
+    "name": "Sacred Targe",
+    "minac": 126,
+    "maxac": 158,
+    "reqstr": 86,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pac": {
+    "code": "pac",
+    "name": "Sacred Rondache",
+    "minac": 138,
+    "maxac": 164,
+    "reqstr": 109,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pad": {
+    "code": "pad",
+    "name": "Ancient Shield",
+    "minac": 154,
+    "maxac": 172,
+    "reqstr": 124,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "pae": {
+    "code": "pae",
+    "name": "Zakarum Shield",
+    "minac": 169,
+    "maxac": 193,
+    "reqstr": 142,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "paf": {
+    "code": "paf",
+    "name": "Vortex Shield",
+    "minac": 182,
+    "maxac": 225,
+    "reqstr": 148,
+    "reqdex": 0,
+    "type": "ashd",
+    "slot": "shield"
+  },
+  "neb": {
+    "code": "neb",
+    "name": "Minion Skull",
+    "minac": 95,
+    "maxac": 139,
+    "reqstr": 77,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "neg": {
+    "code": "neg",
+    "name": "Hellspawn Skull",
+    "minac": 96,
+    "maxac": 141,
+    "reqstr": 82,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "ned": {
+    "code": "ned",
+    "name": "Overseer Skull",
+    "minac": 98,
+    "maxac": 142,
+    "reqstr": 91,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "nee": {
+    "code": "nee",
+    "name": "Succubus Skull",
+    "minac": 100,
+    "maxac": 146,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "nef": {
+    "code": "nef",
+    "name": "Bloodlord Skull",
+    "minac": 103,
+    "maxac": 148,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "head",
+    "slot": "shield"
+  },
+  "wa1": {
+    "code": "wa1",
+    "name": "Old Book",
+    "minac": 2,
+    "maxac": 5,
+    "reqstr": 12,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wa2": {
+    "code": "wa2",
+    "name": "Tome",
+    "minac": 4,
+    "maxac": 8,
+    "reqstr": 14,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wa3": {
+    "code": "wa3",
+    "name": "Codex",
+    "minac": 6,
+    "maxac": 10,
+    "reqstr": 18,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wa4": {
+    "code": "wa4",
+    "name": "Compendium",
+    "minac": 10,
+    "maxac": 16,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wa5": {
+    "code": "wa5",
+    "name": "Grimoire",
+    "minac": 15,
+    "maxac": 20,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wa6": {
+    "code": "wa6",
+    "name": "Burnt Text",
+    "minac": 38,
+    "maxac": 48,
+    "reqstr": 38,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wa7": {
+    "code": "wa7",
+    "name": "Dark Tome",
+    "minac": 41,
+    "maxac": 52,
+    "reqstr": 41,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wa8": {
+    "code": "wa8",
+    "name": "Dark Codex",
+    "minac": 44,
+    "maxac": 55,
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wa9": {
+    "code": "wa9",
+    "name": "Possessed Compendium",
+    "minac": 50,
+    "maxac": 64,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "waa": {
+    "code": "waa",
+    "name": "Possessed Grimoire",
+    "minac": 58,
+    "maxac": 70,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wab": {
+    "code": "wab",
+    "name": "Forgotten Volume",
+    "minac": 95,
+    "maxac": 139,
+    "reqstr": 77,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wac": {
+    "code": "wac",
+    "name": "Occult Tome",
+    "minac": 96,
+    "maxac": 141,
+    "reqstr": 82,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wad": {
+    "code": "wad",
+    "name": "Occult Codex",
+    "minac": 98,
+    "maxac": 142,
+    "reqstr": 91,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "wae": {
+    "code": "wae",
+    "name": "Blasphemous Compendium",
+    "minac": 100,
+    "maxac": 146,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "waf": {
+    "code": "waf",
+    "name": "Blasphemous Grimoire",
+    "minac": 103,
+    "maxac": 148,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "grim",
+    "slot": "armor"
+  },
+  "hax": {
+    "code": "hax",
+    "name": "Hand Axe",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "axe": {
+    "code": "axe",
+    "name": "Axe",
+    "reqstr": 32,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "2ax": {
+    "code": "2ax",
+    "name": "Double Axe",
+    "reqstr": 43,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "mpi": {
+    "code": "mpi",
+    "name": "Military Pick",
+    "reqstr": 49,
+    "reqdex": 33,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "wax": {
+    "code": "wax",
+    "name": "War Axe",
+    "reqstr": 67,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "lax": {
+    "code": "lax",
+    "name": "Large Axe",
+    "reqstr": 35,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "bax": {
+    "code": "bax",
+    "name": "Broad Axe",
+    "reqstr": 48,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "btx": {
+    "code": "btx",
+    "name": "Battle Axe",
+    "reqstr": 54,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "gax": {
+    "code": "gax",
+    "name": "Great Axe",
+    "reqstr": 63,
+    "reqdex": 39,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "gix": {
+    "code": "gix",
+    "name": "Giant Axe",
+    "reqstr": 70,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "wnd": {
+    "code": "wnd",
+    "name": "Wand",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "ywn": {
+    "code": "ywn",
+    "name": "Yew Wand",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "bwn": {
+    "code": "bwn",
+    "name": "Bone Wand",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "gwn": {
+    "code": "gwn",
+    "name": "Grim Wand",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "clb": {
+    "code": "clb",
+    "name": "Club",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "club",
+    "slot": "weapon"
+  },
+  "scp": {
+    "code": "scp",
+    "name": "Scepter",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "gsc": {
+    "code": "gsc",
+    "name": "Grand Scepter",
+    "reqstr": 37,
+    "reqdex": 0,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "wsp": {
+    "code": "wsp",
+    "name": "War Scepter",
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "spc": {
+    "code": "spc",
+    "name": "Spiked Club",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "club",
+    "slot": "weapon"
+  },
+  "mac": {
+    "code": "mac",
+    "name": "Mace",
+    "reqstr": 27,
+    "reqdex": 0,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "mst": {
+    "code": "mst",
+    "name": "Morning Star",
+    "reqstr": 36,
+    "reqdex": 0,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "fla": {
+    "code": "fla",
+    "name": "Flail",
+    "reqstr": 41,
+    "reqdex": 35,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "whm": {
+    "code": "whm",
+    "name": "War Hammer",
+    "reqstr": 53,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "mau": {
+    "code": "mau",
+    "name": "Maul",
+    "reqstr": 69,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "gma": {
+    "code": "gma",
+    "name": "Great Maul",
+    "reqstr": 99,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "ssd": {
+    "code": "ssd",
+    "name": "Short Sword",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "scm": {
+    "code": "scm",
+    "name": "Scimitar",
+    "reqstr": 0,
+    "reqdex": 21,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "sbr": {
+    "code": "sbr",
+    "name": "Saber",
+    "reqstr": 25,
+    "reqdex": 25,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "flc": {
+    "code": "flc",
+    "name": "Falchion",
+    "reqstr": 33,
+    "reqdex": 0,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "crs": {
+    "code": "crs",
+    "name": "Crystal Sword",
+    "reqstr": 43,
+    "reqdex": 0,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "bsd": {
+    "code": "bsd",
+    "name": "Broad Sword",
+    "reqstr": 48,
+    "reqdex": 0,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "lsd": {
+    "code": "lsd",
+    "name": "Long Sword",
+    "reqstr": 55,
+    "reqdex": 39,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "wsd": {
+    "code": "wsd",
+    "name": "War Sword",
+    "reqstr": 71,
+    "reqdex": 45,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "2hs": {
+    "code": "2hs",
+    "name": "Two-Handed Sword",
+    "reqstr": 35,
+    "reqdex": 27,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "clm": {
+    "code": "clm",
+    "name": "Claymore",
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "gis": {
+    "code": "gis",
+    "name": "Giant Sword",
+    "reqstr": 56,
+    "reqdex": 34,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "bsw": {
+    "code": "bsw",
+    "name": "Bastard Sword",
+    "reqstr": 62,
+    "reqdex": 0,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "flb": {
+    "code": "flb",
+    "name": "Flamberge",
+    "reqstr": 70,
+    "reqdex": 49,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "gsd": {
+    "code": "gsd",
+    "name": "Great Sword",
+    "reqstr": 100,
+    "reqdex": 60,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "dgr": {
+    "code": "dgr",
+    "name": "Dagger",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "dir": {
+    "code": "dir",
+    "name": "Dirk",
+    "reqstr": 0,
+    "reqdex": 25,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "kri": {
+    "code": "kri",
+    "name": "Kriss",
+    "reqstr": 0,
+    "reqdex": 45,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "bld": {
+    "code": "bld",
+    "name": "Blade",
+    "reqstr": 35,
+    "reqdex": 51,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "tkf": {
+    "code": "tkf",
+    "name": "Throwing Knife",
+    "reqstr": 0,
+    "reqdex": 21,
+    "type": "tkni",
+    "slot": "weapon"
+  },
+  "tax": {
+    "code": "tax",
+    "name": "Throwing Axe",
+    "reqstr": 0,
+    "reqdex": 40,
+    "type": "taxe",
+    "slot": "weapon"
+  },
+  "bkf": {
+    "code": "bkf",
+    "name": "Balanced Knife",
+    "reqstr": 0,
+    "reqdex": 51,
+    "type": "tkni",
+    "slot": "weapon"
+  },
+  "bal": {
+    "code": "bal",
+    "name": "Balanced Axe",
+    "reqstr": 0,
+    "reqdex": 57,
+    "type": "taxe",
+    "slot": "weapon"
+  },
+  "jav": {
+    "code": "jav",
+    "name": "Javelin",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "pil": {
+    "code": "pil",
+    "name": "Pilum",
+    "reqstr": 0,
+    "reqdex": 45,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "ssp": {
+    "code": "ssp",
+    "name": "Short Spear",
+    "reqstr": 40,
+    "reqdex": 40,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "glv": {
+    "code": "glv",
+    "name": "Glaive",
+    "reqstr": 52,
+    "reqdex": 35,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "tsp": {
+    "code": "tsp",
+    "name": "Throwing Spear",
+    "reqstr": 0,
+    "reqdex": 65,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "spr": {
+    "code": "spr",
+    "name": "Spear",
+    "reqstr": 0,
+    "reqdex": 20,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "tri": {
+    "code": "tri",
+    "name": "Trident",
+    "reqstr": 38,
+    "reqdex": 24,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "brn": {
+    "code": "brn",
+    "name": "Brandistock",
+    "reqstr": 40,
+    "reqdex": 50,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "spt": {
+    "code": "spt",
+    "name": "Spetum",
+    "reqstr": 54,
+    "reqdex": 35,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "pik": {
+    "code": "pik",
+    "name": "Pike",
+    "reqstr": 60,
+    "reqdex": 45,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "bar": {
+    "code": "bar",
+    "name": "Bardiche",
+    "reqstr": 40,
+    "reqdex": 0,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "vou": {
+    "code": "vou",
+    "name": "Voulge",
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "scy": {
+    "code": "scy",
+    "name": "Scythe",
+    "reqstr": 41,
+    "reqdex": 41,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "pax": {
+    "code": "pax",
+    "name": "Poleaxe",
+    "reqstr": 62,
+    "reqdex": 0,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "hal": {
+    "code": "hal",
+    "name": "Halberd",
+    "reqstr": 75,
+    "reqdex": 47,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "wsc": {
+    "code": "wsc",
+    "name": "War Scythe",
+    "reqstr": 80,
+    "reqdex": 80,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "sst": {
+    "code": "sst",
+    "name": "Short Staff",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "lst": {
+    "code": "lst",
+    "name": "Long Staff",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "cst": {
+    "code": "cst",
+    "name": "Gnarled Staff",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "bst": {
+    "code": "bst",
+    "name": "Battle Staff",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "wst": {
+    "code": "wst",
+    "name": "War Staff",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "sbw": {
+    "code": "sbw",
+    "name": "Short Bow",
+    "reqstr": 0,
+    "reqdex": 15,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "hbw": {
+    "code": "hbw",
+    "name": "Hunter's Bow",
+    "reqstr": 0,
+    "reqdex": 28,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "lbw": {
+    "code": "lbw",
+    "name": "Long Bow",
+    "reqstr": 22,
+    "reqdex": 19,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "cbw": {
+    "code": "cbw",
+    "name": "Composite Bow",
+    "reqstr": 25,
+    "reqdex": 35,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "sbb": {
+    "code": "sbb",
+    "name": "Short Battle Bow",
+    "reqstr": 30,
+    "reqdex": 40,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "lbb": {
+    "code": "lbb",
+    "name": "Long Battle Bow",
+    "reqstr": 40,
+    "reqdex": 50,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "swb": {
+    "code": "swb",
+    "name": "Short War Bow",
+    "reqstr": 35,
+    "reqdex": 55,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "lwb": {
+    "code": "lwb",
+    "name": "Long War Bow",
+    "reqstr": 50,
+    "reqdex": 65,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "lxb": {
+    "code": "lxb",
+    "name": "Light Crossbow",
+    "reqstr": 21,
+    "reqdex": 27,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "mxb": {
+    "code": "mxb",
+    "name": "Crossbow",
+    "reqstr": 40,
+    "reqdex": 33,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "hxb": {
+    "code": "hxb",
+    "name": "Heavy Crossbow",
+    "reqstr": 60,
+    "reqdex": 40,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "rxb": {
+    "code": "rxb",
+    "name": "Repeating Crossbow",
+    "reqstr": 40,
+    "reqdex": 50,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "gps": {
+    "code": "gps",
+    "name": "Rancid Gas Potion",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "tpot",
+    "slot": "weapon"
+  },
+  "ops": {
+    "code": "ops",
+    "name": "Oil Potion",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "tpot",
+    "slot": "weapon"
+  },
+  "gpm": {
+    "code": "gpm",
+    "name": "Choking Gas Potion",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "tpot",
+    "slot": "weapon"
+  },
+  "opm": {
+    "code": "opm",
+    "name": "Exploding Potion",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "tpot",
+    "slot": "weapon"
+  },
+  "gpl": {
+    "code": "gpl",
+    "name": "Strangling Gas Potion",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "tpot",
+    "slot": "weapon"
+  },
+  "opl": {
+    "code": "opl",
+    "name": "Fulminating Potion",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "tpot",
+    "slot": "weapon"
+  },
+  "d33": {
+    "code": "d33",
+    "name": "Decoy Gidbinn",
+    "reqstr": 15,
+    "reqdex": 20,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "g33": {
+    "code": "g33",
+    "name": "The Gidbinn",
+    "reqstr": 15,
+    "reqdex": 25,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "leg": {
+    "code": "leg",
+    "name": "Wirt's Leg",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "club",
+    "slot": "weapon"
+  },
+  "hdm": {
+    "code": "hdm",
+    "name": "Horadric Malus",
+    "reqstr": 15,
+    "reqdex": 15,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "hfh": {
+    "code": "hfh",
+    "name": "Hellforge Hammer",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "hst": {
+    "code": "hst",
+    "name": "Horadric Staff",
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "msf": {
+    "code": "msf",
+    "name": "Staff of Kings",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "9ha": {
+    "code": "9ha",
+    "name": "Hatchet",
+    "reqstr": 25,
+    "reqdex": 25,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9ax": {
+    "code": "9ax",
+    "name": "Cleaver",
+    "reqstr": 68,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "92a": {
+    "code": "92a",
+    "name": "Twin Axe",
+    "reqstr": 85,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9mp": {
+    "code": "9mp",
+    "name": "Crowbill",
+    "reqstr": 94,
+    "reqdex": 70,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9wa": {
+    "code": "9wa",
+    "name": "Naga",
+    "reqstr": 121,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9la": {
+    "code": "9la",
+    "name": "Military Axe",
+    "reqstr": 73,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9ba": {
+    "code": "9ba",
+    "name": "Bearded Axe",
+    "reqstr": 92,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9bt": {
+    "code": "9bt",
+    "name": "Tabar",
+    "reqstr": 101,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9ga": {
+    "code": "9ga",
+    "name": "Gothic Axe",
+    "reqstr": 115,
+    "reqdex": 79,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9gi": {
+    "code": "9gi",
+    "name": "Ancient Axe",
+    "reqstr": 125,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "9wn": {
+    "code": "9wn",
+    "name": "Burnt Wand",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "9yw": {
+    "code": "9yw",
+    "name": "Petrified Wand",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "9bw": {
+    "code": "9bw",
+    "name": "Tomb Wand",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "9gw": {
+    "code": "9gw",
+    "name": "Grave Wand",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "9cl": {
+    "code": "9cl",
+    "name": "Cudgel",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "club",
+    "slot": "weapon"
+  },
+  "9sc": {
+    "code": "9sc",
+    "name": "Rune Scepter",
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "9qs": {
+    "code": "9qs",
+    "name": "Holy Water Sprinkler",
+    "reqstr": 76,
+    "reqdex": 0,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "9ws": {
+    "code": "9ws",
+    "name": "Divine Scepter",
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "9sp": {
+    "code": "9sp",
+    "name": "Barbed Club",
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "club",
+    "slot": "weapon"
+  },
+  "9ma": {
+    "code": "9ma",
+    "name": "Flanged Mace",
+    "reqstr": 61,
+    "reqdex": 0,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "9mt": {
+    "code": "9mt",
+    "name": "Jagged Star",
+    "reqstr": 74,
+    "reqdex": 0,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "9fl": {
+    "code": "9fl",
+    "name": "Knout",
+    "reqstr": 82,
+    "reqdex": 73,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "9wh": {
+    "code": "9wh",
+    "name": "Battle Hammer",
+    "reqstr": 100,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "9m9": {
+    "code": "9m9",
+    "name": "War Club",
+    "reqstr": 124,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "9gm": {
+    "code": "9gm",
+    "name": "Martel de Fer",
+    "reqstr": 169,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "9ss": {
+    "code": "9ss",
+    "name": "Gladius",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9sm": {
+    "code": "9sm",
+    "name": "Cutlass",
+    "reqstr": 25,
+    "reqdex": 52,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9sb": {
+    "code": "9sb",
+    "name": "Shamshir",
+    "reqstr": 58,
+    "reqdex": 58,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9fc": {
+    "code": "9fc",
+    "name": "Tulwar",
+    "reqstr": 70,
+    "reqdex": 42,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9cr": {
+    "code": "9cr",
+    "name": "Dimensional Blade",
+    "reqstr": 85,
+    "reqdex": 60,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9bs": {
+    "code": "9bs",
+    "name": "Battle Sword",
+    "reqstr": 92,
+    "reqdex": 43,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9ls": {
+    "code": "9ls",
+    "name": "Rune Sword",
+    "reqstr": 103,
+    "reqdex": 79,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9wd": {
+    "code": "9wd",
+    "name": "Ancient Sword",
+    "reqstr": 127,
+    "reqdex": 88,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "92h": {
+    "code": "92h",
+    "name": "Espandon",
+    "reqstr": 73,
+    "reqdex": 61,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9cm": {
+    "code": "9cm",
+    "name": "Dacian Falx",
+    "reqstr": 91,
+    "reqdex": 20,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9gs": {
+    "code": "9gs",
+    "name": "Tusk Sword",
+    "reqstr": 104,
+    "reqdex": 71,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9b9": {
+    "code": "9b9",
+    "name": "Gothic Sword",
+    "reqstr": 113,
+    "reqdex": 20,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9fb": {
+    "code": "9fb",
+    "name": "Zweihander",
+    "reqstr": 125,
+    "reqdex": 94,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9gd": {
+    "code": "9gd",
+    "name": "Executioner Sword",
+    "reqstr": 170,
+    "reqdex": 110,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "9dg": {
+    "code": "9dg",
+    "name": "Poignard",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "9di": {
+    "code": "9di",
+    "name": "Rondel",
+    "reqstr": 25,
+    "reqdex": 58,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "9kr": {
+    "code": "9kr",
+    "name": "Cinquedeas",
+    "reqstr": 25,
+    "reqdex": 88,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "9bl": {
+    "code": "9bl",
+    "name": "Stilleto",
+    "reqstr": 47,
+    "reqdex": 97,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "9tk": {
+    "code": "9tk",
+    "name": "Battle Dart",
+    "reqstr": 25,
+    "reqdex": 52,
+    "type": "tkni",
+    "slot": "weapon"
+  },
+  "9ta": {
+    "code": "9ta",
+    "name": "Francisca",
+    "reqstr": 25,
+    "reqdex": 80,
+    "type": "taxe",
+    "slot": "weapon"
+  },
+  "9bk": {
+    "code": "9bk",
+    "name": "War Dart",
+    "reqstr": 25,
+    "reqdex": 97,
+    "type": "tkni",
+    "slot": "weapon"
+  },
+  "9b8": {
+    "code": "9b8",
+    "name": "Hurlbat",
+    "reqstr": 25,
+    "reqdex": 106,
+    "type": "taxe",
+    "slot": "weapon"
+  },
+  "9ja": {
+    "code": "9ja",
+    "name": "War Javelin",
+    "reqstr": 25,
+    "reqdex": 25,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "9pi": {
+    "code": "9pi",
+    "name": "Great Pilum",
+    "reqstr": 25,
+    "reqdex": 88,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "9s9": {
+    "code": "9s9",
+    "name": "Simbilan",
+    "reqstr": 80,
+    "reqdex": 80,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "9gl": {
+    "code": "9gl",
+    "name": "Spiculum",
+    "reqstr": 98,
+    "reqdex": 73,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "9ts": {
+    "code": "9ts",
+    "name": "Harpoon",
+    "reqstr": 25,
+    "reqdex": 118,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "9sr": {
+    "code": "9sr",
+    "name": "War Spear",
+    "reqstr": 25,
+    "reqdex": 25,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "9tr": {
+    "code": "9tr",
+    "name": "Fuscina",
+    "reqstr": 77,
+    "reqdex": 25,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "9br": {
+    "code": "9br",
+    "name": "War Fork",
+    "reqstr": 80,
+    "reqdex": 95,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "9st": {
+    "code": "9st",
+    "name": "Yari",
+    "reqstr": 101,
+    "reqdex": 0,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "9p9": {
+    "code": "9p9",
+    "name": "Lance",
+    "reqstr": 110,
+    "reqdex": 88,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "9b7": {
+    "code": "9b7",
+    "name": "Lochaber Axe",
+    "reqstr": 80,
+    "reqdex": 0,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "9vo": {
+    "code": "9vo",
+    "name": "Bill",
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "9s8": {
+    "code": "9s8",
+    "name": "Battle Scythe",
+    "reqstr": 82,
+    "reqdex": 82,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "9pa": {
+    "code": "9pa",
+    "name": "Partizan",
+    "reqstr": 113,
+    "reqdex": 67,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "9h9": {
+    "code": "9h9",
+    "name": "Bec-de-Corbin",
+    "reqstr": 133,
+    "reqdex": 91,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "9wc": {
+    "code": "9wc",
+    "name": "Grim Scythe",
+    "reqstr": 140,
+    "reqdex": 140,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "8ss": {
+    "code": "8ss",
+    "name": "Jo Staff",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "8ls": {
+    "code": "8ls",
+    "name": "Quarterstaff",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "8cs": {
+    "code": "8cs",
+    "name": "Cedar Staff",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "8bs": {
+    "code": "8bs",
+    "name": "Gothic Staff",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "8ws": {
+    "code": "8ws",
+    "name": "Rune Staff",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "8sb": {
+    "code": "8sb",
+    "name": "Edge Bow",
+    "reqstr": 25,
+    "reqdex": 43,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "8hb": {
+    "code": "8hb",
+    "name": "Razor Bow",
+    "reqstr": 25,
+    "reqdex": 62,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "8lb": {
+    "code": "8lb",
+    "name": "Cedar Bow",
+    "reqstr": 53,
+    "reqdex": 49,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "8cb": {
+    "code": "8cb",
+    "name": "Double Bow",
+    "reqstr": 58,
+    "reqdex": 73,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "8s8": {
+    "code": "8s8",
+    "name": "Short Siege Bow",
+    "reqstr": 65,
+    "reqdex": 80,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "8l8": {
+    "code": "8l8",
+    "name": "Long Siege Bow",
+    "reqstr": 80,
+    "reqdex": 95,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "8sw": {
+    "code": "8sw",
+    "name": "Rune Bow",
+    "reqstr": 73,
+    "reqdex": 103,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "8lw": {
+    "code": "8lw",
+    "name": "Gothic Bow",
+    "reqstr": 95,
+    "reqdex": 118,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "8lx": {
+    "code": "8lx",
+    "name": "Arbalest",
+    "reqstr": 52,
+    "reqdex": 61,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "8mx": {
+    "code": "8mx",
+    "name": "Siege Crossbow",
+    "reqstr": 80,
+    "reqdex": 70,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "8hx": {
+    "code": "8hx",
+    "name": "Ballista",
+    "reqstr": 110,
+    "reqdex": 80,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "8rx": {
+    "code": "8rx",
+    "name": "Chu-Ko-Nu",
+    "reqstr": 80,
+    "reqdex": 95,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "qf1": {
+    "code": "qf1",
+    "name": "Khalim's Flail",
+    "reqstr": 41,
+    "reqdex": 35,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "qf2": {
+    "code": "qf2",
+    "name": "Khalim's Will",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "ktr": {
+    "code": "ktr",
+    "name": "Katar",
+    "reqstr": 20,
+    "reqdex": 20,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "wrb": {
+    "code": "wrb",
+    "name": "Wrist Blade",
+    "reqstr": 33,
+    "reqdex": 33,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "axf": {
+    "code": "axf",
+    "name": "Hatchet Hands",
+    "reqstr": 37,
+    "reqdex": 37,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "ces": {
+    "code": "ces",
+    "name": "Cestus",
+    "reqstr": 42,
+    "reqdex": 42,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "clw": {
+    "code": "clw",
+    "name": "Claws",
+    "reqstr": 46,
+    "reqdex": 46,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "btl": {
+    "code": "btl",
+    "name": "Blade Talons",
+    "reqstr": 50,
+    "reqdex": 50,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "skr": {
+    "code": "skr",
+    "name": "Scissors Katar",
+    "reqstr": 55,
+    "reqdex": 55,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "9ar": {
+    "code": "9ar",
+    "name": "Quhab",
+    "reqstr": 57,
+    "reqdex": 57,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "9wb": {
+    "code": "9wb",
+    "name": "Wrist Spike",
+    "reqstr": 66,
+    "reqdex": 66,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "9xf": {
+    "code": "9xf",
+    "name": "Fascia",
+    "reqstr": 69,
+    "reqdex": 69,
+    "type": "h2h",
+    "slot": "weapon"
+  },
+  "9cs": {
+    "code": "9cs",
+    "name": "Hand Scythe",
+    "reqstr": 73,
+    "reqdex": 73,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "9lw": {
+    "code": "9lw",
+    "name": "Greater Claws",
+    "reqstr": 76,
+    "reqdex": 76,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "9tw": {
+    "code": "9tw",
+    "name": "Greater Talons",
+    "reqstr": 79,
+    "reqdex": 79,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "9qr": {
+    "code": "9qr",
+    "name": "Scissors Quhab",
+    "reqstr": 82,
+    "reqdex": 82,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "7ar": {
+    "code": "7ar",
+    "name": "Suwayyah",
+    "reqstr": 99,
+    "reqdex": 99,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "7wb": {
+    "code": "7wb",
+    "name": "Wrist Sword",
+    "reqstr": 105,
+    "reqdex": 105,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "7xf": {
+    "code": "7xf",
+    "name": "War Fist",
+    "reqstr": 108,
+    "reqdex": 108,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "7cs": {
+    "code": "7cs",
+    "name": "Battle Cestus",
+    "reqstr": 110,
+    "reqdex": 110,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "7lw": {
+    "code": "7lw",
+    "name": "Feral Claws",
+    "reqstr": 113,
+    "reqdex": 113,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "7tw": {
+    "code": "7tw",
+    "name": "Runic Talons",
+    "reqstr": 115,
+    "reqdex": 115,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "7qr": {
+    "code": "7qr",
+    "name": "Scissors Suwayyah",
+    "reqstr": 118,
+    "reqdex": 118,
+    "type": "h2h2",
+    "slot": "weapon"
+  },
+  "7ha": {
+    "code": "7ha",
+    "name": "Tomahawk",
+    "reqstr": 125,
+    "reqdex": 67,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7ax": {
+    "code": "7ax",
+    "name": "Small Crescent",
+    "reqstr": 115,
+    "reqdex": 83,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "72a": {
+    "code": "72a",
+    "name": "Ettin Axe",
+    "reqstr": 145,
+    "reqdex": 45,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7mp": {
+    "code": "7mp",
+    "name": "War Spike",
+    "reqstr": 133,
+    "reqdex": 54,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7wa": {
+    "code": "7wa",
+    "name": "Berserker Axe",
+    "reqstr": 138,
+    "reqdex": 59,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7la": {
+    "code": "7la",
+    "name": "Feral Axe",
+    "reqstr": 196,
+    "reqdex": 0,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7ba": {
+    "code": "7ba",
+    "name": "Silver-edged Axe",
+    "reqstr": 166,
+    "reqdex": 65,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7bt": {
+    "code": "7bt",
+    "name": "Decapitator",
+    "reqstr": 189,
+    "reqdex": 33,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7ga": {
+    "code": "7ga",
+    "name": "Champion Axe",
+    "reqstr": 167,
+    "reqdex": 59,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7gi": {
+    "code": "7gi",
+    "name": "Glorious Axe",
+    "reqstr": 164,
+    "reqdex": 55,
+    "type": "axe",
+    "slot": "weapon"
+  },
+  "7wn": {
+    "code": "7wn",
+    "name": "Polished Wand",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "7yw": {
+    "code": "7yw",
+    "name": "Ghost Wand",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "7bw": {
+    "code": "7bw",
+    "name": "Lich Wand",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "7gw": {
+    "code": "7gw",
+    "name": "Unearthed Wand",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "wand",
+    "slot": "weapon"
+  },
+  "7cl": {
+    "code": "7cl",
+    "name": "Truncheon",
+    "reqstr": 88,
+    "reqdex": 43,
+    "type": "club",
+    "slot": "weapon"
+  },
+  "7sc": {
+    "code": "7sc",
+    "name": "Mighty Scepter",
+    "reqstr": 125,
+    "reqdex": 65,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "7qs": {
+    "code": "7qs",
+    "name": "Seraph Rod",
+    "reqstr": 108,
+    "reqdex": 69,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "7ws": {
+    "code": "7ws",
+    "name": "Caduceus",
+    "reqstr": 97,
+    "reqdex": 70,
+    "type": "scep",
+    "slot": "weapon"
+  },
+  "7sp": {
+    "code": "7sp",
+    "name": "Tyrant Club",
+    "reqstr": 133,
+    "reqdex": 0,
+    "type": "club",
+    "slot": "weapon"
+  },
+  "7ma": {
+    "code": "7ma",
+    "name": "Reinforced Mace",
+    "reqstr": 145,
+    "reqdex": 46,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "7mt": {
+    "code": "7mt",
+    "name": "Devil Star",
+    "reqstr": 153,
+    "reqdex": 44,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "7fl": {
+    "code": "7fl",
+    "name": "Scourge",
+    "reqstr": 125,
+    "reqdex": 77,
+    "type": "mace",
+    "slot": "weapon"
+  },
+  "7wh": {
+    "code": "7wh",
+    "name": "Legendary Mallet",
+    "reqstr": 189,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "7m7": {
+    "code": "7m7",
+    "name": "Ogre Maul",
+    "reqstr": 225,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "7gm": {
+    "code": "7gm",
+    "name": "Thunder Maul",
+    "reqstr": 253,
+    "reqdex": 0,
+    "type": "hamm",
+    "slot": "weapon"
+  },
+  "7ss": {
+    "code": "7ss",
+    "name": "Falcata",
+    "reqstr": 150,
+    "reqdex": 88,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7sm": {
+    "code": "7sm",
+    "name": "Ataghan",
+    "reqstr": 138,
+    "reqdex": 95,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7sb": {
+    "code": "7sb",
+    "name": "Elegant Blade",
+    "reqstr": 109,
+    "reqdex": 122,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7fc": {
+    "code": "7fc",
+    "name": "Hydra Edge",
+    "reqstr": 142,
+    "reqdex": 105,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7cr": {
+    "code": "7cr",
+    "name": "Phase Blade",
+    "reqstr": 25,
+    "reqdex": 136,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7bs": {
+    "code": "7bs",
+    "name": "Conquest Sword",
+    "reqstr": 142,
+    "reqdex": 112,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7ls": {
+    "code": "7ls",
+    "name": "Cryptic Sword",
+    "reqstr": 99,
+    "reqdex": 109,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7wd": {
+    "code": "7wd",
+    "name": "Mythical Sword",
+    "reqstr": 147,
+    "reqdex": 124,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "72h": {
+    "code": "72h",
+    "name": "Legend Sword",
+    "reqstr": 175,
+    "reqdex": 100,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7cm": {
+    "code": "7cm",
+    "name": "Highland Blade",
+    "reqstr": 171,
+    "reqdex": 104,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7gs": {
+    "code": "7gs",
+    "name": "Balrog Blade",
+    "reqstr": 185,
+    "reqdex": 87,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7b7": {
+    "code": "7b7",
+    "name": "Champion Sword",
+    "reqstr": 163,
+    "reqdex": 103,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7fb": {
+    "code": "7fb",
+    "name": "Colossal Sword",
+    "reqstr": 182,
+    "reqdex": 95,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7gd": {
+    "code": "7gd",
+    "name": "Colossus Blade",
+    "reqstr": 189,
+    "reqdex": 110,
+    "type": "swor",
+    "slot": "weapon"
+  },
+  "7dg": {
+    "code": "7dg",
+    "name": "Bone Knife",
+    "reqstr": 38,
+    "reqdex": 75,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "7di": {
+    "code": "7di",
+    "name": "Mithral Point",
+    "reqstr": 55,
+    "reqdex": 98,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "7kr": {
+    "code": "7kr",
+    "name": "Fanged Knife",
+    "reqstr": 42,
+    "reqdex": 86,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "7bl": {
+    "code": "7bl",
+    "name": "Legend Spike",
+    "reqstr": 65,
+    "reqdex": 67,
+    "type": "knif",
+    "slot": "weapon"
+  },
+  "7tk": {
+    "code": "7tk",
+    "name": "Flying Knife",
+    "reqstr": 48,
+    "reqdex": 141,
+    "type": "tkni",
+    "slot": "weapon"
+  },
+  "7ta": {
+    "code": "7ta",
+    "name": "Flying Axe",
+    "reqstr": 88,
+    "reqdex": 108,
+    "type": "taxe",
+    "slot": "weapon"
+  },
+  "7bk": {
+    "code": "7bk",
+    "name": "Winged Knife",
+    "reqstr": 45,
+    "reqdex": 142,
+    "type": "tkni",
+    "slot": "weapon"
+  },
+  "7b8": {
+    "code": "7b8",
+    "name": "Winged Axe",
+    "reqstr": 96,
+    "reqdex": 122,
+    "type": "taxe",
+    "slot": "weapon"
+  },
+  "7ja": {
+    "code": "7ja",
+    "name": "Hyperion Javelin",
+    "reqstr": 98,
+    "reqdex": 123,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "7pi": {
+    "code": "7pi",
+    "name": "Stygian Pilum",
+    "reqstr": 118,
+    "reqdex": 112,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "7s7": {
+    "code": "7s7",
+    "name": "Balrog Spear",
+    "reqstr": 127,
+    "reqdex": 95,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "7gl": {
+    "code": "7gl",
+    "name": "Ghost Glaive",
+    "reqstr": 89,
+    "reqdex": 137,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "7ts": {
+    "code": "7ts",
+    "name": "Winged Harpoon",
+    "reqstr": 76,
+    "reqdex": 145,
+    "type": "jave",
+    "slot": "weapon"
+  },
+  "7sr": {
+    "code": "7sr",
+    "name": "Hyperion Spear",
+    "reqstr": 155,
+    "reqdex": 120,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "7tr": {
+    "code": "7tr",
+    "name": "Stygian Pike",
+    "reqstr": 168,
+    "reqdex": 97,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "7br": {
+    "code": "7br",
+    "name": "Mancatcher",
+    "reqstr": 132,
+    "reqdex": 134,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "7st": {
+    "code": "7st",
+    "name": "Ghost Spear",
+    "reqstr": 122,
+    "reqdex": 163,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "7p7": {
+    "code": "7p7",
+    "name": "War Pike",
+    "reqstr": 165,
+    "reqdex": 106,
+    "type": "spea",
+    "slot": "weapon"
+  },
+  "7o7": {
+    "code": "7o7",
+    "name": "Ogre Axe",
+    "reqstr": 195,
+    "reqdex": 75,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "7vo": {
+    "code": "7vo",
+    "name": "Colossus Voulge",
+    "reqstr": 210,
+    "reqdex": 55,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "7s8": {
+    "code": "7s8",
+    "name": "Thresher",
+    "reqstr": 152,
+    "reqdex": 118,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "7pa": {
+    "code": "7pa",
+    "name": "Cryptic Axe",
+    "reqstr": 165,
+    "reqdex": 103,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "7h7": {
+    "code": "7h7",
+    "name": "Great Poleaxe",
+    "reqstr": 179,
+    "reqdex": 99,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "7wc": {
+    "code": "7wc",
+    "name": "Giant Thresher",
+    "reqstr": 188,
+    "reqdex": 140,
+    "type": "pole",
+    "slot": "weapon"
+  },
+  "6ss": {
+    "code": "6ss",
+    "name": "Walking Stick",
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "6ls": {
+    "code": "6ls",
+    "name": "Stalagmite",
+    "reqstr": 63,
+    "reqdex": 35,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "6cs": {
+    "code": "6cs",
+    "name": "Elder Staff",
+    "reqstr": 44,
+    "reqdex": 37,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "6bs": {
+    "code": "6bs",
+    "name": "Shillelagh",
+    "reqstr": 52,
+    "reqdex": 27,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "6ws": {
+    "code": "6ws",
+    "name": "Archon Staff",
+    "reqstr": 34,
+    "reqdex": 0,
+    "type": "staf",
+    "slot": "weapon"
+  },
+  "6sb": {
+    "code": "6sb",
+    "name": "Spider Bow",
+    "reqstr": 64,
+    "reqdex": 143,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "6hb": {
+    "code": "6hb",
+    "name": "Blade Bow",
+    "reqstr": 76,
+    "reqdex": 119,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "6lb": {
+    "code": "6lb",
+    "name": "Shadow Bow",
+    "reqstr": 52,
+    "reqdex": 188,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "6cb": {
+    "code": "6cb",
+    "name": "Great Bow",
+    "reqstr": 121,
+    "reqdex": 107,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "6s7": {
+    "code": "6s7",
+    "name": "Diamond Bow",
+    "reqstr": 89,
+    "reqdex": 132,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "6l7": {
+    "code": "6l7",
+    "name": "Crusader Bow",
+    "reqstr": 97,
+    "reqdex": 121,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "6sw": {
+    "code": "6sw",
+    "name": "Ward Bow",
+    "reqstr": 72,
+    "reqdex": 146,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "6lw": {
+    "code": "6lw",
+    "name": "Hydra Bow",
+    "reqstr": 134,
+    "reqdex": 167,
+    "type": "bow",
+    "slot": "weapon"
+  },
+  "6lx": {
+    "code": "6lx",
+    "name": "Pellet Bow",
+    "reqstr": 83,
+    "reqdex": 155,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "6mx": {
+    "code": "6mx",
+    "name": "Gorgon Crossbow",
+    "reqstr": 117,
+    "reqdex": 105,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "6hx": {
+    "code": "6hx",
+    "name": "Colossus Crossbow",
+    "reqstr": 163,
+    "reqdex": 77,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "6rx": {
+    "code": "6rx",
+    "name": "Demon Crossbow",
+    "reqstr": 141,
+    "reqdex": 98,
+    "type": "xbow",
+    "slot": "weapon"
+  },
+  "ob1": {
+    "code": "ob1",
+    "name": "Eagle Orb",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "ob2": {
+    "code": "ob2",
+    "name": "Sacred Globe",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "ob3": {
+    "code": "ob3",
+    "name": "Smoked Sphere",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "ob4": {
+    "code": "ob4",
+    "name": "Clasped Orb",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "ob5": {
+    "code": "ob5",
+    "name": "Jared's Stone",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "am1": {
+    "code": "am1",
+    "name": "Stag Bow",
+    "reqstr": 30,
+    "reqdex": 45,
+    "type": "abow",
+    "slot": "weapon"
+  },
+  "am2": {
+    "code": "am2",
+    "name": "Reflex Bow",
+    "reqstr": 35,
+    "reqdex": 60,
+    "type": "abow",
+    "slot": "weapon"
+  },
+  "am3": {
+    "code": "am3",
+    "name": "Maiden Spear",
+    "reqstr": 54,
+    "reqdex": 40,
+    "type": "aspe",
+    "slot": "weapon"
+  },
+  "am4": {
+    "code": "am4",
+    "name": "Maiden Pike",
+    "reqstr": 63,
+    "reqdex": 52,
+    "type": "aspe",
+    "slot": "weapon"
+  },
+  "am5": {
+    "code": "am5",
+    "name": "Maiden Javelin",
+    "reqstr": 33,
+    "reqdex": 47,
+    "type": "ajav",
+    "slot": "weapon"
+  },
+  "ob6": {
+    "code": "ob6",
+    "name": "Glowing Orb",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "ob7": {
+    "code": "ob7",
+    "name": "Crystalline Globe",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "ob8": {
+    "code": "ob8",
+    "name": "Cloudy Sphere",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "ob9": {
+    "code": "ob9",
+    "name": "Sparkling Ball",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "oba": {
+    "code": "oba",
+    "name": "Swirling Crystal",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "am6": {
+    "code": "am6",
+    "name": "Ashwood Bow",
+    "reqstr": 56,
+    "reqdex": 77,
+    "type": "abow",
+    "slot": "weapon"
+  },
+  "am7": {
+    "code": "am7",
+    "name": "Ceremonial Bow",
+    "reqstr": 73,
+    "reqdex": 110,
+    "type": "abow",
+    "slot": "weapon"
+  },
+  "am8": {
+    "code": "am8",
+    "name": "Ceremonial Spear",
+    "reqstr": 101,
+    "reqdex": 80,
+    "type": "aspe",
+    "slot": "weapon"
+  },
+  "am9": {
+    "code": "am9",
+    "name": "Ceremonial Pike",
+    "reqstr": 115,
+    "reqdex": 98,
+    "type": "aspe",
+    "slot": "weapon"
+  },
+  "ama": {
+    "code": "ama",
+    "name": "Ceremonial Javelin",
+    "reqstr": 25,
+    "reqdex": 109,
+    "type": "ajav",
+    "slot": "weapon"
+  },
+  "obb": {
+    "code": "obb",
+    "name": "Heavenly Stone",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "obc": {
+    "code": "obc",
+    "name": "Eldritch Orb",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "obd": {
+    "code": "obd",
+    "name": "Demon Heart",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "obe": {
+    "code": "obe",
+    "name": "Vortex Orb",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "obf": {
+    "code": "obf",
+    "name": "Dimensional Shard",
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "orb",
+    "slot": "weapon"
+  },
+  "amb": {
+    "code": "amb",
+    "name": "Matriarchal Bow",
+    "reqstr": 87,
+    "reqdex": 187,
+    "type": "abow",
+    "slot": "weapon"
+  },
+  "amc": {
+    "code": "amc",
+    "name": "Grand Matron Bow",
+    "reqstr": 108,
+    "reqdex": 152,
+    "type": "abow",
+    "slot": "weapon"
+  },
+  "amd": {
+    "code": "amd",
+    "name": "Matriarchal Spear",
+    "reqstr": 114,
+    "reqdex": 142,
+    "type": "aspe",
+    "slot": "weapon"
+  },
+  "ame": {
+    "code": "ame",
+    "name": "Matriarchal Pike",
+    "reqstr": 132,
+    "reqdex": 149,
+    "type": "aspe",
+    "slot": "weapon"
+  },
+  "amf": {
+    "code": "amf",
+    "name": "Matriarchal Javelin",
+    "reqstr": 107,
+    "reqdex": 151,
+    "type": "ajav",
+    "slot": "weapon"
+  },
+  "elx": {
+    "code": "elx",
+    "name": "Elixir",
+    "type": "elix",
+    "slot": "misc"
+  },
+  "hpo": {
+    "code": "hpo",
+    "name": "Healing Potion",
+    "type": "hpot",
+    "slot": "misc"
+  },
+  "mpo": {
+    "code": "mpo",
+    "name": "Mana Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "hpf": {
+    "code": "hpf",
+    "name": "Full Healing Potion",
+    "type": "hpot",
+    "slot": "misc"
+  },
+  "mpf": {
+    "code": "mpf",
+    "name": "Full Mana Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "vps": {
+    "code": "vps",
+    "name": "Stamina Potion",
+    "type": "spot",
+    "slot": "misc"
+  },
+  "yps": {
+    "code": "yps",
+    "name": "Antidote Potion",
+    "type": "apot",
+    "slot": "misc"
+  },
+  "rvs": {
+    "code": "rvs",
+    "name": "Rejuvenation Potion",
+    "type": "rpot",
+    "slot": "socketable"
+  },
+  "rvl": {
+    "code": "rvl",
+    "name": "Full Rejuvenation Potion",
+    "type": "rpot",
+    "slot": "socketable"
+  },
+  "wms": {
+    "code": "wms",
+    "name": "Thawing Potion",
+    "type": "wpot",
+    "slot": "misc"
+  },
+  "tbk": {
+    "code": "tbk",
+    "name": "Tome of Town Portal",
+    "type": "book",
+    "slot": "misc"
+  },
+  "ibk": {
+    "code": "ibk",
+    "name": "Tome of Identify",
+    "type": "book",
+    "slot": "misc"
+  },
+  "amu": {
+    "code": "amu",
+    "name": "Amulet",
+    "type": "amul",
+    "slot": "amulet"
+  },
+  "vip": {
+    "code": "vip",
+    "name": "Amulet of the Viper",
+    "type": "amul",
+    "slot": "amulet"
+  },
+  "rin": {
+    "code": "rin",
+    "name": "Ring",
+    "type": "ring",
+    "slot": "ring"
+  },
+  "gld": {
+    "code": "gld",
+    "name": "Gold",
+    "type": "gold",
+    "slot": "misc"
+  },
+  "bks": {
+    "code": "bks",
+    "name": "Scroll of Inifuss",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "bkd": {
+    "code": "bkd",
+    "name": "Key to the Cairn Stones",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "aqv": {
+    "code": "aqv",
+    "name": "Arrows",
+    "type": "bowq",
+    "slot": "misc"
+  },
+  "tch": {
+    "code": "tch",
+    "name": "Torch",
+    "type": "torc",
+    "slot": "misc"
+  },
+  "cqv": {
+    "code": "cqv",
+    "name": "Bolts",
+    "type": "xboq",
+    "slot": "misc"
+  },
+  "tsc": {
+    "code": "tsc",
+    "name": "Scroll of Town Portal",
+    "type": "scro",
+    "slot": "misc"
+  },
+  "isc": {
+    "code": "isc",
+    "name": "Scroll of Identify",
+    "type": "scro",
+    "slot": "misc"
+  },
+  "hrt": {
+    "code": "hrt",
+    "name": "Heart",
+    "type": "body",
+    "slot": "misc"
+  },
+  "brz": {
+    "code": "brz",
+    "name": "Brain",
+    "type": "body",
+    "slot": "misc"
+  },
+  "jaw": {
+    "code": "jaw",
+    "name": "Jawbone",
+    "type": "body",
+    "slot": "misc"
+  },
+  "eyz": {
+    "code": "eyz",
+    "name": "Eye",
+    "type": "body",
+    "slot": "misc"
+  },
+  "hrn": {
+    "code": "hrn",
+    "name": "Horn",
+    "type": "body",
+    "slot": "misc"
+  },
+  "tal": {
+    "code": "tal",
+    "name": "Tail",
+    "type": "body",
+    "slot": "misc"
+  },
+  "flg": {
+    "code": "flg",
+    "name": "Flag",
+    "type": "body",
+    "slot": "misc"
+  },
+  "fng": {
+    "code": "fng",
+    "name": "Fang",
+    "type": "body",
+    "slot": "misc"
+  },
+  "qll": {
+    "code": "qll",
+    "name": "Quill",
+    "type": "body",
+    "slot": "misc"
+  },
+  "sol": {
+    "code": "sol",
+    "name": "Soul",
+    "type": "body",
+    "slot": "misc"
+  },
+  "scz": {
+    "code": "scz",
+    "name": "Scalp",
+    "type": "body",
+    "slot": "misc"
+  },
+  "spe": {
+    "code": "spe",
+    "name": "Spleen",
+    "type": "body",
+    "slot": "misc"
+  },
+  "key": {
+    "code": "key",
+    "name": "Key",
+    "type": "key",
+    "slot": "misc"
+  },
+  "luv": {
+    "code": "luv",
+    "name": "The Black Tower Key",
+    "type": "key",
+    "slot": "misc"
+  },
+  "xyz": {
+    "code": "xyz",
+    "name": "Potion of Life",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "j34": {
+    "code": "j34",
+    "name": "A Jade Figurine",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "g34": {
+    "code": "g34",
+    "name": "The Golden Bird",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "bbb": {
+    "code": "bbb",
+    "name": "Lam Esen's Tome",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "box": {
+    "code": "box",
+    "name": "Horadric Cube",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "tr1": {
+    "code": "tr1",
+    "name": "Horadric Scroll",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "mss": {
+    "code": "mss",
+    "name": "Mephisto's Soulstone",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "ass": {
+    "code": "ass",
+    "name": "Book of Skill",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "qey": {
+    "code": "qey",
+    "name": "Khalim's Eye",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "qhr": {
+    "code": "qhr",
+    "name": "Khalim's Heart",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "qbr": {
+    "code": "qbr",
+    "name": "Khalim's Brain",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "ear": {
+    "code": "ear",
+    "name": "Ear",
+    "type": "play",
+    "slot": "misc"
+  },
+  "gcv": {
+    "code": "gcv",
+    "name": "Chipped Amethyst",
+    "type": "gema",
+    "slot": "misc"
+  },
+  "gfv": {
+    "code": "gfv",
+    "name": "Flawed Amethyst",
+    "type": "gema",
+    "slot": "misc"
+  },
+  "gsv": {
+    "code": "gsv",
+    "name": "Amethyst",
+    "type": "gema",
+    "slot": "misc"
+  },
+  "gzv": {
+    "code": "gzv",
+    "name": "Flawless Amethyst",
+    "type": "gema",
+    "slot": "misc"
+  },
+  "gpv": {
+    "code": "gpv",
+    "name": "Perfect Amethyst",
+    "type": "gema",
+    "slot": "misc"
+  },
+  "gcy": {
+    "code": "gcy",
+    "name": "Chipped Topaz",
+    "type": "gemt",
+    "slot": "misc"
+  },
+  "gfy": {
+    "code": "gfy",
+    "name": "Flawed Topaz",
+    "type": "gemt",
+    "slot": "misc"
+  },
+  "gsy": {
+    "code": "gsy",
+    "name": "Topaz",
+    "type": "gemt",
+    "slot": "misc"
+  },
+  "gly": {
+    "code": "gly",
+    "name": "Flawless Topaz",
+    "type": "gemt",
+    "slot": "misc"
+  },
+  "gpy": {
+    "code": "gpy",
+    "name": "Perfect Topaz",
+    "type": "gemt",
+    "slot": "misc"
+  },
+  "gcb": {
+    "code": "gcb",
+    "name": "Chipped Sapphire",
+    "type": "gems",
+    "slot": "misc"
+  },
+  "gfb": {
+    "code": "gfb",
+    "name": "Flawed Sapphire",
+    "type": "gems",
+    "slot": "misc"
+  },
+  "gsb": {
+    "code": "gsb",
+    "name": "Sapphire",
+    "type": "gems",
+    "slot": "misc"
+  },
+  "glb": {
+    "code": "glb",
+    "name": "Flawless Sapphire",
+    "type": "gems",
+    "slot": "misc"
+  },
+  "gpb": {
+    "code": "gpb",
+    "name": "Perfect Sapphire",
+    "type": "gems",
+    "slot": "misc"
+  },
+  "gcg": {
+    "code": "gcg",
+    "name": "Chipped Emerald",
+    "type": "geme",
+    "slot": "misc"
+  },
+  "gfg": {
+    "code": "gfg",
+    "name": "Flawed Emerald",
+    "type": "geme",
+    "slot": "misc"
+  },
+  "gsg": {
+    "code": "gsg",
+    "name": "Emerald",
+    "type": "geme",
+    "slot": "misc"
+  },
+  "glg": {
+    "code": "glg",
+    "name": "Flawless Emerald",
+    "type": "geme",
+    "slot": "misc"
+  },
+  "gpg": {
+    "code": "gpg",
+    "name": "Perfect Emerald",
+    "type": "geme",
+    "slot": "misc"
+  },
+  "gcr": {
+    "code": "gcr",
+    "name": "Chipped Ruby",
+    "type": "gemr",
+    "slot": "misc"
+  },
+  "gfr": {
+    "code": "gfr",
+    "name": "Flawed Ruby",
+    "type": "gemr",
+    "slot": "misc"
+  },
+  "gsr": {
+    "code": "gsr",
+    "name": "Ruby",
+    "type": "gemr",
+    "slot": "misc"
+  },
+  "glr": {
+    "code": "glr",
+    "name": "Flawless Ruby",
+    "type": "gemr",
+    "slot": "misc"
+  },
+  "gpr": {
+    "code": "gpr",
+    "name": "Perfect Ruby",
+    "type": "gemr",
+    "slot": "misc"
+  },
+  "gcw": {
+    "code": "gcw",
+    "name": "Chipped Diamond",
+    "type": "gemd",
+    "slot": "misc"
+  },
+  "gfw": {
+    "code": "gfw",
+    "name": "Flawed Diamond",
+    "type": "gemd",
+    "slot": "misc"
+  },
+  "gsw": {
+    "code": "gsw",
+    "name": "Diamond",
+    "type": "gemd",
+    "slot": "misc"
+  },
+  "glw": {
+    "code": "glw",
+    "name": "Flawless Diamond",
+    "type": "gemd",
+    "slot": "misc"
+  },
+  "gpw": {
+    "code": "gpw",
+    "name": "Perfect Diamond",
+    "type": "gemd",
+    "slot": "misc"
+  },
+  "hp1": {
+    "code": "hp1",
+    "name": "Minor Healing Potion",
+    "type": "hpot",
+    "slot": "misc"
+  },
+  "hp2": {
+    "code": "hp2",
+    "name": "Light Healing Potion",
+    "type": "hpot",
+    "slot": "misc"
+  },
+  "hp3": {
+    "code": "hp3",
+    "name": "Healing Potion",
+    "type": "hpot",
+    "slot": "misc"
+  },
+  "hp4": {
+    "code": "hp4",
+    "name": "Greater Healing Potion",
+    "type": "hpot",
+    "slot": "misc"
+  },
+  "hp5": {
+    "code": "hp5",
+    "name": "Super Healing Potion",
+    "type": "hpot",
+    "slot": "misc"
+  },
+  "mp1": {
+    "code": "mp1",
+    "name": "Minor Mana Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "mp2": {
+    "code": "mp2",
+    "name": "Light Mana Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "mp3": {
+    "code": "mp3",
+    "name": "Mana Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "mp4": {
+    "code": "mp4",
+    "name": "Greater Mana Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "mp5": {
+    "code": "mp5",
+    "name": "Super Mana Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "skc": {
+    "code": "skc",
+    "name": "Chipped Skull",
+    "type": "gemz",
+    "slot": "misc"
+  },
+  "skf": {
+    "code": "skf",
+    "name": "Flawed Skull",
+    "type": "gemz",
+    "slot": "misc"
+  },
+  "sku": {
+    "code": "sku",
+    "name": "Skull",
+    "type": "gemz",
+    "slot": "misc"
+  },
+  "skl": {
+    "code": "skl",
+    "name": "Flawless Skull",
+    "type": "gemz",
+    "slot": "misc"
+  },
+  "skz": {
+    "code": "skz",
+    "name": "Perfect Skull",
+    "type": "gemz",
+    "slot": "misc"
+  },
+  "hrb": {
+    "code": "hrb",
+    "name": "Herb",
+    "type": "herb",
+    "slot": "misc"
+  },
+  "cm1": {
+    "code": "cm1",
+    "name": "Small Charm",
+    "type": "scha",
+    "slot": "charm"
+  },
+  "cm2": {
+    "code": "cm2",
+    "name": "Large Charm",
+    "type": "mcha",
+    "slot": "charm"
+  },
+  "cm3": {
+    "code": "cm3",
+    "name": "Grand Charm",
+    "type": "lcha",
+    "slot": "charm"
+  },
+  "rps": {
+    "code": "rps",
+    "name": "Small Red Potion",
+    "type": "hpot",
+    "slot": "socketable"
+  },
+  "rpl": {
+    "code": "rpl",
+    "name": "Large Red Potion",
+    "type": "hpot",
+    "slot": "socketable"
+  },
+  "bps": {
+    "code": "bps",
+    "name": "Small Blue Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "bpl": {
+    "code": "bpl",
+    "name": "Large Blue Potion",
+    "type": "mpot",
+    "slot": "misc"
+  },
+  "r01": {
+    "code": "r01",
+    "name": "El Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r02": {
+    "code": "r02",
+    "name": "Eld Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r03": {
+    "code": "r03",
+    "name": "Tir Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r04": {
+    "code": "r04",
+    "name": "Nef Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r05": {
+    "code": "r05",
+    "name": "Eth Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r06": {
+    "code": "r06",
+    "name": "Ith Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r07": {
+    "code": "r07",
+    "name": "Tal Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r08": {
+    "code": "r08",
+    "name": "Ral Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r09": {
+    "code": "r09",
+    "name": "Ort Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r10": {
+    "code": "r10",
+    "name": "Thul Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r11": {
+    "code": "r11",
+    "name": "Amn Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r12": {
+    "code": "r12",
+    "name": "Sol Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r13": {
+    "code": "r13",
+    "name": "Shael Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r14": {
+    "code": "r14",
+    "name": "Dol Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r15": {
+    "code": "r15",
+    "name": "Hel Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r16": {
+    "code": "r16",
+    "name": "Io Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r17": {
+    "code": "r17",
+    "name": "Lum Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r18": {
+    "code": "r18",
+    "name": "Ko Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r19": {
+    "code": "r19",
+    "name": "Fal Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r20": {
+    "code": "r20",
+    "name": "Lem Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r21": {
+    "code": "r21",
+    "name": "Pul Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r22": {
+    "code": "r22",
+    "name": "Um Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r23": {
+    "code": "r23",
+    "name": "Mal Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r24": {
+    "code": "r24",
+    "name": "Ist Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r25": {
+    "code": "r25",
+    "name": "Gul Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r26": {
+    "code": "r26",
+    "name": "Vex Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r27": {
+    "code": "r27",
+    "name": "Ohm Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r28": {
+    "code": "r28",
+    "name": "Lo Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r29": {
+    "code": "r29",
+    "name": "Sur Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r30": {
+    "code": "r30",
+    "name": "Ber Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r31": {
+    "code": "r31",
+    "name": "Jah Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r32": {
+    "code": "r32",
+    "name": "Cham Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "r33": {
+    "code": "r33",
+    "name": "Zod Rune",
+    "type": "rune",
+    "slot": "socketable"
+  },
+  "jew": {
+    "code": "jew",
+    "name": "Jewel",
+    "type": "jewl",
+    "slot": "socketable"
+  },
+  "ice": {
+    "code": "ice",
+    "name": "Malah's Potion",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "0sc": {
+    "code": "0sc",
+    "name": "Scroll of Knowledge",
+    "type": "scro",
+    "slot": "misc"
+  },
+  "tr2": {
+    "code": "tr2",
+    "name": "Scroll of Resistance",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "pk1": {
+    "code": "pk1",
+    "name": "Key of Terror",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "pk2": {
+    "code": "pk2",
+    "name": "Key of Hate",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "pk3": {
+    "code": "pk3",
+    "name": "Key of Destruction",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "dhn": {
+    "code": "dhn",
+    "name": "Diablo's Horn",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "bey": {
+    "code": "bey",
+    "name": "Baal's Eye",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "mbr": {
+    "code": "mbr",
+    "name": "Mephisto's Brain",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "toa": {
+    "code": "toa",
+    "name": "Token of Absolution",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "tes": {
+    "code": "tes",
+    "name": "Twisted Essence of Suffering",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "ceh": {
+    "code": "ceh",
+    "name": "Charged Essense of Hatred",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "bet": {
+    "code": "bet",
+    "name": "Burning Essence of Terror",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "fed": {
+    "code": "fed",
+    "name": "Festering Essence of Destruction",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "std": {
+    "code": "std",
+    "name": "Standard of Heroes",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "xa1": {
+    "code": "xa1",
+    "name": "Western Worldstone Shard",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "xa2": {
+    "code": "xa2",
+    "name": "Eastern Worldstone Shard",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "xa3": {
+    "code": "xa3",
+    "name": "Southern Worldstone Shard",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "xa4": {
+    "code": "xa4",
+    "name": "Deep Worldstone Shard",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "xa5": {
+    "code": "xa5",
+    "name": "Northern Worldstone Shard",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "ua1": {
+    "code": "ua1",
+    "name": "Uber Ancient Summon Material Act 1",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "ua2": {
+    "code": "ua2",
+    "name": "Uber Ancient Summon Material Act 2",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "ua3": {
+    "code": "ua3",
+    "name": "Uber Ancient Summon Material Act 3",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "ua4": {
+    "code": "ua4",
+    "name": "Uber Ancient Summon Material Act 4",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "ua5": {
+    "code": "ua5",
+    "name": "Uber Ancient Summon Material Act5",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "um1": {
+    "code": "um1",
+    "name": "Uber Ancient Upgrade Material  Fire",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "um2": {
+    "code": "um2",
+    "name": "Uber Ancient Upgrade Material Poison",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "um3": {
+    "code": "um3",
+    "name": "Uber Ancient Upgrade Material  Cold",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "um4": {
+    "code": "um4",
+    "name": "Uber Ancient Upgrade Material Physical",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "um5": {
+    "code": "um5",
+    "name": "Uber Ancient Upgrade Material Lightning",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "um6": {
+    "code": "um6",
+    "name": "Uber Ancient Upgrade Material Magic",
+    "type": "ques",
+    "slot": "misc"
+  },
+  "cjw": {
+    "code": "cjw",
+    "name": "Colossal Jewel",
+    "type": "cjwl",
+    "slot": "misc"
+  },
+  "cs2": {
+    "code": "cs2",
+    "name": "Crafted Sunder Charm",
+    "type": "csch",
+    "slot": "misc"
+  }
+}

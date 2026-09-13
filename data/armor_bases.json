@@ -1,0 +1,1955 @@
+{
+  "cap": {
+    "code": "cap",
+    "name": "Cap",
+    "minac": 3,
+    "maxac": 5,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "skp": {
+    "code": "skp",
+    "name": "Skull Cap",
+    "minac": 8,
+    "maxac": 11,
+    "reqstr": 15,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "hlm": {
+    "code": "hlm",
+    "name": "Helm",
+    "minac": 15,
+    "maxac": 18,
+    "reqstr": 26,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "fhl": {
+    "code": "fhl",
+    "name": "Full Helm",
+    "minac": 23,
+    "maxac": 26,
+    "reqstr": 41,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "ghm": {
+    "code": "ghm",
+    "name": "Great Helm",
+    "minac": 30,
+    "maxac": 35,
+    "reqstr": 63,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "crn": {
+    "code": "crn",
+    "name": "Crown",
+    "minac": 25,
+    "maxac": 45,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "msk": {
+    "code": "msk",
+    "name": "Mask",
+    "minac": 9,
+    "maxac": 27,
+    "reqstr": 23,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "qui": {
+    "code": "qui",
+    "name": "Quilted Armor",
+    "minac": 8,
+    "maxac": 11,
+    "reqstr": 12,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "lea": {
+    "code": "lea",
+    "name": "Leather Armor",
+    "minac": 14,
+    "maxac": 17,
+    "reqstr": 15,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "hla": {
+    "code": "hla",
+    "name": "Hard Leather Armor",
+    "minac": 21,
+    "maxac": 24,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "stu": {
+    "code": "stu",
+    "name": "Studded Leather",
+    "minac": 32,
+    "maxac": 35,
+    "reqstr": 27,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "rng": {
+    "code": "rng",
+    "name": "Ring Mail",
+    "minac": 45,
+    "maxac": 48,
+    "reqstr": 36,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "scl": {
+    "code": "scl",
+    "name": "Scale Mail",
+    "minac": 57,
+    "maxac": 60,
+    "reqstr": 44,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "chn": {
+    "code": "chn",
+    "name": "Chain Mail",
+    "minac": 72,
+    "maxac": 75,
+    "reqstr": 48,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "brs": {
+    "code": "brs",
+    "name": "Breast Plate",
+    "minac": 65,
+    "maxac": 68,
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "spl": {
+    "code": "spl",
+    "name": "Splint Mail",
+    "minac": 90,
+    "maxac": 95,
+    "reqstr": 51,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "plt": {
+    "code": "plt",
+    "name": "Plate Mail",
+    "minac": 108,
+    "maxac": 116,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "fld": {
+    "code": "fld",
+    "name": "Field Plate",
+    "minac": 101,
+    "maxac": 105,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "gth": {
+    "code": "gth",
+    "name": "Gothic Plate",
+    "minac": 128,
+    "maxac": 135,
+    "reqstr": 70,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "ful": {
+    "code": "ful",
+    "name": "Full Plate Mail",
+    "minac": 150,
+    "maxac": 161,
+    "reqstr": 80,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "aar": {
+    "code": "aar",
+    "name": "Ancient Armor",
+    "minac": 218,
+    "maxac": 233,
+    "reqstr": 100,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "ltp": {
+    "code": "ltp",
+    "name": "Light Plate",
+    "minac": 90,
+    "maxac": 107,
+    "reqstr": 41,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "buc": {
+    "code": "buc",
+    "name": "Buckler",
+    "minac": 4,
+    "maxac": 6,
+    "reqstr": 12,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "sml": {
+    "code": "sml",
+    "name": "Small Shield",
+    "minac": 8,
+    "maxac": 10,
+    "reqstr": 22,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "lrg": {
+    "code": "lrg",
+    "name": "Large Shield",
+    "minac": 12,
+    "maxac": 14,
+    "reqstr": 34,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "kit": {
+    "code": "kit",
+    "name": "Kite Shield",
+    "minac": 16,
+    "maxac": 18,
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "tow": {
+    "code": "tow",
+    "name": "Tower Shield",
+    "minac": 22,
+    "maxac": 25,
+    "reqstr": 75,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "gts": {
+    "code": "gts",
+    "name": "Gothic Shield",
+    "minac": 30,
+    "maxac": 35,
+    "reqstr": 60,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "lgl": {
+    "code": "lgl",
+    "name": "Leather Gloves",
+    "minac": 2,
+    "maxac": 3,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "vgl": {
+    "code": "vgl",
+    "name": "Heavy Gloves",
+    "minac": 5,
+    "maxac": 6,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "mgl": {
+    "code": "mgl",
+    "name": "Chain Gloves",
+    "minac": 8,
+    "maxac": 9,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "tgl": {
+    "code": "tgl",
+    "name": "Light Gauntlets",
+    "minac": 9,
+    "maxac": 11,
+    "reqstr": 45,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "hgl": {
+    "code": "hgl",
+    "name": "Gauntlets",
+    "minac": 12,
+    "maxac": 15,
+    "reqstr": 60,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "lbt": {
+    "code": "lbt",
+    "name": "Boots",
+    "minac": 2,
+    "maxac": 3,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "vbt": {
+    "code": "vbt",
+    "name": "Heavy Boots",
+    "minac": 5,
+    "maxac": 6,
+    "reqstr": 18,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "mbt": {
+    "code": "mbt",
+    "name": "Chain Boots",
+    "minac": 8,
+    "maxac": 9,
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "tbt": {
+    "code": "tbt",
+    "name": "Light Plated Boots",
+    "minac": 9,
+    "maxac": 11,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "hbt": {
+    "code": "hbt",
+    "name": "Greaves",
+    "minac": 12,
+    "maxac": 15,
+    "reqstr": 70,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "lbl": {
+    "code": "lbl",
+    "name": "Sash",
+    "minac": 2,
+    "maxac": 2,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "vbl": {
+    "code": "vbl",
+    "name": "Light Belt",
+    "minac": 3,
+    "maxac": 3,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "mbl": {
+    "code": "mbl",
+    "name": "Belt",
+    "minac": 5,
+    "maxac": 5,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "tbl": {
+    "code": "tbl",
+    "name": "Heavy Belt",
+    "minac": 6,
+    "maxac": 6,
+    "reqstr": 45,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "hbl": {
+    "code": "hbl",
+    "name": "Plated Belt",
+    "minac": 8,
+    "maxac": 11,
+    "reqstr": 60,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "bhm": {
+    "code": "bhm",
+    "name": "Bone Helm",
+    "minac": 33,
+    "maxac": 36,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "bsh": {
+    "code": "bsh",
+    "name": "Bone Shield",
+    "minac": 10,
+    "maxac": 30,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "spk": {
+    "code": "spk",
+    "name": "Spiked Shield",
+    "minac": 15,
+    "maxac": 25,
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "xap": {
+    "code": "xap",
+    "name": "War Hat",
+    "minac": 45,
+    "maxac": 53,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "xkp": {
+    "code": "xkp",
+    "name": "Sallet",
+    "minac": 52,
+    "maxac": 62,
+    "reqstr": 43,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "xlm": {
+    "code": "xlm",
+    "name": "Casque",
+    "minac": 63,
+    "maxac": 72,
+    "reqstr": 59,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "xhl": {
+    "code": "xhl",
+    "name": "Basinet",
+    "minac": 75,
+    "maxac": 84,
+    "reqstr": 82,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "xhm": {
+    "code": "xhm",
+    "name": "Winged Helm",
+    "minac": 85,
+    "maxac": 98,
+    "reqstr": 115,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "xrn": {
+    "code": "xrn",
+    "name": "Grand Crown",
+    "minac": 78,
+    "maxac": 113,
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "xsk": {
+    "code": "xsk",
+    "name": "Death Mask",
+    "minac": 54,
+    "maxac": 86,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "xui": {
+    "code": "xui",
+    "name": "Ghost Armor",
+    "minac": 102,
+    "maxac": 117,
+    "reqstr": 38,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xea": {
+    "code": "xea",
+    "name": "Serpentskin Armor",
+    "minac": 111,
+    "maxac": 126,
+    "reqstr": 43,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xla": {
+    "code": "xla",
+    "name": "Demonhide Armor",
+    "minac": 122,
+    "maxac": 136,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xtu": {
+    "code": "xtu",
+    "name": "Trellised Armor",
+    "minac": 138,
+    "maxac": 153,
+    "reqstr": 61,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xng": {
+    "code": "xng",
+    "name": "Linked Mail",
+    "minac": 158,
+    "maxac": 172,
+    "reqstr": 74,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xcl": {
+    "code": "xcl",
+    "name": "Tigulated Mail",
+    "minac": 176,
+    "maxac": 190,
+    "reqstr": 86,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xhn": {
+    "code": "xhn",
+    "name": "Mesh Armor",
+    "minac": 198,
+    "maxac": 213,
+    "reqstr": 92,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xrs": {
+    "code": "xrs",
+    "name": "Cuirass",
+    "minac": 188,
+    "maxac": 202,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xpl": {
+    "code": "xpl",
+    "name": "Russet Armor",
+    "minac": 225,
+    "maxac": 243,
+    "reqstr": 97,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xlt": {
+    "code": "xlt",
+    "name": "Templar Coat",
+    "minac": 252,
+    "maxac": 274,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xld": {
+    "code": "xld",
+    "name": "Sharktooth Armor",
+    "minac": 242,
+    "maxac": 258,
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xth": {
+    "code": "xth",
+    "name": "Embossed Plate",
+    "minac": 282,
+    "maxac": 303,
+    "reqstr": 125,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xul": {
+    "code": "xul",
+    "name": "Chaos Armor",
+    "minac": 315,
+    "maxac": 342,
+    "reqstr": 140,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xar": {
+    "code": "xar",
+    "name": "Ornate Armor",
+    "minac": 417,
+    "maxac": 450,
+    "reqstr": 170,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xtp": {
+    "code": "xtp",
+    "name": "Mage Plate",
+    "minac": 225,
+    "maxac": 261,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "xuc": {
+    "code": "xuc",
+    "name": "Defender",
+    "minac": 41,
+    "maxac": 49,
+    "reqstr": 38,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "xml": {
+    "code": "xml",
+    "name": "Round Shield",
+    "minac": 47,
+    "maxac": 55,
+    "reqstr": 53,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "xrg": {
+    "code": "xrg",
+    "name": "Scutum",
+    "minac": 53,
+    "maxac": 61,
+    "reqstr": 71,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "xit": {
+    "code": "xit",
+    "name": "Dragon Shield",
+    "minac": 59,
+    "maxac": 67,
+    "reqstr": 91,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "xow": {
+    "code": "xow",
+    "name": "Pavise",
+    "minac": 68,
+    "maxac": 78,
+    "reqstr": 133,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "xts": {
+    "code": "xts",
+    "name": "Ancient Shield",
+    "minac": 80,
+    "maxac": 93,
+    "reqstr": 110,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "xlg": {
+    "code": "xlg",
+    "name": "Demonhide Gloves",
+    "minac": 28,
+    "maxac": 35,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "xvg": {
+    "code": "xvg",
+    "name": "Sharkskin Gloves",
+    "minac": 33,
+    "maxac": 39,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "xmg": {
+    "code": "xmg",
+    "name": "Heavy Bracers",
+    "minac": 37,
+    "maxac": 44,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "xtg": {
+    "code": "xtg",
+    "name": "Battle Gauntlets",
+    "minac": 39,
+    "maxac": 47,
+    "reqstr": 88,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "xhg": {
+    "code": "xhg",
+    "name": "War Gauntlets",
+    "minac": 43,
+    "maxac": 53,
+    "reqstr": 110,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "xlb": {
+    "code": "xlb",
+    "name": "Demonhide Boots",
+    "minac": 28,
+    "maxac": 35,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "xvb": {
+    "code": "xvb",
+    "name": "Sharkskin Boots",
+    "minac": 33,
+    "maxac": 39,
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "xmb": {
+    "code": "xmb",
+    "name": "Mesh Boots",
+    "minac": 37,
+    "maxac": 44,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "xtb": {
+    "code": "xtb",
+    "name": "Battle Boots",
+    "minac": 39,
+    "maxac": 47,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "xhb": {
+    "code": "xhb",
+    "name": "War Boots",
+    "minac": 43,
+    "maxac": 53,
+    "reqstr": 125,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "zlb": {
+    "code": "zlb",
+    "name": "Demonhide Sash",
+    "minac": 29,
+    "maxac": 34,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "zvb": {
+    "code": "zvb",
+    "name": "Sharkskin Belt",
+    "minac": 31,
+    "maxac": 36,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "zmb": {
+    "code": "zmb",
+    "name": "Mesh Belt",
+    "minac": 35,
+    "maxac": 40,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "ztb": {
+    "code": "ztb",
+    "name": "Battle Belt",
+    "minac": 37,
+    "maxac": 42,
+    "reqstr": 88,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "zhb": {
+    "code": "zhb",
+    "name": "War Belt",
+    "minac": 41,
+    "maxac": 52,
+    "reqstr": 110,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "xh9": {
+    "code": "xh9",
+    "name": "Grim Helm",
+    "minac": 60,
+    "maxac": 125,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "xsh": {
+    "code": "xsh",
+    "name": "Grim Shield",
+    "minac": 50,
+    "maxac": 150,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "xpk": {
+    "code": "xpk",
+    "name": "Barbed Shield",
+    "minac": 58,
+    "maxac": 78,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "dr1": {
+    "code": "dr1",
+    "name": "Wolf Head",
+    "minac": 8,
+    "maxac": 11,
+    "reqstr": 16,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dr2": {
+    "code": "dr2",
+    "name": "Hawk Helm",
+    "minac": 4,
+    "maxac": 15,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dr3": {
+    "code": "dr3",
+    "name": "Antlers",
+    "minac": 18,
+    "maxac": 24,
+    "reqstr": 24,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dr4": {
+    "code": "dr4",
+    "name": "Falcon Mask",
+    "minac": 12,
+    "maxac": 28,
+    "reqstr": 28,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dr5": {
+    "code": "dr5",
+    "name": "Spirit Mask",
+    "minac": 22,
+    "maxac": 35,
+    "reqstr": 30,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "ba1": {
+    "code": "ba1",
+    "name": "Jawbone Cap",
+    "minac": 10,
+    "maxac": 15,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "ba2": {
+    "code": "ba2",
+    "name": "Fanged Helm",
+    "minac": 15,
+    "maxac": 20,
+    "reqstr": 35,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "ba3": {
+    "code": "ba3",
+    "name": "Horned Helm",
+    "minac": 25,
+    "maxac": 30,
+    "reqstr": 45,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "ba4": {
+    "code": "ba4",
+    "name": "Assault Helmet",
+    "minac": 30,
+    "maxac": 35,
+    "reqstr": 55,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "ba5": {
+    "code": "ba5",
+    "name": "Avenger Guard",
+    "minac": 35,
+    "maxac": 50,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "pa1": {
+    "code": "pa1",
+    "name": "Targe",
+    "minac": 8,
+    "maxac": 12,
+    "reqstr": 16,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pa2": {
+    "code": "pa2",
+    "name": "Rondache",
+    "minac": 10,
+    "maxac": 18,
+    "reqstr": 26,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pa3": {
+    "code": "pa3",
+    "name": "Heraldic Shield",
+    "minac": 16,
+    "maxac": 26,
+    "reqstr": 40,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pa4": {
+    "code": "pa4",
+    "name": "Aerin Shield",
+    "minac": 26,
+    "maxac": 36,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pa5": {
+    "code": "pa5",
+    "name": "Crown Shield",
+    "minac": 30,
+    "maxac": 40,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "ne1": {
+    "code": "ne1",
+    "name": "Preserved Head",
+    "minac": 2,
+    "maxac": 5,
+    "reqstr": 12,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ne2": {
+    "code": "ne2",
+    "name": "Zombie Head",
+    "minac": 4,
+    "maxac": 8,
+    "reqstr": 14,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ne3": {
+    "code": "ne3",
+    "name": "Unraveller Head",
+    "minac": 6,
+    "maxac": 10,
+    "reqstr": 18,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ne4": {
+    "code": "ne4",
+    "name": "Gargoyle Head",
+    "minac": 10,
+    "maxac": 16,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ne5": {
+    "code": "ne5",
+    "name": "Demon Head",
+    "minac": 15,
+    "maxac": 20,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ci0": {
+    "code": "ci0",
+    "name": "Circlet",
+    "minac": 20,
+    "maxac": 30,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "circ"
+  },
+  "ci1": {
+    "code": "ci1",
+    "name": "Coronet",
+    "minac": 30,
+    "maxac": 40,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "circ"
+  },
+  "ci2": {
+    "code": "ci2",
+    "name": "Tiara",
+    "minac": 40,
+    "maxac": 50,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "circ"
+  },
+  "ci3": {
+    "code": "ci3",
+    "name": "Diadem",
+    "minac": 50,
+    "maxac": 60,
+    "reqstr": 0,
+    "reqdex": 0,
+    "type": "circ"
+  },
+  "uap": {
+    "code": "uap",
+    "name": "Shako",
+    "minac": 98,
+    "maxac": 141,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "ukp": {
+    "code": "ukp",
+    "name": "Hydraskull",
+    "minac": 101,
+    "maxac": 145,
+    "reqstr": 84,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "ulm": {
+    "code": "ulm",
+    "name": "Armet",
+    "minac": 105,
+    "maxac": 149,
+    "reqstr": 109,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "uhl": {
+    "code": "uhl",
+    "name": "Giant Conch",
+    "minac": 110,
+    "maxac": 154,
+    "reqstr": 142,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "uhm": {
+    "code": "uhm",
+    "name": "Spired Helm",
+    "minac": 114,
+    "maxac": 159,
+    "reqstr": 192,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "urn": {
+    "code": "urn",
+    "name": "Corona",
+    "minac": 111,
+    "maxac": 165,
+    "reqstr": 174,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "usk": {
+    "code": "usk",
+    "name": "Demonhead",
+    "minac": 101,
+    "maxac": 154,
+    "reqstr": 102,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "uui": {
+    "code": "uui",
+    "name": "Dusk Shroud",
+    "minac": 361,
+    "maxac": 467,
+    "reqstr": 77,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "uea": {
+    "code": "uea",
+    "name": "Wyrmhide",
+    "minac": 364,
+    "maxac": 470,
+    "reqstr": 84,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "ula": {
+    "code": "ula",
+    "name": "Scarab Husk",
+    "minac": 369,
+    "maxac": 474,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "utu": {
+    "code": "utu",
+    "name": "Wire Fleece",
+    "minac": 375,
+    "maxac": 481,
+    "reqstr": 111,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "ung": {
+    "code": "ung",
+    "name": "Diamond Mail",
+    "minac": 383,
+    "maxac": 489,
+    "reqstr": 131,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "ucl": {
+    "code": "ucl",
+    "name": "Loricated Mail",
+    "minac": 390,
+    "maxac": 496,
+    "reqstr": 149,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "uhn": {
+    "code": "uhn",
+    "name": "Boneweave",
+    "minac": 399,
+    "maxac": 505,
+    "reqstr": 158,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "urs": {
+    "code": "urs",
+    "name": "Great Hauberk",
+    "minac": 395,
+    "maxac": 501,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "upl": {
+    "code": "upl",
+    "name": "Balrog Skin",
+    "minac": 410,
+    "maxac": 517,
+    "reqstr": 165,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "ult": {
+    "code": "ult",
+    "name": "Hellforge Plate",
+    "minac": 421,
+    "maxac": 530,
+    "reqstr": 196,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "uld": {
+    "code": "uld",
+    "name": "Kraken Shell",
+    "minac": 417,
+    "maxac": 523,
+    "reqstr": 174,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "uth": {
+    "code": "uth",
+    "name": "Lacquered Plate",
+    "minac": 433,
+    "maxac": 541,
+    "reqstr": 208,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "uul": {
+    "code": "uul",
+    "name": "Shadow Plate",
+    "minac": 446,
+    "maxac": 557,
+    "reqstr": 230,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "uar": {
+    "code": "uar",
+    "name": "Sacred Armor",
+    "minac": 487,
+    "maxac": 600,
+    "reqstr": 232,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "utp": {
+    "code": "utp",
+    "name": "Archon Plate",
+    "minac": 410,
+    "maxac": 524,
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "tors"
+  },
+  "uuc": {
+    "code": "uuc",
+    "name": "Heater",
+    "minac": 95,
+    "maxac": 110,
+    "reqstr": 77,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "uml": {
+    "code": "uml",
+    "name": "Luna",
+    "minac": 108,
+    "maxac": 123,
+    "reqstr": 100,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "urg": {
+    "code": "urg",
+    "name": "Hyperion",
+    "minac": 119,
+    "maxac": 135,
+    "reqstr": 127,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "uit": {
+    "code": "uit",
+    "name": "Monarch",
+    "minac": 133,
+    "maxac": 148,
+    "reqstr": 156,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "uow": {
+    "code": "uow",
+    "name": "Aegis",
+    "minac": 145,
+    "maxac": 161,
+    "reqstr": 219,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "uts": {
+    "code": "uts",
+    "name": "Ward",
+    "minac": 153,
+    "maxac": 170,
+    "reqstr": 185,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "ulg": {
+    "code": "ulg",
+    "name": "Bramble Mitts",
+    "minac": 54,
+    "maxac": 62,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "uvg": {
+    "code": "uvg",
+    "name": "Vampirebone Gloves",
+    "minac": 56,
+    "maxac": 65,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "umg": {
+    "code": "umg",
+    "name": "Vambraces",
+    "minac": 59,
+    "maxac": 67,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "utg": {
+    "code": "utg",
+    "name": "Crusader Gauntlets",
+    "minac": 59,
+    "maxac": 68,
+    "reqstr": 151,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "uhg": {
+    "code": "uhg",
+    "name": "Ogre Gauntlets",
+    "minac": 62,
+    "maxac": 71,
+    "reqstr": 185,
+    "reqdex": 0,
+    "type": "glov"
+  },
+  "ulb": {
+    "code": "ulb",
+    "name": "Wyrmhide Boots",
+    "minac": 54,
+    "maxac": 62,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "uvb": {
+    "code": "uvb",
+    "name": "Scarabshell Boots",
+    "minac": 56,
+    "maxac": 65,
+    "reqstr": 91,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "umb": {
+    "code": "umb",
+    "name": "Boneweave Boots",
+    "minac": 59,
+    "maxac": 67,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "utb": {
+    "code": "utb",
+    "name": "Mirrored Boots",
+    "minac": 59,
+    "maxac": 68,
+    "reqstr": 163,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "uhb": {
+    "code": "uhb",
+    "name": "Myrmidon Greaves",
+    "minac": 62,
+    "maxac": 71,
+    "reqstr": 208,
+    "reqdex": 0,
+    "type": "boot"
+  },
+  "ulc": {
+    "code": "ulc",
+    "name": "Spiderweb Sash",
+    "minac": 55,
+    "maxac": 62,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "uvc": {
+    "code": "uvc",
+    "name": "Vampirefang Belt",
+    "minac": 56,
+    "maxac": 63,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "umc": {
+    "code": "umc",
+    "name": "Mithril Coil",
+    "minac": 58,
+    "maxac": 65,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "utc": {
+    "code": "utc",
+    "name": "Troll Belt",
+    "minac": 59,
+    "maxac": 66,
+    "reqstr": 151,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "uhc": {
+    "code": "uhc",
+    "name": "Colossus Girdle",
+    "minac": 61,
+    "maxac": 71,
+    "reqstr": 185,
+    "reqdex": 0,
+    "type": "belt"
+  },
+  "uh9": {
+    "code": "uh9",
+    "name": "Bone Visage",
+    "minac": 100,
+    "maxac": 157,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "helm"
+  },
+  "ush": {
+    "code": "ush",
+    "name": "Troll Nest",
+    "minac": 158,
+    "maxac": 173,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "upk": {
+    "code": "upk",
+    "name": "Blade Barrier",
+    "minac": 147,
+    "maxac": 163,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "shie"
+  },
+  "dr6": {
+    "code": "dr6",
+    "name": "Alpha Helm",
+    "minac": 52,
+    "maxac": 62,
+    "reqstr": 44,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dr7": {
+    "code": "dr7",
+    "name": "Griffon Headress",
+    "minac": 46,
+    "maxac": 68,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dr8": {
+    "code": "dr8",
+    "name": "Hunter's Guise",
+    "minac": 67,
+    "maxac": 81,
+    "reqstr": 56,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dr9": {
+    "code": "dr9",
+    "name": "Sacred Feathers",
+    "minac": 58,
+    "maxac": 87,
+    "reqstr": 62,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dra": {
+    "code": "dra",
+    "name": "Totemic Mask",
+    "minac": 73,
+    "maxac": 98,
+    "reqstr": 65,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "ba6": {
+    "code": "ba6",
+    "name": "Jawbone Visor",
+    "minac": 55,
+    "maxac": 68,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "ba7": {
+    "code": "ba7",
+    "name": "Lion Helm",
+    "minac": 63,
+    "maxac": 75,
+    "reqstr": 73,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "ba8": {
+    "code": "ba8",
+    "name": "Rage Mask",
+    "minac": 78,
+    "maxac": 90,
+    "reqstr": 88,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "ba9": {
+    "code": "ba9",
+    "name": "Savage Helmet",
+    "minac": 85,
+    "maxac": 98,
+    "reqstr": 103,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "baa": {
+    "code": "baa",
+    "name": "Slayer Guard",
+    "minac": 93,
+    "maxac": 120,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "pa6": {
+    "code": "pa6",
+    "name": "Akaran Targe",
+    "minac": 101,
+    "maxac": 125,
+    "reqstr": 44,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pa7": {
+    "code": "pa7",
+    "name": "Akaran Rondache",
+    "minac": 113,
+    "maxac": 137,
+    "reqstr": 59,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pa8": {
+    "code": "pa8",
+    "name": "Protector Shield",
+    "minac": 129,
+    "maxac": 153,
+    "reqstr": 69,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pa9": {
+    "code": "pa9",
+    "name": "Gilded Shield",
+    "minac": 144,
+    "maxac": 168,
+    "reqstr": 89,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "paa": {
+    "code": "paa",
+    "name": "Royal Shield",
+    "minac": 156,
+    "maxac": 181,
+    "reqstr": 114,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "ne6": {
+    "code": "ne6",
+    "name": "Mummified Trophy",
+    "minac": 38,
+    "maxac": 48,
+    "reqstr": 38,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ne7": {
+    "code": "ne7",
+    "name": "Fetish Trophy",
+    "minac": 41,
+    "maxac": 52,
+    "reqstr": 41,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ne8": {
+    "code": "ne8",
+    "name": "Sexton Trophy",
+    "minac": 44,
+    "maxac": 55,
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ne9": {
+    "code": "ne9",
+    "name": "Cantor Trophy",
+    "minac": 50,
+    "maxac": 64,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "nea": {
+    "code": "nea",
+    "name": "Heirophant Trophy",
+    "minac": 58,
+    "maxac": 70,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "drb": {
+    "code": "drb",
+    "name": "Blood Spirit",
+    "minac": 101,
+    "maxac": 145,
+    "reqstr": 86,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "drc": {
+    "code": "drc",
+    "name": "Sun Spirit",
+    "minac": 98,
+    "maxac": 147,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "drd": {
+    "code": "drd",
+    "name": "Earth Spirit",
+    "minac": 107,
+    "maxac": 152,
+    "reqstr": 104,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "dre": {
+    "code": "dre",
+    "name": "Sky Spirit",
+    "minac": 103,
+    "maxac": 155,
+    "reqstr": 113,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "drf": {
+    "code": "drf",
+    "name": "Dream Spirit",
+    "minac": 109,
+    "maxac": 159,
+    "reqstr": 118,
+    "reqdex": 0,
+    "type": "pelt"
+  },
+  "bab": {
+    "code": "bab",
+    "name": "Carnage Helm",
+    "minac": 102,
+    "maxac": 147,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "bac": {
+    "code": "bac",
+    "name": "Fury Visor",
+    "minac": 105,
+    "maxac": 150,
+    "reqstr": 129,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "bad": {
+    "code": "bad",
+    "name": "Destroyer Helm",
+    "minac": 111,
+    "maxac": 156,
+    "reqstr": 151,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "bae": {
+    "code": "bae",
+    "name": "Conqueror Crown",
+    "minac": 114,
+    "maxac": 159,
+    "reqstr": 174,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "baf": {
+    "code": "baf",
+    "name": "Guardian Crown",
+    "minac": 117,
+    "maxac": 168,
+    "reqstr": 196,
+    "reqdex": 0,
+    "type": "phlm"
+  },
+  "pab": {
+    "code": "pab",
+    "name": "Sacred Targe",
+    "minac": 126,
+    "maxac": 158,
+    "reqstr": 86,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pac": {
+    "code": "pac",
+    "name": "Sacred Rondache",
+    "minac": 138,
+    "maxac": 164,
+    "reqstr": 109,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pad": {
+    "code": "pad",
+    "name": "Ancient Shield",
+    "minac": 154,
+    "maxac": 172,
+    "reqstr": 124,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "pae": {
+    "code": "pae",
+    "name": "Zakarum Shield",
+    "minac": 169,
+    "maxac": 193,
+    "reqstr": 142,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "paf": {
+    "code": "paf",
+    "name": "Vortex Shield",
+    "minac": 182,
+    "maxac": 225,
+    "reqstr": 148,
+    "reqdex": 0,
+    "type": "ashd"
+  },
+  "neb": {
+    "code": "neb",
+    "name": "Minion Skull",
+    "minac": 95,
+    "maxac": 139,
+    "reqstr": 77,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "neg": {
+    "code": "neg",
+    "name": "Hellspawn Skull",
+    "minac": 96,
+    "maxac": 141,
+    "reqstr": 82,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "ned": {
+    "code": "ned",
+    "name": "Overseer Skull",
+    "minac": 98,
+    "maxac": 142,
+    "reqstr": 91,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "nee": {
+    "code": "nee",
+    "name": "Succubus Skull",
+    "minac": 100,
+    "maxac": 146,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "nef": {
+    "code": "nef",
+    "name": "Bloodlord Skull",
+    "minac": 103,
+    "maxac": 148,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "head"
+  },
+  "wa1": {
+    "code": "wa1",
+    "name": "Old Book",
+    "minac": 2,
+    "maxac": 5,
+    "reqstr": 12,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wa2": {
+    "code": "wa2",
+    "name": "Tome",
+    "minac": 4,
+    "maxac": 8,
+    "reqstr": 14,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wa3": {
+    "code": "wa3",
+    "name": "Codex",
+    "minac": 6,
+    "maxac": 10,
+    "reqstr": 18,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wa4": {
+    "code": "wa4",
+    "name": "Compendium",
+    "minac": 10,
+    "maxac": 16,
+    "reqstr": 20,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wa5": {
+    "code": "wa5",
+    "name": "Grimoire",
+    "minac": 15,
+    "maxac": 20,
+    "reqstr": 25,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wa6": {
+    "code": "wa6",
+    "name": "Burnt Text",
+    "minac": 38,
+    "maxac": 48,
+    "reqstr": 38,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wa7": {
+    "code": "wa7",
+    "name": "Dark Tome",
+    "minac": 41,
+    "maxac": 52,
+    "reqstr": 41,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wa8": {
+    "code": "wa8",
+    "name": "Dark Codex",
+    "minac": 44,
+    "maxac": 55,
+    "reqstr": 47,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wa9": {
+    "code": "wa9",
+    "name": "Possessed Compendium",
+    "minac": 50,
+    "maxac": 64,
+    "reqstr": 50,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "waa": {
+    "code": "waa",
+    "name": "Possessed Grimoire",
+    "minac": 58,
+    "maxac": 70,
+    "reqstr": 58,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wab": {
+    "code": "wab",
+    "name": "Forgotten Volume",
+    "minac": 95,
+    "maxac": 139,
+    "reqstr": 77,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wac": {
+    "code": "wac",
+    "name": "Occult Tome",
+    "minac": 96,
+    "maxac": 141,
+    "reqstr": 82,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wad": {
+    "code": "wad",
+    "name": "Occult Codex",
+    "minac": 98,
+    "maxac": 142,
+    "reqstr": 91,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "wae": {
+    "code": "wae",
+    "name": "Blasphemous Compendium",
+    "minac": 100,
+    "maxac": 146,
+    "reqstr": 95,
+    "reqdex": 0,
+    "type": "grim"
+  },
+  "waf": {
+    "code": "waf",
+    "name": "Blasphemous Grimoire",
+    "minac": 103,
+    "maxac": 148,
+    "reqstr": 106,
+    "reqdex": 0,
+    "type": "grim"
+  }
+}
