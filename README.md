@@ -4,6 +4,9 @@
 
 **AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**
 
+[![Live Website](https://img.shields.io/badge/Website-kosiorro.github.io%2FD2--UberApp-gold.svg)](https://kosiorro.github.io/D2-UberApp/)
+[![Online Market](https://img.shields.io/badge/Online%20Market-d2uberappmarket.tw5.org-purple.svg)](https://d2uberappmarket.tw5.org)
+[![Releases](https://img.shields.io/badge/Download-Releases%20(v1.0.0)-brightgreen.svg)](https://github.com/kosiorro/D2-UberApp/releases)
 [![Status: Active Beta](https://img.shields.io/badge/Status-Active%20Beta-orange.svg)](#beta-notice)
 [![Account Safety](https://img.shields.io/badge/Account%20Safety-100%25%20Safe%20(Screenshots)-brightgreen.svg)](#account-safety-screenshot-based-architecture)
 [![Gemini 3.5 Flash Lite](https://img.shields.io/badge/AI-Google%20Gemini%203.5%20Flash%20Lite-blue.svg)](#gemini-api-key-required--free)
@@ -11,6 +14,8 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg)](https://microsoft.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Bilingual](https://img.shields.io/badge/Language-English%20%7C%20Polski-lightgrey.svg)](#wersja-polska)
+
+🌐 **[Live Website & Guide](https://kosiorro.github.io/D2-UberApp/)** • ⚖️ **[Community Online Market](https://d2uberappmarket.tw5.org)** • 📦 **[Download Releases](https://github.com/kosiorro/D2-UberApp/releases)**
 
 [English](#english) • [Wersja Polska](#wersja-polska) • [Screenshots](#visual-tour) • [Safety](#anti-ban-safety-screenshot-based-architecture) • [API Setup](#gemini-api-key-required--free) • [Hotkeys](#controls--hotkeys) • [Roadmap](#roadmap--planned-features) • [Installation](#quick-start)
 
@@ -20,6 +25,12 @@
 
 <a name="english"></a>
 ## English Documentation
+
+### Official Links & Services
+- 🌐 **Live Website & Interactive Guide**: [https://kosiorro.github.io/D2-UberApp/](https://kosiorro.github.io/D2-UberApp/)
+- ⚖️ **Community Trading Hub (Online Market)**: [https://d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org)
+- 📦 **Releases & Pre-built Binaries**: [https://github.com/kosiorro/D2-UberApp/releases](https://github.com/kosiorro/D2-UberApp/releases)
+- 💻 **Source Code Repository**: [https://github.com/kosiorro/D2-UberApp](https://github.com/kosiorro/D2-UberApp)
 
 ### Beta Notice
 > **Active Beta Status**: D2 UberApp is currently in active beta testing. Core features are fully functional, with continuous optimizations, balance tuning, and community feedback integration in progress.
@@ -111,8 +122,8 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
 
 1. **Clone repository**:
    ```bash
-   git clone https://github.com/your-username/d2-uberapp.git
-   cd d2-uberapp
+   git clone https://github.com/kosiorro/D2-UberApp.git
+   cd D2-UberApp
    ```
 
 2. **Install Python dependencies**:
@@ -144,6 +155,12 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
 
 <a name="wersja-polska"></a>
 ## Wersja Polska (Dokumentacja PL)
+
+### Oficjalne Linki i Serwisy
+- 🌐 **Oficjalna Strona WWW i Przewodnik Online**: [https://kosiorro.github.io/D2-UberApp/](https://kosiorro.github.io/D2-UberApp/)
+- ⚖️ **Internetowa Giełda Przedmiotów (Market)**: [https://d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org)
+- 📦 **Pobieranie i Najnowsze Wydania (Releases)**: [https://github.com/kosiorro/D2-UberApp/releases](https://github.com/kosiorro/D2-UberApp/releases)
+- 💻 **Repozytorium Kodu Źródłowego**: [https://github.com/kosiorro/D2-UberApp](https://github.com/kosiorro/D2-UberApp)
 
 ### Informacja o wersji Beta
 > **Aktywna Faza Beta**: D2 UberApp znajduje się w fazie intensywnych testów beta. Główne moduły są w pełni sprawne, a kolejne usprawnienia i funkcje dochodzą na bieżąco.
