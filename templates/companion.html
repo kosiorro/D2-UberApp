@@ -1,35 +1,35 @@
 <!doctype html>
-<html lang="pl">
+<html lang="{{ lang }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>D2 UberApp · Panel</title>
+    <title>D2 UberApp · {{ lang == 'en' and 'HUD' or 'Panel' }}</title>
     <link rel="icon" href="/static/images/uberapp.ico">
     <link rel="stylesheet" href="/static/sanctuary.css">
     <link rel="stylesheet" href="/static/uberapp.css">
     <link rel="stylesheet" href="/static/companion.css">
 </head>
 {% macro hotkey_options(include_none=false) %}
-    {% if include_none %}<option value="">Brak</option>{% endif %}
-    <optgroup label="Podstawowe (F1–F12)">
+    {% if include_none %}<option value="">{{ lang == 'en' and 'None' or 'Brak' }}</option>{% endif %}
+    <optgroup label="{{ lang == 'en' and 'Primary (F1–F12)' or 'Podstawowe (F1–F12)' }}">
         {% for n in range(1,13) %}<option value="F{{ n }}">F{{ n }}</option>{% endfor %}
     </optgroup>
-    <optgroup label="Kombinacje z Alt (F1–F12)">
+    <optgroup label="{{ lang == 'en' and 'Alt combinations (F1–F12)' or 'Kombinacje z Alt (F1–F12)' }}">
         {% for n in range(1,13) %}<option value="Alt+F{{ n }}">Alt+F{{ n }}</option>{% endfor %}
     </optgroup>
-    <optgroup label="Kombinacje z Alt (Cyfry 1–9)">
+    <optgroup label="{{ lang == 'en' and 'Alt combinations (Digits 1–9)' or 'Kombinacje z Alt (Cyfry 1–9)' }}">
         {% for n in range(1,10) %}<option value="Alt+{{ n }}">Alt+{{ n }}</option>{% endfor %}
     </optgroup>
-    <optgroup label="Kombinacje z Alt (Gaming)">
+    <optgroup label="{{ lang == 'en' and 'Alt combinations (Gaming)' or 'Kombinacje z Alt (Gaming)' }}">
         {% for k in ['Q','W','E','R','A','S','D','Z','X','C','V'] %}<option value="Alt+{{ k }}">Alt+{{ k }}</option>{% endfor %}
     </optgroup>
-    <optgroup label="Kombinacje z Ctrl (F1–F12)">
+    <optgroup label="{{ lang == 'en' and 'Ctrl combinations (F1–F12)' or 'Kombinacje z Ctrl (F1–F12)' }}">
         {% for n in range(1,13) %}<option value="Ctrl+F{{ n }}">Ctrl+F{{ n }}</option>{% endfor %}
     </optgroup>
-    <optgroup label="Kombinacje z Ctrl (Cyfry 1–9)">
+    <optgroup label="{{ lang == 'en' and 'Ctrl combinations (Digits 1–9)' or 'Kombinacje z Ctrl (Cyfry 1–9)' }}">
         {% for n in range(1,10) %}<option value="Ctrl+{{ n }}">Ctrl+{{ n }}</option>{% endfor %}
     </optgroup>
-    <optgroup label="Klawisze nawigacyjne">
+    <optgroup label="{{ lang == 'en' and 'Navigation keys' or 'Klawisze nawigacyjne' }}">
         <option value="Insert">Insert</option>
         <option value="Delete">Delete</option>
         <option value="Home">Home</option>

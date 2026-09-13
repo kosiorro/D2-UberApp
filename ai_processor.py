@@ -20,6 +20,7 @@ def get_client():
     return _client
 
 UNIFIED_PROMPT = """Przeanalizuj ten zrzut ekranu z gry Diablo 2 Resurrected.
+Zrzut może pochodzić z wersji gry w języku POLSKIM lub ANGIELSKIM.
 Zrzut może przedstawiać:
 A) Opis przedmiotu (tooltip)
 B) Zakładkę "RUNY" w skrytce (stash) ze stałą siatką 33 run (od El do Zod).
@@ -47,6 +48,10 @@ Format odpowiedzi dla run:
 }
 
 JEŚLI TO OPIS PRZEDMIOTU (TOOLTIP):
+Wskazówki językowe:
+- Jeśli zrzut jest po angielsku: w "name_en" podaj dokładną nazwę z gry (np. "The Oculus", "Harlequin Crest", "Enigma"), a w "name" podaj polski odpowiednik katalogowy (lub powtórz nazwę angielską).
+- Jeśli zrzut jest po polsku: w "name" podaj nazwę z gry, a w "name_en" podaj jej oficjalny angielski odpowiednik.
+- W "stats" przepisz linie statystyk dokładnie w języku, w jakim widnieją na zrzucie ekranu.
 Zwróć:
 {
   "type": "item",
@@ -242,6 +247,10 @@ def process_image(image_path: Path, scan_mode="normal") -> dict:
         inferred_slot = data.get("slot") or ""
         if cat_item:
             catalog_id = cat_item.get("id")
+            if not data.get("name_en") and cat_item.get("name_en"):
+                data["name_en"] = cat_item["name_en"]
+            if (not data.get("name") or data.get("name") == data.get("name_en")) and cat_item.get("name"):
+                data["name"] = cat_item["name"]
             cat_slot = cat_item.get("slot", "misc")
             inferred_slot = cat_slot
             # Uzupełnienie wymagań z oficjalnego katalogu jeśli na tooltipie nie było

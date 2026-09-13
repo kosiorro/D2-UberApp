@@ -73,6 +73,54 @@ PROP_NAMES_PL = {
     "oskill": "Umiejętność (Oskill)",
 }
 
+PROP_NAMES_EN = {
+    "dmg%": "Enhanced Damage (ED)",
+    "dmg": "Added Damage",
+    "res-all": "All Resistances",
+    "all-stats": "All Attributes",
+    "randclassskill": "Character Class (+3 Skills)",
+    "res-fire": "Fire Resistance",
+    "res-ltng": "Lightning Resistance",
+    "res-cold": "Cold Resistance",
+    "res-pois": "Poison Resistance",
+    "ac%": "Enhanced Defense (ED)",
+    "ac": "Defense",
+    "lifesteal": "Life Stolen per Hit (LL)",
+    "manasteal": "Mana Stolen per Hit (ML)",
+    "mag%": "Magic Find (MF)",
+    "gold%": "Extra Gold from Monsters",
+    "cheap": "Reduces Vendor Prices",
+    "cast2": "Faster Cast Rate (FCR)",
+    "cast3": "Faster Cast Rate (FCR)",
+    "swing2": "Increased Attack Speed (IAS)",
+    "swing3": "Increased Attack Speed (IAS)",
+    "balance2": "Faster Hit Recovery (FHR)",
+    "balance3": "Faster Hit Recovery (FHR)",
+    "red-mag": "Magic Damage Reduced",
+    "red-dmg%": "Damage Reduced by (%)",
+    "extra-ltng": "Lightning Skill Damage (%)",
+    "pierce-ltng": "Enemy Lightning Resistance (%)",
+    "extra-cold": "Cold Skill Damage (%)",
+    "pierce-cold": "Enemy Cold Resistance (%)",
+    "pierce-pois": "Enemy Poison Resistance (%)",
+    "str": "Strength",
+    "dex": "Dexterity",
+    "vit": "Vitality",
+    "enr": "Energy",
+    "allskills": "All Skills",
+    "skilltab": "Skill Tree",
+    "move2": "Faster Run/Walk (FRW)",
+    "block": "Chance to Block",
+    "hp": "Life",
+    "mana": "Mana",
+    "abs-mag": "Magic Absorb",
+    "abs-fire": "Fire Absorb",
+    "abs-ltng": "Lightning Absorb",
+    "addxp": "Extra Experience (%)",
+    "sock": "Sockets",
+    "oskill": "Skill (Oskill)",
+}
+
 CLASS_NAMES_PL = {
     "paladyn": "Paladyn", "paladyna": "Paladyn", "paladin": "Paladyn",
     "czarodziejk": "Czarodziejka", "czarodziejki": "Czarodziejka", "sorceress": "Czarodziejka",
@@ -97,6 +145,11 @@ def clean_prop_name(prop: str, param: str = "") -> str:
     if prop == "oskill" and param:
         return f"{param} (Oskill)"
     return PROP_NAMES_PL.get(prop, prop)
+
+def clean_prop_name_en(prop: str, param: str = "") -> str:
+    if prop == "oskill" and param:
+        return f"{param} (Oskill)"
+    return PROP_NAMES_EN.get(prop, clean_prop_name(prop, param))
 
 class CatalogMatcher:
     def __init__(self, db_path=CATALOG_PATH):
@@ -191,7 +244,7 @@ class CatalogMatcher:
         for pool, rw_flag in search_pools:
             if norm_input_en:
                 for candidate in pool:
-                    if candidate["norm_en"] == norm_input_en:
+                    if candidate["norm_en"] == norm_input_en or candidate["norm_pl"] == norm_input_en:
                         found_item = candidate
                         is_runeword = rw_flag
                         break
@@ -200,7 +253,7 @@ class CatalogMatcher:
 
             if norm_input_pl:
                 for candidate in pool:
-                    if candidate["norm_pl"] == norm_input_pl:
+                    if candidate["norm_pl"] == norm_input_pl or candidate["norm_en"] == norm_input_pl:
                         found_item = candidate
                         is_runeword = rw_flag
                         break
@@ -208,11 +261,11 @@ class CatalogMatcher:
                 break
 
             for candidate in pool:
-                if norm_input_en and len(norm_input_en) >= 4 and norm_input_en in candidate["norm_en"]:
+                if norm_input_en and len(norm_input_en) >= 4 and (norm_input_en in candidate["norm_en"] or norm_input_en in candidate["norm_pl"]):
                     found_item = candidate
                     is_runeword = rw_flag
                     break
-                if norm_input_pl and len(norm_input_pl) >= 4 and norm_input_pl in candidate["norm_pl"]:
+                if norm_input_pl and len(norm_input_pl) >= 4 and (norm_input_pl in candidate["norm_pl"] or norm_input_pl in candidate["norm_en"]):
                     found_item = candidate
                     is_runeword = rw_flag
                     break
@@ -231,10 +284,16 @@ class CatalogMatcher:
             ]:
                 for candidate in pool:
                     score = 0.0
-                    if norm_input_en and candidate["norm_en"]:
-                        score = max(score, difflib.SequenceMatcher(None, norm_input_en, candidate["norm_en"]).ratio())
-                    if norm_input_pl and candidate["norm_pl"]:
-                        score = max(score, difflib.SequenceMatcher(None, norm_input_pl, candidate["norm_pl"]).ratio())
+                    if norm_input_en:
+                        if candidate["norm_en"]:
+                            score = max(score, difflib.SequenceMatcher(None, norm_input_en, candidate["norm_en"]).ratio())
+                        if candidate["norm_pl"]:
+                            score = max(score, difflib.SequenceMatcher(None, norm_input_en, candidate["norm_pl"]).ratio())
+                    if norm_input_pl:
+                        if candidate["norm_pl"]:
+                            score = max(score, difflib.SequenceMatcher(None, norm_input_pl, candidate["norm_pl"]).ratio())
+                        if candidate["norm_en"]:
+                            score = max(score, difflib.SequenceMatcher(None, norm_input_pl, candidate["norm_en"]).ratio())
                     
                     if score > best_score:
                         best_score = score
@@ -280,6 +339,7 @@ class CatalogMatcher:
                             variable_props.append({
                                 "property": prop_key,
                                 "label": clean_prop_name(prop_key, param),
+                                "label_en": clean_prop_name_en(prop_key, param),
                                 "min": int(v_min) if v_min.is_integer() else v_min,
                                 "max": int(v_max) if v_max.is_integer() else v_max,
                                 "param": param
@@ -303,6 +363,7 @@ class CatalogMatcher:
                 variable_props.insert(0, {
                     "property": "base_defense",
                     "label": "Obrona (Wartość Bazy)",
+                    "label_en": "Defense (Base Value)",
                     "min": def_min,
                     "max": def_max,
                     "param": ""
@@ -349,6 +410,7 @@ class CatalogMatcher:
                 evaluations.append({
                     "property": p_key,
                     "label": "Klasa Postaci",
+                    "label_en": "Character Class",
                     "min": "1 z 7",
                     "max": "Klasa",
                     "actual": class_name,
@@ -434,7 +496,8 @@ class CatalogMatcher:
                     patterns = [
                         r'\+?(\d+)\s*do\s*wszystkich\s*odporno',
                         r'(?:wszystkie\s*odporno[^\n]*?)\+?(\d+)',
-                        r'to\s*all\s*resistances\s*\+?(\d+)'
+                        r'to\s*all\s*resistances\s*\+?(\d+)',
+                        r'all\s*resistances\s*\+?(\d+)'
                     ]
                 elif p_key == "all-stats":
                     patterns = [
@@ -443,16 +506,25 @@ class CatalogMatcher:
                         r'\+?(\d+)\s*to\s*all\s*attributes'
                     ]
                 elif p_key == "lifesteal":
-                    patterns = [r'(\d+)%\s*(?:wyssanie|skradzione|kradnie|stolen).*zyci']
+                    patterns = [
+                        r'(\d+)%\s*(?:wyssanie|skradzione|kradnie|stolen).*zyci',
+                        r'(\d+)%\s*life\s*stolen\s*per\s*hit'
+                    ]
                 elif p_key == "manasteal":
-                    patterns = [r'(\d+)%\s*(?:wyssanie|skradzione|kradnie|stolen).*man']
+                    patterns = [
+                        r'(\d+)%\s*(?:wyssanie|skradzione|kradnie|stolen).*man',
+                        r'(\d+)%\s*mana\s*stolen\s*per\s*hit'
+                    ]
                 elif p_key == "red-mag":
                     patterns = [
                         r'(?:redukcja|zmniejsza|zmniejszenie)[^\n]*?obrazen[^\n]*?magii\s*(?:o\s*)?(\d+)',
                         r'magic\s*damage\s*reduced\s*(?:by\s*)?(\d+)'
                     ]
                 elif p_key == "red-dmg%":
-                    patterns = [r'redukcja\s*obrazen\s*(?:fizycznych)?\s*(?:o\s*)?(\d+)%']
+                    patterns = [
+                        r'redukcja\s*obrazen\s*(?:fizycznych)?\s*(?:o\s*)?(\d+)%',
+                        r'damage\s*reduced\s*by\s*(\d+)%'
+                    ]
                 elif p_key == "mag%":
                     patterns = [r'(\d+)%\s*(?:lepsza\s*szansa|szansa\s*na\s*znalezienie\s*magicznych|better\s*chance)']
                 elif p_key == "gold%":
@@ -460,27 +532,56 @@ class CatalogMatcher:
                 elif p_key == "ac%":
                     patterns = [r'\+?(\d+)%\s*(?:do\s*obrony|zwiekszona\s*obrona|enhanced\s*defense)']
                 elif p_key == "skilltab":
-                    patterns = [r'\+?(\d+)\s*do\s*umiejetnosci']
+                    patterns = [
+                        r'\+?(\d+)\s*do\s*umiejetnosci',
+                        r'\+?(\d+)\s*to\s*[a-zA-Z\s]+skills'
+                    ]
                 elif p_key == "str":
-                    patterns = [r'\+?(\d+)\s*do\s*sily', r'sila\s*\+?(\d+)']
+                    patterns = [
+                        r'\+?(\d+)\s*do\s*sily', r'sila\s*\+?(\d+)',
+                        r'\+?(\d+)\s*to\s*strength', r'strength\s*\+?(\d+)'
+                    ]
                 elif p_key == "dex":
-                    patterns = [r'\+?(\d+)\s*do\s*zrecznosci', r'zrecznosc\s*\+?(\d+)']
+                    patterns = [
+                        r'\+?(\d+)\s*do\s*zrecznosci', r'zrecznosc\s*\+?(\d+)',
+                        r'\+?(\d+)\s*to\s*dexterity', r'dexterity\s*\+?(\d+)'
+                    ]
                 elif p_key == "vit":
-                    patterns = [r'\+?(\d+)\s*do\s*zywotnosci', r'zywotnosc\s*\+?(\d+)']
+                    patterns = [
+                        r'\+?(\d+)\s*do\s*zywotnosci', r'zywotnosc\s*\+?(\d+)',
+                        r'\+?(\d+)\s*to\s*vitality', r'vitality\s*\+?(\d+)'
+                    ]
                 elif p_key == "enr":
-                    patterns = [r'\+?(\d+)\s*do\s*energii', r'energia\s*\+?(\d+)']
+                    patterns = [
+                        r'\+?(\d+)\s*do\s*energii', r'energia\s*\+?(\d+)',
+                        r'\+?(\d+)\s*to\s*energy', r'energy\s*\+?(\d+)'
+                    ]
                 elif p_key in ("cast2", "cast3"):
-                    patterns = [r'\+?(\d+)%\s*do\s*szybkosci\s*rzucania', r'(\d+)%\s*(?:fcr|cast)']
+                    patterns = [
+                        r'\+?(\d+)%\s*do\s*szybkosci\s*rzucania', r'(\d+)%\s*(?:fcr|cast)',
+                        r'(\d+)%\s*faster\s*cast\s*rate'
+                    ]
                 elif p_key in ("swing2", "swing3"):
-                    patterns = [r'\+?(\d+)%\s*do\s*szybkosci\s*ataku', r'(\d+)%\s*(?:ias|attack\s*speed)']
+                    patterns = [
+                        r'\+?(\d+)%\s*do\s*szybkosci\s*ataku', r'(\d+)%\s*(?:ias|attack\s*speed)',
+                        r'(\d+)%\s*increased\s*attack\s*speed'
+                    ]
                 elif p_key == "dmg":
-                    patterns = [r'\+?(\d+)\s*(?:do\s*obrazen|obrazen)', r'dodaje\s*(\d+)\s*obrazen']
+                    patterns = [
+                        r'\+?(\d+)\s*(?:do\s*obrazen|obrazen)', r'dodaje\s*(\d+)\s*obrazen',
+                        r'\+?(\d+)\s*to\s*damage'
+                    ]
                 elif p_key == "abs-mag":
                     patterns = [r'\+?(\d+)\s*do\s*absorpcji\s*magii', r'(?:absorpcja\s*magii|magic\s*absorb)[^\n]*?\+?(\d+)%?']
                 elif p_key == "abs-fire":
                     patterns = [r'\+?(\d+)\s*do\s*absorpcji\s*ognia', r'(?:absorpcja\s*ognia|fire\s*absorb)[^\n]*?\+?(\d+)%?']
+                elif p_key == "abs-ltng":
+                    patterns = [
+                        r'\+?(\d+)\s*do\s*absorpcji\s*blyskawic',
+                        r'(?:absorpcja\s*blyskawic|lightning\s*absorb)[^\n]*?\+?(\d+)%?'
+                    ]
                 elif p_key == "mana":
-                    patterns = [r'\+?(\d+)\s*do\s*many', r'mana\s*\+?(\d+)']
+                    patterns = [r'\+?(\d+)\s*do\s*many', r'mana\s*\+?(\d+)', r'\+?(\d+)\s*to\s*mana']
                 elif p_key == "addxp":
                     patterns = [r'\+?(\d+)%\s*(?:wiecej\s*doswiadczenia|to\s*experience)']
                 elif p_key == "sock":
@@ -521,6 +622,7 @@ class CatalogMatcher:
                 evaluations.append({
                     "property": p_key,
                     "label": label,
+                    "label_en": prop.get("label_en") or clean_prop_name_en(p_key, param),
                     "min": p_min,
                     "max": p_max,
                     "actual": int(val) if val.is_integer() else val,

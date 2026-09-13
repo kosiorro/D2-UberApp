@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="{{ lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D2 UberApp · Skarbiec i postacie</title>
+    <title>D2 UberApp · {{ lang == 'en' and 'Vault & Heroes' or 'Skarbiec i postacie' }}</title>
     <link rel="icon" type="image/x-icon" href="/static/images/uberapp.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1597,7 +1597,7 @@
                             </div>
                             <div class="item-card-details">
                                 <div class="item-card-header-row">
-                                    <div class="item-card-name quality-{{ it.quality }}">{{ it.display_name or it.name }}</div>
+                                    <div class="item-card-name quality-{{ it.quality }}">{{ item_title(it) }}</div>
                                     <!-- QUALITY BADGE -->
                                     {% if it.quality == 'unikalny' %}
                                     <span class="badge-quality badge-unique">{{ t("quality_unique") }}</span>
@@ -1613,7 +1613,9 @@
                                     <span class="badge-quality badge-normal">{{ it.quality|upper }}</span>
                                     {% endif %}
                                 </div>
-                                {% if it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                {% if lang == 'en' and it.name and it.name != it.name_en and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                <div style="font-size: 0.8rem; color: #aaa;">{{ it.name }}</div>
+                                {% elif lang != 'en' and it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
                                 <div style="font-size: 0.8rem; color: #aaa;">{{ it.name_en }}</div>
                                 {% endif %}
                                 {% if (it.display_name or it.name) != it.base and it.base %}
@@ -1638,7 +1640,7 @@
                             {% for r in it.rolls_eval %}
                             <div class="var-stat-line">
                                 <div>
-                                    <strong style="color: #fff;">{{ r.label or r.property_pl or r.property }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                    <strong style="color: #fff;">{{ (lang == 'en' and (r.label_en or r.label)) or (r.label or r.property_pl or r.property) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
                                     {% if r.min is defined and r.max is defined and r.min != r.max %}
                                     <span style="color: #888; font-size: 0.75rem;">[{{ r.min }} - {{ r.max }}]</span>
                                     {% endif %}
@@ -1697,8 +1699,10 @@
                                 <img src="{{ it.image_path }}" style="width: 32px; height: 32px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
                             </td>
                             <td>
-                                <strong class="quality-{{ it.quality }}">{{ it.display_name or it.name }}</strong>
-                                {% if (it.display_name or it.name) != it.name %}
+                                <strong class="quality-{{ it.quality }}">{{ item_title(it) }}</strong>
+                                {% if lang == 'en' and it.name and it.name != it.name_en %}
+                                <div style="font-size: 0.75rem; color: #888;">{{ it.name }}</div>
+                                {% elif (it.display_name or it.name) != it.name %}
                                 <div style="font-size: 0.72rem; color: #777;">{{ it.name }}</div>
                                 {% elif it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
                                 <div style="font-size: 0.75rem; color: #888;">{{ it.name_en }}</div>
@@ -1726,7 +1730,7 @@
                                 {% if it.rolls_eval and it.rolls_eval|length > 0 %}
                                     {% for r in it.rolls_eval[:3] %}
                                     <div style="font-size: 0.8rem; line-height: 1.4; margin-bottom: 2px;">
-                                        <strong style="color: #ffd27d;">{{ r.label or r.property_pl or r.property }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                        <strong style="color: #ffd27d;">{{ (lang == 'en' and (r.label_en or r.label)) or (r.label or r.property_pl or r.property) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
                                         {% if r.min is defined and r.max is defined and r.min != r.max %}
                                         <span style="color: #888; font-size: 0.75rem;">[{{ r.min }}-{{ r.max }}]</span>
                                         {% endif %}
@@ -2042,9 +2046,11 @@
                                 <img src="{{ it.image_path }}" style="width: 38px; height: 38px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
                             </td>
                             <td>
-                                <strong class="quality-{{ it.quality }} trade-name-standard" style="font-size: 0.95rem; cursor: pointer;" onclick="openItemModal('{{ it.id }}')">{{ it.display_name or it.name }}</strong>
-                                <strong class="quality-{{ it.quality }} trade-name-shorthand" style="font-size: 0.95rem; cursor: pointer; display: none;" onclick="openItemModal('{{ it.id }}')">{{ it.colloquial_name or it.display_name or it.name }}</strong>
-                                {% if it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                <strong class="quality-{{ it.quality }} trade-name-standard" style="font-size: 0.95rem; cursor: pointer;" onclick="openItemModal('{{ it.id }}')">{{ item_title(it) }}</strong>
+                                <strong class="quality-{{ it.quality }} trade-name-shorthand" style="font-size: 0.95rem; cursor: pointer; display: none;" onclick="openItemModal('{{ it.id }}')">{{ it.colloquial_name or item_title(it) }}</strong>
+                                {% if lang == 'en' and it.name and it.name != it.name_en and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                <div class="trade-name-en" style="font-size: 0.78rem; color: #888;">{{ it.name }}</div>
+                                {% elif lang != 'en' and it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
                                 <div class="trade-name-en" style="font-size: 0.78rem; color: #888;">{{ it.name_en }}</div>
                                 {% endif %}
                             </td>
@@ -2075,7 +2081,7 @@
                                     <div class="trade-rolls-standard">
                                         {% for r in it.rolls_eval %}
                                         <div style="font-size: 0.8rem; line-height: 1.4; margin-bottom: 2px;">
-                                            <strong style="color: #ffd27d;">{{ r.label or r.property_pl or r.property }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                            <strong style="color: #ffd27d;">{{ (lang == 'en' and (r.label_en or r.label)) or (r.label or r.property_pl or r.property) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
                                             {% if r.min is defined and r.max is defined and r.min != r.max %}
                                             <span style="color: #888; font-size: 0.75rem;">[{{ r.min }}-{{ r.max }}]</span>
                                             {% endif %}
@@ -2173,7 +2179,7 @@
                 {% for grp in duplicates_groups %}
                 <div style="background: #0b0c10; border: 1px solid #332714; border-radius: 6px; padding: 16px; margin-bottom: 16px;">
                     <div style="font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold-main); font-weight: 700; margin-bottom: 10px;">
-                        {{ grp.name }} ({{ grp.base }}) — {{ grp.duplicates|length }} {{ t("dup_repeats", count=grp.duplicates|length) }}
+                        {{ (lang == 'en' and grp.name_en) or grp.name }} ({{ grp.base }}) — {{ grp.duplicates|length }} {{ t("dup_repeats", count=grp.duplicates|length) }}
                     </div>
                     {% for dup in grp.duplicates %}
                     <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; border-top: 1px solid #222;">
@@ -2667,10 +2673,10 @@ async function setAppLanguage(newLang) {
                         ${it.rolls_eval.map(r => `
                             <div class="var-stat-line">
                                 <div>
-                                    <strong style="color: #fff;">${(window.APP_LANG === 'en' && r.property) ? r.property : (r.property_pl || r.property)}: ${r.roll}</strong>
+                                    <strong style="color: #fff;">${(window.APP_LANG === 'en' ? (r.label_en || r.label || r.property) : (r.label || r.property_pl || r.property))}: ${r.actual !== undefined && r.actual !== null ? r.actual : (r.roll !== undefined ? r.roll : '')}</strong>
                                     <span style="color: #888; font-size: 0.75rem;">[${r.min} - ${r.max}]</span>
                                 </div>
-                                <span class="badge-rating rating-${r.rating ? r.rating.toLowerCase() : 'mid'}">${r.rating} (${r.pct}%)</span>
+                                <span class="badge-rating rating-${r.rating ? r.rating.toLowerCase() : 'mid'}">${r.rating} (${r.percent !== undefined ? r.percent : (r.pct !== undefined ? r.pct : 0)}%)</span>
                             </div>
                         `).join('')}
                     </div>
@@ -2692,7 +2698,7 @@ async function setAppLanguage(newLang) {
                 </div>
                 <div>
                     <div style="font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold-bright);">
-                        ${title} ${(!isNonNamed && it.name_en && it.name_en !== it.name) ? `(${it.name_en})` : ''}
+                        ${title} ${(!isNonNamed && it.name_en && it.name_en !== it.name) ? (window.APP_LANG === 'en' ? `(${it.name})` : `(${it.name_en})`) : ''}
                     </div>
                     ${(isNonNamed && it.name && it.name !== title) ? `<div style="font-size: 0.82rem; color: #888; margin-top: 3px;">${window.I18N.affix_name}: ${it.name}</div>` : ''}
                     <div style="font-size: 0.85rem; color: #888; text-transform: uppercase; margin-top: 4px;">

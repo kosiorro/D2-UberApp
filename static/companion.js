@@ -106,8 +106,8 @@ async function wizardStart() {
         wizardRequest = null;
         $('wizard-result').hidden = true;
         $('wizard-submit').disabled = true;
-        $('wizard-status').textContent = 'Oczekiwanie na zrzut…';
-        $('wizard-title').textContent = '1. Zeskanuj statystyki';
+        $('wizard-status').textContent = window.APP_LANG === 'en' ? 'Waiting for screenshot…' : 'Oczekiwanie na zrzut…';
+        $('wizard-title').textContent = window.APP_LANG === 'en' ? '1. Scan character stats' : '1. Zeskanuj statystyki';
         $('wizard-dialog').showModal();
     }
 }
@@ -130,7 +130,7 @@ async function wizardConfirm(event) {
         add_items: $('wizard-items').checked
     })) {
         $('wizard-dialog').close();
-        toast('Zapisano postać: ' + $('wizard-name').value);
+        toast((window.APP_LANG === 'en' ? 'Character saved: ' : 'Zapisano postać: ') + $('wizard-name').value);
     }
 }
 
@@ -173,7 +173,7 @@ async function saveHero(event) {
     }
     if (await action({ action: 'edit', original: originalHero, character_data: data })) {
         $('edit-dialog').close();
-        toast('Zaktualizowano postać!');
+        toast(window.APP_LANG === 'en' ? 'Character updated!' : 'Zaktualizowano postać!');
     }
 }
 
@@ -234,9 +234,81 @@ async function saveSettings(event) {
     if (result?.success) {
         $('set-key').value = '';
         $('settings-dialog').close();
-        toast('Zapisano ustawienia.');
+        toast(window.APP_LANG === 'en' ? 'Settings saved.' : 'Zapisano ustawienia.');
         await refresh();
     }
+}
+
+function formatCompanionStatus(rawStatus, running, hotkey) {
+    if (window.APP_LANG !== 'en') return rawStatus || (running ? 'Aktywny' : 'Wstrzymany');
+    if (!rawStatus) return running ? 'Active' : 'Paused';
+    const hk = hotkey || 'F10';
+    if (rawStatus.startsWith('Aktywny')) {
+        return `Active (Hotkey: ${hk})`;
+    }
+    if (rawStatus.startsWith('Zatrzymany') || rawStatus.startsWith('Wstrzymany')) {
+        return 'Paused';
+    }
+    if (rawStatus.startsWith('Uruchamianie')) {
+        return 'Starting listener...';
+    }
+    if (rawStatus.includes('Błąd rejestracji') || rawStatus.includes('skrót zajęty')) {
+        return `Hotkey registration error: ${hk} (key busy)`;
+    }
+    return rawStatus;
+}
+
+function formatCompanionMessage(msg) {
+    if (!msg) return '';
+    if (window.APP_LANG !== 'en') return msg;
+    if (msg.startsWith('Gotowy. Oczekiwanie na klawisz')) {
+        const hk = state.hotkey || 'F10';
+        return `Ready. Waiting for ${hk} in-game...`;
+    }
+    if (msg.startsWith('Gotowy na kolejny')) {
+        return 'Ready for next loot.';
+    }
+    if (msg.startsWith('Wycinam obszar odczytu')) {
+        return 'Cropping scan region and checking content…';
+    }
+    if (msg.startsWith('Zrzut ekranu wykonany')) {
+        return 'Screenshot captured. Analyzing with Gemini…';
+    }
+    if (msg.startsWith('Zapisano możliwy duplikat: ')) {
+        return 'Saved possible duplicate: ' + msg.substring(27);
+    }
+    if (msg.startsWith('Zapisano: ')) {
+        return 'Saved: ' + msg.substring(10);
+    }
+    if (msg.startsWith('Zapisano statystyki: ')) {
+        return 'Saved character stats: ' + msg.substring(21);
+    }
+    if (msg.startsWith('Zapisano zakładkę run: ')) {
+        return 'Saved rune tab: ' + msg.substring(23).replace('szt.', 'pcs');
+    }
+    if (msg.startsWith('Odczytano ') && msg.includes('Potwierdź postać w kreatorze')) {
+        const name = msg.replace('Odczytano ', '').split('.')[0];
+        return `Read ${name}. Confirm character in wizard.`;
+    }
+    if (msg.startsWith('Błąd przechwytywania: ')) {
+        return 'Capture error: ' + msg.substring(22);
+    }
+    if (msg.startsWith('Błąd: ')) {
+        return 'Error: ' + msg.substring(6);
+    }
+    if (msg.startsWith('Obraz nie pasuje do wybranego trybu')) {
+        return 'Image does not match the selected scan mode.';
+    }
+    if (msg.startsWith('Nie rozpoznano nazwy postaci')) {
+        return 'Could not recognize character name.';
+    }
+    if (msg.startsWith('Wybierz istniejącą postać')) {
+        return 'Select an existing character before scanning.';
+    }
+    if (msg.startsWith('Poczekaj na zakończenie')) {
+        return 'Wait for previous scan to complete.';
+    }
+    return msg;
 }
 
 async function refresh() {
@@ -244,8 +316,8 @@ async function refresh() {
         const response = await fetch('/api/companion/state');
         if (!response.ok) return;
         state = await response.json();
-        $('capture-state').textContent = state.status;
-        $('capture-message').textContent = state.activity.message || '';
+        $('capture-state').textContent = formatCompanionStatus(state.status, state.running, state.hotkey);
+        $('capture-message').textContent = formatCompanionMessage(state.activity.message);
         
         // Update toggle button text and icon
         const playIcon = document.querySelector('.toggle-icon-play');
@@ -255,7 +327,7 @@ async function refresh() {
             pauseIcon.style.display = state.running ? 'inline-block' : 'none';
         }
         if ($('capture-toggle-text')) {
-            $('capture-toggle-text').textContent = state.running ? 'Aktywny' : 'Wstrzymany';
+            $('capture-toggle-text').textContent = state.running ? (window.APP_LANG === 'en' ? 'Active' : 'Aktywny') : (window.APP_LANG === 'en' ? 'Paused' : 'Wstrzymany');
         }
         
         const dot = $('status-dot');
