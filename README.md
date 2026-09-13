@@ -3,7 +3,7 @@
 <div align="center">
 
 **AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**  
-*1-Click Item Export to Online Market & Instant Trade Listings • 100% Anti-Ban Safe (Screenshot-Based)*
+*1-Click Item Export to Online Market & Instant Trade Listings (Świeża Beta Testowa) • 100% Anti-Ban Safe*
 
 <br>
 
@@ -93,7 +93,8 @@
    - Authentic 33-rune grid (El to Zod) with live inventory counts.
    - Real-time crafting calculator identifying assembleable runewords based on owned runes and socketed bases.
 
-5. **Trader's Exchange & 1-Click Online Market Export**:
+5. **Trader's Exchange & 1-Click Online Market Export (Fresh Test Beta / Świeża Beta Testowa)**:
+   > 🧪 **Fresh Test Beta**: The online market sync and trading hub are brand-new features currently undergoing active beta testing. Core listing and export functionality are operational, with continuous optimizations in progress.
    - **1-Click Export to Online Market**: Export your scanned items straight into the public community marketplace ([d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org)) and create live trade listings in a single click with verified stats and roll evaluations.
    - Fast valuation in high runes and forum currency.
    - Automated shorthand jargon generation (e.g., *Hoto 40*, *Arach 120ED*, *CTA 6/6/4*).
@@ -141,9 +142,9 @@
 
 <br><br>
 
-#### 5. Trader's Exchange & 1-Click Market Export (Giełda i Eksport do Marketu)
-*1-click export to community online market (d2uberappmarket.tw5.org), trade shorthand generator & pricing.*  
-*Eksport jednym kliknięciem do giełdy online (d2uberappmarket.tw5.org), generator żargonu handlowego i wycena.*
+#### 5. Trader's Exchange & 1-Click Market Export (Świeża Beta Testowa / Test Beta)
+*1-click export to community online market (d2uberappmarket.tw5.org), trade shorthand generator & pricing (Fresh test beta).*  
+*Eksport jednym kliknięciem do giełdy online (d2uberappmarket.tw5.org), generator żargonu handlowego i wycena (Świeża faza testów beta).*
 
 <img src="docs/screenshots/05_web_trade.png" alt="Trader's Exchange & Market Export" width="92%">
 
@@ -273,7 +274,8 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
    - Autentyczny układ od runy El do Zod z licznikami posiadanych sztuk.
    - Kalkulator wskazujący słowa runiczne możliwe do złożenia z posiadanych run i baz.
 
-5. **Trader's Exchange (Giełda Wymian) i Eksport 1-Kliknięciem do Marketu**:
+5. **Trader's Exchange (Giełda Wymian) i Eksport 1-Kliknięciem do Marketu (Świeża Beta Testowa)**:
+   > 🧪 **Świeża Beta Testowa**: Moduł giełdy online oraz automatycznej publikacji ofert to nowo wdrożona funkcja we wczesnej fazie testów beta. Baza i mechanizmy rynkowe są na bieżąco rozwijane i optymalizowane na podstawie opinii graczy.
    - **Eksport jednym kliknięciem do marketu**: Błyskawiczne wysyłanie zeskanowanych przedmiotów do publicznej giełdy online ([d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org)) i automatyczne tworzenie publicznych listingów ofert z weryfikacją widełek i ceną w HR.
    - Szybkie przypisywanie cen w runach i walucie forumowej.
    - Generator oficjalnego żargonu handlowego (np. *Hoto 40*, *Arach 120ED*).
