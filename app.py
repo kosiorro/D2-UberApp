@@ -90,9 +90,17 @@ def api_set_language():
         save_pref(pref)
     except Exception:
         pass
-    resp = jsonify({"success": True, "lang": new_lang})
-    resp.set_cookie("app_lang", new_lang, max_age=365*24*3600)
+    resp = jsonify({"status": "ok", "lang": new_lang})
+    resp.set_cookie("app_lang", new_lang, max_age=31536000, path="/")
     return resp
+
+@app.route('/landing')
+def landing_page():
+    return send_from_directory(config.BASE_DIR / 'landing', 'index.html')
+
+@app.route('/landing/<path:filename>')
+def landing_static(filename):
+    return send_from_directory(config.BASE_DIR / 'landing', filename)
 
 @app.route("/")
 def index():

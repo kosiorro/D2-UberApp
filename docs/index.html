@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D2 UberApp — Asystent AI, Skarbiec i Giełda dla Diablo II: Resurrected</title>
+  <meta name="description" content="Nowoczesny asystent dla Diablo II: Resurrected zasilany przez Google Gemini AI. Skanowanie F10 bez alt-tabu, ocena widełek statystyk, lalka ekwipunku i giełda handlowa.">
+  <meta name="theme-color" content="#0b0e0b">
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+
+<!-- TOPBAR NAVIGATION -->
+<header class="topbar">
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <span class="brandmark">
+        <svg viewBox="0 0 44 50" aria-hidden="true">
+          <path d="M22 2 40 12v25L22 48 4 37V12Z" fill="#1d251a" stroke="#c3a25d"/>
+          <path d="M22 6 36 14v21L22 44 8 35V14Z" fill="none" stroke="#746542"/>
+          <path d="M15 15v20l7 4 7-4V15M22 12v22" fill="none" stroke="#ddc48c" stroke-width="3"/>
+        </svg>
+      </span>
+      <span>
+        D2 UberApp
+        <small>GEMINI AI VAULT & COMPANION</small>
+      </span>
+    </a>
+    <nav class="navlinks">
+      <a href="#features">Funkcje</a>
+      <a href="#showcase">Prezentacja</a>
+      <a href="#rolls">Widełki Rolls</a>
+      <a href="#companion">Companion HUD</a>
+      <a href="#hotkeys">Skróty F10</a>
+      <a href="#install">Instalacja</a>
+      <a class="nav-cta" href="http://127.0.0.1:5005" target="_blank">Otwórz Skarbiec &nbsp; ↗</a>
+    </nav>
+  </div>
+  <nav class="act-nav" aria-label="Nawigacja sekcji">
+    <div class="wrap">
+      <a href="#top" class="active">◈ &nbsp; WPROWADZENIE</a>
+      <a href="#features">⚡ &nbsp; MOŻLIWOŚCI</a>
+      <a href="#showcase">🖼️ &nbsp; GALERIA & ZRZUTY</a>
+      <a href="#rolls">🎯 &nbsp; OCENA WIDEŁEK</a>
+      <a href="#companion">🛡️ &nbsp; COMPANION HUD</a>
+      <a href="#paperdoll">🧙 &nbsp; LALKA & RUNY</a>
+      <a href="#trade">⚖️ &nbsp; GIEŁDA HANDLU</a>
+      <a href="#hotkeys">⌨️ &nbsp; SKRÓTY KLAWISZOWE</a>
+      <a href="#install">💻 &nbsp; SZYBKI START</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- HERO SECTION WITH D2R-HERO GRAPHIC AND EMBERS -->
+<section class="hero">
+  <div class="embers" aria-hidden="true">
+    <i class="ember" style="--left:3%;--duration:11s;--delay:-0.5s"></i>
+    <i class="ember" style="--left:12%;--duration:13s;--delay:-2.1s"></i>
+    <i class="ember" style="--left:24%;--duration:15s;--delay:-3.8s"></i>
+    <i class="ember" style="--left:36%;--duration:12s;--delay:-5.2s"></i>
+    <i class="ember" style="--left:47%;--duration:14s;--delay:-1.3s"></i>
+    <i class="ember" style="--left:58%;--duration:16s;--delay:-4.4s"></i>
+    <i class="ember" style="--left:69%;--duration:12s;--delay:-6.7s"></i>
+    <i class="ember" style="--left:78%;--duration:14s;--delay:-2.9s"></i>
+    <i class="ember" style="--left:89%;--duration:17s;--delay:-5.5s"></i>
+    <i class="ember" style="--left:95%;--duration:13s;--delay:-1.8s"></i>
+    <i class="ember" style="--left:8%;--duration:18s;--delay:-8.2s"></i>
+    <i class="ember" style="--left:19%;--duration:14s;--delay:-10.1s"></i>
+    <i class="ember" style="--left:31%;--duration:16s;--delay:-7.4s"></i>
+    <i class="ember" style="--left:43%;--duration:13s;--delay:-9.9s"></i>
+    <i class="ember" style="--left:54%;--duration:15s;--delay:-11.2s"></i>
+    <i class="ember" style="--left:65%;--duration:17s;--delay:-8.7s"></i>
+    <i class="ember" style="--left:76%;--duration:12s;--delay:-13.4s"></i>
+    <i class="ember" style="--left:84%;--duration:15s;--delay:-10.6s"></i>
+    <i class="ember" style="--left:92%;--duration:14s;--delay:-12.1s"></i>
+    <i class="ember" style="--left:16%;--duration:16s;--delay:-14.3s"></i>
+    <i class="ember" style="--left:27%;--duration:13s;--delay:-16.5s"></i>
+    <i class="ember" style="--left:50%;--duration:17s;--delay:-15.2s"></i>
+    <i class="ember" style="--left:62%;--duration:14s;--delay:-18.1s"></i>
+    <i class="ember" style="--left:73%;--duration:15s;--delay:-17.4s"></i>
+  </div>
+  
+  <div class="wrap">
+    <div class="kicker eyebrow">DIABLO II: RESURRECTED • INTELIGENTNY ASYSTENT AI</div>
+    <h1>Twój Ekwipunek.<span>Moc Gemini AI.</span></h1>
+    <p>Błyskawiczne skanowanie w grze (F10) bez minimalizowania okna, automatyczna weryfikacja widełek statystyk, wirtualna lalka bohatera, siatka 33 run oraz giełda wymian gotowa pod fora i Discord.</p>
+    
+    <div class="hero-cta">
+      <a class="btn primary" href="#showcase">Zobacz Galerię Aplikacji &nbsp; ↗</a>
+      <a class="btn" href="#hotkeys">Skróty w grze (F10) &nbsp; ◇</a>
+      <a class="btn" href="#install">Pobierz i Uruchom &nbsp; ↓</a>
+    </div>
+
+    <div class="hero-meta">
+      <span><b>~1.2s</b> CZAS SKANU AI</span>
+      <span><b>100%</b> DOKŁADNOŚCI ROLLS</span>
+      <span><b>33</b> RUNY W SIATCE 11x3</span>
+      <span><b>0</b> ALT-TABÓW W GRZE</span>
+      <span><b>PL | EN</b> PEŁNY DWUJĘZYK</span>
+    </div>
+  </div>
+
+  <a class="hero-credit" href="https://diablo2.blizzard.com" target="_blank" rel="noopener">Grafika D2R © Blizzard Entertainment</a>
+</section>
+
+<!-- 01 / GŁÓWNE FILARY -->
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">01 / Filary Aplikacji</div>
+        <h2>Sanktuarium pod pełną kontrolą.</h2>
+      </div>
+      <p>Koniec z ręcznym spisywaniem dropów, szukaniem widełek na zewnętrznych stronach i przelogowywaniem na dziesiątki mułów. D2 UberApp łączy natywne API Windows z najnowocześniejszym modelem wizyjnym Google.</p>
+    </div>
+
+    <div class="rule-grid">
+      <div class="rule">
+        <div class="num">01</div>
+        <h3>Zero Alt-Tab (F10)</h3>
+        <p>Globalny skrót klawiszowy Win32 przechwytuje tooltip przedmiotu pod kursorem bezpośrednio podczas gry. Natychmiastowy dźwięk SFX potwierdza pomyślne dodanie do bazy.</p>
+      </div>
+
+      <div class="rule">
+        <div class="num">02</div>
+        <h3>Gemini 2.5 Flash Lite</h3>
+        <p>Zaawansowana multimodalna sztuczna inteligencja odczytuje kolory jakości, bazę, afiksy, gniazda i eteryczność w ułamku sekundy, mieszcząc się w darmowych limitach API.</p>
+      </div>
+
+      <div class="rule">
+        <div class="num">03</div>
+        <h3>Katalog Widełek (Rolls)</h3>
+        <p>Wbudowana kanoniczna baza danych automatycznie porównuje zmienne statystyki z wartościami min-max i wylicza procentową wartość od <code>LOW</code> do <code>PERFECT (100%)</code>.</p>
+      </div>
+
+      <div class="rule">
+        <div class="num">04</div>
+        <h3>Lalka Ekwipunku & Swap</h3>
+        <p>Kompletne wyposażenie postaci dla wszystkich 7 klas, obsługa zamiany broni (Slot I / II), ekwipunek najemnika (Mercenary) oraz panel talizmanów.</p>
+      </div>
+
+      <div class="rule">
+        <div class="num">05</div>
+        <h3>Siatka 33 Run & Słowa</h3>
+        <p>Odwzorowana 11x3 skrytka run (El do Zod) z kalkulatorem rzemiosła, który natychmiast wskazuje, jakie słowa runiczne możesz złożyć z posiadanych run i baz.</p>
+      </div>
+
+      <div class="rule">
+        <div class="num">06</div>
+        <h3>Trader's Exchange</h3>
+        <p>Błyskawiczne wyceny w runach lub FG, generator oficjalnego żargonu (np. <i>Hoto 40</i>, <i>Arach 120ED</i>) oraz eksport gotowych postów na Discord i fora.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 / INTERAKTYWNA GALERIA ZRZUTÓW -->
+<section class="section" id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">02 / Wizualna Prezentacja</div>
+        <h2>Zobacz D2 UberApp w akcji.</h2>
+      </div>
+      <p>Prawdziwe zrzuty ekranu z działającej aplikacji w trybie angielskim (zasilane bazą danych zawierającą dziesiątki unikatów, run i postaci). Przełączaj zakładki poniżej, aby poznać każdy widok.</p>
+    </div>
+
+    <div class="showcase-container">
+      <div class="showcase-tabs" role="tablist">
+        <button class="showcase-tab active" data-target="tab-stash">01. Skrytka i Filtry</button>
+        <button class="showcase-tab" data-target="tab-modal">02. Inspektor Rolli AI</button>
+        <button class="showcase-tab" data-target="tab-hero">03. Lalka Postaci (Paperdoll)</button>
+        <button class="showcase-tab" data-target="tab-runes">04. Siatka Run 11x3 & Słowa</button>
+        <button class="showcase-tab" data-target="tab-trade">05. Giełda Wymian (Trade)</button>
+        <button class="showcase-tab" data-target="tab-hud">06. Companion HUD & Mini</button>
+      </div>
+
+      <div class="showcase-viewport">
+        <!-- 1. STASH -->
+        <div class="showcase-panel active" id="tab-stash">
+          <div class="showcase-media">
+            <img src="screenshots/01_web_stash.png" alt="Wanderer's Vault Main Stash">
+          </div>
+          <div class="showcase-desc">
+            <div>
+              <h4>Wanderer's Vault (Główna Skrytka)</h4>
+              <p>Przejrzysty interfejs kafelkowy z wyszukiwarką afiksów, filtrami jakości (Unikat, Zestaw, Słowo Runiczne, Rzadki, Magiczny, Baza), przełącznikiem kafelki/tabela oraz chipami aktywnych postaci.</p>
+            </div>
+            <div class="showcase-pills">
+              <span class="pill">Filtry jakości</span>
+              <span class="pill">Wyszukiwarka afiksów</span>
+              <span class="pill">Widok kafelki / tabela</span>
+              <span class="pill">Wycinki tooltipów</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. MODAL -->
+        <div class="showcase-panel" id="tab-modal">
+          <div class="showcase-media">
+            <img src="screenshots/02_web_item_modal.png" alt="Item Detail Modal & Roll Evaluator">
+          </div>
+          <div class="showcase-desc">
+            <div>
+              <h4>Inspektor Przedmiotu & Widełki Statystyk</h4>
+              <p>Oryginalny wycinek tooltipa z gry wygenerowany przez Gemini AI, wyliczone statystyki bazowe (Obrona, Obrażenia, Wymagana Siła, Gniazda) oraz precyzyjne widełki katalogowe.</p>
+            </div>
+            <div class="showcase-pills">
+              <span class="pill">Wycięty zrzut z gry</span>
+              <span class="pill">Widełki Min-Max</span>
+              <span class="pill">Ocena procentowa</span>
+              <span class="pill">Zarządzanie lokalizacją</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. HERO -->
+        <div class="showcase-panel" id="tab-hero">
+          <div class="showcase-media">
+            <img src="screenshots/03_web_character.png" alt="Hero Paperdoll & Equipment">
+          </div>
+          <div class="showcase-desc">
+            <div>
+              <h4>Wirtualna Lalka Ekwipunku & Statystyki</h4>
+              <p>Autentyczny układ slotów ekwipunku postaci D2R z obsługą zamiany broni (Slot I oraz Slot II), ekwipunkiem najemnika, inwentarzem talizmanów i podsumowaniem odporności.</p>
+            </div>
+            <div class="showcase-pills">
+              <span class="pill">Weapon Swap I / II</span>
+              <span class="pill">Ekwipunek Najemnika</span>
+              <span class="pill">Panel Talizmanów</span>
+              <span class="pill">Statystyki Bojowe</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. RUNES -->
+        <div class="showcase-panel" id="tab-runes">
+          <div class="showcase-media">
+            <img src="screenshots/04_web_runes.png" alt="Rune Stash and Runeword Calculator">
+          </div>
+          <div class="showcase-desc">
+            <div>
+              <h4>Siatka 33 Run (11x3) & Kalkulator Słów Runicznych</h4>
+              <p>Pełna siatka run od El do Zod z licznikami posiadanych sztuk. Inteligentny silnik rzemiosła analizuje posiadane runy i bazy, wskazując słowa gotowe do złożenia.</p>
+            </div>
+            <div class="showcase-pills">
+              <span class="pill">Układ 11x3 El-Zod</span>
+              <span class="pill">Kalkulator Craftingu</span>
+              <span class="pill">Podpowiedzi baz</span>
+              <span class="pill">Brakujące składniki</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. TRADE -->
+        <div class="showcase-panel" id="tab-trade">
+          <div class="showcase-media">
+            <img src="screenshots/05_web_trade.png" alt="Trader's Exchange">
+          </div>
+          <div class="showcase-desc">
+            <div>
+              <h4>Trader's Exchange (Giełda Wymian)</h4>
+              <p>Zarządzaj przedmiotami na sprzedaż, przypisuj ceny w runach (Pul, Um, Mal, Ist, Ber, Jah), generuj żargon handlowy jednym kliknięciem i eksportuj formatowany tekst.</p>
+            </div>
+            <div class="showcase-pills">
+              <span class="pill">Ceny w runach / FG</span>
+              <span class="pill">Generator skrótów</span>
+              <span class="pill">Eksport Discord / BBCode</span>
+              <span class="pill">Online Market Sync</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. HUD -->
+        <div class="showcase-panel" id="tab-hud">
+          <div class="showcase-media" style="display: flex; gap: 16px; justify-content: center; align-items: center; padding: 20px; background: #0b0f0b;">
+            <img src="screenshots/06_companion_hud.png" style="max-width: 60%; max-height: 520px;" alt="Desktop Companion HUD">
+            <img src="screenshots/07_companion_mini.png" style="max-width: 35%; max-height: 240px;" alt="Mini HUD Compact Mode">
+          </div>
+          <div class="showcase-desc">
+            <div>
+              <h4>Desktop Companion HUD & Tryb Mini</h4>
+              <p>Lekkie okno nakładkowe działające w tle podczas gry. Wyświetla status przechwytywania, skróty funkcyjne F7–F12, aktywną postać oraz historię ostatnich skanów.</p>
+            </div>
+            <div class="showcase-pills">
+              <span class="pill">Always-on-Top</span>
+              <span class="pill">Tryb Mini HUD</span>
+              <span class="pill">Dźwięki SFX</span>
+              <span class="pill">Przełącznik trybów F7-F12</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 / OCENA WIDEŁEK I WIZJA AI -->
+<section class="section" id="rolls">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">03 / Precyzja Katalogowa</div>
+        <h2>Koniec z szacowaniem na oko.</h2>
+      </div>
+      <p>W Diablo II: Resurrected różnica między najniższym a najwyższym rollem w unikatach i runewords decyduje o tysiącach jednostek wartości. D2 UberApp kalkuluje każdy parametr co do procenta.</p>
+    </div>
+
+    <div class="matrix-grid">
+      <div class="matrix-box">
+        <h3>Jak to działa w D2 UberApp?</h3>
+        <ul class="matrix-list">
+          <li><span class="check-icon">✓</span> <b>Autodetekcja ramki tooltipa:</b> Algorytm wycina idealny prostokąt opisu przedmiotu bez tła gry.</li>
+          <li><span class="check-icon">✓</span> <b>Wielojęzyczne OCR Gemini:</b> Bez problemu odczytuje polskie znaki (ę, ą, ś) oraz angielską terminologię D2R.</li>
+          <li><span class="check-icon">✓</span> <b>Kanoniczne dopasowanie:</b> Baza <code>catalog.sqlite</code> przechowuje oficjalne zakresy min-max dla każdego afiksu.</li>
+          <li><span class="check-icon">✓</span> <b>Ocena procentowa (Roll Rating):</b> Automatyczne plakietki <code>PERFECT (100%)</code>, <code>HIGH</code>, <code>MID</code>, <code>LOW</code>.</li>
+          <li><span class="check-icon">✓</span> <b>Skrót handlowy:</b> Gotowy zapis do trade (np. <i>Hoto 40 Res</i>, <i>Arach 120ED</i>, <i>CTA 6/6/4</i>).</li>
+        </ul>
+      </div>
+
+      <div class="matrix-box featured">
+        <h3>Przykładowe Oceny ze Skanu</h3>
+        <div style="display: grid; gap: 14px; margin-top: 20px;">
+          <div style="background: #192015; border: 1px solid #3c4b2f; padding: 14px 18px; border-radius: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: var(--gold-bright); font-size: 15px;">Heart of the Oak (Flail)</strong>
+              <span style="background: #2a3d1c; border: 1px solid #577f37; color: #a4e46a; padding: 3px 8px; font-size: 11px; font-weight: 800; border-radius: 3px;">PERFECT (100%)</span>
+            </div>
+            <div style="font-size: 13px; color: #aaa; margin-top: 6px;">All Resistances: <b>40</b> [30-40] • Faster Cast Rate: <b>40%</b></div>
+          </div>
+
+          <div style="background: #192015; border: 1px solid #3c4b2f; padding: 14px 18px; border-radius: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: var(--gold-bright); font-size: 15px;">Arachnid Mesh (Spiderweb Sash)</strong>
+              <span style="background: #3d2b1a; border: 1px solid #7f522e; color: #e4996a; padding: 3px 8px; font-size: 11px; font-weight: 800; border-radius: 3px;">LOW (30%)</span>
+            </div>
+            <div style="font-size: 13px; color: #aaa; margin-top: 6px;">Enhanced Defense: <b>99%</b> [90-120%] • +1 To All Skills</div>
+          </div>
+
+          <div style="background: #192015; border: 1px solid #3c4b2f; padding: 14px 18px; border-radius: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <strong style="color: var(--gold-bright); font-size: 15px;">Call to Arms (Crystal Sword)</strong>
+              <span style="background: #1c303d; border: 1px solid #37637f; color: #6acae4; padding: 3px 8px; font-size: 11px; font-weight: 800; border-radius: 3px;">HIGH (88%)</span>
+            </div>
+            <div style="font-size: 13px; color: #aaa; margin-top: 6px;">Battle Orders: <b>6</b> [1-6] • Battle Command: <b>5</b> [1-6] • Battle Cry: <b>3</b> [1-4]</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 / SKRÓTY KLAWISZOWE -->
+<section class="section" id="hotkeys">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">04 / Kontrola z Klawiatury</div>
+        <h2>Natywne skróty w trakcie gry.</h2>
+      </div>
+      <p>Wszystkie skróty są globalne i działają natychmiast, gdy aktywne jest okno Diablo II: Resurrected. Możesz je w każdej chwili dostosować w panelu ustawień Companion HUD.</p>
+    </div>
+
+    <div class="hotkeys-table-wrap">
+      <table class="hotkeys-table">
+        <thead>
+          <tr>
+            <th style="width: 130px;">Klawisz</th>
+            <th>Tryb / Działanie</th>
+            <th>Przeznaczenie</th>
+            <th>Rezultat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="hotkey-badge">F10</span></td>
+            <td><strong style="color: var(--gold2);">Przechwyć cel (Capture)</strong></td>
+            <td>Najechanie kursorem na dowolny tooltip w inwentarzu lub skrzyni</td>
+            <td>Zrzut ekranu, OCR Gemini, dodanie do skrytki ze statusem i dźwiękiem SFX</td>
+          </tr>
+          <tr>
+            <td><span class="hotkey-badge">F7</span></td>
+            <td><strong>Skan statystyk postaci</strong></td>
+            <td>Otwarte okno atrybutów bohatera (klawisz 'A' / 'C' w grze)</td>
+            <td>Aktualizacja poziomu, punktów siły, zręczności, odporności i życia</td>
+          </tr>
+          <tr>
+            <td><span class="hotkey-badge">F8</span></td>
+            <td><strong>Skan zakładki run</strong></td>
+            <td>Otwarta skrytka z ułożonymi runami</td>
+            <td>Automatyczne zliczenie stanów posiadania wszystkich 33 run</td>
+          </tr>
+          <tr>
+            <td><span class="hotkey-badge">F9</span></td>
+            <td><strong>Tryb skrytki ogólnej</strong></td>
+            <td>Przełącza cel zapisu na wspólny skarbiec (Vault)</td>
+            <td>Kolejne skany F10 trafią do wspólnej skrytki</td>
+          </tr>
+          <tr>
+            <td><span class="hotkey-badge">F11</span></td>
+            <td><strong>Tryb aktywnego bohatera</strong></td>
+            <td>Przełącza cel zapisu na ekwipunek wybranej postaci</td>
+            <td>Kolejne skany F10 zostaną przypisane do slotów postaci</td>
+          </tr>
+          <tr>
+            <td><span class="hotkey-badge">F12</span></td>
+            <td><strong>Tryb najemnika (Mercenary)</strong></td>
+            <td>Przełącza cel zapisu na ekwipunek pomocnika</td>
+            <td>Kolejne skany F10 trafiają do zbrojowni najemnika</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 05 / INSTALACJA I SZYBKI START -->
+<section class="section" id="install">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">05 / Szybki Start</div>
+        <h2>Uruchomienie w 4 prostych krokach.</h2>
+      </div>
+      <p>Aplikacja nie wymaga zewnętrznych serwerów – cała baza działa lokalnie w plikach SQLite na Twoim dysku. Wystarczy darmowy klucz API z Google AI Studio.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Pobierz Repozytorium</h3>
+        <p>Sklonuj kod źródłowy z GitHuba lub pobierz archiwum ZIP na dysk.</p>
+        <div class="code-box">git clone https://github.com/twoj-profil/d2-uberapp.git</div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Zainstaluj Pakiety</h3>
+        <p>Zainstaluj wymagane zależności w środowisku Python (rekomendowany Python 3.10+).</p>
+        <div class="code-box">pip install -r requirements.txt</div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Klucz Gemini API</h3>
+        <p>Skopiuj <code>.env.example</code> na <code>.env</code> i wklej swój darmowy klucz z Google AI Studio.</p>
+        <div class="code-box">GEMINI_API_KEY="AIzaSy..."</div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">04</div>
+        <h3>Uruchom Aplikację</h3>
+        <p>Kliknij dwukrotnie <code>start.bat</code>. Skrypt zwolni porty i uruchomi Companion HUD oraz Web App.</p>
+        <div class="code-box">start.bat (lub python app.py)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 / FAQ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">06 / Częste Pytania</div>
+        <h2>Wszystko, co chcesz wiedzieć.</h2>
+      </div>
+      <p>Masz wątpliwości dotyczące bezpieczeństwa, kosztów lub kompatybilności? Przeczytaj odpowiedzi poniżej.</p>
+    </div>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h4>Czy korzystanie z D2 UberApp jest bezpieczne (brak bana)?</h4>
+        <p>Tak, w 100%. Aplikacja nie wstrzykuje żadnego kodu do pamięci gry (brak DLL injection) ani nie modyfikuje plików D2R. Działa wyłącznie poprzez standardowe przechwytywanie zrzutu ekranu Windows API i zewnętrzny model OCR.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Czy Google Gemini API jest płatne?</h4>
+        <p>Dla indywidualnego gracza Google AI Studio udostępnia darmowy pakiet (Free Tier) dla modelu <code>gemini-2.5-flash-lite</code>, który z dużym zapasem wystarcza na tysiące skanów miesięcznie.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Czy aplikacja wspiera polską wersję językową gry?</h4>
+        <p>Tak! Model Gemini bezbłędnie rozpoznaje zarówno polskie nazwy (np. <i>Korbacz</i>, <i>Pajęcza Szarfa</i>, <i>Runa Jah</i>), jak i angielskie odpowiedniki. Cały interfejs posiada przełącznik języka w nagłówku.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Gdzie zapisywane są moje przedmioty?</h4>
+        <p>Wszystkie dane przechowywane są lokalnie na Twoim komputerze w pliku bazy danych SQLite (<code>data/stash.sqlite</code>). Masz pełną kontrolę i prywatność swoich danych.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span style="font: 20px Georgia, serif; color: var(--gold2);">D2 UberApp</span>
+        <span style="color: #555;">•</span>
+        <span>Asystent AI dla Diablo II: Resurrected</span>
+      </div>
+      <div class="footer-links">
+        <a href="#top">Wróć na górę ↑</a>
+        <a href="#features">Funkcje</a>
+        <a href="#showcase">Zrzuty ekranu</a>
+        <a href="#install">Pobierz</a>
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer">
+      Diablo II: Resurrected jest zarejestrowanym znakiem towarowym firmy Blizzard Entertainment, Inc. D2 UberApp jest projektem fanowskim o otwartym kodzie źródłowym, niepowiązanym, nieautoryzowanym i niewspieranym przez Blizzard Entertainment. Aplikacja udostępniana jest na otwartej licencji MIT.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tab switcher for Showcase Gallery
+  const tabs = document.querySelectorAll('.showcase-tab');
+  const panels = document.querySelectorAll('.showcase-panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.getAttribute('data-target');
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+
+  // Act-nav active link highlighting on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.act-nav a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollPos = window.pageYOffset + 140;
+
+    sections.forEach(section => {
+      if (scrollPos >= section.offsetTop) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
