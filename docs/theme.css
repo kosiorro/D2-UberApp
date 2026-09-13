@@ -108,11 +108,11 @@ body.lang-en .lang-pl { display: none !important; }
 }
 .navlinks {
   display: flex;
-  gap: 22px;
+  gap: 16px;
   margin-left: auto;
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: .13em;
+  letter-spacing: .12em;
   align-items: center;
 }
 .navlinks a {
