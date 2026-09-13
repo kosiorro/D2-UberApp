@@ -27,7 +27,7 @@
 
 [![Live Website](https://img.shields.io/badge/Website-kosiorro.github.io%2FD2--UberApp-gold.svg)](https://kosiorro.github.io/D2-UberApp/)
 [![Online Market](https://img.shields.io/badge/Online%20Market-d2uberappmarket.tw5.org-purple.svg)](https://d2uberappmarket.tw5.org)
-[![Releases](https://img.shields.io/badge/Download-Releases%20(v1.0.0)-brightgreen.svg)](https://github.com/kosiorro/D2-UberApp/releases)
+[![Releases](https://img.shields.io/badge/Download-Releases%20(v1.0.1)-brightgreen.svg)](https://github.com/kosiorro/D2-UberApp/releases)
 [![Status: Active Beta](https://img.shields.io/badge/Status-Active%20Beta-orange.svg)](#beta-notice)
 [![Account Safety](https://img.shields.io/badge/Account%20Safety-100%25%20Safe%20(Screenshots)-brightgreen.svg)](#account-safety-screenshot-based-architecture)
 [![Gemini 3.5 Flash Lite](https://img.shields.io/badge/AI-Google%20Gemini%203.5%20Flash%20Lite-blue.svg)](#gemini-api-key-required--free)
