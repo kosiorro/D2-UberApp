@@ -2,7 +2,8 @@
 
 <div align="center">
 
-**AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**
+**AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**  
+*1-Click Item Export to Online Market & Instant Trade Listings • 100% Anti-Ban Safe (Screenshot-Based)*
 
 <br>
 
@@ -92,10 +93,11 @@
    - Authentic 33-rune grid (El to Zod) with live inventory counts.
    - Real-time crafting calculator identifying assembleable runewords based on owned runes and socketed bases.
 
-5. **Trader's Exchange**:
-   - Valuation in high runes and forum currency.
+5. **Trader's Exchange & 1-Click Online Market Export**:
+   - **1-Click Export to Online Market**: Export your scanned items straight into the public community marketplace ([d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org)) and create live trade listings in a single click with verified stats and roll evaluations.
+   - Fast valuation in high runes and forum currency.
    - Automated shorthand jargon generation (e.g., *Hoto 40*, *Arach 120ED*, *CTA 6/6/4*).
-   - Instant export formatted for forums and Discord.
+   - Instant export formatted for Discord and forums.
 
 6. **Desktop Companion HUD & Mini Mode**:
    - Lightweight always-on-top overlay with live scan feeds, active hero indicator, and hotkey mode switchers.
@@ -224,7 +226,8 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
    - Autentyczny układ od runy El do Zod z licznikami posiadanych sztuk.
    - Kalkulator wskazujący słowa runiczne możliwe do złożenia z posiadanych run i baz.
 
-5. **Trader's Exchange (Giełda Wymian)**:
+5. **Trader's Exchange (Giełda Wymian) i Eksport 1-Kliknięciem do Marketu**:
+   - **Eksport jednym kliknięciem do marketu**: Błyskawiczne wysyłanie zeskanowanych przedmiotów do publicznej giełdy online ([d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org)) i automatyczne tworzenie publicznych listingów ofert z weryfikacją widełek i ceną w HR.
    - Szybkie przypisywanie cen w runach i walucie forumowej.
    - Generator oficjalnego żargonu handlowego (np. *Hoto 40*, *Arach 120ED*).
    - Eksport gotowych formatowanych list na Discord i fora.
