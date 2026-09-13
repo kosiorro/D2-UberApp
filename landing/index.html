@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>D2 UberApp — Twoje wsparcie w Diablo 2 Resurrected</title>
-  <meta name="description" content="Nowoczesny asystent dla Diablo II: Resurrected zasilany przez Google Gemini 3.5 Flash Lite. Skanowanie F10 bez alt-tabu (100% bezpieczne, brak bana - działa na screenach), ocena widełek statystyk, ekwipunek postaci i giełda handlowa.">
+  <meta name="description" content="Nowoczesny asystent dla Diablo II: Resurrected zasilany przez Google Gemini 3.5 Flash Lite. Błyskawiczne skanowanie F10 bez wychodzenia z gry, 100% bezpieczeństwo konta (działa wyłącznie na zrzutach ekranu), ocena widełek statystyk, ekwipunek postaci i giełda online.">
   <meta name="theme-color" content="#0b0e0b">
   <link rel="stylesheet" href="theme.css">
 </head>
 <body class="lang-pl">
 
-<!-- TOPBAR NAVIGATION (CLEAN, NO EMOJIS) -->
+<!-- TOPBAR NAVIGATION (SINGLE CLEAN NAVBAR, NO DOUBLE MENU) -->
 <header class="topbar">
   <div class="wrap nav">
     <a class="brand" href="#top">
@@ -23,23 +23,26 @@
       </span>
       <span>
         D2 UberApp
-        <small class="lang-pl">ASYSTENT GEMINI 3.5 &bull; BETA</small>
-        <small class="lang-en">GEMINI 3.5 COMPANION &bull; BETA</small>
+        <small>BETA</small>
       </span>
     </a>
 
     <nav class="navlinks">
       <a href="#safety">
         <span class="lang-pl">Bezpieczeństwo</span>
-        <span class="lang-en">Anti-Ban Safety</span>
+        <span class="lang-en">Safety</span>
       </a>
-      <a href="#features">
-        <span class="lang-pl">Funkcje</span>
-        <span class="lang-en">Features</span>
+      <a href="#companion">
+        <span class="lang-pl">Towarzysz HUD</span>
+        <span class="lang-en">Companion HUD</span>
       </a>
-      <a href="#showcase">
-        <span class="lang-pl">Prezentacja</span>
-        <span class="lang-en">Showcase</span>
+      <a href="#companion-mini">
+        <span class="lang-pl">Tryb Mini</span>
+        <span class="lang-en">Mini Mode</span>
+      </a>
+      <a href="#gallery">
+        <span class="lang-pl">Wszystkie Screeny</span>
+        <span class="lang-en">All Screenshots</span>
       </a>
       <a href="#rolls">
         <span class="lang-pl">Widełki Rolls</span>
@@ -49,13 +52,9 @@
         <span class="lang-pl">Do Zrobienia</span>
         <span class="lang-en">Roadmap</span>
       </a>
-      <a href="#hotkeys">
-        <span class="lang-pl">Skróty F10</span>
-        <span class="lang-en">Hotkeys</span>
-      </a>
-      <a href="#install">
-        <span class="lang-pl">Instalacja</span>
-        <span class="lang-en">Install</span>
+      <a href="#download">
+        <span class="lang-pl">Pobierz</span>
+        <span class="lang-en">Download</span>
       </a>
 
       <!-- LANGUAGE SWITCHER -->
@@ -64,50 +63,12 @@
         <button class="lang-btn" id="btn-en" onclick="setLandingLang('en')">EN</button>
       </div>
 
-      <a class="nav-cta" href="http://127.0.0.1:5005" target="_blank">
-        <span class="lang-pl">Otwórz Skarbiec &rarr;</span>
-        <span class="lang-en">Launch Vault &rarr;</span>
+      <a class="nav-cta" href="#download">
+        <span class="lang-pl">Pobierz Aplikację &darr;</span>
+        <span class="lang-en">Download App &darr;</span>
       </a>
     </nav>
   </div>
-
-  <!-- SUBNAV BAR (NO EMOJIS) -->
-  <nav class="act-nav" aria-label="Nawigacja sekcji">
-    <div class="wrap">
-      <a href="#top" class="active">
-        <span class="lang-pl">&bull; WPROWADZENIE</span>
-        <span class="lang-en">&bull; OVERVIEW</span>
-      </a>
-      <a href="#safety">
-        <span class="lang-pl">BRAK BANA (SCREENY)</span>
-        <span class="lang-en">ANTI-BAN (SCREENSHOTS)</span>
-      </a>
-      <a href="#features">
-        <span class="lang-pl">MOŻLIWOŚCI</span>
-        <span class="lang-en">CAPABILITIES</span>
-      </a>
-      <a href="#showcase">
-        <span class="lang-pl">GALERIA &amp; ZRZUTY</span>
-        <span class="lang-en">GALLERY &amp; SHOWCASE</span>
-      </a>
-      <a href="#rolls">
-        <span class="lang-pl">OCENA WIDEŁEK</span>
-        <span class="lang-en">ROLL EVALUATION</span>
-      </a>
-      <a href="#roadmap">
-        <span class="lang-pl">DO ZROBIENIA (ROADMAP)</span>
-        <span class="lang-en">ROADMAP (TODO)</span>
-      </a>
-      <a href="#hotkeys">
-        <span class="lang-pl">SKRÓTY F10</span>
-        <span class="lang-en">HOTKEYS</span>
-      </a>
-      <a href="#install">
-        <span class="lang-pl">SZYBKI START</span>
-        <span class="lang-en">GET STARTED</span>
-      </a>
-    </div>
-  </nav>
 </header>
 
 <main id="top">
@@ -134,11 +95,6 @@
     <i class="ember" style="--left:76%;--duration:12s;--delay:-13.4s"></i>
     <i class="ember" style="--left:84%;--duration:15s;--delay:-10.6s"></i>
     <i class="ember" style="--left:92%;--duration:14s;--delay:-12.1s"></i>
-    <i class="ember" style="--left:16%;--duration:16s;--delay:-14.3s"></i>
-    <i class="ember" style="--left:27%;--duration:13s;--delay:-16.5s"></i>
-    <i class="ember" style="--left:50%;--duration:17s;--delay:-15.2s"></i>
-    <i class="ember" style="--left:62%;--duration:14s;--delay:-18.1s"></i>
-    <i class="ember" style="--left:73%;--duration:15s;--delay:-17.4s"></i>
   </div>
   
   <div class="wrap">
@@ -152,93 +108,119 @@
         <span class="lang-en">BETA STAGE &mdash; ACTIVE TESTING</span>
       </span>
       <span class="badge-clean badge-safe">
-        <span class="lang-pl">100% BEZPIECZNA (BRAK BANA)</span>
-        <span class="lang-en">100% ANTI-BAN SAFE</span>
+        <span class="lang-pl">100% BEZPIECZNA &bull; PEŁNA IZOLACJA PROCESU</span>
+        <span class="lang-en">100% SAFE ARCHITECTURE &bull; FULLY ISOLATED</span>
       </span>
     </div>
 
-    <!-- MAIN HEADER TITLE REQUESTED BY USER -->
+    <!-- MAIN HEADER TITLE: LINE 1 WHITE, LINE 2 GOLD -->
     <h1>
-      <span class="lang-pl">Twoje wsparcie w Diablo 2 Resurrected</span>
-      <span class="lang-en">Your Companion in Diablo II: Resurrected</span>
+      <span class="lang-pl"><span style="color:#ffffff; display:inline-block;">Twoje wsparcie</span><br>w D2R</span>
+      <span class="lang-en"><span style="color:#ffffff; display:inline-block;">Your Companion</span><br>in D2R</span>
     </h1>
 
     <p>
       <span class="lang-pl">
-        Błyskawiczne skanowanie w grze (F10) zasilane przez <b>Google Gemini 3.5 Flash Lite</b>. Aplikacja działa wyłącznie na zrzutach ekranu, dzięki czemu jest <b>w 100% bezpieczna i nie powoduje bana</b>. Wymaga darmowego klucza Google Gemini API.
+        Błyskawiczne skanowanie w grze (klawisz F10) zasilane przez model <b>Google Gemini 3.5 Flash Lite</b>. Aplikacja analizuje wyłącznie zrzuty ekranu, co gwarantuje <b>pełne bezpieczeństwo Twojego konta</b> (brak ingerencji w pamięć RAM czy pliki gry). Wymaga darmowego klucza Google Gemini API.
       </span>
       <span class="lang-en">
-        Instant in-game scanning (F10) powered by <b>Google Gemini 3.5 Flash Lite</b>. Operates strictly on screenshots, ensuring it is <b>100% safe with zero ban risk</b>. Requires a free Google Gemini API key.
+        Instant in-game scanning (F10 hotkey) powered by <b>Google Gemini 3.5 Flash Lite</b>. Operates strictly by analyzing screenshot pixels, ensuring <b>complete safety for your account</b> (zero memory injection or game file hooks). Requires a free Google Gemini API key.
       </span>
     </p>
     
     <div class="hero-cta">
-      <a class="btn primary" href="#showcase">
-        <span class="lang-pl">Zobacz Prezentację &rarr;</span>
-        <span class="lang-en">Explore Showcase &rarr;</span>
+      <a class="btn primary" href="#download">
+        <span class="lang-pl">Pobierz (Windows 1-Click) &darr;</span>
+        <span class="lang-en">Download (Windows 1-Click) &darr;</span>
       </a>
-      <a class="btn" href="#safety">
-        <span class="lang-pl">Dlaczego nie ma bana?</span>
-        <span class="lang-en">Why is it safe?</span>
-      </a>
-      <a class="btn" href="#install">
-        <span class="lang-pl">Pobierz i Uruchom</span>
-        <span class="lang-en">Download &amp; Run</span>
+      <a class="btn" href="#companion">
+        <span class="lang-pl">Poznaj Apkę Towarzyszącą &rarr;</span>
+        <span class="lang-en">Explore Companion App &rarr;</span>
       </a>
     </div>
 
-    <div class="hero-meta">
-      <span>
-        <b>~1.2s</b>
-        <span class="lang-pl">CZAS SKANU AI</span>
-        <span class="lang-en">AI SCAN TIME</span>
-      </span>
-      <span>
-        <b>100%</b>
-        <span class="lang-pl">DOKŁADNOŚCI ROLLS</span>
-        <span class="lang-en">ROLL ACCURACY</span>
-      </span>
-      <span>
-        <b>33</b>
-        <span class="lang-pl">RUNY W SIATCE 11x3</span>
-        <span class="lang-en">RUNES IN 11x3 GRID</span>
-      </span>
-      <span>
-        <b>0</b>
-        <span class="lang-pl">ALT-TABÓW W GRZE</span>
-        <span class="lang-en">IN-GAME ALT-TABS</span>
-      </span>
-      <span>
-        <b class="lang-pl">DARMOWY</b><b class="lang-en">FREE</b>
-        <span class="lang-pl">KLUCZ GEMINI (WYMAGANY)</span>
-        <span class="lang-en">GEMINI KEY (REQUIRED)</span>
-      </span>
+    <!-- 5 REFRESHED FEATURE TILES -->
+    <div class="hero-features-bar">
+      <div class="feature-chip">
+        <span class="feature-chip-desc">
+          <span class="lang-pl">KLAWISZ F10</span>
+          <span class="lang-en">HOTKEY F10</span>
+        </span>
+        <span class="feature-chip-title">
+          <span class="lang-pl">Dodawaj itemy jednym przyciskiem</span>
+          <span class="lang-en">Add items with one button</span>
+        </span>
+      </div>
+
+      <div class="feature-chip">
+        <span class="feature-chip-desc">
+          <span class="lang-pl">SIATKA 11x3 &bull; CRAFT</span>
+          <span class="lang-en">11x3 GRID &bull; CRAFT</span>
+        </span>
+        <span class="feature-chip-title">
+          <span class="lang-pl">Runy i słowa runiczne</span>
+          <span class="lang-en">Runes &amp; runewords</span>
+        </span>
+      </div>
+
+      <div class="feature-chip">
+        <span class="feature-chip-desc">
+          <span class="lang-pl">GEMINI 3.5 FLASH LITE</span>
+          <span class="lang-en">GEMINI 3.5 FLASH LITE</span>
+        </span>
+        <span class="feature-chip-title">
+          <span class="lang-pl">Wsparcie AI i ocena widełek</span>
+          <span class="lang-en">AI support &amp; roll rating</span>
+        </span>
+      </div>
+
+      <div class="feature-chip">
+        <span class="feature-chip-desc">
+          <span class="lang-pl">ZERO SUBSKRYPCJI</span>
+          <span class="lang-en">ZERO SUBSCRIPTION</span>
+        </span>
+        <span class="feature-chip-title">
+          <span class="lang-pl">Brak konieczności płatnego API</span>
+          <span class="lang-en">No paid API needed (Free key)</span>
+        </span>
+      </div>
+
+      <div class="feature-chip">
+        <span class="feature-chip-desc">
+          <span class="lang-pl">GIEŁDA ONLINE</span>
+          <span class="lang-en">ONLINE MARKET</span>
+        </span>
+        <span class="feature-chip-title">
+          <span class="lang-pl">Export do marketu i handlu</span>
+          <span class="lang-en">Export to market &amp; trade</span>
+        </span>
+      </div>
     </div>
   </div>
 
   <a class="hero-credit" href="https://diablo2.blizzard.com" target="_blank" rel="noopener">Diablo II: Resurrected &copy; Blizzard Entertainment</a>
 </section>
 
-<!-- SEKCJA BEZPIECZEŃSTWA (BRAK BANA) -->
+<!-- SEKCJA BEZPIECZEŃSTWA (ARCHITEKTURA 100% BEZPIECZEŃSTWA) -->
 <section class="section" id="safety" style="background: radial-gradient(circle at 85% 20%, rgba(114,140,105,.08), transparent 40%), #0d120d;">
   <div class="wrap">
     <div class="section-head">
       <div>
         <div class="eyebrow" style="color: #8ab882;">
           <span class="lang-pl">Gwarancja Bezpieczeństwa</span>
-          <span class="lang-en">Security Guarantee</span>
+          <span class="lang-en">Security Architecture</span>
         </div>
         <h2>
-          <span class="lang-pl">Za D2 UberApp nie dostaniesz bana.</span>
-          <span class="lang-en">You cannot get banned for D2 UberApp.</span>
+          <span class="lang-pl">Pełne bezpieczeństwo Twojego konta w grze.</span>
+          <span class="lang-en">Complete account safety in Diablo II: Resurrected.</span>
         </h2>
       </div>
       <p>
         <span class="lang-pl">
-          Wielu graczy obawia się narzędzi wspomagających ze względu na system anty-cheat (Warden). D2 UberApp został zaprojektowany w architekturze <b>Screenshot-Only</b>, całkowicie odizolowanej od procesu gry.
+          Wielu graczy słusznie dba o bezpieczeństwo swoich kont. D2 UberApp powstał od podstaw w architekturze <b>Screenshot-Only</b>, całkowicie odizolowanej od procesu gry i pamięci systemu.
         </span>
         <span class="lang-en">
-          Players are naturally cautious regarding anti-cheat systems (Warden). D2 UberApp is built on a strict <b>Screenshot-Only</b> architecture, completely decoupled from the game process.
+          Players naturally care about their account safety. D2 UberApp was built from day one on a strict <b>Screenshot-Only</b> architecture, completely decoupled from the game process and system memory.
         </span>
       </p>
     </div>
@@ -247,15 +229,15 @@
       <div class="rule" style="background: #111810;">
         <div class="num" style="color: #728c69;">01</div>
         <h3 style="color: #a5d297;">
-          <span class="lang-pl">Działa wyłącznie na screenach</span>
-          <span class="lang-en">100% Screenshot-Based</span>
+          <span class="lang-pl">Działa wyłącznie na zrzutach ekranu</span>
+          <span class="lang-en">Screenshot-Only Operation</span>
         </h3>
         <p>
           <span class="lang-pl">
-            Aplikacja pobiera klatkę pulpitu przez standardowe Windows API (identycznie jak programy typu <b>OBS Studio</b>, Discord czy Narzędzie Wycinanie). Nigdy nie ingeruje w grę.
+            Aplikacja pobiera klatkę pulpitu przez standardowe Windows API (identycznie jak programy typu <b>OBS Studio</b>, Discord czy Narzędzie Wycinanie). Nigdy nie podłącza się pod proces gry.
           </span>
           <span class="lang-en">
-            Captures desktop frames via standard Windows API calls (identical to <b>OBS Studio</b>, Discord screen share, or the Windows Snipping Tool). Never hooks game code.
+            Captures desktop frames via standard Windows API calls (identical to <b>OBS Studio</b>, Discord screen share, or the Windows Snipping Tool). Never hooks into the game.
           </span>
         </p>
       </div>
@@ -263,15 +245,15 @@
       <div class="rule" style="background: #111810;">
         <div class="num" style="color: #728c69;">02</div>
         <h3 style="color: #a5d297;">
-          <span class="lang-pl">Brak czytania pamięci gry</span>
+          <span class="lang-pl">Brak odczytu pamięci RAM</span>
           <span class="lang-en">Zero Memory Scanning</span>
         </h3>
         <p>
           <span class="lang-pl">
-            D2 UberApp <b>nie dotyka pamięci RAM</b> procesu <code>D2R.exe</code>. Nie skanuje struktur pamięci ani wskaźników, co całkowicie wyklucza wykrycie sygnaturowe.
+            D2 UberApp <b>nie dotyka pamięci RAM</b> procesu <code>D2R.exe</code>. Nie skanuje struktur pamięci, wskaźników ani tabel obiektów, co gwarantuje pełną izolację.
           </span>
           <span class="lang-en">
-            D2 UberApp <b>never accesses or inspects the RAM</b> of <code>D2R.exe</code>. It does not scan memory offsets, entirely eliminating signature detection risks.
+            D2 UberApp <b>never accesses or inspects the RAM</b> of <code>D2R.exe</code>. It does not scan memory offsets, entirely eliminating any anti-cheat conflict.
           </span>
         </p>
       </div>
@@ -279,15 +261,15 @@
       <div class="rule" style="background: #111810;">
         <div class="num" style="color: #728c69;">03</div>
         <h3 style="color: #a5d297;">
-          <span class="lang-pl">Brak wstrzykiwania kodu (DLL)</span>
-          <span class="lang-en">Zero Code Injection</span>
+          <span class="lang-pl">Zero wstrzykiwania kodu (DLL)</span>
+          <span class="lang-en">Zero Code or DLL Injection</span>
         </h3>
         <p>
           <span class="lang-pl">
-            Do gry nie są wstrzykiwane biblioteki DLL, haki ani zmodyfikowane pliki. Wszystkie obliczenia OCR i bazy danych odbywają się w osobnym procesie Pythona.
+            Do procesu gry nie jest wstrzykiwana żadna biblioteka DLL, nie są modyfikowane pliki MPQ/CASC, a launcher gry pozostaje w 100% nienaruszony.
           </span>
           <span class="lang-en">
-            No DLLs are injected, no hooks are installed in game space, and game files remain pristine. All OCR and evaluation occur in an isolated Python process.
+            No dynamic libraries (DLL) are injected into the game process, no MPQ/CASC archives are modified, and the official game installation remains untouched.
           </span>
         </p>
       </div>
@@ -295,783 +277,688 @@
   </div>
 </section>
 
-<!-- 01 / GŁÓWNE FILARY -->
-<section class="section" id="features">
+<!-- SEKCJA 1: APKA TOWARZYSZĄCA (HUD W GRZE) -->
+<section class="section" id="companion">
   <div class="wrap">
     <div class="section-head">
       <div>
         <div class="eyebrow">
-          <span class="lang-pl">01 / Filary Aplikacji</span>
-          <span class="lang-en">01 / Core Pillars</span>
+          <span class="lang-pl">Nakładka w Grze</span>
+          <span class="lang-en">In-Game Overlay</span>
         </div>
         <h2>
-          <span class="lang-pl">Sanktuarium pod pełną kontrolą.</span>
-          <span class="lang-en">Sanctuary under full control.</span>
+          <span class="lang-pl">Apka Towarzysząca &mdash; Pełny In-Game HUD</span>
+          <span class="lang-en">Companion App &mdash; Full In-Game HUD</span>
         </h2>
       </div>
       <p>
         <span class="lang-pl">
-          Koniec z ręcznym spisywaniem dropów, szukaniem widełek na forach i przelogowywaniem na dziesiątki mułów. D2 UberApp automatyzuje Twój skarbiec.
+          Twój osobisty ekspert Diablo II zawsze pod ręką. Apka Towarzysząca unosi się nad oknem gry, dzięki czemu skanujesz przedmioty bez konieczności wychodzenia z Sanktuarium.
         </span>
         <span class="lang-en">
-          Eliminate manual trade logging, tabbed spreadsheet lookups, and endless mule re-logging. D2 UberApp automates your inventory intelligence.
+          Your personal Diablo II expert always on your screen. The Companion App floats smoothly above your game, letting you scan loot without minimizing Sanctuary.
         </span>
       </p>
     </div>
 
-    <div class="rule-grid">
-      <div class="rule">
-        <div class="num">01</div>
-        <h3>
-          <span class="lang-pl">Zero Alt-Tab (F10)</span>
-          <span class="lang-en">Zero Alt-Tab (F10)</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Globalny skrót Win32 przechwytuje tooltip przedmiotu pod kursorem w ułamku sekundy. Dźwięk SFX potwierdza pomyślny skan.</span>
-          <span class="lang-en">Global Win32 hook captures the item tooltip under your cursor in real time. Crisp audio SFX confirms item ingestion.</span>
-        </p>
-      </div>
-
-      <div class="rule">
-        <div class="num">02</div>
-        <h3>
-          <span class="lang-pl">Gemini 3.5 Flash Lite</span>
-          <span class="lang-en">Gemini 3.5 Flash Lite</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Multimodalna sztuczna inteligencja z Google AI Studio. Wymagany jest darmowy klucz API, który bez problemu starcza na tysiące skanów.</span>
-          <span class="lang-en">Multimodal AI engine via Google AI Studio. A free API key is required and easily handles thousands of in-game scans per month.</span>
-        </p>
-      </div>
-
-      <div class="rule">
-        <div class="num">03</div>
-        <h3>
-          <span class="lang-pl">Ocena Widełek (Rolls)</span>
-          <span class="lang-en">Roll Rating Engine</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Automatyczne porównanie zmiennych statystyk z bazą katalogową i wyliczenie ocen od <code>LOW</code> po <code>PERFECT (100%)</code>.</span>
-          <span class="lang-en">Matches items against canonical catalog data, calculating exact percentile rolls from <code>LOW</code> to <code>PERFECT (100%)</code>.</span>
-        </p>
-      </div>
-
-      <div class="rule">
-        <div class="num">04</div>
-        <h3>
-          <span class="lang-pl">Ekwipunek Bohatera</span>
-          <span class="lang-en">Hero Equipment</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Kompletne sloty wyposażenia dla wszystkich 7 klas, obsługa zamiany broni (Slot I / II), ekwipunek najemnika i panel talizmanów.</span>
-          <span class="lang-en">Full gear slot layout for all 7 classes, weapon swap tracking (Slots I &amp; II), mercenary inventory, and charm vitals.</span>
-        </p>
-      </div>
-
-      <div class="rule">
-        <div class="num">05</div>
-        <h3>
-          <span class="lang-pl">Siatka 33 Run &amp; Słowa</span>
-          <span class="lang-en">11x3 Rune Stash</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Układ 11x3 run (El do Zod) z kalkulatorem rzemiosła, wskazującym słowa runiczne gotowe do złożenia z posiadanych run i baz.</span>
-          <span class="lang-en">Faithful 33-rune grid (El to Zod) with live crafting calculator detecting assembleable runewords from your vault inventory.</span>
-        </p>
-      </div>
-
-      <div class="rule">
-        <div class="num">06</div>
-        <h3>
-          <span class="lang-pl">Trader's Exchange</span>
-          <span class="lang-en">Trader's Exchange</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Błyskawiczne wyceny w runach lub FG, generator oficjalnego żargonu handlowego oraz eksport gotowych postów na fora i Discord.</span>
-          <span class="lang-en">Quick pricing in high runes or forum gold, community shorthand generator, and one-click BBCode / Discord export.</span>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 02 / RESPONSIVE SHOWCASE GALLERY WITH RICH DESCRIPTIONS -->
-<section class="section" id="showcase">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow">
-          <span class="lang-pl">02 / Wizualna Prezentacja</span>
-          <span class="lang-en">02 / Visual Showcase</span>
-        </div>
-        <h2>
-          <span class="lang-pl">Zobacz D2 UberApp w akcji.</span>
-          <span class="lang-en">Explore D2 UberApp in action.</span>
-        </h2>
-      </div>
-      <p>
-        <span class="lang-pl">
-          Prawdziwe zrzuty ekranu z działającej aplikacji w trybie angielskim (zasilane bazą danych zawierającą dziesiątki unikatów, run i postaci). Przełączaj zakładki poniżej.
+    <div class="companion-split">
+      <div class="companion-text">
+        <span class="badge-clean" style="margin-bottom: 12px; display: inline-block;">
+          <span class="lang-pl">SKANOWANIE F10 BEZ ALT-TABU</span>
+          <span class="lang-en">ZERO ALT-TAB F10 SCAN</span>
         </span>
-        <span class="lang-en">
-          Real screenshots captured from the active application using a live database with dozens of uniques, runes, and heroes. Select any view below.
-        </span>
-      </p>
-    </div>
-
-    <!-- SHOWCASE CONTAINER -->
-    <div class="showcase-wrapper">
-      <!-- SELECTOR TABS -->
-      <div class="showcase-nav" role="tablist">
-        <button class="showcase-btn active" data-target="tab-stash">
-          <span class="idx">01</span>
-          <span class="lang-pl">Skrytka i Filtry</span>
-          <span class="lang-en">Stash &amp; Vault</span>
-        </button>
-        <button class="showcase-btn" data-target="tab-modal">
-          <span class="idx">02</span>
-          <span class="lang-pl">Inspektor Rolli AI</span>
-          <span class="lang-en">Roll Evaluator</span>
-        </button>
-        <button class="showcase-btn" data-target="tab-hero">
-          <span class="idx">03</span>
-          <span class="lang-pl">Ekwipunek Postaci</span>
-          <span class="lang-en">Hero Equipment</span>
-        </button>
-        <button class="showcase-btn" data-target="tab-runes">
-          <span class="idx">04</span>
-          <span class="lang-pl">Siatka Run 11x3</span>
-          <span class="lang-en">11x3 Rune Stash</span>
-        </button>
-        <button class="showcase-btn" data-target="tab-trade">
-          <span class="idx">05</span>
-          <span class="lang-pl">Giełda Wymian</span>
-          <span class="lang-en">Trader's Exchange</span>
-        </button>
-        <button class="showcase-btn" data-target="tab-hud">
-          <span class="idx">06</span>
-          <span class="lang-pl">Companion HUD</span>
-          <span class="lang-en">Companion Overlay</span>
-        </button>
-      </div>
-
-      <!-- VIEWPORT PANELS -->
-      <div class="showcase-body">
+        <h3>
+          <span class="lang-pl">Błyskawiczna analiza i ocena widełek rolls w locie</span>
+          <span class="lang-en">Instant Affix Analysis &amp; On-The-Fly Roll Ratings</span>
+        </h3>
+        <p>
+          <span class="lang-pl">
+            Najedź kursorem na upuszczony przedmiot i wciśnij <b>F10</b>. Apka Towarzysząca w ułamku sekundy pobiera kadr z tooltipem, rozpoznaje statystyki za pomocą modelu Gemini i prezentuje dokładną ocenę widełek statystyk.
+          </span>
+          <span class="lang-en">
+            Hover over any dropped item and press <b>F10</b>. The Companion App captures the tooltip instantly, parses all stats using Gemini, and presents exact percentile roll evaluations.
+          </span>
+        </p>
         
-        <!-- 1. STASH -->
-        <div class="showcase-panel active" id="tab-stash">
-          <div class="showcase-stage">
-            <div class="showcase-frame">
-              <div class="showcase-frame-header">
-                <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-                <span class="frame-title">WANDERER'S VAULT &bull; 1440x920</span>
-              </div>
-              <img src="screenshots/01_web_stash.png" alt="Wanderer's Vault Main Stash" loading="lazy">
-            </div>
-            <div class="showcase-info">
-              <span class="info-chip">
-                <span class="lang-pl">GŁÓWNY MODUŁ SKARBCZYKA</span>
-                <span class="lang-en">PRIMARY VAULT ENGINE</span>
-              </span>
-              <h3>
-                <span class="lang-pl">Wanderer's Vault (Skrytka i Filtry)</span>
-                <span class="lang-en">Wanderer's Vault (Main Stash)</span>
-              </h3>
-              <p>
-                <span class="lang-pl">
-                  Kompletne zestawienie Twojej kolekcji przedmiotów. Umożliwia błyskawiczne filtrowanie po jakości, afiksach, eteryczności oraz gniazdach.
-                </span>
-                <span class="lang-en">
-                  Comprehensive overview of your item collection. Offers responsive filtering by quality tier, affixes, ethereal status, and socket counts.
-                </span>
-              </p>
-              <ul class="feature-list">
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Filtry jakości:</b><b class="lang-en">Quality tiers:</b> <span class="lang-pl">Unikaty, Zestawy, Słowa runiczne, Rzadkie, Magiczne, Bazy</span><span class="lang-en">Uniques, Sets, Runewords, Rares, Magic, Bases</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Wyszukiwarka afiksów:</b><b class="lang-en">Affix search:</b> <span class="lang-pl">Szukanie po parametrach (np. fcr, all skills, res, mf)</span><span class="lang-en">Search across rolls (e.g. fcr, all skills, res, mf)</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Przełącznik widoku:</b><b class="lang-en">Dual views:</b> <span class="lang-pl">Karty graficzne lub zwięzła tabela danych</span><span class="lang-en">Visual cards or compact tabular data</span></li>
-              </ul>
-              <div class="pro-card">
-                <strong><span class="lang-pl">Zaleta dla gracza</span><span class="lang-en">Player Benefit</span></strong>
-                <span><span class="lang-pl">Możesz w sekundę sprawdzić, na której postaci lub w której zakładce leży poszukiwany przedmiot.</span><span class="lang-en">Locate any hoarded item across all mules and heroes in under a second.</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ul class="feature-checklist">
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><b class="lang-pl">Always on Top:</b><b class="lang-en">Always on Top:</b> <span class="lang-pl">Okno aplikacji unosi się nad grą, nie przeszkadzając w sterowaniu postacią.</span><span class="lang-en">Window floats above the game without capturing mouse inputs or breaking gameplay.</span></span>
+          </li>
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><b class="lang-pl">Jeden klik do schowka:</b><b class="lang-en">One-click save:</b> <span class="lang-pl">Przycisk "Dodaj do schowka" natychmiast zapisuje zidentyfikowany przedmiot do Twojej bazy.</span><span class="lang-en">"Add to Stash" button instantly registers the identified item to your database.</span></span>
+          </li>
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><b class="lang-pl">Kolorystyczne oceny:</b><b class="lang-en">Color-coded rolls:</b> <span class="lang-pl">Odznaki PERFECT (100%), HIGH, MID oraz LOW ułatwiają szybką decyzję czy warto zachować drop.</span><span class="lang-en">PERFECT (100%), HIGH, MID, and LOW badges make loot retention decisions effortless.</span></span>
+          </li>
+        </ul>
 
-        <!-- 2. MODAL -->
-        <div class="showcase-panel" id="tab-modal">
-          <div class="showcase-stage">
-            <div class="showcase-frame">
-              <div class="showcase-frame-header">
-                <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-                <span class="frame-title">AI ITEM INSPECTOR &bull; MODAL</span>
-              </div>
-              <img src="screenshots/02_web_item_modal.png" alt="Item Detail Modal" loading="lazy">
-            </div>
-            <div class="showcase-info">
-              <span class="info-chip">
-                <span class="lang-pl">SZCZEGÓŁOWA ANALIZA PRZEDMIOTU</span>
-                <span class="lang-en">DEEP ITEM INSPECTION</span>
-              </span>
-              <h3>
-                <span class="lang-pl">Inspektor Przedmiotu &amp; Widełki Statystyk</span>
-                <span class="lang-en">Item Inspector &amp; Variable Rolls</span>
-              </h3>
-              <p>
-                <span class="lang-pl">
-                  Podgląd wyciętego z gry tooltipa wraz z kanonicznym dopasowaniem afiksów. Algorytm natychmiast wylicza, czy wylosowane statystyki to roll niski, średni czy perfekcyjny.
-                </span>
-                <span class="lang-en">
-                  View the auto-cropped in-game tooltip alongside canonical catalog matching. The engine calculates whether variable rolls are Low, Mid, High, or Perfect.
-                </span>
-              </p>
-              <ul class="feature-list">
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Oryginalny wycinek:</b><b class="lang-en">Tooltip crop:</b> <span class="lang-pl">Autokadrowanie ramek tooltipa bez tła gry</span><span class="lang-en">Smart frame extraction without game background</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Widełki min-max:</b><b class="lang-en">Roll evaluation:</b> <span class="lang-pl">Porównanie z bazą gry i ocena procentowa</span><span class="lang-en">Canonical range comparison and percentile score</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Baza i wymagania:</b><b class="lang-en">Base specs:</b> <span class="lang-pl">Obrona, obrażenia, gniazda, wymagania poziomu i siły</span><span class="lang-en">Defense, damage, sockets, level and strength requirements</span></li>
-              </ul>
-              <div class="pro-card">
-                <strong><span class="lang-pl">Zaleta dla gracza</span><span class="lang-en">Player Benefit</span></strong>
-                <span><span class="lang-pl">Wiesz od razu, czy dany drop nadaje się do wymiany za wysokie runy, czy do ponownego zrolowania.</span><span class="lang-en">Immediately know if your drop is worth high runes or needs a re-roll.</span></span>
-              </div>
-            </div>
-          </div>
+        <div class="pro-card">
+          <strong><span class="lang-pl">Wskazówka w grze</span><span class="lang-en">In-Game ProTip</span></strong>
+          <span><span class="lang-pl">Klawisz F10 działa globalnie w systemie Windows &mdash; nie musisz klikać w okno aplikacji przed wykonaniem skanu!</span><span class="lang-en">The F10 hotkey works globally across Windows &mdash; no need to focus the companion window beforehand!</span></span>
         </div>
+      </div>
 
-        <!-- 3. HERO GEAR -->
-        <div class="showcase-panel" id="tab-hero">
-          <div class="showcase-stage">
-            <div class="showcase-frame">
-              <div class="showcase-frame-header">
-                <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-                <span class="frame-title">HERO GEAR &amp; STATS &bull; PAPERDOLL</span>
-              </div>
-              <img src="screenshots/03_web_character.png" alt="Hero Equipment" loading="lazy">
-            </div>
-            <div class="showcase-info">
-              <span class="info-chip">
-                <span class="lang-pl">ZBROJOWNIA BOHATERA</span>
-                <span class="lang-en">HERO ARMORY</span>
-              </span>
-              <h3>
-                <span class="lang-pl">Podgląd Ekwipunku Postaci &amp; Statystyki</span>
-                <span class="lang-en">Hero Equipment &amp; Combat Vitals</span>
-              </h3>
-              <p>
-                <span class="lang-pl">
-                  Autentyczny układ slotów wyposażenia dla wszystkich klas Diablo II. Śledź broń główną, tarczę, zbroję, biżuterię oraz zestaw na zamianie (Weapon Swap).
-                </span>
-                <span class="lang-en">
-                  Authentic Diablo II equipment layout for all classes. Track primary weapons, shields, armor, jewelry, and secondary weapon swap sets.
-                </span>
-              </p>
-              <ul class="feature-list">
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Weapon Swap:</b><b class="lang-en">Weapon swap:</b> <span class="lang-pl">Pełna obsługa zestawu I oraz zestawu II</span><span class="lang-en">Full tracking for Slot I and Slot II swaps</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Najemnik:</b><b class="lang-en">Mercenary gear:</b> <span class="lang-pl">Oddzielny ekwipunek dla pomocnika</span><span class="lang-en">Dedicated inventory for act mercenaries</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Inwentarz talizmanów:</b><b class="lang-en">Charms storage:</b> <span class="lang-pl">Przegląd talizmanów i zagregowanych statystyk</span><span class="lang-en">Grand, Large, and Small charm inventory view</span></li>
-              </ul>
-              <div class="pro-card">
-                <strong><span class="lang-pl">Zaleta dla gracza</span><span class="lang-en">Player Benefit</span></strong>
-                <span><span class="lang-pl">Podgląd całego rynsztunku Twojej postaci bez konieczności uruchamiania gry i logowania.</span><span class="lang-en">Inspect your hero's complete gear setup without logging into the game.</span></span>
-              </div>
-            </div>
-          </div>
+      <div class="companion-visual">
+        <div class="showcase-frame-header">
+          <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
+          <span class="frame-title">D2 UBERAPP COMPANION HUD &bull; F10 IN-GAME</span>
         </div>
-
-        <!-- 4. RUNES -->
-        <div class="showcase-panel" id="tab-runes">
-          <div class="showcase-stage">
-            <div class="showcase-frame">
-              <div class="showcase-frame-header">
-                <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-                <span class="frame-title">11x3 RUNE STASH &bull; CRAFTING</span>
-              </div>
-              <img src="screenshots/04_web_runes.png" alt="Rune Stash" loading="lazy">
-            </div>
-            <div class="showcase-info">
-              <span class="info-chip">
-                <span class="lang-pl">SKARBIEC RUN &amp; RZEMIOSŁO</span>
-                <span class="lang-en">RUNE WEALTH &amp; CRAFTING</span>
-              </span>
-              <h3>
-                <span class="lang-pl">Siatka 33 Run &amp; Kalkulator Słów Runicznych</span>
-                <span class="lang-en">11x3 Rune Grid &amp; Runeword Calculator</span>
-              </h3>
-              <p>
-                <span class="lang-pl">
-                  Kompletna siatka 33 run (od El do Zod) z licznikami sztuk. Inteligentny kalkulator weryfikuje posiadane runy oraz gniazdowane bazy w skrytce.
-                </span>
-                <span class="lang-en">
-                  Complete 33-rune grid (El to Zod) with live inventory counters. The smart calculator correlates owned runes with available socketed bases.
-                </span>
-              </p>
-              <ul class="feature-list">
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Autentyczna siatka:</b><b class="lang-en">Authentic grid:</b> <span class="lang-pl">Układ 11 kolumn na 3 rzędy, znany z D2R</span><span class="lang-en">11x3 layout matching in-game rune stash tabs</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Kalkulator słów:</b><b class="lang-en">Crafting calculator:</b> <span class="lang-pl">Wskazuje słowa runiczne gotowe do złożenia</span><span class="lang-en">Highlights runewords ready to craft right now</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Podpowiedzi baz:</b><b class="lang-en">Base matcher:</b> <span class="lang-pl">Dopasowuje bazy pod słowa (liczba gniazd i typ)</span><span class="lang-en">Matches compatible socketed bases in your vault</span></li>
-              </ul>
-              <div class="pro-card">
-                <strong><span class="lang-pl">Zaleta dla gracza</span><span class="lang-en">Player Benefit</span></strong>
-                <span><span class="lang-pl">Nigdy więcej pomyłek przy wkładaniu run ani żmudnego liczenia, czy starczy na Enigmę lub Hoto.</span><span class="lang-en">No more runeword socketing mistakes or manual rune math.</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. TRADE -->
-        <div class="showcase-panel" id="tab-trade">
-          <div class="showcase-stage">
-            <div class="showcase-frame">
-              <div class="showcase-frame-header">
-                <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-                <span class="frame-title">TRADER'S EXCHANGE &bull; MARKET</span>
-              </div>
-              <img src="screenshots/05_web_trade.png" alt="Trader's Exchange" loading="lazy">
-            </div>
-            <div class="showcase-info">
-              <span class="info-chip">
-                <span class="lang-pl">MODUŁ HANDLU &amp; EKSPORT</span>
-                <span class="lang-en">TRADE MANAGEMENT</span>
-              </span>
-              <h3>
-                <span class="lang-pl">Trader's Exchange (Giełda Wymian)</span>
-                <span class="lang-en">Trader's Exchange (Marketplace)</span>
-              </h3>
-              <p>
-                <span class="lang-pl">
-                  Twórz listy ofert z cenami w runach lub FG. Generator żargonu handlowego automatycznie konwertuje statystyki na skróty akceptowane na forach i Discordzie.
-                </span>
-                <span class="lang-en">
-                  Curate sale listings with rune or forum gold price tags. The trade jargon generator converts complex affixes into standard community abbreviations.
-                </span>
-              </p>
-              <ul class="feature-list">
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Szybkie ceny:</b><b class="lang-en">Quick pricing:</b> <span class="lang-pl">Tagowanie cenami w runach (Pul, Um, Mal, Ist, Ber, Jah)</span><span class="lang-en">Tag items with runes (Pul, Um, Mal, Ist, Ber, Jah)</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Żargon handlowy:</b><b class="lang-en">Trade shorthand:</b> <span class="lang-pl">Format np. Hoto 40, Arach 120ED, CTA 6/6/4</span><span class="lang-en">Shorthand like Hoto 40, Arach 120ED, CTA 6/6/4</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Eksport jednym kliknięciem:</b><b class="lang-en">One-click export:</b> <span class="lang-pl">Gotowy tekst na Discorda i fora</span><span class="lang-en">Ready-to-paste text for Discord and trading forums</span></li>
-              </ul>
-              <div class="pro-card">
-                <strong><span class="lang-pl">Zaleta dla gracza</span><span class="lang-en">Player Benefit</span></strong>
-                <span><span class="lang-pl">Wystawiasz kilkadziesiąt przedmiotów na forach w kilka sekund zamiast przepisywać je godzinami.</span><span class="lang-en">Post dozens of items for trade in seconds instead of typing for hours.</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. HUD -->
-        <div class="showcase-panel" id="tab-hud">
-          <div class="showcase-stage">
-            <div class="showcase-frame">
-              <div class="showcase-frame-header">
-                <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
-                <span class="frame-title">COMPANION HUD &amp; MINI OVERLAY</span>
-              </div>
-              <div style="display: flex; gap: 12px; justify-content: center; align-items: center; padding: 18px; background: #070a07;">
-                <img src="screenshots/06_companion_hud.png" style="max-width: 62%; height: auto;" alt="Companion HUD" loading="lazy">
-                <img src="screenshots/07_companion_mini.png" style="max-width: 34%; height: auto;" alt="Mini HUD" loading="lazy">
-              </div>
-            </div>
-            <div class="showcase-info">
-              <span class="info-chip">
-                <span class="lang-pl">NAKŁADKA NA PULPIT</span>
-                <span class="lang-en">DESKTOP OVERLAY</span>
-              </span>
-              <h3>
-                <span class="lang-pl">Desktop Companion HUD &amp; Tryb Mini</span>
-                <span class="lang-en">Desktop Companion HUD &amp; Mini Mode</span>
-              </h3>
-              <p>
-                <span class="lang-pl">
-                  Niewielkie okno nakładkowe działające w tle podczas gry. Wyświetla status przechwytywania, skróty funkcyjne F7–F12, aktywną postać oraz historię ostatnich skanów.
-                </span>
-                <span class="lang-en">
-                  Lightweight overlay running in the background while playing. Displays capture status, mode hotkeys (F7–F12), active hero, and recent scan feed.
-                </span>
-              </p>
-              <ul class="feature-list">
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Always-on-Top:</b><b class="lang-en">Always-on-top:</b> <span class="lang-pl">Okno zawsze na wierzchu bez blokowania myszki w grze</span><span class="lang-en">Stays visible without intercepting in-game mouse input</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Tryb Mini HUD:</b><b class="lang-en">Mini HUD mode:</b> <span class="lang-pl">Kompaktowy pasek zajmujący minimum ekranu</span><span class="lang-en">Minimalist bar consuming negligible screen real estate</span></li>
-                <li><span class="bullet">&bull;</span> <b class="lang-pl">Dźwięki potwierdzenia:</b><b class="lang-en">Audio SFX:</b> <span class="lang-pl">Sygnał dźwiękowy po każdym udanym przetworzeniu</span><span class="lang-en">Instant sound feedback on successful item cataloging</span></li>
-              </ul>
-              <div class="pro-card">
-                <strong><span class="lang-pl">Zaleta dla gracza</span><span class="lang-en">Player Benefit</span></strong>
-                <span><span class="lang-pl">Wiesz, że item został zapisany, bez opuszczania gry ani zerkania na drugi monitor.</span><span class="lang-en">Instant confirmation that your drop is secured without switching screens.</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <img src="screenshots/06_companion_hud.png" alt="D2 Companion HUD" loading="lazy">
       </div>
     </div>
   </div>
 </section>
 
-<!-- 03 / OCENA WIDEŁEK I WIZJA AI -->
+<!-- SEKCJA 2: APKA TOWARZYSZĄCA MINI -->
+<section class="section" id="companion-mini" style="background: #0d120d;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">
+          <span class="lang-pl">Kompaktowy Pasek</span>
+          <span class="lang-en">Compact Status Bar</span>
+        </div>
+        <h2>
+          <span class="lang-pl">Tryb Mini &mdash; Dyskretny pasek podczas walki</span>
+          <span class="lang-en">Mini Mode &mdash; Discrete Status Bar In Combat</span>
+        </h2>
+      </div>
+      <p>
+        <span class="lang-pl">
+          W ferworze walki z hordami demonów na Terror Zones lub Uber Tristram liczy się każdy centymetr ekranu. Tryb Mini zwija apkę do minimalistycznego widżetu.
+        </span>
+        <span class="lang-en">
+          During intense combat runs on Terror Zones or Uber Tristram, every centimeter of screen visibility matters. Mini Mode collapses the companion into a sleek status pill.
+        </span>
+      </p>
+    </div>
+
+    <div class="companion-split reversed">
+      <div class="companion-visual">
+        <div class="showcase-frame-header">
+          <span class="frame-dot"></span><span class="frame-dot"></span><span class="frame-dot"></span>
+          <span class="frame-title">COMPANION MINI OVERLAY &bull; ULTRA-COMPACT</span>
+        </div>
+        <img src="screenshots/07_companion_mini.png" alt="D2 Companion Mini" loading="lazy">
+      </div>
+
+      <div class="companion-text">
+        <span class="badge-clean" style="margin-bottom: 12px; display: inline-block;">
+          <span class="lang-pl">TRYB ZMINIMALIZOWANY</span>
+          <span class="lang-en">MINIMAL FOOTPRINT</span>
+        </span>
+        <h3>
+          <span class="lang-pl">Zero zasłaniania kuli życia, minimapy czy potworów</span>
+          <span class="lang-en">Zero Obstruction of Health Globes, Minimap, or Monsters</span>
+        </h3>
+        <p>
+          <span class="lang-pl">
+            Pasek Mini zajmuje zaledwie kilkadziesiąt pikseli w rogu monitora. Wyświetla status połączenia z modelem AI, liczbę pomyślnie zindeksowanych przedmiotów w bieżącej sesji oraz informację o skrócie F10.
+          </span>
+          <span class="lang-en">
+            The Mini bar takes up only a few dozen pixels in the corner of your display. It shows active AI connectivity, item scan count for the session, and ready indicators.
+          </span>
+        </p>
+
+        <ul class="feature-checklist">
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><b class="lang-pl">Kompaktowy rozmiar:</b><b class="lang-en">Ultra-compact:</b> <span class="lang-pl">Dyskretny wygląd, który idealnie wtapia się w interfejs Diablo II: Resurrected.</span><span class="lang-en">Blends cleanly into the aesthetic of Diablo II: Resurrected without clutter.</span></span>
+          </li>
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><b class="lang-pl">Rozwijanie 1-kliknięciem:</b><b class="lang-en">1-click expansion:</b> <span class="lang-pl">W każdej chwili możesz jednym kliknięciem wrócić do pełnego widoku szczegółowego.</span><span class="lang-en">Instantly toggle back and forth between mini and full HUD views at any second.</span></span>
+          </li>
+          <li>
+            <span class="check-icon">&#10003;</span>
+            <span><b class="lang-pl">Pełna funkcjonalność F10:</b><b class="lang-en">Full F10 capture:</b> <span class="lang-pl">Mimo miniaturyzacji klawisz F10 działa nieustannie w tle z potwierdzeniem dźwiękowym.</span><span class="lang-en">Full background capture functionality and sound alerts remain fully armed.</span></span>
+          </li>
+        </ul>
+
+        <div class="pro-card">
+          <strong><span class="lang-pl">Dla kogo?</span><span class="lang-en">Ideal Use-Case</span></strong>
+          <span><span class="lang-pl">Stworzone specjalnie dla graczy grindujących szybkie runy (Travincal, Pindleskin, Chaos Sanctuary, Cow Level).</span><span class="lang-en">Specially crafted for fast farming routines (Travincal, Pindleskin, Chaos Sanctuary, Cow Level).</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEKCJA 3: WSZYSTKIE SCREENY (KOMPLETNA GALERIA) -->
+<section class="section" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">
+          <span class="lang-pl">Galeria Aplikacji</span>
+          <span class="lang-en">Visual Tour</span>
+        </div>
+        <h2>
+          <span class="lang-pl">Wszystkie moduły i ekrany D2 UberApp</span>
+          <span class="lang-en">All Modules &amp; Interfaces of D2 UberApp</span>
+        </h2>
+      </div>
+      <p>
+        <span class="lang-pl">
+          Zobacz na własne oczy, jak prezentuje się kompletne środowisko aplikacji &mdash; od webowej skrytki i podglądu postaci, przez tablicę run i giełdę, aż po nakładkę HUD w grze.
+        </span>
+        <span class="lang-en">
+          See the complete suite in action &mdash; from the web stash and hero armory, through rune wealth grids and trading desk, to in-game companion HUDs.
+        </span>
+      </p>
+    </div>
+
+    <!-- RESPONSIVE ALL SCREENSHOTS GRID -->
+    <div class="gallery-grid">
+      <!-- 1. Web Stash -->
+      <div class="gallery-item">
+        <div class="gallery-thumb">
+          <img src="screenshots/01_web_stash.png" alt="Web Stash" loading="lazy">
+        </div>
+        <div class="gallery-content">
+          <span class="gallery-category"><span class="lang-pl">SKRYTKA &bull; EKWIPUNEK</span><span class="lang-en">VAULT &bull; INVENTORY</span></span>
+          <h4 class="gallery-title"><span class="lang-pl">01. Skarbiec i Wyszukiwarka Przedmiotów</span><span class="lang-en">01. Web Vault &amp; Item Search</span></h4>
+          <p class="gallery-desc">
+            <span class="lang-pl">Przeglądaj wszystkie swoje przedmioty, filtruj po jakości (Unikalne, Zestawy, Runy, Rzadkie), slotach oraz nazwach.</span>
+            <span class="lang-en">Browse your complete inventory collection, filter by rarity tiers, item slots, and exact roll keywords.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 2. Item Modal -->
+      <div class="gallery-item">
+        <div class="gallery-thumb">
+          <img src="screenshots/02_web_item_modal.png" alt="Item Modal" loading="lazy">
+        </div>
+        <div class="gallery-content">
+          <span class="gallery-category"><span class="lang-pl">KARTA PRZEDMIOTU &bull; ROLLS</span><span class="lang-en">ITEM CARD &bull; ROLLS</span></span>
+          <h4 class="gallery-title"><span class="lang-pl">02. Karta Przedmiotu i Ocena Widełek</span><span class="lang-en">02. Item Card &amp; Exact Roll Rating</span></h4>
+          <p class="gallery-desc">
+            <span class="lang-pl">Szczegółowy widok ze statystykami bazowymi, min/max rollami afiksów oraz procentową oceną rynkową.</span>
+            <span class="lang-en">Detailed inspector displaying min/max affix boundaries alongside variable statistical percentile ratings.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 3. Character Armory -->
+      <div class="gallery-item">
+        <div class="gallery-thumb">
+          <img src="screenshots/03_web_character.png" alt="Character Armory" loading="lazy">
+        </div>
+        <div class="gallery-content">
+          <span class="gallery-category"><span class="lang-pl">BOHATER &bull; ZBROJOWNIA</span><span class="lang-en">HERO &bull; ARMORY</span></span>
+          <h4 class="gallery-title"><span class="lang-pl">03. Podgląd Postaci i Aktywnego Sprzętu</span><span class="lang-en">03. Hero Armory &amp; Equipment Slots</span></h4>
+          <p class="gallery-desc">
+            <span class="lang-pl">Klasyczny układ slotów ekwipunku, zestaw broni na zamianie (Weapon Swap) oraz osobny ekwipunek najemnika.</span>
+            <span class="lang-en">Authentic equipment paperdoll slots, secondary weapon swap sets, and dedicated mercenary armory tracking.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 4. Runes Grid -->
+      <div class="gallery-item">
+        <div class="gallery-thumb">
+          <img src="screenshots/04_web_runes.png" alt="Rune Stash" loading="lazy">
+        </div>
+        <div class="gallery-content">
+          <span class="gallery-category"><span class="lang-pl">RUNY &bull; CRAFTING</span><span class="lang-en">RUNES &bull; CRAFTING</span></span>
+          <h4 class="gallery-title"><span class="lang-pl">04. Tablica 33 Run &amp; Słowa Runiczne</span><span class="lang-en">04. 11x3 Rune Grid &amp; Runeword Calculator</span></h4>
+          <p class="gallery-desc">
+            <span class="lang-pl">Siatka 11x3 dla wszystkich 33 run (El do Zod) oraz inteligentny kalkulator wskazujący gotowe do złożenia słowa runiczne.</span>
+            <span class="lang-en">11x3 grid for all 33 runes with live counts and an intelligent calculator correlating runes with socketed bases.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 5. Trade & Market -->
+      <div class="gallery-item">
+        <div class="gallery-thumb">
+          <img src="screenshots/05_web_trade.png" alt="Trader's Exchange" loading="lazy">
+        </div>
+        <div class="gallery-content">
+          <span class="gallery-category"><span class="lang-pl">HANDEL &bull; GIEŁDA ONLINE</span><span class="lang-en">TRADING &bull; ONLINE MARKET</span></span>
+          <h4 class="gallery-title"><span class="lang-pl">05. Giełda Wymian i Eksport Ofert</span><span class="lang-en">05. Trader's Exchange &amp; Market Export</span></h4>
+          <p class="gallery-desc">
+            <span class="lang-pl">Generator żargonu handlowego oraz synchronizacja 1-kliknięciem z naszą giełdą online pod adresem d2uberappmarket.tw5.org.</span>
+            <span class="lang-en">Trade shorthand jargon generator and 1-click sync to our public online market at d2uberappmarket.tw5.org.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 6. Companion HUD -->
+      <div class="gallery-item">
+        <div class="gallery-thumb">
+          <img src="screenshots/06_companion_hud.png" alt="Companion HUD" loading="lazy">
+        </div>
+        <div class="gallery-content">
+          <span class="gallery-category"><span class="lang-pl">IN-GAME &bull; HUD</span><span class="lang-en">IN-GAME &bull; HUD</span></span>
+          <h4 class="gallery-title"><span class="lang-pl">06. Apka Towarzysząca (Pełny HUD)</span><span class="lang-en">06. Companion App (Full HUD)</span></h4>
+          <p class="gallery-desc">
+            <span class="lang-pl">Nakładka zawsze na wierzchu z bezpośrednim podglądem ostatnio zidentyfikowanego dropu i przyciskiem do schowka.</span>
+            <span class="lang-en">Always-on-top in-game overlay featuring last identified loot cards and direct save actions.</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- 7. Companion Mini -->
+      <div class="gallery-item">
+        <div class="gallery-thumb">
+          <img src="screenshots/07_companion_mini.png" alt="Companion Mini" loading="lazy">
+        </div>
+        <div class="gallery-content">
+          <span class="gallery-category"><span class="lang-pl">IN-GAME &bull; MINIMAL</span><span class="lang-en">IN-GAME &bull; MINIMAL</span></span>
+          <h4 class="gallery-title"><span class="lang-pl">07. Apka Towarzysząca (Tryb Mini)</span><span class="lang-en">07. Companion App (Mini Mode)</span></h4>
+          <p class="gallery-desc">
+            <span class="lang-pl">Kompaktowy pasek statusu w rogu ekranu, zapewniający pełną widoczność pola walki podczas intensywnego farmienia.</span>
+            <span class="lang-en">Compact corner status bar ensuring unobstructed field of view during high-intensity farming runs.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEKCJA OCENY WIDEŁEK STATYSTYK (AUTENTYCZNY PODGLĄD ITEMÓW I ROLLI) -->
+<!-- SEKCJA OCENY WIDEŁEK STATYSTYK (AUTENTYCZNY PODGLĄD ITEMÓW I ROLLI) -->
 <section class="section" id="rolls">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow">
-          <span class="lang-pl">03 / Precyzja Katalogowa</span>
-          <span class="lang-en">03 / Catalog Precision</span>
+        <div class="eyebrow" style="color: #8ab882;">
+          <span class="lang-pl">System Oceniający Widełki &bull; Canonical Engine</span>
+          <span class="lang-en">Canonical Stat Roll Rating Engine</span>
         </div>
         <h2>
-          <span class="lang-pl">Koniec z szacowaniem na oko.</span>
-          <span class="lang-en">No more guessing item rolls.</span>
+          <span class="lang-pl">Autentyczny podgląd przedmiotów i widełek rolli.</span>
+          <span class="lang-en">Authentic item inspector with exact roll percentiles.</span>
         </h2>
       </div>
       <p>
         <span class="lang-pl">
-          W Diablo II: Resurrected różnica między najniższym a najwyższym rollem decyduje o tysiącach jednostek wartości handlowej. D2 UberApp kalkuluje każdy parametr co do procenta.
+          W Diablo II: Resurrected różnica między minimalnym a maksymalnym rollem decyduje o gigantycznej wartości rynkowej. D2 UberApp natychmiast wylicza dokładny percentyl każdego zmiennego afiksu.
         </span>
         <span class="lang-en">
-          In Diablo II: Resurrected, the difference between a minimum and maximum roll determines immense market value. D2 UberApp calculates every roll to exact percentiles.
+          In Diablo II: Resurrected, variable roll boundaries determine enormous trade value swings. D2 UberApp instantly calculates exact percentile ratings for every variable affix.
         </span>
       </p>
     </div>
 
-    <div class="matrix-grid">
-      <div class="matrix-box">
-        <h3>
-          <span class="lang-pl">Jak to działa w D2 UberApp?</span>
-          <span class="lang-en">How it works under the hood</span>
-        </h3>
-        <ul class="matrix-list">
-          <li><span class="check-glyph">&check;</span> <b><span class="lang-pl">Autodetekcja ramki tooltipa:</span><span class="lang-en">Smart frame cropping:</span></b> <span class="lang-pl">Algorytm wycina idealny prostokąt opisu przedmiotu bez tła gry.</span><span class="lang-en">Extracts a clean bounding box of the item tooltip without game clutter.</span></li>
-          <li><span class="check-glyph">&check;</span> <b><span class="lang-pl">OCR Gemini 3.5 Flash Lite:</span><span class="lang-en">Gemini 3.5 Flash Lite OCR:</span></b> <span class="lang-pl">Bezbłędnie odczytuje polskie znaki (ę, ą, ś) oraz angielską terminologię D2R.</span><span class="lang-en">Accurately parses both English and Polish D2R typography.</span></li>
-          <li><span class="check-glyph">&check;</span> <b><span class="lang-pl">Kanoniczne dopasowanie:</span><span class="lang-en">Canonical matching:</span></b> <span class="lang-pl">Baza <code>catalog.sqlite</code> przechowuje oficjalne zakresy min-max dla każdego afiksu.</span><span class="lang-en">Embedded <code>catalog.sqlite</code> stores min-max ranges for all affixes.</span></li>
-          <li><span class="check-glyph">&check;</span> <b><span class="lang-pl">Ocena procentowa:</span><span class="lang-en">Percentile rating:</span></b> <span class="lang-pl">Automatyczne oznaczenia <code>PERFECT (100%)</code>, <code>HIGH</code>, <code>MID</code>, <code>LOW</code>.</span><span class="lang-en">Automated badges for <code>PERFECT (100%)</code>, <code>HIGH</code>, <code>MID</code>, <code>LOW</code>.</span></li>
-          <li><span class="check-glyph">&check;</span> <b><span class="lang-pl">Skrót handlowy:</span><span class="lang-en">Trade shorthand:</span></b> <span class="lang-pl">Gotowy zapis do trade (np. <i>Hoto 40 Res</i>, <i>Arach 120ED</i>, <i>CTA 6/6/4</i>).</span><span class="lang-en">Community shorthand notation generated automatically.</span></li>
-        </ul>
-      </div>
+    <!-- 3 AUTHENTIC IN-GAME ITEM CARDS -->
+    <div class="item-preview-grid">
 
-      <div class="matrix-box featured">
-        <h3>
-          <span class="lang-pl">Przykładowe Oceny ze Skanu</span>
-          <span class="lang-en">Live Scan Evaluation Examples</span>
-        </h3>
-        <div style="display: grid; gap: 14px; margin-top: 20px;">
-          <div style="background: #192015; border: 1px solid #3c4b2f; padding: 14px 18px; border-radius: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <strong style="color: var(--gold-bright); font-size: 15px;">Heart of the Oak (Flail)</strong>
-              <span style="background: #2a3d1c; border: 1px solid #577f37; color: #a4e46a; padding: 3px 8px; font-size: 11px; font-weight: 800; border-radius: 3px;">PERFECT (100%)</span>
-            </div>
-            <div style="font-size: 13px; color: #aaa; margin-top: 6px;">All Resistances: <b>40</b> [30-40] &bull; Faster Cast Rate: <b>40%</b></div>
+      <!-- ITEM 1: GORE RIDER (JEŹDZIEC RZEZI) - HIGH ROLL (88%) -->
+      <div class="item-card">
+        <div class="item-card-header">
+          <div class="item-icon-box">
+            <img src="assets/item_gorerider_icon.png" alt="Gore Rider">
           </div>
-
-          <div style="background: #192015; border: 1px solid #3c4b2f; padding: 14px 18px; border-radius: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <strong style="color: var(--gold-bright); font-size: 15px;">Arachnid Mesh (Spiderweb Sash)</strong>
-              <span style="background: #3d2b1a; border: 1px solid #7f522e; color: #e4996a; padding: 3px 8px; font-size: 11px; font-weight: 800; border-radius: 3px;">LOW (30%)</span>
+          <div class="item-header-meta">
+            <div class="item-title-row">
+              <h3 class="item-name">
+                <span class="lang-pl">Jeździec Rzezi</span>
+                <span class="lang-en">Gore Rider</span>
+              </h3>
+              <span class="item-rarity-badge unique">
+                <span class="lang-pl">UNIKAT</span>
+                <span class="lang-en">UNIQUE</span>
+              </span>
             </div>
-            <div style="font-size: 13px; color: #aaa; margin-top: 6px;">Enhanced Defense: <b>99%</b> [90-120%] &bull; +1 To All Skills</div>
-          </div>
-
-          <div style="background: #192015; border: 1px solid #3c4b2f; padding: 14px 18px; border-radius: 4px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <strong style="color: var(--gold-bright); font-size: 15px;">Call to Arms (Crystal Sword)</strong>
-              <span style="background: #1c303d; border: 1px solid #37637f; color: #6acae4; padding: 3px 8px; font-size: 11px; font-weight: 800; border-radius: 3px;">HIGH (88%)</span>
+            <div class="item-subname">
+              <span class="lang-pl">Gore Rider</span>
+              <span class="lang-en">War Boots</span>
             </div>
-            <div style="font-size: 13px; color: #aaa; margin-top: 6px;">Battle Orders: <b>6</b> [1-6] &bull; Battle Command: <b>5</b> [1-6] &bull; Battle Cry: <b>3</b> [1-4]</div>
+            <div class="item-base-name">
+              <span class="lang-pl">BOJOWE BUTY</span>
+              <span class="lang-en">WAR BOOTS</span>
+            </div>
+            <div class="item-req-pills">
+              <span class="req-pill"><span class="lang-pl">Obrona: 159</span><span class="lang-en">Def: 159</span></span>
+              <span class="req-pill"><span class="lang-pl">Lvl: 47</span><span class="lang-en">Req Lvl: 47</span></span>
+              <span class="req-pill"><span class="lang-pl">Siła: 94</span><span class="lang-en">Req Str: 94</span></span>
+            </div>
           </div>
         </div>
+
+        <div class="item-roll-box">
+          <div>
+            <span class="roll-metric-label">
+              <span class="lang-pl">Zwiększona Obrona (ED): 195</span>
+              <span class="lang-en">Enhanced Defense (ED): 195</span>
+            </span>
+            <span class="roll-metric-range">[160 - 200]</span>
+          </div>
+          <span class="roll-status-pill high">HIGH (88%)</span>
+        </div>
+
+        <div class="item-affixes-box">
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+30% do szybkości poruszania się</span><span class="lang-en">+30% Faster Run/Walk</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+15% do szansy na druzgocące uderzenie</span><span class="lang-en">+15% Chance of Crushing Blow</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+15% do szansy na zabójcze uderzenie</span><span class="lang-en">+15% Deadly Strike</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+10% do szansy na otwarcie rany</span><span class="lang-en">+10% Chance of Open Wounds</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+195% do obrony</span><span class="lang-en">+195% Enhanced Defense</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+20 do maksymalnej wartości wytrzymałości</span><span class="lang-en">+20 to Maximum Stamina</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">Wymagania -25%</span><span class="lang-en">Requirements -25%</span></p>
+        </div>
       </div>
+
+      <!-- ITEM 2: GRIFFON'S EYE (OKO GRYFA) - PERFECT ROLL (100%) -->
+      <div class="item-card">
+        <div class="item-card-header">
+          <div class="item-icon-box">
+            <img src="assets/item_griffon_icon.png" alt="Griffon's Eye">
+          </div>
+          <div class="item-header-meta">
+            <div class="item-title-row">
+              <h3 class="item-name">
+                <span class="lang-pl">Oko Gryfa</span>
+                <span class="lang-en">Griffon's Eye</span>
+              </h3>
+              <span class="item-rarity-badge unique">
+                <span class="lang-pl">UNIKAT</span>
+                <span class="lang-en">UNIQUE</span>
+              </span>
+            </div>
+            <div class="item-subname">
+              <span class="lang-pl">Griffon's Eye</span>
+              <span class="lang-en">Diadem</span>
+            </div>
+            <div class="item-base-name">
+              <span class="lang-pl">DIADEM</span>
+              <span class="lang-en">DIADEM</span>
+            </div>
+            <div class="item-req-pills">
+              <span class="req-pill"><span class="lang-pl">Obrona: 260</span><span class="lang-en">Def: 260</span></span>
+              <span class="req-pill"><span class="lang-pl">Lvl: 76</span><span class="lang-en">Req Lvl: 76</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-roll-box">
+          <div>
+            <span class="roll-metric-label">
+              <span class="lang-pl">-20% Błyskawice / +15% Dmg</span>
+              <span class="lang-en">-20% Enemy Light / +15% Dmg</span>
+            </span>
+            <span class="roll-metric-range">[20/20 &bull; 15/15]</span>
+          </div>
+          <span class="roll-status-pill perfect">PERFECT (100%)</span>
+        </div>
+
+        <div class="item-affixes-box">
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+1 do wszystkich umiejętności</span><span class="lang-en">+1 to All Skills</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+25% do szybkości rzucania czarów (FCR)</span><span class="lang-en">+25% Faster Cast Rate</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">-20% do odporności przeciwnika na błyskawice</span><span class="lang-en">-20% to Enemy Lightning Resistance</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+15% do obrażeń od umiejętności błyskawic</span><span class="lang-en">+15% to Lightning Skill Damage</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+200 do obrony (MAX)</span><span class="lang-en">+200 Defense (MAX)</span></p>
+        </div>
+      </div>
+
+      <!-- ITEM 3: CALL TO ARMS (WEZWANIE DO BRONI) - LOW ROLL (20%) -->
+      <div class="item-card">
+        <div class="item-card-header">
+          <div class="item-icon-box">
+            <img src="assets/item_flail_icon.png" alt="Call to Arms">
+          </div>
+          <div class="item-header-meta">
+            <div class="item-title-row">
+              <h3 class="item-name">
+                <span class="lang-pl">Wezwanie do Broni</span>
+                <span class="lang-en">Call to Arms</span>
+              </h3>
+              <span class="item-rarity-badge runeword">
+                <span class="lang-pl">SŁOWO RUNICZNE</span>
+                <span class="lang-en">RUNEWORD</span>
+              </span>
+            </div>
+            <div class="item-subname">
+              <span class="lang-pl">Amn &bull; Ral &bull; Mal &bull; Ist &bull; Ohm</span>
+              <span class="lang-en">Amn &bull; Ral &bull; Mal &bull; Ist &bull; Ohm</span>
+            </div>
+            <div class="item-base-name">
+              <span class="lang-pl">KORBACZ (5 GNIAZD)</span>
+              <span class="lang-en">FLAIL (5 SOCKETS)</span>
+            </div>
+            <div class="item-req-pills">
+              <span class="req-pill"><span class="lang-pl">Lvl: 57</span><span class="lang-en">Req Lvl: 57</span></span>
+              <span class="req-pill"><span class="lang-pl">Siła: 41</span><span class="lang-en">Req Str: 41</span></span>
+              <span class="req-pill"><span class="lang-pl">Zręczność: 35</span><span class="lang-en">Req Dex: 35</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-roll-box">
+          <div>
+            <span class="roll-metric-label">
+              <span class="lang-pl">Rozkazy Bojowe (BO): +2</span>
+              <span class="lang-en">Battle Orders (BO): +2</span>
+            </span>
+            <span class="roll-metric-range">[1 - 6]</span>
+          </div>
+          <span class="roll-status-pill low">LOW (20%)</span>
+        </div>
+
+        <div class="item-affixes-box">
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+1 do wszystkich umiejętności</span><span class="lang-en">+1 to All Skills</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+40% do szybkości ataku (IAS)</span><span class="lang-en">+40% Increased Attack Speed</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+260% do zwiększonych obrażeń</span><span class="lang-en">+260% Enhanced Damage</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+1 do Dowodzenia Bitewnego (BC)</span><span class="lang-en">+1 to Battle Command</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+2 do Rozkazów Bojowych (BO)</span><span class="lang-en">+2 to Battle Orders</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">+1 do Okrzyku Bojowego</span><span class="lang-en">+1 to Battle Cry</span></p>
+          <p class="affix-line"><span class="affix-bullet">&bull;</span><span class="lang-pl">30% lepsza szansa na znalezienie magii (MF)</span><span class="lang-en">30% Better Chance of Getting Magic Items</span></p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- 04 / ROADMAP - DO ZROBIENIA (NO EMOJIS) -->
-<section class="section" id="roadmap" style="background: radial-gradient(circle at 15% 50%, rgba(201,154,82,.06), transparent 45%), #0c100c;">
+<!-- SEKCJA DO ZROBIENIA (ROADMAP) -->
+<section class="section" id="roadmap" style="background: #0d120d;">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow" style="color: var(--gold2);">
-          <span class="lang-pl">Rozwój Projektu (Beta)</span>
-          <span class="lang-en">Project Roadmap (Beta)</span>
+        <div class="eyebrow" style="color: #c99a52;">
+          <span class="lang-pl">Plany Rozwoju</span>
+          <span class="lang-en">Development Roadmap</span>
         </div>
         <h2>
-          <span class="lang-pl">Planowane funkcje (Do zrobienia).</span>
-          <span class="lang-en">Planned Features &amp; Improvements.</span>
+          <span class="lang-pl">Co przed nami? Aktywny rozwój aplikacji.</span>
+          <span class="lang-en">What's Next? Active Feature Roadmap.</span>
         </h2>
       </div>
       <p>
         <span class="lang-pl">
-          D2 UberApp jest nieustannie rozwijana w fazie beta. Oto moduły i udogodnienia, nad którymi aktualnie pracujemy i które pojawią się w kolejnych wersjach.
+          D2 UberApp jest w fazie intensywnych testów beta. Poniżej znajduje się oficjalna lista funkcjonalności w trakcie implementacji:
         </span>
         <span class="lang-en">
-          D2 UberApp is actively evolving during its beta phase. Below are the key modules and enhancements currently under active development.
+          D2 UberApp is in active beta testing. Below is our prioritized engineering roadmap:
         </span>
       </p>
     </div>
 
-    <div class="rule-grid">
-      <div class="rule">
-        <div class="num">01</div>
-        <h3>
-          <span class="lang-pl">Reszta Przedmiotów (Ubery)</span>
-          <span class="lang-en">Remaining Items (Ubers)</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Pełna obsługa i katalogowanie kluczy na Ubery (Key of Terror, Hate, Destruction), organów bossów, esencji oraz Token of Absolution.</span>
-          <span class="lang-en">Full parsing and tracking for Uber Tristram keys (Terror, Hate, Destruction), boss organs, essences, and Token of Absolution.</span>
-        </p>
+    <div class="roadmap-grid">
+      <div class="roadmap-item">
+        <div class="roadmap-badge in-dev"><span class="lang-pl">W TRAKCIE PRAC</span><span class="lang-en">IN DEVELOPMENT</span></div>
+        <h4 class="roadmap-title"><span class="lang-pl">Reszta itemów (Klucze na Ubery, Organy, Essencje)</span><span class="lang-en">Remaining Items (Uber Keys, Organs, Essences)</span></h4>
+        <p class="roadmap-desc"><span class="lang-pl">Pełne wsparcie dla kluczy (Key of Terror, Hate, Destruction), organów Uber Tristram, tokenów i eliksirów.</span><span class="lang-en">Complete recognition for Pandemonium Keys, Uber Organs, Respec Tokens, and quest items.</span></p>
       </div>
 
-      <div class="rule">
-        <div class="num">02</div>
-        <h3>
-          <span class="lang-pl">Przeliczanie Skilli</span>
-          <span class="lang-en">Skill Points &amp; Synergies</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Kalkulator drzewek umiejętności, agregacja bonusów +All Skills z noszonego ekwipunku oraz wyliczanie synergii i realnych obrażeń.</span>
-          <span class="lang-en">Interactive skill tree calculator, total +skills bonuses aggregation across gear, and damage synergy calculations.</span>
-        </p>
+      <div class="roadmap-item">
+        <div class="roadmap-badge in-dev"><span class="lang-pl">W TRAKCIE PRAC</span><span class="lang-en">IN DEVELOPMENT</span></div>
+        <h4 class="roadmap-title"><span class="lang-pl">Przeliczanie i analiza bonusów do skilli</span><span class="lang-en">Skill Bonus Aggregation &amp; Calculations</span></h4>
+        <p class="roadmap-desc"><span class="lang-pl">Automatyczne sumowanie bonusów do poszczególnych drzewek umiejętności postaci z całego ekwipunku.</span><span class="lang-en">Aggregated total skill point bonuses calculated across entire equipped hero gear and charms.</span></p>
       </div>
 
-      <div class="rule">
-        <div class="num">03</div>
-        <h3>
-          <span class="lang-pl">Inne Modele AI &amp; Lokalnie</span>
-          <span class="lang-en">Alternative &amp; Local AI</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Wprowadzenie alternatywnych modeli wizyjnych oraz możliwości działania w 100% lokalnie (np. poprzez Ollama / lokalne modele LLM) całkowicie offline.</span>
-          <span class="lang-en">Support for alternative cloud models and 100% local vision models (via Ollama / LM Studio) for fully offline scanning.</span>
-        </p>
+      <div class="roadmap-item">
+        <div class="roadmap-badge planned"><span class="lang-pl">PLANOWANE</span><span class="lang-en">PLANNED</span></div>
+        <h4 class="roadmap-title"><span class="lang-pl">Inne modele AI &amp; Opcja modeli lokalnych</span><span class="lang-en">Alternative AI Models &amp; Local Offline Inference</span></h4>
+        <p class="roadmap-desc"><span class="lang-pl">Wsparcie dla lokalnych modeli wizyjnych (np. Ollama / LLaVA), umożliwiających skanowanie 100% offline bez internetu.</span><span class="lang-en">Support for local vision models (e.g. Ollama / LLaVA) allowing fully offline recognition with zero API reliance.</span></p>
       </div>
 
-      <div class="rule">
-        <div class="num">04</div>
-        <h3>
-          <span class="lang-pl">Więcej Języków</span>
-          <span class="lang-en">More Languages</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Rozszerzenie interfejsu oraz bazy OCR o kolejne wersje językowe (niemiecki, francuski, hiszpański, koreański) dla międzynarodowej społeczności.</span>
-          <span class="lang-en">Expanding UI and OCR dictionaries to German, French, Spanish, and Asian Diablo communities.</span>
-        </p>
+      <div class="roadmap-item">
+        <div class="roadmap-badge planned"><span class="lang-pl">PLANOWANE</span><span class="lang-en">PLANNED</span></div>
+        <h4 class="roadmap-title"><span class="lang-pl">Więcej wersji językowych</span><span class="lang-en">Expanded Internationalization</span></h4>
+        <p class="roadmap-desc"><span class="lang-pl">Dodanie obsługi języka niemieckiego, francuskiego, hiszpańskiego oraz koreańskiego.</span><span class="lang-en">Upcoming localization for German, French, Spanish, and Korean player communities.</span></p>
       </div>
 
-      <div class="rule">
-        <div class="num">05</div>
-        <h3>
-          <span class="lang-pl">Poprawki Błędów (Bagi)</span>
-          <span class="lang-en">Bug Fixes &amp; Polish</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Ciągła optymalizacja i wyłapywanie zgłoszonych błędów w kadrowaniu nietypowych rozdzielczości, rzadkich afiksów i skrajnych układów.</span>
-          <span class="lang-en">Continuous bug squashing, edge-case crop refinement on ultrawide displays, and UX responsiveness polish.</span>
-        </p>
-      </div>
-
-      <div class="rule">
-        <div class="num">06</div>
-        <h3>
-          <span class="lang-pl">Optymalizacje Szybkości</span>
-          <span class="lang-en">Speed Optimizations</span>
-        </h3>
-        <p>
-          <span class="lang-pl">Dalsze przyspieszanie czasu reakcji (poniżej 1 sekundy), ulepszenia wydajnościowe bazy SQLite oraz synchronizacja z rynkiem online.</span>
-          <span class="lang-en">Sub-second scan response optimizations, enhanced SQLite indexing, and seamless online marketplace sync.</span>
-        </p>
+      <div class="roadmap-item">
+        <div class="roadmap-badge in-dev"><span class="lang-pl">CIĄGŁE</span><span class="lang-en">ONGOING</span></div>
+        <h4 class="roadmap-title"><span class="lang-pl">Poprawki błędów, optymalizacje i ulepszenia</span><span class="lang-en">Bug Fixes, Latency Optimizations &amp; Polish</span></h4>
+        <p class="roadmap-desc"><span class="lang-pl">Ciągłe skracanie czasu odpowiedzi OCR, ulepszenia bazy danych i bezpośrednia integracja z rynkiem online.</span><span class="lang-en">Sub-second scan response optimizations, enhanced SQLite indexing, and seamless online marketplace sync.</span></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 05 / SKRÓTY KLAWISZOWE -->
+<!-- SEKCJA SKRÓTÓW KLAWISZOWYCH (HOTKEYS) -->
 <section class="section" id="hotkeys">
   <div class="wrap">
     <div class="section-head">
       <div>
         <div class="eyebrow">
-          <span class="lang-pl">05 / Kontrola z Klawiatury</span>
-          <span class="lang-en">05 / Global Hotkeys</span>
+          <span class="lang-pl">Klawiszologia</span>
+          <span class="lang-en">Controls</span>
         </div>
         <h2>
-          <span class="lang-pl">Natywne skróty w trakcie gry.</span>
-          <span class="lang-en">Native in-game shortcuts.</span>
+          <span class="lang-pl">Wygodne sterowanie z poziomu gry.</span>
+          <span class="lang-en">In-Game Hotkeys &amp; Direct Actions.</span>
+        </h2>
+      </div>
+      <p>
+        <span class="lang-pl">Wszystkie skróty działają w tle w systemie Windows i nie kolidują z domyślnymi klawiszami Diablo II: Resurrected.</span>
+        <span class="lang-en">All keybinds operate globally in background without conflicting with default Diablo II: Resurrected bindings.</span>
+      </p>
+    </div>
+
+    <div class="rule-grid">
+      <div class="rule">
+        <div class="num">F10</div>
+        <h3>
+          <span class="lang-pl">Główny Skan Przedmiotu</span>
+          <span class="lang-en">Instant Tooltip Capture</span>
+        </h3>
+        <p>
+          <span class="lang-pl">Wskaż kursorem przedmiot w skrytce lub inwentarzu i naciśnij F10. Dźwięk potwierdza pomyślny skan.</span>
+          <span class="lang-en">Hover your cursor over any item tooltip in game and press F10. Audio feedback confirms capture.</span>
+        </p>
+      </div>
+
+      <div class="rule">
+        <div class="num">F9</div>
+        <h3>
+          <span class="lang-pl">Tryb Zrzutu Całego Ekranu</span>
+          <span class="lang-en">Full Window Fallback</span>
+        </h3>
+        <p>
+          <span class="lang-pl">Awaryjny tryb przechwytywania pełnego okna gry, przydatny przy niestandardowych rozdzielczościach ultrawide.</span>
+          <span class="lang-en">Captures the entire active client window, ideal for ultrawide configurations.</span>
+        </p>
+      </div>
+
+      <div class="rule">
+        <div class="num">WEB</div>
+        <h3>
+          <span class="lang-pl">Automatyczny Autostart</span>
+          <span class="lang-en">Seamless Web Companion</span>
+        </h3>
+        <p>
+          <span class="lang-pl">Skarbiec webowy otwiera się automatycznie w Twojej domyślnej przeglądarce pod adresem <code>http://127.0.0.1:5005</code>.</span>
+          <span class="lang-en">Your web vault opens automatically in your default browser at <code>http://127.0.0.1:5005</code>.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEKCJA POBIERANIA / RELEASES (DLA USERÓW: 1 KLIKNIĘCIE, BEZ PYTHON) -->
+<section class="section" id="download" style="background: radial-gradient(circle at 15% 30%, rgba(195,162,93,.08), transparent 45%), #10150f;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" style="color: var(--gold2);">
+          <span class="lang-pl">Pobieranie &amp; Instalacja</span>
+          <span class="lang-en">Download &amp; Releases</span>
+        </div>
+        <h2>
+          <span class="lang-pl">Uruchom jednym kliknięciem &mdash; bez instalowania Pythona.</span>
+          <span class="lang-en">Run with 1-click &mdash; No Python installation required.</span>
         </h2>
       </div>
       <p>
         <span class="lang-pl">
-          Wszystkie skróty są globalne i działają natychmiast, gdy aktywne jest okno gry. Możesz je w każdej chwili dostosować w panelu ustawień Companion HUD.
+          Przygotowaliśmy gotowe wydania dla każdego gracza. Nie musisz znać się na programowaniu ani instalować środowiska Python &mdash; pobierasz, klikasz i grasz!
         </span>
         <span class="lang-en">
-          All hotkeys are global and trigger immediately while Diablo II: Resurrected is focused. Fully customizable via Companion HUD settings.
+          Packaged standalone releases tailored for players. No Python setup or command line needed &mdash; download, launch with 1-click, and jump straight into Sanctuary!
         </span>
       </p>
     </div>
 
-    <div class="hotkeys-table-wrap">
-      <table class="hotkeys-table">
-        <thead>
-          <tr>
-            <th style="width: 130px;"><span class="lang-pl">Klawisz</span><span class="lang-en">Hotkey</span></th>
-            <th><span class="lang-pl">Tryb / Działanie</span><span class="lang-en">Mode / Action</span></th>
-            <th><span class="lang-pl">Przeznaczenie</span><span class="lang-en">Target Condition</span></th>
-            <th><span class="lang-pl">Rezultat</span><span class="lang-en">Outcome</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="hotkey-badge">F10</span></td>
-            <td><strong style="color: var(--gold2);"><span class="lang-pl">Przechwyć cel (Capture)</span><span class="lang-en">Capture Target</span></strong></td>
-            <td><span class="lang-pl">Kursor nad tooltipem w inwentarzu lub skrzyni</span><span class="lang-en">Hover over any item tooltip in game</span></td>
-            <td><span class="lang-pl">Zrzut ekranu (screen), OCR Gemini, dodanie do bazy z dźwiękiem SFX</span><span class="lang-en">Safe screenshot, Gemini OCR, database entry with audio SFX</span></td>
-          </tr>
-          <tr>
-            <td><span class="hotkey-badge">F7</span></td>
-            <td><strong><span class="lang-pl">Skan statystyk postaci</span><span class="lang-en">Character Stats Mode</span></strong></td>
-            <td><span class="lang-pl">Otwarte okno atrybutów bohatera ('A' / 'C' w grze)</span><span class="lang-en">Open character stat sheet ('A' or 'C' in game)</span></td>
-            <td><span class="lang-pl">Aktualizacja poziomu, atrybutów, odporności i życia</span><span class="lang-en">Updates hero level, attributes, resistances, and vitals</span></td>
-          </tr>
-          <tr>
-            <td><span class="hotkey-badge">F8</span></td>
-            <td><strong><span class="lang-pl">Skan zakładki run</span><span class="lang-en">Rune Stash Mode</span></strong></td>
-            <td><span class="lang-pl">Otwarta skrytka z ułożonymi runami</span><span class="lang-en">Open rune stash tab in game</span></td>
-            <td><span class="lang-pl">Automatyczne zliczenie stanów posiadania wszystkich 33 run</span><span class="lang-en">Scans and updates live counts for all 33 runes</span></td>
-          </tr>
-          <tr>
-            <td><span class="hotkey-badge">F9</span></td>
-            <td><strong><span class="lang-pl">Tryb skrytki ogólnej</span><span class="lang-en">Vault Stash Mode</span></strong></td>
-            <td><span class="lang-pl">Przełącza cel zapisu na wspólny skarbiec</span><span class="lang-en">Directs incoming scans into shared vault</span></td>
-            <td><span class="lang-pl">Kolejne skany F10 trafią do wspólnej skrytki</span><span class="lang-en">Subsequent F10 captures are stored in shared stash</span></td>
-          </tr>
-          <tr>
-            <td><span class="hotkey-badge">F11</span></td>
-            <td><strong><span class="lang-pl">Tryb aktywnego bohatera</span><span class="lang-en">Active Hero Mode</span></strong></td>
-            <td><span class="lang-pl">Przełącza cel zapisu na ekwipunek wybranej postaci</span><span class="lang-en">Directs incoming scans to active hero gear</span></td>
-            <td><span class="lang-pl">Kolejne skany F10 zostaną przypisane do slotów postaci</span><span class="lang-en">Subsequent F10 captures equip onto the selected hero</span></td>
-          </tr>
-          <tr>
-            <td><span class="hotkey-badge">F12</span></td>
-            <td><strong><span class="lang-pl">Tryb najemnika</span><span class="lang-en">Mercenary Mode</span></strong></td>
-            <td><span class="lang-pl">Przełącza cel zapisu na ekwipunek pomocnika</span><span class="lang-en">Directs incoming scans to mercenary gear</span></td>
-            <td><span class="lang-pl">Kolejne skany F10 trafiają do zbrojowni najemnika</span><span class="lang-en">Subsequent F10 captures equip onto the companion mercenary</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- 06 / INSTALACJA I SZYBKI START -->
-<section class="section" id="install">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow">
-          <span class="lang-pl">06 / Szybki Start</span>
-          <span class="lang-en">06 / Quick Start</span>
+    <div class="release-grid">
+      <!-- PACZKA 1: STANDALONE PORTABLE ZIP -->
+      <div class="release-card">
+        <div>
+          <span class="release-badge"><span class="lang-pl">REKOMENDOWANE &bull; ZERO INSTALACJI</span><span class="lang-en">RECOMMENDED &bull; ZERO INSTALL</span></span>
+          <h3><span class="lang-pl">Gotowa Paczka Windows (.zip)</span><span class="lang-en">Portable Windows Bundle (.zip)</span></h3>
+          <p style="color: #b5baaa; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+            <span class="lang-pl">Kompletny pakiet zawierający wbudowany runtime, gotowe pliki bazy i katalogów. Wystarczy rozpakować i uruchomić plik <b>Uruchom_D2_UberApp.bat</b>.</span>
+            <span class="lang-en">Complete standalone package containing embedded runtime and databases. Simply extract and double-click <b>Uruchom_D2_UberApp.bat</b>.</span>
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; font-size: 13px; color: #8ab882;">
+            <li>&#10003; <span class="lang-pl">Nie wymaga instalowania Pythona w systemie</span><span class="lang-en">Zero system-wide Python installation needed</span></li>
+            <li>&#10003; <span class="lang-pl">Działa od razu na Windows 10 i 11</span><span class="lang-en">Runs out of the box on Windows 10 &amp; 11</span></li>
+            <li>&#10003; <span class="lang-pl">Możesz trzymać na pendrive lub dowolnym dysku</span><span class="lang-en">100% portable &mdash; run from any folder</span></li>
+          </ul>
         </div>
-        <h2>
-          <span class="lang-pl">Uruchomienie w 4 prostych krokach.</span>
-          <span class="lang-en">Ready in 4 simple steps.</span>
-        </h2>
-      </div>
-      <p>
-        <span class="lang-pl">Aplikacja działa lokalnie w oparciu o bazę SQLite na Twoim dysku. Wystarczy darmowy klucz API z Google AI Studio.</span>
-        <span class="lang-en">Operates purely locally on SQLite. All you need is a free API key from Google AI Studio.</span>
-      </p>
-    </div>
-
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">01</div>
-        <h3><span class="lang-pl">Pobierz Kod</span><span class="lang-en">Clone Repo</span></h3>
-        <p><span class="lang-pl">Sklonuj repozytorium z GitHuba lub pobierz archiwum ZIP.</span><span class="lang-en">Clone the repository from GitHub or extract ZIP.</span></p>
-        <div class="code-box">git clone https://github.com/your-username/d2-uberapp.git</div>
+        <a class="btn primary" href="https://github.com/kosiorekmateusz/d2uberapp/releases" target="_blank" style="width: 100%; text-align: center;">
+          <span class="lang-pl">Pobierz Paczkę ZIP (.zip) &darr;</span>
+          <span class="lang-en">Download Portable (.zip) &darr;</span>
+        </a>
       </div>
 
-      <div class="step-card">
-        <div class="step-num">02</div>
-        <h3><span class="lang-pl">Zainstaluj Pakiety</span><span class="lang-en">Install Pip</span></h3>
-        <p><span class="lang-pl">Zainstaluj zależności Pythona (zalecany Python 3.10+).</span><span class="lang-en">Install Python packages (recommended Python 3.10+).</span></p>
-        <div class="code-box">pip install -r requirements.txt</div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-num">03</div>
-        <h3><span class="lang-pl">Klucz Gemini (Wymagany)</span><span class="lang-en">Gemini Key (Required)</span></h3>
-        <p><span class="lang-pl">Pobierz darmowy klucz z Google AI Studio i wklej do <code>.env</code>.</span><span class="lang-en">Generate free key on Google AI Studio and put in <code>.env</code>.</span></p>
-        <div class="code-box">GEMINI_API_KEY="AIzaSy..."</div>
-      </div>
-
-      <div class="step-card">
-        <div class="step-num">04</div>
-        <h3><span class="lang-pl">Uruchom Aplikację</span><span class="lang-en">Launch App</span></h3>
-        <p><span class="lang-pl">Kliknij dwukrotnie <code>start.bat</code> i ciesz się grą.</span><span class="lang-en">Double-click <code>start.bat</code> to launch HUD &amp; Vault.</span></p>
-        <div class="code-box">start.bat (lub python app.py)</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 07 / FAQ -->
-<section class="section">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow">
-          <span class="lang-pl">07 / Częste Pytania</span>
-          <span class="lang-en">07 / FAQ</span>
+      <!-- PACZKA 2: INSTALATOR SETUP.EXE -->
+      <div class="release-card">
+        <div>
+          <span class="release-badge"><span class="lang-pl">INSTALATOR WINDOWS</span><span class="lang-en">WINDOWS INSTALLER</span></span>
+          <h3><span class="lang-pl">Instalator Setup (.exe)</span><span class="lang-en">Windows Setup (.exe)</span></h3>
+          <p style="color: #b5baaa; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+            <span class="lang-pl">Tradycyjny instalator Windows przygotowany w Inno Setup. Samodzielnie umieszcza skrót na Pulpicie i w Menu Start, konfiguruje środowisko i uruchamia aplikację.</span>
+            <span class="lang-en">Classic Windows wizard setup installer. Automatically creates Desktop and Start Menu shortcuts, manages files, and starts with 1-click.</span>
+          </p>
+          <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; font-size: 13px; color: #8ab882;">
+            <li>&#10003; <span class="lang-pl">Wygodny kreator instalacji "Dalej, Dalej, Gotowe"</span><span class="lang-en">Classic easy setup wizard</span></li>
+            <li>&#10003; <span class="lang-pl">Ikona D2 UberApp bezpośrednio na Twoim Pulpicie</span><span class="lang-en">Desktop &amp; Start Menu launch shortcuts</span></li>
+            <li>&#10003; <span class="lang-pl">Wbudowany deinstalator</span><span class="lang-en">Clean built-in uninstaller</span></li>
+          </ul>
         </div>
-        <h2>
-          <span class="lang-pl">Wszystko, co chcesz wiedzieć.</span>
-          <span class="lang-en">Frequently Asked Questions.</span>
-        </h2>
-      </div>
-      <p>
-        <span class="lang-pl">Masz wątpliwości dotyczące bezpieczeństwa, kosztów lub kompatybilności? Przeczytaj odpowiedzi poniżej.</span>
-        <span class="lang-en">Questions about safety, costs, or compatibility? Review the answers below.</span>
-      </p>
-    </div>
-
-    <div class="faq-grid">
-      <div class="faq-item" style="border-left: 3px solid #728c69;">
-        <h4 style="color: #a5d297;">
-          <span class="lang-pl">Czy korzystanie z D2 UberApp grozi banem?</span>
-          <span class="lang-en">Can I get banned for using D2 UberApp?</span>
-        </h4>
-        <p>
-          <span class="lang-pl"><b>Nie, nie dostaje się za nią bana.</b> Aplikacja działa wyłącznie na zrzutach ekranu (screenach). Nie czyta pamięci RAM procesu gry, nie wstrzykuje bibliotek DLL i nie modyfikuje plików D2R. Dla gry jest w 100% niewidoczna, dokładnie tak samo jak OBS Studio czy Discord.</span>
-          <span class="lang-en"><b>No, you cannot get banned.</b> The app works strictly via standard desktop screenshots. It never reads game memory, never injects DLLs, and never modifies game files. To anti-cheat systems, it is completely invisible, exactly like OBS Studio or Discord.</span>
-        </p>
+        <a class="btn" href="https://github.com/kosiorekmateusz/d2uberapp/releases" target="_blank" style="width: 100%; text-align: center;">
+          <span class="lang-pl">Pobierz Instalator (.exe) &darr;</span>
+          <span class="lang-en">Download Installer (.exe) &darr;</span>
+        </a>
       </div>
 
-      <div class="faq-item">
-        <h4>
-          <span class="lang-pl">Czy muszę płacić za Google Gemini API?</span>
-          <span class="lang-en">Do I have to pay for Google Gemini API?</span>
-        </h4>
-        <p>
-          <span class="lang-pl"><b>Nie, nie musisz płacić.</b> Google AI Studio udostępnia całkowicie <b>darmowy pakiet (Free Tier)</b> bez konieczności podawania karty kredytowej. Darmowy limit na model <code>gemini-3.5-flash-lite</code> w zupełności wystarcza do codziennej gry i skanowania tysięcy przedmiotów. Pamiętaj jednak, że klucz API jest <b>wymagany</b>.</span>
-          <span class="lang-en"><b>No, it is completely free.</b> Google AI Studio offers a <b>free tier plan</b> with no credit card required. The free quotas for <code>gemini-3.5-flash-lite</code> comfortably support thousands of in-game scans per month. Note that an API key is <b>required</b>.</span>
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h4>
-          <span class="lang-pl">Czy aplikacja wspiera polską wersję językową gry?</span>
-          <span class="lang-en">Does the app support both languages?</span>
-        </h4>
-        <p>
-          <span class="lang-pl">Tak! Model Gemini bezbłędnie rozpoznaje zarówno polskie nazwy (np. <i>Korbacz</i>, <i>Pajęcza Szarfa</i>, <i>Runa Jah</i>), jak i angielskie odpowiedniki. Cały interfejs posiada natychmiastowy przełącznik języka PL / EN.</span>
-          <span class="lang-en">Yes! The multimodal OCR engine seamlessly parses both English and Polish D2R typography. The entire UI features instant one-click toggling between PL and EN.</span>
-        </p>
-      </div>
-
-      <div class="faq-item">
-        <h4>
-          <span class="lang-pl">Gdzie zapisywane są moje przedmioty?</span>
-          <span class="lang-en">Where is my data stored?</span>
-        </h4>
-        <p>
-          <span class="lang-pl">Wszystkie dane przechowywane są lokalnie na Twoim komputerze w pliku bazy danych SQLite (<code>data/stash.sqlite</code>). Masz pełną kontrolę i prywatność swoich danych.</span>
-          <span class="lang-en">All data is persisted strictly locally on your machine in an SQLite database file (<code>data/stash.sqlite</code>). You retain 100% privacy and ownership.</span>
-        </p>
+      <!-- PACZKA 3: DLA DEVELOPERÓW / PYTHON -->
+      <div class="release-card" style="border-color: #384633;">
+        <div>
+          <span class="release-badge" style="background: rgba(195,162,93,0.15); border-color: #746542; color: var(--gold2);"><span class="lang-pl">DLA PROGRAMISTÓW</span><span class="lang-en">DEVELOPER REPO</span></span>
+          <h3><span class="lang-pl">Kod Źródłowy (Git / Python)</span><span class="lang-en">Source Code (Git / Python)</span></h3>
+          <p style="color: #b5baaa; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+            <span class="lang-pl">Dla graczy z zainstalowanym Pythonem 3.10+. Pobierz kod źródłowy, zainstaluj biblioteki i rozwijaj aplikację razem z nami.</span>
+            <span class="lang-en">For developers and enthusiasts with Python 3.10+. Clone the repository, inspect code, and contribute features.</span>
+          </p>
+          <div style="background: #080b07; border: 1px solid #232a1e; border-radius: 4px; padding: 10px; font-family: monospace; font-size: 11px; color: #a5d297; margin-bottom: 24px;">
+            git clone https://github.com/kosiorekmateusz/d2uberapp.git<br>
+            pip install -r requirements.txt<br>
+            python app.py
+          </div>
+        </div>
+        <a class="btn" href="https://github.com/kosiorekmateusz/d2uberapp" target="_blank" style="width: 100%; text-align: center;">
+          <span class="lang-pl">Zobacz na GitHub &rarr;</span>
+          <span class="lang-en">View on GitHub &rarr;</span>
+        </a>
       </div>
     </div>
   </div>
@@ -1079,93 +966,63 @@
 
 </main>
 
-<!-- FOOTER (NO EMOJIS) -->
-<footer>
-  <div class="wrap">
-    <div class="footer-row">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <span style="font: 20px Georgia, serif; color: var(--gold2);">D2 UberApp</span>
-        <span style="color: #555;">&bull;</span>
-        <span>
-          <span class="lang-pl">Asystent AI dla Diablo II: Resurrected (Faza Beta)</span>
-          <span class="lang-en">AI Companion for Diablo II: Resurrected (Beta Phase)</span>
-        </span>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap footer-content">
+    <div class="footer-brand">
+      <div class="brandmark">
+        <svg viewBox="0 0 44 50" aria-hidden="true">
+          <path d="M22 2 40 12v25L22 48 4 37V12Z" fill="#1d251a" stroke="#c3a25d"/>
+          <path d="M22 6 36 14v21L22 44 8 35V14Z" fill="none" stroke="#746542"/>
+          <path d="M15 15v20l7 4 7-4V15M22 12v22" fill="none" stroke="#ddc48c" stroke-width="3"/>
+        </svg>
       </div>
-      <div class="footer-links">
-        <a href="#top"><span class="lang-pl">Wróć na górę &uarr;</span><span class="lang-en">Back to Top &uarr;</span></a>
-        <a href="#safety"><span class="lang-pl">Brak bana</span><span class="lang-en">Safety</span></a>
-        <a href="#features"><span class="lang-pl">Funkcje</span><span class="lang-en">Features</span></a>
-        <a href="#showcase"><span class="lang-pl">Prezentacja</span><span class="lang-en">Showcase</span></a>
-        <a href="#roadmap"><span class="lang-pl">Do zrobienia</span><span class="lang-en">Roadmap</span></a>
-        <a href="#install"><span class="lang-pl">Pobierz</span><span class="lang-en">Download</span></a>
-        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+      <div>
+        <strong style="color: var(--gold2); font-size: 18px; display: block;">D2 UberApp</strong>
+        <span style="color: #838878; font-size: 13px;">Diablo II: Resurrected &bull; Asystent AI &bull; Wersja Beta</span>
       </div>
     </div>
 
+    <div class="footer-links">
+      <a href="#safety"><span class="lang-pl">Bezpieczeństwo</span><span class="lang-en">Safety</span></a>
+      <a href="#companion"><span class="lang-pl">Towarzysz HUD</span><span class="lang-en">Companion</span></a>
+      <a href="#gallery"><span class="lang-pl">Wszystkie Screeny</span><span class="lang-en">Gallery</span></a>
+      <a href="#roadmap"><span class="lang-pl">Roadmap</span><span class="lang-en">Roadmap</span></a>
+      <a href="#download"><span class="lang-pl">Pobierz</span><span class="lang-en">Download</span></a>
+      <a href="https://d2uberappmarket.tw5.org" target="_blank"><span class="lang-pl">Giełda Online</span><span class="lang-en">Online Market</span></a>
+    </div>
+
     <div class="footer-disclaimer">
-      Diablo II: Resurrected jest zarejestrowanym znakiem towarowym firmy Blizzard Entertainment, Inc. D2 UberApp jest projektem fanowskim o otwartym kodzie źródłowym, niepowiązanym, nieautoryzowanym i niewspieranym przez Blizzard Entertainment. Aplikacja udostępniana jest na otwartej licencji MIT i działa wyłącznie w oparciu o pasywne przechwytywanie zrzutów ekranu pulpitu Windows.
+      Diablo II: Resurrected is a registered trademark of Blizzard Entertainment, Inc. D2 UberApp is an independent open-source tool built strictly on non-invasive desktop screenshots. It is not endorsed by, directly affiliated with, or sponsored by Blizzard Entertainment.
     </div>
   </div>
 </footer>
 
+<!-- BILINGUAL SWITCHER SCRIPT -->
 <script>
-  // Language Switcher Function
   function setLandingLang(lang) {
     if (lang === 'en') {
-      document.body.className = 'lang-en';
-      document.getElementById('btn-en').classList.add('active');
-      document.getElementById('btn-pl').classList.remove('active');
+      document.body.classList.remove('lang-pl');
+      document.body.classList.add('lang-en');
+      document.getElementById('btn-en')?.classList.add('active');
+      document.getElementById('btn-pl')?.classList.remove('active');
+      document.documentElement.lang = 'en';
       localStorage.setItem('d2_landing_lang', 'en');
     } else {
-      document.body.className = 'lang-pl';
-      document.getElementById('btn-pl').classList.add('active');
-      document.getElementById('btn-en').classList.remove('active');
+      document.body.classList.remove('lang-en');
+      document.body.classList.add('lang-pl');
+      document.getElementById('btn-pl')?.classList.add('active');
+      document.getElementById('btn-en')?.classList.remove('active');
+      document.documentElement.lang = 'pl';
       localStorage.setItem('d2_landing_lang', 'pl');
     }
   }
 
-  // Load preferred language on start
-  const savedLang = localStorage.getItem('d2_landing_lang') || 'pl';
-  setLandingLang(savedLang);
-
-  // Tab switcher for Showcase Gallery
-  const tabs = document.querySelectorAll('.showcase-btn');
-  const panels = document.querySelectorAll('.showcase-panel');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const targetId = tab.getAttribute('data-target');
-      tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      const targetPanel = document.getElementById(targetId);
-      if (targetPanel) {
-        targetPanel.classList.add('active');
-      }
-    });
-  });
-
-  // Act-nav active link highlighting on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.act-nav a');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    const scrollPos = window.pageYOffset + 140;
-
-    sections.forEach(section => {
-      if (scrollPos >= section.offsetTop) {
-        current = section.getAttribute('id');
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
-    });
-  });
+  // Restore preferred language
+  (function() {
+    var saved = localStorage.getItem('d2_landing_lang') || 'pl';
+    setLandingLang(saved);
+  })();
 </script>
 
 </body>

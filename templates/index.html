@@ -2393,7 +2393,7 @@
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
                     <div>
                         <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Online Market Server URL:" or "Adres serwera giełdy online:" }}</label>
-                        <input type="text" id="marketServerUrl" class="input-d2" value="http://localhost:5050" placeholder="http://localhost:5050">
+                        <input type="text" id="marketServerUrl" class="input-d2" value="https://d2uberappmarket.tw5.org" placeholder="https://d2uberappmarket.tw5.org">
                     </div>
                     <div>
                         <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Your Market Profile API Token:" or "Twój Token API z profilu giełdy:" }}</label>
@@ -3393,7 +3393,7 @@ async function setAppLanguage(newLang) {
             if (!modal) return;
             modal.style.display = 'flex';
 
-            let savedUrl = localStorage.getItem('d2_market_url') || 'http://localhost:5050';
+            let savedUrl = localStorage.getItem('d2_market_url') || 'https://d2uberappmarket.tw5.org';
             let savedToken = localStorage.getItem('d2_market_token') || '';
             let savedUser = localStorage.getItem('d2_market_user') || '';
             let savedScHc = localStorage.getItem('d2_market_schc') || 'sc';
@@ -3436,7 +3436,7 @@ async function setAppLanguage(newLang) {
         }
 
         async function performMarketSync() {
-            let serverUrl = (document.getElementById('marketServerUrl')?.value || 'http://localhost:5050').trim();
+            let serverUrl = (document.getElementById('marketServerUrl')?.value || 'https://d2uberappmarket.tw5.org').trim();
             let apiToken = (document.getElementById('marketApiToken')?.value || '').trim();
             let username = (document.getElementById('marketUsername')?.value || '').trim();
             let password = document.getElementById('marketPassword')?.value || '';

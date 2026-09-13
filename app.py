@@ -691,7 +691,7 @@ def api_trade_online_sync():
     import urllib.request
     import urllib.error
     data = request.get_json(force=True, silent=True) or {}
-    server_url = (data.get("server_url") or "http://localhost:5050").rstrip("/")
+    server_url = (data.get("server_url") or "https://d2uberappmarket.tw5.org").rstrip("/")
     api_token = data.get("api_token") or ""
     username = data.get("username") or ""
     password = data.get("password") or ""

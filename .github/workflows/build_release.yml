@@ -1,0 +1,49 @@
+name: Build and Release D2 UberApp Windows
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Build Standalone Release with PyInstaller
+        run: |
+          python build_release.py
+
+      - name: Compile Inno Setup Installer
+        uses: Min-Shar/inno-setup-action@v1.2.0
+        with:
+          path: installer.iss
+        continue-on-error: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          name: "D2 UberApp Release ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+          files: |
+            D2UberApp_Windows_x64.zip
+            Output/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

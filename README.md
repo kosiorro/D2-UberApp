@@ -7,7 +7,7 @@
 **AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**
 
 [![Status: Active Beta](https://img.shields.io/badge/Status-Active%20Beta-orange.svg)](#beta-notice)
-[![Anti-Ban Safe](https://img.shields.io/badge/Anti--Ban-100%25%20Safe%20(Screenshots)-brightgreen.svg)](#anti-ban-safety-screenshot-based-architecture)
+[![Account Safety](https://img.shields.io/badge/Account%20Safety-100%25%20Safe%20(Screenshots)-brightgreen.svg)](#account-safety-screenshot-based-architecture)
 [![Gemini 3.5 Flash Lite](https://img.shields.io/badge/AI-Google%20Gemini%203.5%20Flash%20Lite-blue.svg)](#gemini-api-key-required--free)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB.svg)](https://www.python.org/downloads/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg)](https://microsoft.com)
@@ -26,8 +26,8 @@
 ### Beta Notice
 > **Active Beta Status**: D2 UberApp is currently in active beta testing. Core features are fully functional, with continuous optimizations, balance tuning, and community feedback integration in progress.
 
-### Anti-Ban Safety (Screenshot-Based Architecture)
-> **100% Anti-Ban Safe**: You cannot be banned for using D2 UberApp.
+### Account Safety (Screenshot-Based Architecture)
+> **100% Account Safety**: D2 UberApp operates in complete isolation from the game process.
 >
 > - **Screenshot-Only Operation**: The application captures pixels purely via the standard Windows Desktop API (`BitBlt` / Desktop Duplication) upon pressing your hotkey.
 > - **Zero Process Memory Reading**: D2 UberApp never inspects, hooks, or scans the memory space of `D2R.exe`.
@@ -150,8 +150,8 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
 ### Informacja o wersji Beta
 > **Aktywna Faza Beta**: D2 UberApp znajduje się w fazie intensywnych testów beta. Główne moduły są w pełni sprawne, a kolejne usprawnienia i funkcje dochodzą na bieżąco.
 
-### Bezpieczeństwo i Brak Bana (Działanie na Zrzutach Ekranu)
-> **100% Bezpieczeństwa — Za aplikację NIE dostaje się bana**:
+### Bezpieczeństwo Konta (Architektura Screenshot-Only)
+> **100% Bezpieczeństwa Konta — Pełna Izolacja Procesu**:
 >
 > - **Działanie wyłącznie na screenach**: Program wykonuje zrzut wybranego fragmentu pulpitu przez standardowe Windows API (`BitBlt`), identycznie jak **OBS Studio**, **Narzędzie Wycinanie** czy podgląd ekranu na **Discordzie**.
 > - **Zero czytania pamięci gry**: Aplikacja nie skanuje i nie podpina się pod pamięć procesu `D2R.exe`.

@@ -32,3 +32,12 @@ desktop.ini
 *.tmp
 *.bak
 _backups/
+
+# Packaging & releases
+dist/
+build/
+runtime/
+Output/
+*.zip
+*.spec
+
