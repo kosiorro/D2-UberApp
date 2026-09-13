@@ -4,296 +4,220 @@
 
 ![D2 UberApp Banner](static/images/header.jpg)
 
-**The Ultimate AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**
+**AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**
 
-[![Status: Active Beta](https://img.shields.io/badge/Status-Active%20Beta-orange.svg)](#beta-notice--informacja-o-wersji-beta)
-[![Anti-Ban Safe](https://img.shields.io/badge/Anti--Ban-100%25%20Safe%20(Screenshots)-brightgreen.svg)](#-100-anti-ban-safe--bezpiecze%C5%84stwo-brak-bana)
-[![Gemini API Required](https://img.shields.io/badge/API-Free%20Gemini%20Required-blue.svg)](#-google-gemini-api-key-required--darmowy-klucz-api)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Diablo II: Resurrected](https://img.shields.io/badge/Diablo%20II-Resurrected-darkred.svg)](https://diablo2.blizzard.com/)
-[![Windows 10/11](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg)](https://microsoft.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Bilingual](https://img.shields.io/badge/Language-English%20%7C%20Polski-yellow.svg)](#bilingual-support--dwuj%C4%99zyczno%C5%9B%C4%87)
+[![Status: Active Beta](https://img.shields.io/badge/Status-Active%20Beta-orange.svg)](#beta-notice)
+[![Anti-Ban Safe](https://img.shields.io/badge/Anti--Ban-100%25%20Safe%20(Screenshots)-brightgreen.svg)](#anti-ban-safety-screenshot-based-architecture)
+[![Gemini 3.5 Flash Lite](https://img.shields.io/badge/AI-Google%20Gemini%203.5%20Flash%20Lite-blue.svg)](#gemini-api-key-required--free)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB.svg)](https://www.python.org/downloads/)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6.svg)](https://microsoft.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Bilingual](https://img.shields.io/badge/Language-English%20%7C%20Polski-lightgrey.svg)](#wersja-polska)
 
-[Features](#key-features) • [Screenshots](#visual-tour) • [Anti-Ban Safety](#-100-anti-ban-safe--bezpiecze%C5%84stwo-brak-bana) • [API Key Setup](#-google-gemini-api-key-required--darmowy-klucz-api) • [Controls & Hotkeys](#controls--hotkeys) • [Roadmap (TODO)](#-roadmap--planned-features-do-zrobienia) • [Quick Start](#quick-start)
+[English](#english) • [Wersja Polska](#wersja-polska) • [Screenshots](#visual-tour) • [Safety](#anti-ban-safety-screenshot-based-architecture) • [API Setup](#gemini-api-key-required--free) • [Hotkeys](#controls--hotkeys) • [Roadmap](#roadmap--planned-features) • [Installation](#quick-start)
 
 </div>
 
 ---
 
-> ⚠️ **BETA NOTICE / INFORMACJA O WERSJI BETA**:  
-> D2 UberApp is currently in **active beta testing**. New features, item balance tweaks, and improvements are rolling out continuously. Community feedback is warmly welcome!
+<a name="english"></a>
+## English Documentation
 
----
+### Beta Notice
+> **Active Beta Status**: D2 UberApp is currently in active beta testing. Core features are fully functional, with continuous optimizations, balance tuning, and community feedback integration in progress.
 
-## 🛡️ 100% Anti-Ban Safe / Bezpieczeństwo (Brak Bana)
-
-> [!IMPORTANT]
-> **You CANNOT get banned for using D2 UberApp!**
+### Anti-Ban Safety (Screenshot-Based Architecture)
+> **100% Anti-Ban Safe**: You cannot be banned for using D2 UberApp.
 >
-> - **100% Screenshot-Based**: The app captures pixels purely from the standard Windows desktop API (`BitBlt` / Desktop Duplication) when you press the hotkey.
-> - **Zero Memory Scanning**: The application **does NOT read, inspect, or attach** to the `D2R.exe` process memory.
-> - **Zero Code / DLL Injection**: No DLLs are loaded into the game, and no hooks exist inside the game engine.
-> - **Zero File Modifications**: Game files, MPQs, and data tables remain untouched.
-> - From the perspective of Blizzard's anti-cheat (Warden), D2 UberApp is completely indistinguishable from standard screenshot tools like **OBS Studio**, **Snipping Tool**, or **Discord Screen Share**.
+> - **Screenshot-Only Operation**: The application captures pixels purely via the standard Windows Desktop API (`BitBlt` / Desktop Duplication) upon pressing your hotkey.
+> - **Zero Process Memory Reading**: D2 UberApp never inspects, hooks, or scans the memory space of `D2R.exe`.
+> - **Zero Code or DLL Injection**: No external DLLs are injected into the game process, and game files remain untouched.
+> - From the perspective of Blizzard's anti-cheat systems (Warden), D2 UberApp operates identically to desktop tools such as **OBS Studio**, **Snipping Tool**, or **Discord Screen Share**.
 
----
-
-## 🔑 Google Gemini API Key Required / Darmowy Klucz API
-
-> [!NOTE]
-> **A Google Gemini API key is REQUIRED for the AI item scanner to operate.**
+### Gemini API Key (Required & Free)
+> **A Google Gemini API key is required for optical character recognition and item evaluation.**
 >
-> - **100% Free**: You can use a free-tier API key from [Google AI Studio](https://aistudio.google.com/) — **no credit card required**!
-> - The free plan for `gemini-2.5-flash-lite` provides generous rate limits that easily cover thousands of in-game scans per month.
-> - Simply generate your free key, paste it into `.env` (or directly into the Companion HUD settings GUI), and you're good to go!
+> - **100% Free of Charge**: You can obtain an API key for **Google Gemini 3.5 Flash Lite** at [Google AI Studio](https://aistudio.google.com/) with no credit card required.
+> - The free tier quota generously supports thousands of scans per month.
+> - Set your key in `.env` (`GEMINI_API_KEY="..."`) or directly within the Companion HUD settings window.
 
 ---
 
-## Overview
+### Key Features
 
-**D2 UberApp** is a next-generation desktop companion and web application built specifically for **Diablo II: Resurrected** players and collectors. 
+1. **Zero Alt-Tab In-Game Capture (F10)**:
+   - High-speed Win32 hotkey capture of item tooltips directly in Sanctuary.
+   - Smart cropping, dual-language OCR, and catalog validation complete in ~1.2s with audio confirmation.
 
-By combining native Windows low-level screen capture hooks with **Google Gemini 2.5 Flash Lite** multimodal vision, D2 UberApp allows you to catalog in-game items, charms, runes, and character stat sheets with a single keystroke without ever leaving Sanctuary or alt-tabbing away.
+2. **Canonical Variable Roll Rating**:
+   - Matches items against an embedded canonical database (`catalog.sqlite`).
+   - Computes statistical percentile ratings for variable affixes (e.g. *Enhanced Defense*, *All Resistances*, *Magic Find*): `PERFECT (100%)`, `HIGH`, `MID`, `LOW`.
 
-### Highlights
-- ⚡ **Zero Alt-Tab Capture**: Press `F10` in-game over any item tooltip. High-resolution crop, OCR, canonical base identification, and stat evaluation occur in ~1.2s.
-- 🎯 **Canonical Roll Evaluator**: Automatically detects variable roll ranges (e.g., *Enhanced Defense*, *All Resistances*, *Magic Find*) and computes ratings from `LOW` to `PERFECT (100%)`.
-- 🧙 **Hero Equipment & Gear Manager**: Visual inventory management for all 7 classes, weapon swap tracking (Slots I & II), mercenary gear, and charms.
-- 🔮 **Authentic 11x3 Rune Stash & Runeword Calculator**: Real-time tracking of owned runes (El through Zod) with instant detection of craftable runewords based on your inventory.
-- ⚖️ **Trader's Exchange**: One-click generation of forum-ready trade listings, shorthand notation (`Hoto 40`, `Arach 120ED`), and cloud synchronization with the online marketplace.
-- 🌐 **Full Bilingual Support**: One-click toggle between English and Polish across the Web App, Companion HUD, item names, and stat rolls.
+3. **Hero Equipment & Gear Manager**:
+   - Visual equipment view for all 7 character classes.
+   - Weapon swap support (Slots I and II), mercenary equipment management, and charms inventory.
 
----
+4. **11x3 Rune Stash & Runeword Calculator**:
+   - Authentic 33-rune grid (El to Zod) with live inventory counts.
+   - Real-time crafting calculator identifying assembleable runewords based on owned runes and socketed bases.
 
-## Visual Tour
+5. **Trader's Exchange**:
+   - Valuation in high runes and forum currency.
+   - Automated shorthand jargon generation (e.g., *Hoto 40*, *Arach 120ED*, *CTA 6/6/4*).
+   - Instant export formatted for forums and Discord.
 
-### 1. Wanderer's Vault (Main Stash & Filters)
-Browse your collection with responsive grid cards or tabular data, filter by quality, base, ethereal status, or sockets, and search by affixes and hero location.
-
-<div align="center">
-  <img src="docs/screenshots/01_web_stash.png" alt="Wanderer's Vault Main Stash" width="900" />
-</div>
-
----
-
-### 2. AI Item Inspector & Variable Rolls Evaluation
-Examine full in-game tooltip crops alongside canonical catalog matching and statistical percentile ratings.
-
-<div align="center">
-  <img src="docs/screenshots/02_web_item_modal.png" alt="Item Detail Modal & Roll Evaluator" width="800" />
-</div>
+6. **Desktop Companion HUD & Mini Mode**:
+   - Lightweight always-on-top overlay with live scan feeds, active hero indicator, and hotkey mode switchers.
 
 ---
 
-### 3. Hero Equipment & Gear Manager
-Equip your characters with authentic visual equipment slots, weapon swaps (I/II), charm inventory, and real-time combat vitals parsed from stat screens.
+### Visual Tour
 
-<div align="center">
-  <img src="docs/screenshots/03_web_character.png" alt="Hero Equipment & Gear Manager" width="900" />
-</div>
-
----
-
-### 4. 11x3 Rune Stash & Runeword Crafter
-Track your rune wealth in the authentic 33-rune grid and immediately see which high-tier runewords you can craft with your current inventory and bases.
-
-<div align="center">
-  <img src="docs/screenshots/04_web_runes.png" alt="Rune Stash and Runeword Calculator" width="900" />
-</div>
+| View | Screenshot | Description |
+|:---|:---:|:---|
+| **Wanderer's Vault** | ![Stash View](docs/screenshots/01_web_stash.png) | Main stash grid with responsive quality filters, full-text affix search, and hero filters. |
+| **Item Detail Modal** | ![Item Modal](docs/screenshots/02_web_item_modal.png) | In-game tooltip crop, base item properties, and variable roll evaluation. |
+| **Hero Equipment** | ![Hero View](docs/screenshots/03_web_character.png) | Complete character equipment slots, weapon swaps (I/II), mercenary gear, and vitals. |
+| **11x3 Rune Stash** | ![Runes View](docs/screenshots/04_web_runes.png) | Authentic 33-rune stash layout with integrated runeword crafting calculator. |
+| **Trader's Exchange** | ![Trade View](docs/screenshots/05_web_trade.png) | Trade management table with quick pricing, shorthand jargon generator, and export tools. |
+| **Companion HUD** | ![HUD View](docs/screenshots/06_companion_hud.png) | Desktop in-game overlay with live capture status, active mode badges, and scan feed. |
 
 ---
 
-### 5. Trader's Exchange (Trade List & Market Sync)
-Curate items for sale, set rune/FG prices, generate Discord/d2jsp formatted text, or publish directly to the Online Marketplace.
+### Roadmap & Planned Features
 
-<div align="center">
-  <img src="docs/screenshots/05_web_trade.png" alt="Trader's Exchange" width="900" />
-</div>
-
----
-
-### 6. Desktop Companion HUD & Mini Mode
-A lightweight, always-on-top in-game overlay displaying real-time scan feeds, active character indicators, and hotkey mode switchers.
-
-<div align="center">
-  <img src="docs/screenshots/06_companion_hud.png" alt="Desktop Companion HUD" width="600" />
-  <br/><br/>
-  <img src="docs/screenshots/07_companion_mini.png" alt="Mini HUD Compact Overlay" width="380" />
-</div>
+- **Remaining Items Support**: Full parsing and tracking for Uber Tristram keys (Key of Terror, Hate, Destruction), boss organs, essences, and Token of Absolution.
+- **Skill Points & Synergy Calculator**: Interactive skill tree calculator, total +skills bonuses aggregation, and damage synergy calculations across equipped gear.
+- **Alternative & Local AI Models**: Support for local open-source vision models via Ollama / LM Studio for 100% offline scanning, alongside alternative cloud AI providers.
+- **Additional Languages**: Expansion of interface and OCR dictionary to German, French, Spanish, and Asian Diablo communities.
+- **Bug Fixes & Continuous Polish**: Ongoing performance optimizations, edge-case crop improvements, and UI responsiveness enhancements.
 
 ---
 
-## Key Features
+### Controls & Hotkeys
 
-### 🔍 Multimodal AI Vision Engine
-- Powered by `gemini-2.5-flash-lite` with optimized prompts for Diablo II: Resurrected typography and colors.
-- Recognizes Unique, Set, Runeword, Rare, Magic, Superior, and Crafted items.
-- Extracts base item, defense, damage, level requirements, socket count, and all explicit/implicit affixes.
-- Automatically handles dual-language font recognition (Polish / English).
+All hotkeys are global and functional while Diablo II: Resurrected is the active foreground window:
 
-### 📊 Canonical Roll Rating Engine
-- Matches parsed items against an internal canonical database (`catalog.sqlite`).
-- Identifies variable stats and determines exact percentile rolls:
-  - **PERFECT** (100% roll)
-  - **HIGH** (75% - 99%)
-  - **MID** (40% - 74%)
-  - **LOW** (0% - 39%)
-- Displays clear ranges: e.g. `Enhanced Defense (ED): 99 [90-120] LOW (30%)`.
-
-### 🛡️ Desktop Companion HUD
-- Operates in the background using native Win32 API hooks (`ctypes`).
-- Two view modes: **Standard HUD** and compact **Mini HUD**.
-- Direct mode switching via hotkeys without switching windows:
-  - `F7`: Scan Character Stat Screen
-  - `F8`: Scan Rune Tab
-  - `F9`: General Vault Scan
-  - `F11`: Assign to Active Character Equipment
-  - `F12`: Assign to Mercenary
-- Audio confirmation (SFX) when items are captured and processed.
-
-### 👯 Duplicate Detector & Asset Optimizer
-- Scans your vault for duplicate bases or named items.
-- Highlights identical drops side-by-side so you can keep the highest roll and trade or vendor the rest.
-
-### 💰 API Cost & Token Monitor
-- Complete transparency: tracks exact prompt tokens, candidate tokens, and calculates API costs per scan.
-- Free-tier friendly: Gemini Flash Lite runs smoothly within Google AI Studio's free tier quotas.
-
----
-
-## 🚀 Roadmap / Planned Features (Do Zrobienia)
-
-We are actively expanding D2 UberApp during the beta phase. Here is what's coming next:
-
-- [ ] **Rest of Items Support**: Dedicated parsing and tracking for Uber Tristram keys (Key of Terror, Key of Hate, Key of Destruction), boss organs (Diablo's Horn, Mephisto's Brain, Baal's Eye), essences, and Token of Absolution.
-- [ ] **Skill Point & Synergy Calculator**: Interactive skill tree calculator, total +skills bonuses aggregation, and damage synergy calculations across equipped gear.
-- [ ] **Multi-Model & Local AI Support**: Option to run local open-source vision models via Ollama / LM Studio for 100% offline scanning, alongside alternative cloud AI providers.
-- [ ] **More Languages**: Expanding internationalization to German, French, Spanish, and Asian Diablo communities.
-- [ ] **Bug Fixes & Continuous Polish**: Ongoing performance optimizations, edge-case crop improvements, and UX refinements based on community reports.
-
----
-
-## Controls & Hotkeys
-
-All hotkeys are global and function directly while Diablo II: Resurrected is the active foreground window:
-
-| Hotkey | Target / Action | Description |
+| Hotkey | Mode / Action | Target & Outcome |
 |:---:|:---|:---|
-| **F10** | **Capture Target** | Captures the item tooltip under the cursor and queues it for AI processing |
-| **F7** | **Character Stats Mode** | Next scan will parse character level, attributes, resistances, and vitals |
-| **F8** | **Rune Stash Mode** | Next scan will parse the 11x3 rune grid |
-| **F9** | **Vault Stash Mode** | General scan mode; items are placed into the shared vault |
-| **F11** | **Active Hero Gear** | Directs scanned item into the selected hero's equipment slots |
-| **F12** | **Mercenary Gear** | Directs scanned item into the active hero's mercenary inventory |
-
-*Hotkeys can be customized at any time in the Companion HUD settings tab.*
+| **F10** | **Capture Target** | Captures the item tooltip under the cursor and queues it for AI evaluation. |
+| **F7** | **Character Stats Mode** | Scans the character attribute screen to update level, attributes, and resistances. |
+| **F8** | **Rune Stash Mode** | Scans the stash rune tab to update counts for all 33 runes. |
+| **F9** | **Vault Stash Mode** | Sets the destination of subsequent F10 scans to the shared vault. |
+| **F11** | **Active Hero Gear Mode** | Directs subsequent F10 scans into the active hero's equipment slots. |
+| **F12** | **Mercenary Gear Mode** | Directs subsequent F10 scans into the mercenary equipment tab. |
 
 ---
 
-## Quick Start
+### Quick Start
 
-### Prerequisites
-- **Windows 10 / 11** (64-bit)
-- **Python 3.10+**
-- **Google Gemini API Key (Required, 100% Free)** from [Google AI Studio](https://aistudio.google.com/)
-
-### Installation
-
-1. **Clone the repository:**
+1. **Clone repository**:
    ```bash
    git clone https://github.com/your-username/d2-uberapp.git
    cd d2-uberapp
    ```
 
-2. **Create a virtual environment & install dependencies:**
+2. **Install Python dependencies**:
    ```bash
    python -m venv .venv
    .venv\Scripts\activate
    pip install -r requirements.txt
    ```
 
-3. **Configure your API Key:**
+3. **Configure free Gemini API key**:
    - Copy `.env.example` to `.env`:
      ```bash
      copy .env.example .env
      ```
-   - Open `.env` and set your key:
+   - Insert your API key in `.env`:
      ```env
-     GEMINI_API_KEY="your_actual_gemini_api_key_here"
-     GEMINI_MODEL="gemini-2.5-flash-lite"
+     GEMINI_API_KEY="your_actual_key_here"
+     GEMINI_MODEL="gemini-3.5-flash-lite"
      ```
-   *(Note: You can also enter or change your API key directly inside the Companion HUD settings GUI.)*
 
-4. **Launch the Application:**
-   - **Method A (Recommended):** Double-click `start.bat`. It will free any hung ports and launch both the Companion HUD and the local web server.
-   - **Method B (Terminal):**
+4. **Launch Application**:
+   - Double-click `start.bat` or run:
      ```bash
      python app.py
      ```
-   - Open your browser at: `http://127.0.0.1:5005`
+   - Access the Web Vault at `http://127.0.0.1:5005` or Landing Page at `http://127.0.0.1:5005/landing`.
 
 ---
 
-## Architecture
+<a name="wersja-polska"></a>
+## Wersja Polska (Dokumentacja PL)
 
-```
-D2 UberApp/
-├── data/
-│   ├── catalog.sqlite          # Canonical D2R database (uniques, sets, runewords, bases)
-│   ├── stash.sqlite            # Local player vault & inventory database
-│   ├── armor_bases.json        # Base item metadata (armor, helms, shields)
-│   ├── item_bases.json         # Base item metadata (weapons, jewelry, charms)
-│   ├── trade_catalog_500.json  # Pricing & shorthand dictionary for trade
-│   ├── previews/               # Auto-generated tooltip crop previews
-│   └── screenshots/            # Raw in-game captures
-├── docs/
-│   ├── index.html              # GitHub Pages landing page
-│   ├── theme.css               # Landing page dark gothic stylesheet
-│   ├── assets/                 # Dark Wanderer hero banner & graphics
-│   └── screenshots/            # Documentation & showcase screenshots
-├── landing/                    # Standalone landing page bundle
-├── static/
-│   ├── images/                 # Class portraits, runes, item icons, sound effects
-│   ├── uberapp.css             # Main application styling (Sanctuary dark theme)
-│   ├── uberapp.js              # Vault, hero gear, runes, and trading interactions
-│   ├── companion.css           # Desktop overlay HUD stylesheet
-│   └── companion.js            # Live polling & companion controls
-├── templates/
-│   ├── index.html              # Main single-page web vault interface
-│   └── companion.html          # Web-embedded companion HUD view
-├── ai_processor.py             # Google GenAI integration & OCR prompts
-├── app.py                      # Flask web server & REST API endpoints
-├── capture.py                  # Win32 screen capture & crop engine
-├── catalog_matcher.py          # Item identification & variable roll evaluation
-├── companion_routes.py         # REST endpoints for Companion HUD synchronization
-├── desktop_companion.py        # Native desktop overlay window & hotkey manager
-├── preferences.py              # Configuration storage (keys, hotkeys, audio)
-├── runeword_calc.py            # Runeword crafting & socket availability calculator
-├── translations.py             # Bilingual dictionary (PL/EN) & roll formatters
-├── uber_features.py            # Trade generator, character stats & reports
-├── requirements.txt            # Python package dependencies
-├── start.bat                   # One-click Windows launch script
-└── README.md
-```
+### Informacja o wersji Beta
+> **Aktywna Faza Beta**: D2 UberApp znajduje się w fazie intensywnych testów beta. Główne moduły są w pełni sprawne, a kolejne usprawnienia i funkcje dochodzą na bieżąco.
+
+### Bezpieczeństwo i Brak Bana (Działanie na Zrzutach Ekranu)
+> **100% Bezpieczeństwa — Za aplikację NIE dostaje się bana**:
+>
+> - **Działanie wyłącznie na screenach**: Program wykonuje zrzut wybranego fragmentu pulpitu przez standardowe Windows API (`BitBlt`), identycznie jak **OBS Studio**, **Narzędzie Wycinanie** czy podgląd ekranu na **Discordzie**.
+> - **Zero czytania pamięci gry**: Aplikacja nie skanuje i nie podpina się pod pamięć procesu `D2R.exe`.
+> - **Zero wstrzykiwania kodu (DLL Injection)**: Żadne biblioteki ani haki nie są wprowadzane do procesu gry, a pliki D2R pozostają nienaruszone.
+> - Dla systemu anty-cheat firmy Blizzard (Warden) aplikacja jest całkowicie pasywna i niewykrywalna.
+
+### Darmowy Klucz Gemini API (Wymagany)
+> **Do działania rozpoznawania przedmiotów AI wymagany jest klucz Google Gemini API.**
+>
+> - **W 100% darmowy**: Klucz do modelu **Google Gemini 3.5 Flash Lite** wygenerujesz bezpłatnie w [Google AI Studio](https://aistudio.google.com/) bez konieczności podawania karty kredytowej.
+> - Darmowy pakiet obejmuje wysokie limity zapytań, które z dużym zapasem wystarczają na tysiące skanów w miesiącu.
+> - Klucz wystarczy wpisać w pliku `.env` lub bezpośrednio w ustawieniach okna Companion HUD.
 
 ---
 
-## Bilingual Support / Dwujęzyczność
+### Główne Możliwości
 
-D2 UberApp has been built from the ground up to support both international and Polish Diablo communities:
-- **English**: Uses official D2R English item names, base terminology, and standard Diablo trade abbreviations.
-- **Polski**: Wykorzystuje oficjalne nazewnictwo z polskiej wersji językowej Diablo II: Resurrected (*Korbacz, Pajęcza Szarfa, Skarabeusz, Kamień Jordana*).
-- Switch anytime with a single click in the top navigation bar (`PL | EN`).
+1. **Skanowanie w grze bez minimalizowania okna (F10)**:
+   - Szybki skrót Win32 API przechwytujący tooltip bezpośrednio podczas rozgrywki.
+   - Autokadrowanie, wielojęzyczny OCR oraz weryfikacja w katalogu w ~1.2s z dźwiękiem potwierdzenia.
+
+2. **Weryfikacja i Ocena Widełek (Rolls)**:
+   - Porównanie parametrów z kanoniczną bazą `catalog.sqlite`.
+   - Procentowa ocena zmiennych cech unikatów, zestawów i runewords: `PERFECT (100%)`, `HIGH`, `MID`, `LOW`.
+
+3. **Ekwipunek Bohatera i Wyposażenie**:
+   - Kompletny widok slotów ekwipunku dla wszystkich 7 klas postaci.
+   - Obsługa zamiany broni (Slot I oraz II), wyposażenie najemnika oraz inwentarz talizmanów.
+
+4. **Siatka 33 Run (11x3) i Kalkulator Słów Runicznych**:
+   - Autentyczny układ od runy El do Zod z licznikami posiadanych sztuk.
+   - Kalkulator wskazujący słowa runiczne możliwe do złożenia z posiadanych run i baz.
+
+5. **Trader's Exchange (Giełda Wymian)**:
+   - Szybkie przypisywanie cen w runach i walucie forumowej.
+   - Generator oficjalnego żargonu handlowego (np. *Hoto 40*, *Arach 120ED*).
+   - Eksport gotowych formatowanych list na Discord i fora.
+
+6. **Desktop Companion HUD i Tryb Mini**:
+   - Lekkie okno nakładkowe Always-on-Top z podglądem skanów, aktywną postacią i skrótami trybów F7–F12.
 
 ---
 
-## Disclaimer & Fair Play
+### Plany Rozwoju (Do Zrobienia)
 
-D2 UberApp is an open-source companion tool created by fans for fans. Diablo II: Resurrected is a registered trademark of Blizzard Entertainment, Inc. This application is not affiliated with, maintained, authorized, or endorsed by Blizzard Entertainment. D2 UberApp operates exclusively via standard Windows screenshot APIs and external optical character recognition; it does not read, inject into, or modify game memory or files.
+- **Reszta Przedmiotów (Ubery)**: Obsługa kluczy na Uber Tristram (Key of Terror, Hate, Destruction), organów bossów, esencji oraz Token of Absolution.
+- **Przeliczanie Skilli**: Kalkulator drzewek umiejętności, agregacja bonusów `+All Skills` z ekwipunku oraz przeliczanie synergii bojowych.
+- **Inne Modele AI i Działanie Lokalnie**: Możliwość uruchomienia lokalnych modeli wizyjnych (np. Ollama / LM Studio) do skanowania 100% offline.
+- **Więcej Języków**: Dodanie kolejnych wersji językowych dla społeczności międzynarodowej (niemiecki, francuski, hiszpański, koreański).
+- **Poprawki Błędów (Bagi) i Optymalizacje**: Ciągłe ulepszanie kadrowania nietypowych rozdzielczości oraz podnoszenie płynności działania.
 
 ---
 
-## License
+### Tabela Skrótów Klawiszowych
 
-Distributed under the **MIT License**. See `LICENSE` for more information.
+| Skrót | Tryb / Akcja | Opis Działania |
+|:---:|:---|:---|
+| **F10** | **Przechwyć cel (Capture)** | Skanuje tooltip pod kursorem i przetwarza go przez Gemini AI. |
+| **F7** | **Skan statystyk postaci** | Skanuje otwarte okno atrybutów bohatera i aktualizuje statystyki. |
+| **F8** | **Skan zakładki run** | Skanuje skrytkę z runami i aktualizuje liczniki wszystkich 33 run. |
+| **F9** | **Tryb skrytki ogólnej** | Przełącza cel zapisu kolejnych skanów F10 na wspólny skarbiec. |
+| **F11** | **Tryb aktywnego bohatera** | Przełącza cel zapisu kolejnych skanów F10 na ekwipunek postaci. |
+| **F12** | **Tryb najemnika** | Przełącza cel zapisu kolejnych skanów F10 na ekwipunek pomocnika. |
+
+---
+
+### Licencja i Zastrzeżenia
+
+Diablo II: Resurrected jest zarejestrowanym znakiem towarowym Blizzard Entertainment, Inc. Aplikacja D2 UberApp jest projektem fanowskim open-source, niepowiązanym z Blizzard Entertainment. Program działa wyłącznie na zrzutach ekranu Windows API i nie modyfikuje plików gry. Dystrybucja na licencji MIT.
