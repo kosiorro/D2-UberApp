@@ -104,16 +104,62 @@
 
 ---
 
-### Visual Tour
+<a name="visual-tour"></a>
+### Visual Tour & App Screenshots (Zrzuty Ekranu)
 
-| View | Screenshot | Description |
-|:---|:---:|:---|
-| **Wanderer's Vault** | [Preview PNG](docs/screenshots/01_web_stash.png) | Main stash grid with responsive quality filters, full-text affix search, and hero filters. |
-| **Item Detail Modal** | [Preview PNG](docs/screenshots/02_web_item_modal.png) | In-game tooltip crop, base item properties, and variable roll evaluation. |
-| **Hero Equipment** | [Preview PNG](docs/screenshots/03_web_character.png) | Complete character equipment slots, weapon swaps (I/II), mercenary gear, and vitals. |
-| **11x3 Rune Stash** | [Preview PNG](docs/screenshots/04_web_runes.png) | Authentic 33-rune stash layout with integrated runeword crafting calculator. |
-| **Trader's Exchange** | [Preview PNG](docs/screenshots/05_web_trade.png) | Trade management table with quick pricing, shorthand jargon generator, and export tools. |
-| **Companion HUD** | [Preview PNG](docs/screenshots/06_companion_hud.png) | Desktop in-game overlay with live capture status, active mode badges, and scan feed. |
+<div align="center">
+
+#### 1. Wanderer's Vault (Skarbiec Przedmiotów)
+*Responsive stash grid with quality filters, full-text affix search & hero filters.*  
+*Główny widok skrytki z filtrami jakości, wyszukiwarką afiksów i filtrem postaci.*
+
+<img src="docs/screenshots/01_web_stash.png" alt="Wanderer's Vault" width="92%">
+
+<br><br>
+
+#### 2. Item Detail Modal (Karta Przedmiotu & Widełki Rolls)
+*In-game tooltip crop, base item properties, canonical roll percentile & valuation.*  
+*Autentyczny wycinek tooltipu z gry, baza przedmiotu, ocena widełek i estymacja wartości.*
+
+<img src="docs/screenshots/02_web_item_modal.png" alt="Item Detail Modal" width="92%">
+
+<br><br>
+
+#### 3. Hero Equipment (Ekwipunek Bohaterów)
+*Full equipment slots for 7 character classes, weapon swaps (I/II), mercenary gear & charms.*  
+*Pełne sloty wyposażenia dla 7 klas postaci, zamiana broni (I/II), najemnik oraz inwentarz talizmanów.*
+
+<img src="docs/screenshots/03_web_character.png" alt="Hero Equipment" width="92%">
+
+<br><br>
+
+#### 4. 11x3 Rune Stash & Crafting (Siatka 33 Run i Słowa Runiczne)
+*Authentic 33-rune stash grid with real-time assembleable runeword crafting calculator.*  
+*Autentyczna skrytka 33 run (od El do Zod) z kalkulatorem słów runicznych gotowych do złożenia.*
+
+<img src="docs/screenshots/04_web_runes.png" alt="11x3 Rune Stash" width="92%">
+
+<br><br>
+
+#### 5. Trader's Exchange & 1-Click Market Export (Giełda i Eksport do Marketu)
+*1-click export to community online market (d2uberappmarket.tw5.org), trade shorthand generator & pricing.*  
+*Eksport jednym kliknięciem do giełdy online (d2uberappmarket.tw5.org), generator żargonu handlowego i wycena.*
+
+<img src="docs/screenshots/05_web_trade.png" alt="Trader's Exchange & Market Export" width="92%">
+
+<br><br>
+
+#### 6. Desktop Companion HUD & Mini Mode (Nakładka w Grze)
+*Always-on-top desktop overlay with sub-second F10 live scan feeds & discreet mini mode.*  
+*Dyskretna nakładka Always-on-Top ze statusem skanowania F10 w czasie rzeczywistym i trybem mini.*
+
+<p align="center">
+  <img src="docs/screenshots/06_companion_hud.png" alt="Companion HUD Full" width="48%">
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/07_companion_mini.png" alt="Companion Mini Mode" width="48%">
+</p>
+
+</div>
 
 ---
 
@@ -209,6 +255,7 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
 ---
 
 ### Główne Możliwości
+> 📸 *Wszystkie zrzuty ekranu z interfejsu aplikacji znajdziesz w sekcji [Galeria i Zrzuty Ekranu (#visual-tour)](#visual-tour).*
 
 1. **Skanowanie w grze bez minimalizowania okna (F10)**:
    - Szybki skrót Win32 API przechwytujący tooltip bezpośrednio podczas rozgrywki.
