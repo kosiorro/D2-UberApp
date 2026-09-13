@@ -38,7 +38,7 @@
 
 🌐 **[Live Website & Guide](https://kosiorro.github.io/D2-UberApp/)** • ⚖️ **[Community Online Market](https://d2uberappmarket.tw5.org)** • 📦 **[Download Releases](https://github.com/kosiorro/D2-UberApp/releases)**
 
-[English](#english) • [Wersja Polska](#wersja-polska) • [Screenshots](#visual-tour) • [Safety](#anti-ban-safety-screenshot-based-architecture) • [API Setup](#gemini-api-key-required--free) • [Hotkeys](#controls--hotkeys) • [Roadmap](#roadmap--planned-features) • [Installation](#quick-start)
+[English](#english) • [Wersja Polska](#wersja-polska) • [How to Use](#how-to-use) • [Screenshots](#visual-tour) • [Download](#download-and-installation) • [Safety](#account-safety-screenshot-based-architecture) • [API Setup](#gemini-api-key-required--free) • [Hotkeys](#controls--hotkeys) • [Roadmap](#roadmap--planned-features)
 
 </div>
 
@@ -57,6 +57,20 @@
 
 ### Beta Notice
 > **Active Beta Status**: D2 UberApp is currently in active beta testing. Core features are fully functional, with continuous optimizations, balance tuning, and community feedback integration in progress.
+
+<a name="how-to-use"></a>
+### 🎮 How to Use in Diablo II: Resurrected (Step-by-Step)
+
+Getting started takes less than 2 minutes. No technical experience required!
+
+| Step | Action | Description |
+|:---:|:---|:---|
+| **1** | **Launch App** | Install via **`D2UberApp_Setup_v1.0.0.exe`** (or extract the portable zip and run **`Launch_D2_UberApp.bat`** / `D2UberApp.exe`). The local server starts and opens your vault at `http://127.0.0.1:5005`. |
+| **2** | **Hover Item in D2R** | In Diablo II: Resurrected, simply **hover your mouse cursor** over any item in your inventory, stash, or on the ground so its stat tooltip is clearly visible. |
+| **3** | **Press F10** | Press the **`F10`** hotkey directly in-game (no Alt-Tab needed!). An audio chime confirms capture, and Google Gemini AI evaluates all stats & variable rolls in ~1.2s. |
+| **4** | **Check Rolls & Export** | Inspect variable roll tiers (`PERFECT 100%`, `HIGH`, `MID`, `LOW`). Click **"Export to Market"** to instantly create a live listing on [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org) with 1 click. |
+
+> 💡 **ProTip**: The `F10` hotkey is global across Windows. You never need to click or focus the companion window before scanning.
 
 ### Account Safety (Screenshot-Based Architecture)
 > **100% Account Safety**: D2 UberApp operates in complete isolation from the game process.
@@ -189,21 +203,34 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
 
 ---
 
-### Quick Start
+<a name="download-and-installation"></a>
+### Download & Installation (Wydania i Instalacja)
 
+Choose the setup method that suits you best:
+
+#### 🎮 Option 1: 1-Click Windows Setup Installer (Recommended for Players)
+*Ideal for regular players &mdash; no Python or terminal needed!*
+1. Download **`D2UberApp_Setup_v1.0.0.exe`** from [Latest Releases](https://github.com/kosiorro/D2-UberApp/releases).
+2. Run the installer wizard ("Next, Next, Finish"). It will automatically create **Desktop & Start Menu shortcuts**.
+3. Launch **D2 UberApp** from your Desktop shortcut!
+
+#### 📦 Option 2: Standalone Portable ZIP (.zip)
+*No installation required &mdash; works from any folder or USB stick.*
+1. Download **`D2UberApp_Windows_x64.zip`** from [Latest Releases](https://github.com/kosiorro/D2-UberApp/releases).
+2. Extract the archive into any folder.
+3. Double-click **`Launch_D2_UberApp.bat`** (or `D2UberApp.exe`).
+
+#### 💻 Option 3: Developer Setup (Git / Python 3.10+)
+*For developers who want to inspect and modify the source code.*
 1. **Clone repository**:
    ```bash
    git clone https://github.com/kosiorro/D2-UberApp.git
    cd D2-UberApp
    ```
-
 2. **Install Python dependencies**:
    ```bash
-   python -m venv .venv
-   .venv\Scripts\activate
    pip install -r requirements.txt
    ```
-
 3. **Configure free Gemini API key**:
    - Copy `.env.example` to `.env`:
      ```bash
@@ -214,13 +241,13 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
      GEMINI_API_KEY="your_actual_key_here"
      GEMINI_MODEL="gemini-3.5-flash-lite"
      ```
-
 4. **Launch Application**:
-   - Double-click `start.bat` or run:
+   - Run launcher:
      ```bash
-     python app.py
+     Launch_D2_UberApp.bat
      ```
-   - Access the Web Vault at `http://127.0.0.1:5005` or Landing Page at `http://127.0.0.1:5005/landing`.
+     *(or run `python app.py`)*
+   - Open Web Vault at `http://127.0.0.1:5005` or Landing Page at `http://127.0.0.1:5005/landing`.
 
 ---
 
@@ -237,6 +264,19 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
 
 ### Informacja o wersji Beta
 > **Aktywna Faza Beta**: D2 UberApp znajduje się w fazie intensywnych testów beta. Główne moduły są w pełni sprawne, a kolejne usprawnienia i funkcje dochodzą na bieżąco.
+
+### 🎮 Błyskawiczna Instrukcja Obsługi w Grze (Krok po Kroku)
+
+Rozpoczęcie zajmuje mniej niż 2 minuty. Nie musisz znać się na programowaniu ani wpisywać żadnych komend!
+
+| Krok | Czynność | Opis |
+|:---:|:---|:---|
+| **1** | **Uruchom aplikację** | Zainstaluj program za pomocą **`D2UberApp_Setup_v1.0.0.exe`** (lub rozpakuj paczkę ZIP i kliknij **`Launch_D2_UberApp.bat`** / `D2UberApp.exe`). Aplikacja wystartuje serwer i otworzy Twój skarbiec w przeglądarce (`http://127.0.0.1:5005`). |
+| **2** | **Wskaż przedmiot w Sanktuarium** | W grze Diablo II: Resurrected **najedź kursorem myszy** na dowolny przedmiot w ekwipunku, skrytce lub na ziemi, tak aby na ekranie wyświetliło się okienko ze statystykami (tooltip). |
+| **3** | **Wciśnij F10** | Wciśnij klawisz **`F10`** bezpośrednio w grze (bez wychodzenia do pulpitu!). Usłyszysz dźwięk potwierdzenia, a sztuczna inteligencja Gemini w ~1.2 sekundy odczyta statystyki i obliczy widełki rolli. |
+| **4** | **Sprawdź widełki i wystaw 1-klikiem** | Sprawdź odznaki widełek (`PERFECT 100%`, `HIGH`, `MID`, `LOW`). Kliknij **„Eksportuj do marketu”**, aby jednym kliknięciem stworzyć zweryfikowaną ofertę na giełdzie [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org). |
+
+> 💡 **Wskazówka**: Klawisz `F10` działa globalnie w systemie Windows &mdash; nie musisz klikać ani aktywować okna aplikacji przed wykonaniem skanu!
 
 ### Bezpieczeństwo Konta (Architektura Screenshot-Only)
 > **100% Bezpieczeństwa Konta — Pełna Izolacja Procesu**:
@@ -306,6 +346,33 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
 | **F9** | **Tryb skrytki ogólnej** | Przełącza cel zapisu kolejnych skanów F10 na wspólny skarbiec. |
 | **F11** | **Tryb aktywnego bohatera** | Przełącza cel zapisu kolejnych skanów F10 na ekwipunek postaci. |
 | **F12** | **Tryb najemnika** | Przełącza cel zapisu kolejnych skanów F10 na ekwipunek pomocnika. |
+
+### Pobieranie i Instalacja
+
+Wybierz najwygodniejszą dla siebie formę uruchomienia:
+
+#### 🎮 Opcja 1: Instalator Windows (.exe) [Zalecane dla Graczy]
+*Najprostsza opcja &mdash; zero wpisywania komend, instalator zajmuje się wszystkim!*
+1. Pobierz plik **`D2UberApp_Setup_v1.0.0.exe`** ze strony [Najnowsze Wydania (Releases)](https://github.com/kosiorro/D2-UberApp/releases).
+2. Uruchom instalator („Dalej, Dalej, Gotowe”) &mdash; instalator utworzy **skrót na Pulpicie i w Menu Start**.
+3. Uruchamiaj aplikację bezpośrednio ze skrótu na Pulpicie!
+
+#### 📦 Opcja 2: Paczka Przenośna Portable ZIP (.zip)
+*Dla osób ceniących wersje portable bez instalacji w systemie.*
+1. Pobierz plik **`D2UberApp_Windows_x64.zip`** z [Releases](https://github.com/kosiorro/D2-UberApp/releases).
+2. Rozpakuj archiwum do dowolnego folderu (np. na Pulpit lub pendrive).
+3. Kliknij dwukrotnie **`Launch_D2_UberApp.bat`** (lub `D2UberApp.exe`).
+
+#### 💻 Opcja 3: Kod Źródłowy (Python 3.10+ / Git)
+*Dla pasjonatów i programistów chcących modyfikować kod.*
+1. Sklonuj repozytorium:
+   ```bash
+   git clone https://github.com/kosiorro/D2-UberApp.git
+   cd D2-UberApp
+   ```
+2. Zainstaluj biblioteki: `pip install -r requirements.txt`
+3. Skonfiguruj `.env` podając swój bezpłatny klucz `GEMINI_API_KEY`.
+4. Uruchom skrypt: `Launch_D2_UberApp.bat` (lub `python app.py`).
 
 ---
 

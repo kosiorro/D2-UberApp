@@ -1,4 +1,4 @@
-﻿import os
+import os
 import shutil
 import subprocess
 import sys
@@ -45,10 +45,10 @@ def build():
 
     # 3. Kopiuj pomocnicze skrypty startowe i baze do dist/D2UberApp
     target_app_dir = dist_dir / 'D2UberApp'
-    if (BASE_DIR / 'start.bat').exists():
-        shutil.copy2(BASE_DIR / 'start.bat', target_app_dir)
-    if (BASE_DIR / 'README.md').exists():
-        shutil.copy2(BASE_DIR / 'README.md', target_app_dir)
+    for launcher_name in ['Launch_D2_UberApp.bat', 'start.bat', 'Uruchom_D2_UberApp.bat', 'README.md']:
+        fpath = BASE_DIR / launcher_name
+        if fpath.exists():
+            shutil.copy2(fpath, target_app_dir)
 
     print('\n[SUKCES] Aplikacja skompilowana do folderu:', target_app_dir)
     print('Aby uruchomic na dowolnym Windowsie: dist/D2UberApp/D2UberApp.exe')

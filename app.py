@@ -742,7 +742,7 @@ def open_companion():
     if not request.is_json or (request.headers.get('Origin') and request.headers['Origin'] != request.host_url.rstrip('/')):
         return jsonify(error='Niedozwolone żądanie'), 403
     if not app.config.get('COMPANION_AVAILABLE'):
-        return jsonify(error='Uruchom start.bat, aby otworzyć aplikację towarzyszącą.'), 503
+        return jsonify(error='Uruchom Launch_D2_UberApp.bat, aby otworzyc aplikacje towarzyszaca (Companion HUD). / Start Launch_D2_UberApp.bat to enable Companion HUD.'), 503
     from desktop_companion import show_requested
     show_requested.set()
     return jsonify(success=True)

@@ -32,6 +32,14 @@ jobs:
         run: |
           python build_release.py
 
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup --no-progress
+
+      - name: Compile Inno Setup Windows Installer (.exe)
+        run: |
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -39,25 +47,31 @@ jobs:
           draft: false
           prerelease: false
           files: |
+            Output/D2UberApp_Setup_v1.0.0.exe
             D2UberApp_Windows_x64.zip
           body: |
             ## D2 UberApp Windows Release ⚔️
 
-            ### 🇵🇱 Co nowego / Wersja Portable:
-            - **Paczka Portable Windows (.zip)**: Wystarczy rozpakować i uruchomić `start.bat` &mdash; nie wymaga instalowania Pythona w systemie.
-            - **100% Bezpieczeństwa (Screenshot-Based)**: Działa wyłącznie na zrzutach ekranu API Windows (`BitBlt`), zero ingerencji w pamięć gry `D2R.exe`.
-            - **Google Gemini 3.5 Flash Lite OCR**: Błyskawiczna analiza itemów pod klawiszem F10.
-            - **Ocena Widełek (Rolls)**: Ocena statystyk unikatów i runewords: `PERFECT (100%)`, `HIGH`, `MID`, `LOW`.
-            - **Siatka 33 Run (11x3) & Craft**: Skrytka na runy i kalkulator słów runicznych.
-            - **Giełda Online**: Integracja z rynkiem handlowym [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org).
-            - **Strona projektu**: [kosiorro.github.io/D2-UberApp](https://kosiorro.github.io/D2-UberApp/).
+            ### 🇵🇱 Pliki do pobrania:
+            - **🎮 Instalator Windows (.exe) [Zalecane dla graczy]**: `D2UberApp_Setup_v1.0.0.exe` &mdash; klasyczny kreator instalacji, tworzy skrót na Pulpicie i w Menu Start, 0% konfiguracji.
+            - **📦 Wersja Przenośna Portable (.zip)**: `D2UberApp_Windows_x64.zip` &mdash; wystarczy rozpakować i uruchomić `Launch_D2_UberApp.bat` lub `D2UberApp.exe`. Nie wymaga instalacji.
 
-            ### 🇬🇧 Features Overview:
-            - **Portable Windows (.zip)**: Fully standalone with embedded runtime and databases &mdash; no Python required.
-            - **Zero Ban Risk**: Pure screenshot OCR architecture (`BitBlt`), 0% memory reading or DLL injection.
-            - **Gemini 3.5 Flash Lite**: Sub-second in-game item scan via F10 hotkey.
-            - **Roll Rating Engine**: Statistical percentile evaluation for variable rolls.
-            - **Runes 11x3 & Runeword Calculator**: Real-time assembly checks.
-            - **Online Trading Hub**: Direct export to [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org).
+            ### 🎮 Błyskawiczna Instrukcja Obsługi w Grze:
+            1. **Uruchom program**: Odpal aplikację przez skrót na Pulpicie lub `Launch_D2_UberApp.bat`.
+            2. **Wskaż przedmiot w D2R**: Najedź kursorem myszy na przedmiot na ziemi lub w ekwipunku, aby wyświetlił się tooltip ze statystykami.
+            3. **Wciśnij F10**: Dźwięk potwierdzi zrzut ekranu, a sztuczna inteligencja Gemini 3.5 przeanalizuje parametry i widełki w ~1.2s.
+            4. **Widełki i 1-Klik Giełda**: Odznaki `PERFECT (100%)`, `HIGH`, `MID`, `LOW`. Kliknij "Eksportuj do marketu", by od razu wystawić ofertę na giełdzie [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org).
+
+            ---
+
+            ### 🇬🇧 Download Options:
+            - **🎮 Windows Setup Wizard (.exe) [Recommended]**: `D2UberApp_Setup_v1.0.0.exe` &mdash; 1-click wizard installer, creates Desktop & Start Menu shortcuts.
+            - **📦 Portable Bundle (.zip)**: `D2UberApp_Windows_x64.zip` &mdash; fully standalone, simply extract and launch `Launch_D2_UberApp.bat` or `D2UberApp.exe`.
+
+            ### 🎮 In-Game Quick Start Guide:
+            1. **Launch App**: Open via Desktop shortcut or `Launch_D2_UberApp.bat`.
+            2. **Hover Cursor in D2R**: Hover your mouse over any item tooltip in Sanctuary.
+            3. **Press F10**: Audio chime confirms capture. Gemini AI parses affixes and rolls in ~1.2s.
+            4. **Check Rolls & Export**: View exact roll ratings (`PERFECT`, `HIGH`, `MID`, `LOW`) and export to the online trading hub with 1 click.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
