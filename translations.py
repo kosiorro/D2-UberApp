@@ -482,3 +482,18 @@ def get_item_title(item, lang='pl'):
         if item.get('name_en') and str(item['name_en']).strip():
             return str(item['name_en']).strip()
     return item.get('display_name') or item.get('name') or item.get('name_en') or 'Przedmiot'
+
+def get_roll_label(r, lang='pl'):
+    if not r:
+        return ''
+    if lang == 'en':
+        if r.get('label_en'):
+            return r['label_en']
+        prop = r.get('property')
+        try:
+            from catalog_matcher import PROP_NAMES_EN
+            if prop and prop in PROP_NAMES_EN:
+                return PROP_NAMES_EN[prop]
+        except Exception:
+            pass
+    return r.get('label') or r.get('property_pl') or r.get('property') or ''

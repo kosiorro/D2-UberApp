@@ -65,13 +65,16 @@ def get_current_lang():
         pass
     return 'pl'
 
+from translations import get_t, get_item_title, get_roll_label
+
 @app.context_processor
 def inject_translations():
     lang = get_current_lang()
     return {
         'lang': lang,
         't': get_t(lang),
-        'item_title': lambda it: get_item_title(it, lang)
+        'item_title': lambda it: get_item_title(it, lang),
+        'roll_label': lambda r: get_roll_label(r, lang)
     }
 
 @app.route("/api/set_language", methods=["GET", "POST"])

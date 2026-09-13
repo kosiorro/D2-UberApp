@@ -1640,7 +1640,7 @@
                             {% for r in it.rolls_eval %}
                             <div class="var-stat-line">
                                 <div>
-                                    <strong style="color: #fff;">{{ (lang == 'en' and (r.label_en or r.label)) or (r.label or r.property_pl or r.property) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                    <strong style="color: #fff;">{{ roll_label(r) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
                                     {% if r.min is defined and r.max is defined and r.min != r.max %}
                                     <span style="color: #888; font-size: 0.75rem;">[{{ r.min }} - {{ r.max }}]</span>
                                     {% endif %}
@@ -1730,7 +1730,7 @@
                                 {% if it.rolls_eval and it.rolls_eval|length > 0 %}
                                     {% for r in it.rolls_eval[:3] %}
                                     <div style="font-size: 0.8rem; line-height: 1.4; margin-bottom: 2px;">
-                                        <strong style="color: #ffd27d;">{{ (lang == 'en' and (r.label_en or r.label)) or (r.label or r.property_pl or r.property) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                        <strong style="color: #ffd27d;">{{ roll_label(r) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
                                         {% if r.min is defined and r.max is defined and r.min != r.max %}
                                         <span style="color: #888; font-size: 0.75rem;">[{{ r.min }}-{{ r.max }}]</span>
                                         {% endif %}
@@ -2029,14 +2029,14 @@
                 <table class="excel-table" id="tradeTable">
                     <thead>
                         <tr>
-                            <th style="width: 50px;">GRAFIKA</th>
+                            <th style="width: 50px;">{{ lang == "en" and "ICON" or "GRAFIKA" }}</th>
                             <th>{{ t("th_table_item") }}</th>
                             <th>{{ lang == "en" and "TYPE / BASE" or "RODZAJ / BAZA" }}</th>
                             <th>{{ lang == "en" and "VARIABLE ROLLS" or "ZMIENNE STATYSTYKI" }}</th>
                             <th style="min-width: 240px;">{{ lang == "en" and "PRICE (RUNES / ITEM / FG / OFFER)" or "CENA (RUNY / PRZEDMIOT / FG / OFERTA)" }}</th>
                             <th style="min-width: 200px;">{{ lang == "en" and "YOUR NOTE / DETAILS" or "TWOJA NOTATKA / ADNOTACJA" }}</th>
                             <th>{{ lang == "en" and "LOCATION" or "LOKALIZACJA" }}</th>
-                            <th style="width: 120px; text-align: center;">AKCJE</th>
+                            <th style="width: 120px; text-align: center;">{{ lang == "en" and "ACTIONS" or "AKCJE" }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2081,7 +2081,7 @@
                                     <div class="trade-rolls-standard">
                                         {% for r in it.rolls_eval %}
                                         <div style="font-size: 0.8rem; line-height: 1.4; margin-bottom: 2px;">
-                                            <strong style="color: #ffd27d;">{{ (lang == 'en' and (r.label_en or r.label)) or (r.label or r.property_pl or r.property) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
+                                            <strong style="color: #ffd27d;">{{ roll_label(r) }}: {{ r.actual if r.actual is not none else r.roll }}</strong>
                                             {% if r.min is defined and r.max is defined and r.min != r.max %}
                                             <span style="color: #888; font-size: 0.75rem;">[{{ r.min }}-{{ r.max }}]</span>
                                             {% endif %}
@@ -2109,10 +2109,10 @@
                             <td>
                                 <div style="display: flex; flex-direction: column; gap: 5px;">
                                     <input type="text" class="input-d2" id="price-{{ it.id }}" value="{{ it.trade_price }}" 
-                                           placeholder="np. Ist, Ber, 100 fg, Oferty"
+                                           placeholder="{{ lang == 'en' and 'e.g. Ist, Ber, 100 fg, Offer' or 'np. Ist, Ber, 100 fg, Oferty' }}"
                                            onchange="saveTradeItem('{{ it.id }}')" style="font-size: 0.85rem; padding: 5px 8px;">
                                     <div style="display: flex; gap: 4px; flex-wrap: wrap;">
-                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Oferty')">Oferty</button>
+                                        <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', '{{ lang == 'en' and 'Offer' or 'Oferty' }}')">{{ lang == 'en' and 'Offer' or 'Oferty' }}</button>
                                         <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Pul')">Pul</button>
                                         <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Um')">Um</button>
                                         <button type="button" class="chip-preset" onclick="setPricePreset('{{ it.id }}', 'Mal')">Mal</button>
@@ -2131,12 +2131,12 @@
                                        onchange="saveTradeItem('{{ it.id }}')" style="font-size: 0.85rem; padding: 6px 10px; width: 100%;">
                             </td>
                             <td>
-                                <span style="font-size: 0.82rem; color: #bbb;">{{ it.location or 'Skrzynia' }}</span>
+                                <span style="font-size: 0.82rem; color: #bbb;">{{ (lang == 'en' and it.location and it.location.startswith('Postać: ')) and it.location.replace('Postać: ', 'Hero: ') or (it.location or (lang == 'en' and 'General Stash' or 'Skrzynia')) }}</span>
                             </td>
                             <td style="text-align: center;">
                                 <div style="display: flex; align-items: center; justify-content: center; gap: 6px;">
                                     <button type="button" class="btn-d2 btn-stone btn-sm" onclick="uberTradeOptions('{{ it.id }}')" title="{{ lang == 'en' and 'Options, aliases and variable stats selection' or 'Opcje, aliasy i wybór zmiennych statystyk' }}" style="padding: 5px 9px; font-size: 0.8rem; white-space: nowrap;">
-                                        {{ lang == "en" and "⚙ Options" or "⚙ Opcje" }}
+                                        {{ lang == "en" and "⚙ OPTIONS" or "⚙ OPCJE" }}
                                     </button>
                                     <button class="btn-icon-action btn-del" title="{{ lang == 'en' and 'Remove from trade list' or 'Usuń z listy sprzedaży' }}" onclick="removeFromTrade('{{ it.id }}')">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -2542,6 +2542,69 @@ window.I18N = {
     general: '{{ lang == "en" and "General" or "Ogólna" }}'
 };
 
+window.PROP_NAMES_EN = {
+    'dmg%': 'Enhanced Damage',
+    'dmg-min': 'Min Damage',
+    'dmg-max': 'Max Damage',
+    'ar': 'Attack Rating',
+    'ar%': 'Bonus to Attack Rating',
+    'ac%': 'Enhanced Defense',
+    'ac': 'Defense',
+    'res-all': 'All Resistances',
+    'res-fire': 'Fire Resist',
+    'res-cold': 'Cold Resist',
+    'res-ltng': 'Lightning Resist',
+    'res-pois': 'Poison Resist',
+    'str': 'Strength',
+    'dex': 'Dexterity',
+    'vit': 'Vitality',
+    'enr': 'Energy',
+    'hp': 'Life',
+    'mana': 'Mana',
+    'hp%': 'Increase Max Life',
+    'mana%': 'Increase Max Mana',
+    'allskills': 'To All Skills',
+    'fireskill': 'Fire Skills',
+    'coldskill': 'Cold Skills',
+    'ltngskill': 'Lightning Skills',
+    'fcr': 'Faster Cast Rate',
+    'fhr': 'Faster Hit Recovery',
+    'ias': 'Increased Attack Speed',
+    'frw': 'Faster Run/Walk',
+    'mag%': 'Better Chance of Getting Magic Items',
+    'gold%': 'Extra Gold from Monsters',
+    'regen-mana': 'Regenerate Mana',
+    'regen': 'Replenish Life',
+    'heal-kill': 'Life after each Kill',
+    'mana-kill': 'Mana after each Kill',
+    'absorb-fire%': 'Fire Absorb',
+    'absorb-ltng%': 'Lightning Absorb',
+    'absorb-cold%': 'Cold Absorb',
+    'red-dmg%': 'Damage Reduced by',
+    'red-mag': 'Magic Damage Reduced by',
+    'red-dmg': 'Damage Reduced by',
+    'block': 'Increased Chance of Blocking',
+    'block%': 'Faster Block Rate',
+    'open-wounds': 'Chance of Open Wounds',
+    'crush': 'Crushing Blow',
+    'deadly': 'Deadly Strike',
+    'pierce': 'Piercing Attack',
+    'att-undead': 'Damage to Undead',
+    'att-demon': 'Damage to Demons',
+    'repmagic': 'Repairs Durability',
+    'sock': 'Sockets'
+};
+
+function getModalRollLabel(r) {
+    if (window.APP_LANG === 'en') {
+        if (r.label_en) return r.label_en;
+        let p = (r.property || '').toLowerCase();
+        if (window.PROP_NAMES_EN[p]) return window.PROP_NAMES_EN[p];
+        if (r.label) return r.label;
+    }
+    return r.label || r.property_pl || r.property || '';
+}
+
 async function setAppLanguage(newLang) {
     try {
         await fetch('/api/set_language', {
@@ -2673,7 +2736,7 @@ async function setAppLanguage(newLang) {
                         ${it.rolls_eval.map(r => `
                             <div class="var-stat-line">
                                 <div>
-                                    <strong style="color: #fff;">${(window.APP_LANG === 'en' ? (r.label_en || r.label || r.property) : (r.label || r.property_pl || r.property))}: ${r.actual !== undefined && r.actual !== null ? r.actual : (r.roll !== undefined ? r.roll : '')}</strong>
+                                    <strong style="color: #fff;">${getModalRollLabel(r)}: ${r.actual !== undefined && r.actual !== null ? r.actual : (r.roll !== undefined ? r.roll : '')}</strong>
                                     <span style="color: #888; font-size: 0.75rem;">[${r.min} - ${r.max}]</span>
                                 </div>
                                 <span class="badge-rating rating-${r.rating ? r.rating.toLowerCase() : 'mid'}">${r.rating} (${r.percent !== undefined ? r.percent : (r.pct !== undefined ? r.pct : 0)}%)</span>
