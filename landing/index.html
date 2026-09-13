@@ -756,58 +756,124 @@
 </section>
 
 <!-- SEKCJA DO ZROBIENIA (ROADMAP) -->
-<section class="section" id="roadmap" style="background: #0d120d;">
+<section class="section" id="roadmap" style="background: #0b0f0b; border-top: 1px solid #1a2318; border-bottom: 1px solid #1a2318;">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head" style="margin-bottom: 32px;">
       <div>
-        <div class="eyebrow" style="color: #c99a52;">
-          <span class="lang-pl">Plany Rozwoju</span>
-          <span class="lang-en">Development Roadmap</span>
+        <div class="eyebrow" style="color: #c99a52; font-weight: 700; letter-spacing: 0.16em;">
+          <span class="lang-pl">PLANY ROZWOJU &bull; DO ZROBIENIA</span>
+          <span class="lang-en">ENGINEERING ROADMAP &bull; PLANNED</span>
         </div>
-        <h2>
-          <span class="lang-pl">Co przed nami? Aktywny rozwój aplikacji.</span>
-          <span class="lang-en">What's Next? Active Feature Roadmap.</span>
+        <h2 style="font-size: clamp(30px, 4vw, 48px); line-height: 1.1; margin-top: 10px;">
+          <span class="lang-pl">Co przed nami?<br><span style="color: var(--gold2); font-size: 0.9em;">Aktywny rozwój aplikacji.</span></span>
+          <span class="lang-en">What's Next?<br><span style="color: var(--gold2); font-size: 0.9em;">Active Feature Roadmap.</span></span>
         </h2>
       </div>
-      <p>
+      <p style="align-self: center; margin: 0; color: #a4aa9a; font-size: 15px; line-height: 1.7;">
         <span class="lang-pl">
-          D2 UberApp jest w fazie intensywnych testów beta. Poniżej znajduje się oficjalna lista funkcjonalności w trakcie implementacji:
+          D2 UberApp znajduje się w fazie intensywnego rozwoju. Poniżej przedstawiamy oficjalną listę modułów i usprawnień, nad którymi obecnie pracujemy:
         </span>
         <span class="lang-en">
-          D2 UberApp is in active beta testing. Below is our prioritized engineering roadmap:
+          D2 UberApp is in active engineering and beta evolution. Below is our prioritized roadmap of upcoming capabilities and improvements:
         </span>
       </p>
     </div>
 
     <div class="roadmap-grid">
+      <!-- 01. Klucze & Ubery -->
       <div class="roadmap-item">
-        <div class="roadmap-badge in-dev"><span class="lang-pl">W TRAKCIE PRAC</span><span class="lang-en">IN DEVELOPMENT</span></div>
-        <h4 class="roadmap-title"><span class="lang-pl">Reszta itemów (Klucze na Ubery, Organy, Essencje)</span><span class="lang-en">Remaining Items (Uber Keys, Organs, Essences)</span></h4>
-        <p class="roadmap-desc"><span class="lang-pl">Pełne wsparcie dla kluczy (Key of Terror, Hate, Destruction), organów Uber Tristram, tokenów i eliksirów.</span><span class="lang-en">Complete recognition for Pandemonium Keys, Uber Organs, Respec Tokens, and quest items.</span></p>
+        <div class="roadmap-header">
+          <div class="roadmap-badge in-dev"><span class="lang-pl">W TRAKCIE PRAC</span><span class="lang-en">IN DEVELOPMENT</span></div>
+          <span class="roadmap-num">01 / 06</span>
+        </div>
+        <h4 class="roadmap-title">
+          <span class="lang-pl">Reszta itemów: Klucze Pandemonium, Organy i Tokeny</span>
+          <span class="lang-en">Remaining Items: Uber Keys, Organs &amp; Tokens</span>
+        </h4>
+        <p class="roadmap-desc">
+          <span class="lang-pl">Pełne rozpoznawanie kluczy (Terror, Hate, Destruction), organów bossów Uber Tristram, esencji oraz Token of Absolution.</span>
+          <span class="lang-en">Complete recognition for Pandemonium Keys, Uber Boss Organs, Prime Evils Essences, and Token of Absolution.</span>
+        </p>
       </div>
 
+      <!-- 02. Przeliczanie skilli -->
       <div class="roadmap-item">
-        <div class="roadmap-badge in-dev"><span class="lang-pl">W TRAKCIE PRAC</span><span class="lang-en">IN DEVELOPMENT</span></div>
-        <h4 class="roadmap-title"><span class="lang-pl">Przeliczanie i analiza bonusów do skilli</span><span class="lang-en">Skill Bonus Aggregation &amp; Calculations</span></h4>
-        <p class="roadmap-desc"><span class="lang-pl">Automatyczne sumowanie bonusów do poszczególnych drzewek umiejętności postaci z całego ekwipunku.</span><span class="lang-en">Aggregated total skill point bonuses calculated across entire equipped hero gear and charms.</span></p>
+        <div class="roadmap-header">
+          <div class="roadmap-badge in-dev"><span class="lang-pl">W TRAKCIE PRAC</span><span class="lang-en">IN DEVELOPMENT</span></div>
+          <span class="roadmap-num">02 / 06</span>
+        </div>
+        <h4 class="roadmap-title">
+          <span class="lang-pl">Przeliczanie i sumowanie bonusów do skilli</span>
+          <span class="lang-en">Skill Points Bonus Aggregation &amp; Calculations</span>
+        </h4>
+        <p class="roadmap-desc">
+          <span class="lang-pl">Automatyczne sumowanie bonusów do poszczególnych drzewek umiejętności postaci z całego ekwipunku, talizmanów i zamiany broni.</span>
+          <span class="lang-en">Aggregated total skill point bonuses calculated across entire equipped hero gear, charms, and weapon swaps.</span>
+        </p>
       </div>
 
+      <!-- 03. Lokalne AI -->
       <div class="roadmap-item">
-        <div class="roadmap-badge planned"><span class="lang-pl">PLANOWANE</span><span class="lang-en">PLANNED</span></div>
-        <h4 class="roadmap-title"><span class="lang-pl">Inne modele AI &amp; Opcja modeli lokalnych</span><span class="lang-en">Alternative AI Models &amp; Local Offline Inference</span></h4>
-        <p class="roadmap-desc"><span class="lang-pl">Wsparcie dla lokalnych modeli wizyjnych (np. Ollama / LLaVA), umożliwiających skanowanie 100% offline bez internetu.</span><span class="lang-en">Support for local vision models (e.g. Ollama / LLaVA) allowing fully offline recognition with zero API reliance.</span></p>
+        <div class="roadmap-header">
+          <div class="roadmap-badge planned"><span class="lang-pl">PLANOWANE</span><span class="lang-en">PLANNED</span></div>
+          <span class="roadmap-num">03 / 06</span>
+        </div>
+        <h4 class="roadmap-title">
+          <span class="lang-pl">Lokalne modele AI (100% Skanowanie Offline)</span>
+          <span class="lang-en">Alternative AI &amp; Local Offline Inference (Ollama)</span>
+        </h4>
+        <p class="roadmap-desc">
+          <span class="lang-pl">Wsparcie dla lokalnych modeli wizyjnych (np. Ollama / LLaVA), umożliwiających skanowanie 100% offline bez internetu i zewnętrznych kluczy.</span>
+          <span class="lang-en">Support for local vision models (e.g. Ollama / LLaVA) allowing fully offline recognition with zero API reliance.</span>
+        </p>
       </div>
 
+      <!-- 04. Wielojęzyczność -->
       <div class="roadmap-item">
-        <div class="roadmap-badge planned"><span class="lang-pl">PLANOWANE</span><span class="lang-en">PLANNED</span></div>
-        <h4 class="roadmap-title"><span class="lang-pl">Więcej wersji językowych</span><span class="lang-en">Expanded Internationalization</span></h4>
-        <p class="roadmap-desc"><span class="lang-pl">Dodanie obsługi języka niemieckiego, francuskiego, hiszpańskiego oraz koreańskiego.</span><span class="lang-en">Upcoming localization for German, French, Spanish, and Korean player communities.</span></p>
+        <div class="roadmap-header">
+          <div class="roadmap-badge planned"><span class="lang-pl">PLANOWANE</span><span class="lang-en">PLANNED</span></div>
+          <span class="roadmap-num">04 / 06</span>
+        </div>
+        <h4 class="roadmap-title">
+          <span class="lang-pl">Kolejne wersje językowe dla społeczności</span>
+          <span class="lang-en">Expanded International Communities Support</span>
+        </h4>
+        <p class="roadmap-desc">
+          <span class="lang-pl">Rozszerzenie słownika bazy przedmiotów oraz interfejsu o język niemiecki, francuski, hiszpański oraz koreański.</span>
+          <span class="lang-en">Upcoming catalog localization for German, French, Spanish, and Korean Diablo player communities.</span>
+        </p>
       </div>
 
+      <!-- 05. Community & Discord -->
       <div class="roadmap-item">
-        <div class="roadmap-badge in-dev"><span class="lang-pl">CIĄGŁE</span><span class="lang-en">ONGOING</span></div>
-        <h4 class="roadmap-title"><span class="lang-pl">Poprawki błędów, optymalizacje i ulepszenia</span><span class="lang-en">Bug Fixes, Latency Optimizations &amp; Polish</span></h4>
-        <p class="roadmap-desc"><span class="lang-pl">Ciągłe skracanie czasu odpowiedzi OCR, ulepszenia bazy danych i bezpośrednia integracja z rynkiem online.</span><span class="lang-en">Sub-second scan response optimizations, enhanced SQLite indexing, and seamless online marketplace sync.</span></p>
+        <div class="roadmap-header">
+          <div class="roadmap-badge planned"><span class="lang-pl">PLANOWANE</span><span class="lang-en">PLANNED</span></div>
+          <span class="roadmap-num">05 / 06</span>
+        </div>
+        <h4 class="roadmap-title">
+          <span class="lang-pl">Powiadomienia i Webhooki Discord dla Giełdy</span>
+          <span class="lang-en">Discord Trade Webhooks &amp; Loot Drop Alerts</span>
+        </h4>
+        <p class="roadmap-desc">
+          <span class="lang-pl">Automatyczne alerty o pożądanych dropach (Holy Grail tracker) oraz webhooki powiadamiające o nowych ofertach na giełdzie online.</span>
+          <span class="lang-en">Automated holy grail drop alerts and Discord webhook integrations for instant marketplace trade pings.</span>
+        </p>
+      </div>
+
+      <!-- 06. Optymalizacje -->
+      <div class="roadmap-item">
+        <div class="roadmap-header">
+          <div class="roadmap-badge ongoing"><span class="lang-pl">CIĄGŁE</span><span class="lang-en">ONGOING</span></div>
+          <span class="roadmap-num">06 / 06</span>
+        </div>
+        <h4 class="roadmap-title">
+          <span class="lang-pl">Poprawki błędów, optymalizacje czasu OCR i UI</span>
+          <span class="lang-en">Performance Optimizations, Bug Fixes &amp; Polish</span>
+        </h4>
+        <p class="roadmap-desc">
+          <span class="lang-pl">Ciągłe skracanie czasu odpowiedzi OCR, ulepszanie algorytmów kadrowania w niestandardowych rozdzielczościach i optymalizacja SQLite.</span>
+          <span class="lang-en">Sub-second scan response optimizations, enhanced Ultrawide crop heuristics, and streamlined SQLite indexing.</span>
+        </p>
       </div>
     </div>
   </div>

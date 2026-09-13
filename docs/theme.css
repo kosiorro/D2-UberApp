@@ -1254,4 +1254,125 @@ footer {
   margin-right: 6px;
 }
 
+/* ==========================================================================
+   ROADMAP / CO PRZED NAMI SECTION
+   ========================================================================== */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+  margin-top: 36px;
+}
+
+.roadmap-item {
+  background: linear-gradient(180deg, #141b12 0%, #0c100b 100%);
+  border: 1px solid #283424;
+  border-radius: 8px;
+  padding: 26px 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.roadmap-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(201, 154, 82, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.roadmap-item:hover {
+  border-color: #615031;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(195, 162, 93, 0.12);
+}
+
+.roadmap-item:hover::before {
+  opacity: 1;
+}
+
+.roadmap-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.roadmap-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.roadmap-badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.roadmap-badge.in-dev {
+  background: rgba(34, 197, 94, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.15);
+}
+
+.roadmap-badge.in-dev::before {
+  box-shadow: 0 0 6px #4ade80;
+}
+
+.roadmap-badge.planned {
+  background: rgba(201, 154, 82, 0.12);
+  color: #ddc48c;
+  border: 1px solid rgba(201, 154, 82, 0.35);
+}
+
+.roadmap-badge.ongoing {
+  background: rgba(96, 165, 250, 0.12);
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250, 0.35);
+}
+
+.roadmap-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: #55624e;
+  letter-spacing: 0.1em;
+  font-family: monospace;
+}
+
+.roadmap-title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: #ede8dc;
+  line-height: 1.35;
+  margin: 0 0 12px 0;
+  letter-spacing: 0.02em;
+}
+
+.roadmap-desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #9aa192;
+  margin: 0;
+}
+
 
