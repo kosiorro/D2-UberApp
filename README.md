@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![D2 UberApp Banner](static/images/header.jpg)
-
 **AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**
 
 [![Status: Active Beta](https://img.shields.io/badge/Status-Active%20Beta-orange.svg)](#beta-notice)
@@ -75,12 +73,12 @@
 
 | View | Screenshot | Description |
 |:---|:---:|:---|
-| **Wanderer's Vault** | ![Stash View](docs/screenshots/01_web_stash.png) | Main stash grid with responsive quality filters, full-text affix search, and hero filters. |
-| **Item Detail Modal** | ![Item Modal](docs/screenshots/02_web_item_modal.png) | In-game tooltip crop, base item properties, and variable roll evaluation. |
-| **Hero Equipment** | ![Hero View](docs/screenshots/03_web_character.png) | Complete character equipment slots, weapon swaps (I/II), mercenary gear, and vitals. |
-| **11x3 Rune Stash** | ![Runes View](docs/screenshots/04_web_runes.png) | Authentic 33-rune stash layout with integrated runeword crafting calculator. |
-| **Trader's Exchange** | ![Trade View](docs/screenshots/05_web_trade.png) | Trade management table with quick pricing, shorthand jargon generator, and export tools. |
-| **Companion HUD** | ![HUD View](docs/screenshots/06_companion_hud.png) | Desktop in-game overlay with live capture status, active mode badges, and scan feed. |
+| **Wanderer's Vault** | [Preview PNG](docs/screenshots/01_web_stash.png) | Main stash grid with responsive quality filters, full-text affix search, and hero filters. |
+| **Item Detail Modal** | [Preview PNG](docs/screenshots/02_web_item_modal.png) | In-game tooltip crop, base item properties, and variable roll evaluation. |
+| **Hero Equipment** | [Preview PNG](docs/screenshots/03_web_character.png) | Complete character equipment slots, weapon swaps (I/II), mercenary gear, and vitals. |
+| **11x3 Rune Stash** | [Preview PNG](docs/screenshots/04_web_runes.png) | Authentic 33-rune stash layout with integrated runeword crafting calculator. |
+| **Trader's Exchange** | [Preview PNG](docs/screenshots/05_web_trade.png) | Trade management table with quick pricing, shorthand jargon generator, and export tools. |
+| **Companion HUD** | [Preview PNG](docs/screenshots/06_companion_hud.png) | Desktop in-game overlay with live capture status, active mode badges, and scan feed. |
 
 ---
 
