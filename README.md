@@ -4,6 +4,26 @@
 
 **AI-Powered Vault, Companion HUD & Trading Hub for Diablo II: Resurrected**
 
+<br>
+
+<p align="center">
+  <a href="#english"><img src="https://img.shields.io/badge/%F0%9F%87%AC%F0%9F%87%A7%20English-Documentation-2563eb?style=for-the-badge" alt="English"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="#wersja-polska"><img src="https://img.shields.io/badge/%F0%9F%87%B5%F0%9F%87%B1%20Polski-Dokumentacja-dc2626?style=for-the-badge" alt="Polski"></a>
+</p>
+
+<p align="center">
+  <a href="#english">
+    <img src="https://flagcdn.com/24x18/gb.png" alt="English Flag" width="24" height="18" style="vertical-align: middle;">
+    <b> Read in English</b>
+  </a>
+  &nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="#wersja-polska">
+    <img src="https://flagcdn.com/24x18/pl.png" alt="Polish Flag" width="24" height="18" style="vertical-align: middle;">
+    <b> Czytaj po polsku</b>
+  </a>
+</p>
+
 [![Live Website](https://img.shields.io/badge/Website-kosiorro.github.io%2FD2--UberApp-gold.svg)](https://kosiorro.github.io/D2-UberApp/)
 [![Online Market](https://img.shields.io/badge/Online%20Market-d2uberappmarket.tw5.org-purple.svg)](https://d2uberappmarket.tw5.org)
 [![Releases](https://img.shields.io/badge/Download-Releases%20(v1.0.0)-brightgreen.svg)](https://github.com/kosiorro/D2-UberApp/releases)
@@ -25,6 +45,8 @@
 
 <a name="english"></a>
 ## English Documentation
+
+> 🇵🇱 *Wolisz język polski? [Przejdź do wersji polskiej ➔](#wersja-polska)*
 
 ### Official Links & Services
 - 🌐 **Live Website & Interactive Guide**: [https://kosiorro.github.io/D2-UberApp/](https://kosiorro.github.io/D2-UberApp/)
@@ -155,6 +177,8 @@ All hotkeys are global and functional while Diablo II: Resurrected is the active
 
 <a name="wersja-polska"></a>
 ## Wersja Polska (Dokumentacja PL)
+
+> 🇬🇧 *Prefer English? [Switch to English documentation ➔](#english)*
 
 ### Oficjalne Linki i Serwisy
 - 🌐 **Oficjalna Strona WWW i Przewodnik Online**: [https://kosiorro.github.io/D2-UberApp/](https://kosiorro.github.io/D2-UberApp/)
