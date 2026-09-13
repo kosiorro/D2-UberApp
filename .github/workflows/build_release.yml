@@ -32,21 +32,32 @@ jobs:
         run: |
           python build_release.py
 
-      - name: Compile Inno Setup Installer
-        uses: Min-Shar/inno-setup-action@v1.2.0
-        with:
-          path: installer.iss
-        continue-on-error: true
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: "D2 UberApp Release ${{ github.ref_name }}"
+          name: "D2 UberApp ${{ github.ref_name || 'v1.0.0' }}"
           draft: false
           prerelease: false
           files: |
             D2UberApp_Windows_x64.zip
-            Output/*.exe
+          body: |
+            ## D2 UberApp Windows Release ⚔️
+
+            ### 🇵🇱 Co nowego / Wersja Portable:
+            - **Paczka Portable Windows (.zip)**: Wystarczy rozpakować i uruchomić `start.bat` &mdash; nie wymaga instalowania Pythona w systemie.
+            - **100% Bezpieczeństwa (Screenshot-Based)**: Działa wyłącznie na zrzutach ekranu API Windows (`BitBlt`), zero ingerencji w pamięć gry `D2R.exe`.
+            - **Google Gemini 3.5 Flash Lite OCR**: Błyskawiczna analiza itemów pod klawiszem F10.
+            - **Ocena Widełek (Rolls)**: Ocena statystyk unikatów i runewords: `PERFECT (100%)`, `HIGH`, `MID`, `LOW`.
+            - **Siatka 33 Run (11x3) & Craft**: Skrytka na runy i kalkulator słów runicznych.
+            - **Giełda Online**: Integracja z rynkiem handlowym [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org).
+            - **Strona projektu**: [kosiorro.github.io/D2-UberApp](https://kosiorro.github.io/D2-UberApp/).
+
+            ### 🇬🇧 Features Overview:
+            - **Portable Windows (.zip)**: Fully standalone with embedded runtime and databases &mdash; no Python required.
+            - **Zero Ban Risk**: Pure screenshot OCR architecture (`BitBlt`), 0% memory reading or DLL injection.
+            - **Gemini 3.5 Flash Lite**: Sub-second in-game item scan via F10 hotkey.
+            - **Roll Rating Engine**: Statistical percentile evaluation for variable rolls.
+            - **Runes 11x3 & Runeword Calculator**: Real-time assembly checks.
+            - **Online Trading Hub**: Direct export to [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org).
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
