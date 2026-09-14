@@ -69,31 +69,15 @@ def crop_for_ai(screen, mode):
             "Kliknij przycisk '💎 Runy', aby zapisać stan run."
         )
 
-    box = find_tooltip_crop(screen, strict=True)
+    box = find_tooltip_crop(screen)
     if not box:
-        if mode == 'character':
-            # Fallback dla trybu Postać: jeśli nie najechano na żaden przedmiot (brak tooltipu),
-            # wycinamy okno statystyk postaci, aby umożliwić płynne skanowanie statystyk bohatera!
-            defaults = [0, 0, .58, 1]
-            region = config.COMPANION_SETTINGS.get('regions', {}).get('stat_screen', defaults)
-            x, y, w, h = region
-            sbox = (int(x * width), int(y * height), int((x + w) * width), int((y + h) * height))
-            return screen.crop(sbox), sbox
-
         raise ValueError(
             f"Odrzucono: Nie wykryto opisu przedmiotu (ramki tooltip) dla trybu '{mode_name}'. "
             "Najedź kursorem myszy na przedmiot w grze, aby wyświetlić jego opis, a następnie naciśnij skrót."
         )
 
     x, y, w, h = box
-    if w < 90 or h < 55 or w > width * .75 or w * h > width * height * .72:
-        if mode == 'character':
-            defaults = [0, 0, .58, 1]
-            region = config.COMPANION_SETTINGS.get('regions', {}).get('stat_screen', defaults)
-            rx, ry, rw, rh = region
-            sbox = (int(rx * width), int(ry * height), int((rx + rw) * width), int((ry + rh) * height))
-            return screen.crop(sbox), sbox
-
+    if w < 90 or h < 55 or w > width * .85 or w * h > width * height * .75:
         raise ValueError(
             "Odrzucono: Niepewny wycinek przedmiotu. "
             "Upewnij się, że kursor wskazuje przedmiot i cały opis jest widoczny na ekranie."

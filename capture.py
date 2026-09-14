@@ -88,14 +88,83 @@ def capture_screen() -> Image.Image:
     user32.ReleaseDC(0, hdc_screen)
     return image
 
+def _detect_dark_tooltip_rectangle(arr):
+    h, w, _ = arr.shape
+    is_dark = np.max(arr, axis=2) <= 24
+    row_runs = []
+    min_w = int(w * 0.10)
+    
+    # Exclude title bar (y < 45) and bottom HUD (y > h - 80)
+    for y in range(45, h - 80):
+        row = is_dark[y]
+        diff = np.diff(np.pad(row.astype(np.int8), (1, 1)))
+        starts = np.where(diff == 1)[0]
+        ends = np.where(diff == -1)[0]
+        
+        merged = []
+        for s, e in zip(starts, ends):
+            if not merged:
+                merged.append([s, e])
+            else:
+                if s - merged[-1][1] <= 24: # text gap
+                    merged[-1][1] = e
+                else:
+                    merged.append([s, e])
+        for s, e in merged:
+            if (e - s) >= min_w:
+                row_runs.append((y, s, e))
+                
+    if not row_runs:
+        return None
+        
+    from collections import defaultdict
+    by_start = defaultdict(list)
+    for y, s, e in row_runs:
+        s_bin = round(s / 20) * 20
+        by_start[s_bin].append((y, s, e))
+        
+    best_candidate = None
+    best_score = 0
+    
+    for s_bin, runs in by_start.items():
+        if len(runs) >= 35:
+            runs_y = [r[0] for r in runs]
+            ymin = min(runs_y)
+            ymax = max(runs_y)
+            height = ymax - ymin
+            if height >= 55 and len(runs) / height >= 0.50:
+                s_val = int(np.median([r[1] for r in runs]))
+                e_val = int(np.median([r[2] for r in runs]))
+                width = e_val - s_val
+                
+                # Exclude edge bezels
+                if s_val >= int(w * 0.82) or width < 200:
+                    continue
+                
+                sub = arr[ymin:ymax, s_val:e_val]
+                text_mask = np.max(sub, axis=2) >= 70
+                text_ratio = np.mean(text_mask)
+                dark_ratio = np.mean(np.max(sub, axis=2) <= 26)
+                
+                if 0.01 <= text_ratio <= 0.35 and dark_ratio >= 0.35:
+                    score = width * height
+                    if score > best_score:
+                        best_score = score
+                        best_candidate = (s_val, ymin, width, height)
+                        
+    return best_candidate
+
+
 def find_tooltip_crop(img: Image.Image, strict=False) -> tuple[int, int, int, int] | None:
     arr = np.array(img.convert("RGB"))
     h, w, _ = arr.shape
     
+    # 1. Framed tooltip detector (horizontal edge lines with gray border)
     edges = []
-    min_len = int(w * 0.12)
+    min_len = int(w * 0.10)
     
-    for y in range(1, h - 1):
+    # Exclude title bar (y < 45) and bottom HUD (y > h - 80)
+    for y in range(45, h - 80):
         row = arr[y]
         diffs = np.max(np.abs(np.diff(row.astype(int), axis=0)), axis=1)
         run_mask = diffs <= 2
@@ -107,7 +176,7 @@ def find_tooltip_crop(img: Image.Image, strict=False) -> tuple[int, int, int, in
             if length >= min_len:
                 pix = row[s + length // 2]
                 r, g, b = int(pix[0]), int(pix[1]), int(pix[2])
-                if 20 < r < 130 and abs(r - g) < 22 and abs(g - b) < 22:
+                if 20 <= r <= 130 and abs(r - g) <= 20 and abs(g - b) <= 20:
                     edges.append((y, s, length))
                     
     best = None
@@ -123,25 +192,17 @@ def find_tooltip_crop(img: Image.Image, strict=False) -> tuple[int, int, int, in
                         best = (int(min(s1, s2)), int(y1), int(min(l1, l2)), int(height))
                         
     if best:
-        return best
-        
-    if strict:
-        return None
+        bx, by, bw, bh = best
+        sub = arr[by+5:by+bh-5, bx+5:bx+bw-5]
+        if sub.size > 0:
+            dark_ratio = np.mean(np.max(sub, axis=2) < 32)
+            if dark_ratio > 0.40:
+                return best
 
-    active_zone = arr[:int(h * 0.85), :int(w * 0.80)]
-    dark_mask = (active_zone[:, :, 0] < 35) & (active_zone[:, :, 1] < 35) & (active_zone[:, :, 2] < 35)
-    row_sums = np.sum(dark_mask, axis=1)
-    cand_rows = np.where(row_sums > min_len)[0]
-    if len(cand_rows) > 40:
-        y_min = int(cand_rows[0])
-        y_max = int(cand_rows[-1])
-        sub = dark_mask[y_min:y_max, :]
-        col_sums = np.sum(sub, axis=0)
-        cand_cols = np.where(col_sums > (y_max - y_min) * 0.35)[0]
-        if len(cand_cols) > min_len:
-            x_min = int(cand_cols[0])
-            x_max = int(cand_cols[-1])
-            return (x_min, y_min, x_max - x_min, y_max - y_min)
+    # 2. Dark / borderless tooltip rectangle detector (equipped gear, grief, runewords)
+    dark_box = _detect_dark_tooltip_rectangle(arr)
+    if dark_box:
+        return dark_box
             
     return None
 
