@@ -1,5 +1,6 @@
 import json
 import time
+from PIL import Image
 try:
     from google.genai import types
 except ImportError:

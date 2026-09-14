@@ -1,4 +1,4 @@
-﻿"""Precision Rune Stash detection and OCR for Diablo II: Resurrected.
+"""Precision Rune Stash detection and OCR for Diablo II: Resurrected.
 Combines exact pixel geometry, active slot detection, and AI OCR on cropped high-resolution grids.
 """
 import json
