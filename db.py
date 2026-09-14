@@ -390,8 +390,8 @@ CANONICAL_SPRITES = {
     "święte targi": "/static/images/database/armor/fs-aerinowa-tarcza--pa4.png",
     "swiete targi": "/static/images/database/armor/fs-aerinowa-tarcza--pa4.png",
     "sacred targe": "/static/images/database/armor/fs-aerinowa-tarcza--pa4.png",
-    "monarch": "/static/images/database/armor/fs-du-a-tarcza--lrg.png",
-    "monarcha": "/static/images/database/armor/fs-du-a-tarcza--lrg.png",
+    "monarch": "/static/images/database/armor/fs-tr-jk-tna-tarcza--kit.png",
+    "monarcha": "/static/images/database/armor/fs-tr-jk-tna-tarcza--kit.png",
     "duża tarcza": "/static/images/database/armor/fs-du-a-tarcza--lrg.png",
     "duza tarcza": "/static/images/database/armor/fs-du-a-tarcza--lrg.png",
     "large shield": "/static/images/database/armor/fs-du-a-tarcza--lrg.png",
@@ -582,6 +582,94 @@ def _get_hac_items():
     _HAC_CACHE = items
     return _HAC_CACHE
 
+_BASE_IMAGES_CACHE = None
+
+def _init_base_images():
+    global _BASE_IMAGES_CACHE
+    if _BASE_IMAGES_CACHE is not None:
+        return _BASE_IMAGES_CACHE
+    cache = {}
+    aliases = {
+        'monarch': 'monarcha',
+        'phase blade': 'fazowe ostrze',
+        'crystal sword': 'krysztalowy miecz',
+        'archon plate': 'archoncka zbroja plytowa',
+        'mage plate': 'lekka zbroja plytowa',
+        'dusk shroud': 'wieczorny calun',
+        'flail': 'korbacz',
+        'thresher': 'rozdzieracz',
+        'colossus blade': 'kolosalne ostrze',
+        'colossus sword': 'kolosalny miecz',
+        'berserker axe': 'topor berserkera',
+        'sacred targe': 'swieta tarza',
+        'vortex shield': 'wirotarcza',
+        'kurast shield': 'kurastowa tarcza',
+        'zakarum shield': 'zakarymska tarcza',
+        'shako': 'czako',
+        'czapka': 'kaptur',
+        'cap': 'kaptur',
+        'tiara': 'tiara',
+        'diadem': 'diadem',
+        'grand charm': 'wielki talizman',
+        'small charm': 'mniejszy talizman',
+        'large charm': 'duzy talizman',
+        'ring': 'pierscien',
+        'amulet': 'amulet',
+        'jewel': 'klejnot',
+    }
+    try:
+        import sqlite3
+        conn = sqlite3.connect(CATALOG_DB_PATH)
+        c = conn.cursor()
+        rows = c.execute("SELECT name, name_en, image FROM items WHERE kind='base'").fetchall()
+        for name, name_en, img in rows:
+            if not img:
+                continue
+            img_path = f"/static/images/database/{img[7:]}" if img.startswith("images/") else img
+            cn = _clean_str(name)
+            ce = _clean_str(name_en)
+            if cn:
+                cache[cn] = img_path
+            if ce:
+                cache[ce] = img_path
+        conn.close()
+    except Exception:
+        pass
+    
+    for ak, av in aliases.items():
+        if av in cache and ak not in cache:
+            cache[ak] = cache[av]
+
+    _BASE_IMAGES_CACHE = cache
+    return _BASE_IMAGES_CACHE
+
+def get_base_image(base_name):
+    if not base_name:
+        return None
+    cache = _init_base_images()
+    cb = _clean_str(base_name)
+    if not cb:
+        return None
+    if cb in cache:
+        return cache[cb]
+    # Substring match
+    for k, v in cache.items():
+        if len(k) >= 3 and (k == cb or k in cb or cb in k):
+            return v
+    # Word overlap
+    words_b = set(cb.split())
+    best = None
+    best_score = 0
+    for k, v in cache.items():
+        k_words = set(k.split())
+        score = len(words_b & k_words)
+        if score > best_score:
+            best_score = score
+            best = v
+    if best and best_score >= 1:
+        return best
+    return None
+
 def resolve_item_image(name, name_en, base, slot, quality=""):
     name = (name or '').strip()
     name_en = (name_en or '').strip()
@@ -595,7 +683,7 @@ def resolve_item_image(name, name_en, base, slot, quality=""):
 
     hac_items = _get_hac_items()
 
-    # 1. Sprawdź najpierw unikatowe lub zestawowe przedmioty (Maxroll wysokiej jakości .webp)
+    # 1. Sprawdź najpierw unikatowe lub zestawowe przedmioty (specjalna grafika .webp)
     if quality in ('unikalny', 'unique', 'zestaw', 'set') or not quality:
         for h in hac_items:
             if h['kind'] in ('unique', 'set') and h.get('image'):
@@ -604,7 +692,29 @@ def resolve_item_image(name, name_en, base, slot, quality=""):
                 if clean_en and clean_en == h['norm_en']:
                     return h['image']
 
-    # 2. Sprawdź kanoniczną bazę bezpośrednio po nazwie, bazie lub name_en
+    # 2. "jak nie masz grafiki do itemu to daj grafikę bazy itemu"
+    # A) Jeśli mamy podaną bazę przedmiotu (np. Monarch, Crystal Sword, Archon Plate)
+    if base:
+        b_img = get_base_image(base)
+        if b_img:
+            return b_img
+
+    # B) Jeśli unikat/zestaw nie ma własnej grafiki, pobierz grafikę jego bazy z katalogu
+    for h in hac_items:
+        if (clean_name and clean_name == h['norm_name']) or (clean_en and clean_en == h['norm_en']):
+            if h.get('base_name'):
+                b_img = get_base_image(h['base_name'])
+                if b_img:
+                    return b_img
+
+    # C) Sprawdź czy nazwa lub name_en zawiera bazę (np. "Bursztynowy Mały Talizman", "Ring of the Zodiac")
+    for target in [clean_base, clean_name, clean_en]:
+        if target:
+            b_img = get_base_image(target)
+            if b_img:
+                return b_img
+
+    # D) Sprawdź kanoniczną bazę bezpośrednio po nazwie, bazie lub name_en
     for target in [clean_name, clean_base, clean_en]:
         if target and target in CANONICAL_SPRITES:
             return CANONICAL_SPRITES[target]
@@ -638,55 +748,6 @@ def resolve_item_image(name, name_en, base, slot, quality=""):
         elif any(k in clean_base or k in clean_name for k in ["miecz", "sword", "topor", "axe", "bulaw", "mace", "kostur", "staff", "rozdzka", "wand", "luk", "bow", "kusz", "flail", "korbacz", "kosa", "wloczni", "drzewc"]):
             slot = "weapon"
 
-    # 3. Przeszukiwanie bazy katalogowej przedmiotow
-    # B) Dopasowanie bazy przedmiotu z katalogu
-    if clean_base:
-        # Dokładne dopasowanie bazy (PL lub EN)
-        for h in hac_items:
-            if h['kind'] == 'base':
-                if clean_base == h['norm_name'] or clean_base == h['norm_en'] or clean_base == h['norm_base']:
-                    return h['image']
-
-        # Dopasowanie na podstawie nakładania się słów bazy
-        words_b = set(clean_base.split())
-        best_match = None
-        best_score = 0
-        for h in hac_items:
-            if h['kind'] == 'base':
-                # Preferuj kategorię zgodną ze slotem jeśli znana
-                cat = h['category']
-                cat_match = (('weapon' in slot and cat == 'weapon') or
-                             (('shield' in slot or 'head' in slot or 'armor' in slot or 'boots' in slot or 'gloves' in slot or 'belt' in slot) and cat == 'armor') or
-                             ('charm' in slot and cat == 'charm'))
-
-                h_words = set(h['norm_name'].split())
-                overlap = len(words_b & h_words)
-                if cat_match:
-                    overlap += 1
-
-                if overlap > best_score:
-                    best_score = overlap
-                    best_match = h
-
-        if best_match and best_score >= 2:
-            return best_match['image']
-
-    # C) Jeśli nazwa przedmiotu zawiera nazwę bazy (np. dla magicznych/rzadkich: "Bursztynowy Wielki Talizman")
-    if clean_name:
-        words_n = set(clean_name.split())
-        best_match = None
-        best_score = 0
-        for h in hac_items:
-            if h['kind'] == 'base':
-                h_words = set(h['norm_name'].split())
-                overlap = len(words_n & h_words)
-                if overlap > best_score:
-                    best_score = overlap
-                    best_match = h
-        if best_match and best_score >= 2:
-            return best_match['image']
-
-    # 3. Domyslne grafiki slotowe
     is_bow = any(k in clean_base or k in clean_name or k in clean_en for k in ["luk", "bow", "kusz", "crossbow"])
     if is_bow:
         return '/static/images/database/weapon/ms-kr-tki-uk--sbw.png'
@@ -810,10 +871,9 @@ def _parse_item_row(r, con=None) -> dict:
         it.get("character_slot"),
         it.get("quality")
     )
-    if resolved_img and "/static/images/catalog/" in resolved_img:
+    if resolved_img:
         it["image_path"] = resolved_img
-    elif not img or "klucz--key.png" in img or ("fs-duchowa-maska--dr5.png" in img and "duch" in name_clean) or ("fs-korona--crn.png" in (img or "") and not is_actual_crown):
-        it["image_path"] = resolved_img
+    it["base_image_path"] = get_base_image(it.get("base")) or get_base_image(it.get("name")) or ""
 
     # Auto-enrich market value, stat priority, build notes from catalog if empty
     if not it.get("market_value"):

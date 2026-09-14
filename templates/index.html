@@ -483,8 +483,8 @@
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
         }
         .quality-runiczne, .quality-runeword, .quality-słowo-runiczne {
-            color: #f3b142 !important;
-            text-shadow: 0 0 10px rgba(243, 177, 66, 0.4);
+            color: #b0b0b0 !important;
+            text-shadow: 0 0 10px rgba(180, 180, 180, 0.4);
         }
         .quality-rzadki, .quality-rare {
             color: #ffff66 !important;
@@ -917,7 +917,7 @@
             gap: 16px;
         }
         .item-card {
-            background: #101116 radial-gradient(circle at 50% 0%, #171822 0%, #101116 100%);
+            background: #111218;
             border: 1px solid #262733;
             border-radius: 6px;
             padding: 14px 16px;
@@ -926,17 +926,197 @@
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.2s ease-in-out;
+            overflow: hidden;
         }
         .item-card:hover {
-            border-color: var(--gold-dark);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.85);
+            box-shadow: 0 8px 26px rgba(0,0,0,0.85);
             transform: translateY(-1px);
         }
-        .item-card[data-quality*="unikaln"], .item-card[data-quality*="unique"] { border-top: 2px solid #bca262; }
-        .item-card[data-quality*="zestaw"], .item-card[data-quality*="set"] { border-top: 2px solid #00cc00; }
-        .item-card[data-quality*="runiczn"], .item-card[data-quality*="runeword"] { border-top: 2px solid #d47a24; }
-        .item-card[data-quality*="rzadk"], .item-card[data-quality*="rare"] { border-top: 2px solid #cccc33; }
-        .item-card[data-quality*="magiczn"], .item-card[data-quality*="magic"] { border-top: 2px solid #4a6ee0; }
+
+        /* Semi-transparent item quality backgrounds for cards */
+        .item-card[data-quality*="unikaln"], .item-card[data-quality*="unique"] {
+            background: linear-gradient(145deg, rgba(199, 179, 119, 0.16) 0%, rgba(16, 17, 22, 0.88) 100%), #101116;
+            border-color: rgba(199, 179, 119, 0.28);
+        }
+        .item-card[data-quality*="unikaln"]:hover, .item-card[data-quality*="unique"]:hover {
+            background: linear-gradient(145deg, rgba(199, 179, 119, 0.24) 0%, rgba(20, 22, 28, 0.88) 100%), #12131a;
+            border-color: rgba(199, 179, 119, 0.55);
+            box-shadow: 0 8px 24px rgba(199, 179, 119, 0.15), 0 0 12px rgba(0,0,0,0.8);
+        }
+
+        .item-card[data-quality*="zestaw"], .item-card[data-quality*="set"] {
+            background: linear-gradient(145deg, rgba(0, 255, 0, 0.13) 0%, rgba(16, 17, 22, 0.88) 100%), #101116;
+            border-color: rgba(0, 255, 0, 0.28);
+        }
+        .item-card[data-quality*="zestaw"]:hover, .item-card[data-quality*="set"]:hover {
+            background: linear-gradient(145deg, rgba(0, 255, 0, 0.20) 0%, rgba(20, 22, 28, 0.88) 100%), #12131a;
+            border-color: rgba(0, 255, 0, 0.55);
+            box-shadow: 0 8px 24px rgba(0, 255, 0, 0.15), 0 0 12px rgba(0,0,0,0.8);
+        }
+
+        /* Runewords are gray ("słowa runiczne są szare") */
+        .item-card[data-quality*="runiczn"], .item-card[data-quality*="runeword"] {
+            background: linear-gradient(145deg, rgba(175, 175, 175, 0.15) 0%, rgba(16, 17, 22, 0.88) 100%), #101116;
+            border-color: rgba(175, 175, 175, 0.26);
+        }
+        .item-card[data-quality*="runiczn"]:hover, .item-card[data-quality*="runeword"]:hover {
+            background: linear-gradient(145deg, rgba(175, 175, 175, 0.22) 0%, rgba(20, 22, 28, 0.88) 100%), #12131a;
+            border-color: rgba(175, 175, 175, 0.50);
+            box-shadow: 0 8px 24px rgba(175, 175, 175, 0.12), 0 0 12px rgba(0,0,0,0.8);
+        }
+
+        .item-card[data-quality*="rzadk"], .item-card[data-quality*="rare"] {
+            background: linear-gradient(145deg, rgba(255, 255, 102, 0.12) 0%, rgba(16, 17, 22, 0.88) 100%), #101116;
+            border-color: rgba(255, 255, 102, 0.26);
+        }
+        .item-card[data-quality*="rzadk"]:hover, .item-card[data-quality*="rare"]:hover {
+            background: linear-gradient(145deg, rgba(255, 255, 102, 0.19) 0%, rgba(20, 22, 28, 0.88) 100%), #12131a;
+            border-color: rgba(255, 255, 102, 0.50);
+            box-shadow: 0 8px 24px rgba(255, 255, 102, 0.15), 0 0 12px rgba(0,0,0,0.8);
+        }
+
+        .item-card[data-quality*="magiczn"], .item-card[data-quality*="magic"] {
+            background: linear-gradient(145deg, rgba(104, 130, 255, 0.13) 0%, rgba(16, 17, 22, 0.88) 100%), #101116;
+            border-color: rgba(104, 130, 255, 0.26);
+        }
+        .item-card[data-quality*="magiczn"]:hover, .item-card[data-quality*="magic"]:hover {
+            background: linear-gradient(145deg, rgba(104, 130, 255, 0.20) 0%, rgba(20, 22, 28, 0.88) 100%), #12131a;
+            border-color: rgba(104, 130, 255, 0.50);
+            box-shadow: 0 8px 24px rgba(104, 130, 255, 0.15), 0 0 12px rgba(0,0,0,0.8);
+        }
+
+        .item-card[data-quality*="rzemiesln"], .item-card[data-quality*="craft"] {
+            background: linear-gradient(145deg, rgba(255, 132, 0, 0.13) 0%, rgba(16, 17, 22, 0.88) 100%), #101116;
+            border-color: rgba(255, 132, 0, 0.26);
+        }
+        .item-card[data-quality*="rzemiesln"]:hover, .item-card[data-quality*="craft"]:hover {
+            background: linear-gradient(145deg, rgba(255, 132, 0, 0.20) 0%, rgba(20, 22, 28, 0.88) 100%), #12131a;
+            border-color: rgba(255, 132, 0, 0.50);
+            box-shadow: 0 8px 24px rgba(255, 132, 0, 0.15), 0 0 12px rgba(0,0,0,0.8);
+        }
+
+        .item-card[data-quality*="normal"], .item-card[data-quality*="superior"] {
+            background: linear-gradient(145deg, rgba(200, 200, 200, 0.06) 0%, rgba(16, 17, 22, 0.88) 100%), #101116;
+            border-color: rgba(200, 200, 200, 0.18);
+        }
+        .item-card[data-quality*="normal"]:hover, .item-card[data-quality*="superior"]:hover {
+            background: linear-gradient(145deg, rgba(200, 200, 200, 0.10) 0%, rgba(20, 22, 28, 0.88) 100%), #12131a;
+            border-color: rgba(200, 200, 200, 0.35);
+        }
+
+        /* Table rows semi-transparent quality backgrounds */
+        .d2-table tbody tr[data-quality*="unikaln"], .d2-table tbody tr[data-quality*="unique"] {
+            background: rgba(199, 179, 119, 0.08) !important;
+        }
+        .d2-table tbody tr[data-quality*="unikaln"]:hover, .d2-table tbody tr[data-quality*="unique"]:hover {
+            background: rgba(199, 179, 119, 0.16) !important;
+        }
+        .d2-table tbody tr[data-quality*="zestaw"], .d2-table tbody tr[data-quality*="set"] {
+            background: rgba(0, 255, 0, 0.07) !important;
+        }
+        .d2-table tbody tr[data-quality*="zestaw"]:hover, .d2-table tbody tr[data-quality*="set"]:hover {
+            background: rgba(0, 255, 0, 0.14) !important;
+        }
+        .d2-table tbody tr[data-quality*="runiczn"], .d2-table tbody tr[data-quality*="runeword"] {
+            background: rgba(175, 175, 175, 0.08) !important;
+        }
+        .d2-table tbody tr[data-quality*="runiczn"]:hover, .d2-table tbody tr[data-quality*="runeword"]:hover {
+            background: rgba(175, 175, 175, 0.16) !important;
+        }
+        .d2-table tbody tr[data-quality*="rzadk"], .d2-table tbody tr[data-quality*="rare"] {
+            background: rgba(255, 255, 102, 0.07) !important;
+        }
+        .d2-table tbody tr[data-quality*="rzadk"]:hover, .d2-table tbody tr[data-quality*="rare"]:hover {
+            background: rgba(255, 255, 102, 0.14) !important;
+        }
+        .d2-table tbody tr[data-quality*="magiczn"], .d2-table tbody tr[data-quality*="magic"] {
+            background: rgba(104, 130, 255, 0.07) !important;
+        }
+        .d2-table tbody tr[data-quality*="magiczn"]:hover, .d2-table tbody tr[data-quality*="magic"]:hover {
+            background: rgba(104, 130, 255, 0.14) !important;
+        }
+        .d2-table tbody tr[data-quality*="rzemiesln"], .d2-table tbody tr[data-quality*="craft"] {
+            background: rgba(255, 132, 0, 0.07) !important;
+        }
+        .d2-table tbody tr[data-quality*="rzemiesln"]:hover, .d2-table tbody tr[data-quality*="craft"]:hover {
+            background: rgba(255, 132, 0, 0.14) !important;
+        }
+        .d2-table tbody tr[data-quality*="normal"], .d2-table tbody tr[data-quality*="superior"] {
+            background: rgba(200, 200, 200, 0.04) !important;
+        }
+        .d2-table tbody tr[data-quality*="normal"]:hover, .d2-table tbody tr[data-quality*="superior"]:hover {
+            background: rgba(200, 200, 200, 0.09) !important;
+        }
+
+        /* Top Right Borderless Market Value Indicator */
+        .item-card-value-box {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            z-index: 5;
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            line-height: 1;
+            pointer-events: auto;
+        }
+        .val-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            line-height: 1;
+            user-select: none;
+        }
+        .val-indicator.val-none {
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: #64687a;
+            cursor: default;
+            transition: color 0.15s;
+        }
+        .val-indicator.val-none:hover {
+            color: #9ea2b6;
+        }
+        .val-indicator.val-trash {
+            display: inline-flex;
+            cursor: default;
+            line-height: 1;
+        }
+        .val-indicator.val-trash svg {
+            filter: drop-shadow(0 0 6px rgba(255, 45, 45, 0.7));
+            transition: transform 0.15s, filter 0.15s;
+        }
+        .val-indicator.val-trash:hover svg {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 10px rgba(255, 45, 45, 0.95));
+        }
+        .val-indicator.val-dollars {
+            font-family: 'Cinzel', 'Trajan Pro', Georgia, serif;
+            font-size: 1.18rem;
+            font-weight: 900;
+            color: #ffd700 !important;
+            letter-spacing: -1.5px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.65), 0 0 2px #000;
+            cursor: default;
+            transition: transform 0.15s, text-shadow 0.15s;
+        }
+        .val-indicator.val-dollars:hover {
+            transform: scale(1.08);
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.95), 0 0 3px #000;
+        }
 
         .item-card-top {
             display: flex;
@@ -981,6 +1161,7 @@
             justify-content: space-between;
             gap: 8px;
             margin-bottom: 2px;
+            padding-right: 36px;
         }
         .item-card-name {
             font-family: 'Cinzel', serif;
@@ -1741,11 +1922,38 @@
             {% if view_mode != 'table' %}
             <div class="items-grid">
                 {% for it in items %}
-                <div class="item-card" data-item='{{ it|tojson|forceescape }}' data-quality="{{ it.quality|lower }}">
+                <div class="item-card" data-item='{{ it|tojson|forceescape }}' data-quality="{{ (it.quality or 'normalny')|lower }}">
+                    <!-- Top Right Borderless Market Value Indicator -->
+                    <div class="item-card-value-box">
+                        {% set mv = (it.market_value or '')|upper|trim %}
+                        {% if not mv or mv in ('', 'NONE', '?', 'BRAK') %}
+                        <span class="val-indicator val-none" title="{{ lang == 'en' and 'No estimated value' or 'Brak oszacowanej wartości' }}">?</span>
+                        {% elif mv in ('TRASH', 'ZNIKOMA') %}
+                        <span class="val-indicator val-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość: Znikoma (Trash)' }}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff3838" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </span>
+                        {% elif mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
+                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }}">$$$$</span>
+                        {% elif mv in ('HIGH', 'WYSOKA') %}
+                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }}">$$$</span>
+                        {% elif mv in ('MEDIUM', 'MED', 'SREDNIA', 'ŚREDNIA') %}
+                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }}">$$</span>
+                        {% elif mv in ('LOW', 'NISKA') %}
+                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }}">$</span>
+                        {% else %}
+                        <span class="val-indicator val-dollars" title="{{ it.market_value }}">$</span>
+                        {% endif %}
+                    </div>
+
                     <div>
                         <div class="item-card-top">
                             <div class="item-card-img-wrap" onclick="openItemModal('{{ it.id }}')">
-                                <img src="{{ it.image_path }}" class="item-card-img" alt="">
+                                <img src="{{ it.image_path }}" data-base="{{ it.base_image_path or '' }}" onerror="if(this.dataset.base && this.src !== this.dataset.base){this.src=this.dataset.base;}" class="item-card-img" alt="">
                                 {% if it.sockets and it.sockets > 0 %}
                                 <span class="item-card-sockets-badge" title="{{ t('label_sockets') }}: {{ it.sockets }}">⬡ {{ it.sockets }}</span>
                                 {% endif %}
@@ -1753,22 +1961,6 @@
                             <div class="item-card-details">
                                 <div class="item-card-header-row">
                                     <div class="item-card-name quality-{{ (it.quality or 'normalny')|lower|replace(' ', '-') }}" onclick="openItemModal('{{ it.id }}')">{{ item_title(it) }}</div>
-                                    {% if it.market_value %}
-                                    {% set mv = it.market_value|upper %}
-                                    {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}"><span class="val-symbol">$$$</span> {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
-                                    {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}"><span class="val-symbol">$$</span> {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
-                                    {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
-                                    {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Low' or 'Niska' }}</span>
-                                    {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}"><span class="trash-icon">🗑️</span> {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
-                                    {% else %}
-                                    <span class="badge-market badge-market-medium"><span class="val-symbol">$</span> {{ it.market_value }}</span>
-                                    {% endif %}
-                                    {% endif %}
                                 </div>
                                 <div class="item-card-subline">
                                     {% if (it.display_name or it.name) != it.base and it.base %}
@@ -1857,9 +2049,9 @@
                     </thead>
                     <tbody>
                         {% for it in items %}
-                        <tr data-item='{{ it|tojson|forceescape }}'>
+                        <tr data-item='{{ it|tojson|forceescape }}' data-quality="{{ (it.quality or 'normalny')|lower }}">
                             <td style="text-align: center;">
-                                <img src="{{ it.image_path }}" style="width: 32px; height: 32px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
+                                <img src="{{ it.image_path }}" data-base="{{ it.base_image_path or '' }}" onerror="if(this.dataset.base && this.src !== this.dataset.base){this.src=this.dataset.base;}" style="width: 32px; height: 32px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
                             </td>
                             <td>
                                 <strong class="quality-{{ (it.quality or 'normalny')|lower|replace(' ', '-') }}" style="cursor: pointer;" onclick="openItemModal('{{ it.id }}')">{{ item_title(it) }}</strong>
@@ -1871,24 +2063,29 @@
                                 <div style="font-size: 0.75rem; color: #888;">{{ it.name_en }}</div>
                                 {% endif %}
                             </td>
-                            <td>
-                                {% if it.market_value %}
-                                {% set mv = it.market_value|upper %}
-                                {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}"><span class="val-symbol">$$$</span> {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
-                                {% elif mv in ('HIGH', 'WYSOKA') %}
-                                <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}"><span class="val-symbol">$$</span> {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
-                                {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
-                                {% elif mv in ('LOW', 'NISKA') %}
-                                <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Low' or 'Niska' }}</span>
+                            <td style="text-align: center;">
+                                {% set mv = (it.market_value or '')|upper|trim %}
+                                {% if not mv or mv in ('', 'NONE', '?', 'BRAK') %}
+                                <span class="val-indicator val-none" title="{{ lang == 'en' and 'No estimated value' or 'Brak oszacowanej wartości' }}">?</span>
                                 {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}"><span class="trash-icon">🗑️</span> {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
+                                <span class="val-indicator val-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość: Znikoma (Trash)' }}">
+                                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff3838" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                    </svg>
+                                </span>
+                                {% elif mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
+                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }}">$$$$</span>
+                                {% elif mv in ('HIGH', 'WYSOKA') %}
+                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }}">$$$</span>
+                                {% elif mv in ('MEDIUM', 'MED', 'SREDNIA', 'ŚREDNIA') %}
+                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }}">$$</span>
+                                {% elif mv in ('LOW', 'NISKA') %}
+                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }}">$</span>
                                 {% else %}
-                                <span class="badge-market badge-market-medium"><span class="val-symbol">$</span> {{ it.market_value }}</span>
-                                {% endif %}
-                                {% else %}
-                                <span style="color: #666; font-size: 0.8rem;">—</span>
+                                <span class="val-indicator val-dollars" title="{{ it.market_value }}">$</span>
                                 {% endif %}
                             </td>
                             <td>{{ it.base }}{% if it.sockets and it.sockets > 0 %} <span style="color: #88c0d0; font-size: 0.78rem; font-weight: 600;">(⬡{{ it.sockets }})</span>{% endif %}</td>
@@ -2247,9 +2444,9 @@
                     </thead>
                     <tbody>
                         {% for it in trade_items %}
-                        <tr id="trade-row-{{ it.id }}" class="trade-row-item" data-search="{{ (it.name or '')|lower }} {{ (it.name_en or '')|lower }} {{ (it.colloquial_name or '')|lower }} {{ (it.base or '')|lower }} {{ (it.base_shorthand or '')|lower }} {{ (it.trade_price or '')|lower }} {{ (it.trade_notes or '')|lower }}">
+                        <tr id="trade-row-{{ it.id }}" class="trade-row-item" data-quality="{{ (it.quality or 'normalny')|lower }}" data-search="{{ (it.name or '')|lower }} {{ (it.name_en or '')|lower }} {{ (it.colloquial_name or '')|lower }} {{ (it.base or '')|lower }} {{ (it.base_shorthand or '')|lower }} {{ (it.trade_price or '')|lower }} {{ (it.trade_notes or '')|lower }}">
                             <td style="text-align: center;">
-                                <img src="{{ it.image_path }}" style="width: 38px; height: 38px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
+                                <img src="{{ it.image_path }}" data-base="{{ it.base_image_path or '' }}" onerror="if(this.dataset.base && this.src !== this.dataset.base){this.src=this.dataset.base;}" style="width: 38px; height: 38px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
                             </td>
                             <td>
                                 <strong class="quality-{{ (it.quality or 'normalny')|lower|replace(' ', '-') }} trade-name-standard" style="font-size: 0.95rem; cursor: pointer;" onclick="openItemModal('{{ it.id }}')">{{ item_title(it) }}</strong>
@@ -2261,22 +2458,29 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <div style="margin-bottom: 4px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center;">
-                                    {% if it.market_value %}
-                                    {% set mv = it.market_value|upper %}
-                                    {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}"><span class="val-symbol">$$$</span> {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
-                                    {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}"><span class="val-symbol">$$</span> {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
-                                    {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
-                                    {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Low' or 'Niska' }}</span>
+                                <div style="margin-bottom: 6px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+                                    {% set mv = (it.market_value or '')|upper|trim %}
+                                    {% if not mv or mv in ('', 'NONE', '?', 'BRAK') %}
+                                    <span class="val-indicator val-none" title="{{ lang == 'en' and 'No estimated value' or 'Brak oszacowanej wartości' }}">?</span>
                                     {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}"><span class="trash-icon">🗑️</span> {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
+                                    <span class="val-indicator val-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość: Znikoma (Trash)' }}">
+                                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff3838" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                        </svg>
+                                    </span>
+                                    {% elif mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
+                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }}">$$$$</span>
+                                    {% elif mv in ('HIGH', 'WYSOKA') %}
+                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }}">$$$</span>
+                                    {% elif mv in ('MEDIUM', 'MED', 'SREDNIA', 'ŚREDNIA') %}
+                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }}">$$</span>
+                                    {% elif mv in ('LOW', 'NISKA') %}
+                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }}">$</span>
                                     {% else %}
-                                    <span class="badge-market badge-market-medium"><span class="val-symbol">$</span> {{ it.market_value }}</span>
-                                    {% endif %}
+                                    <span class="val-indicator val-dollars" title="{{ it.market_value }}">$</span>
                                     {% endif %}
                                 </div>
                                 <div class="trade-base-standard" style="color: #bbb; font-size: 0.82rem;">{{ it.base }}</div>
@@ -2959,36 +3163,42 @@ async function setAppLanguage(newLang) {
             }
             
             let marketValueHtml = '';
-            if (it.market_value) {
-                let mv = String(it.market_value).toUpperCase();
-                let cls = 'badge-market-medium';
-                let iconHtml = '<span class="val-symbol">$</span>';
-                let label = it.market_value;
+            let mv = String(it.market_value || '').toUpperCase().trim();
+            if (!mv || mv === 'NONE' || mv === '?' || mv === 'BRAK') {
+                marketValueHtml = `
+                    <div style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${window.I18N.market_value_label}:</span>
+                        <span class="val-indicator val-none" style="font-size: 1.25rem;">?</span>
+                    </div>
+                `;
+            } else if (mv === 'TRASH' || mv.includes('ZNIK')) {
+                marketValueHtml = `
+                    <div style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${window.I18N.market_value_label}:</span>
+                        <span class="val-indicator val-trash">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff3838" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="3 6 5 6 21 6"></polyline>
+                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                <line x1="10" y1="11" x2="10" y2="17"></line>
+                                <line x1="14" y1="11" x2="14" y2="17"></line>
+                            </svg>
+                        </span>
+                        <span style="color: #ff5555; font-weight: 600; font-size: 0.85rem;">Trash</span>
+                    </div>
+                `;
+            } else {
+                let dollars = '$';
                 if (mv.includes('VERY') || mv.includes('BARDZO')) {
-                    cls = 'badge-market-very-high';
-                    iconHtml = '<span class="val-symbol">$$$</span>';
-                    label = (window.APP_LANG === 'en') ? 'Very High' : 'Bardzo Wysoka';
+                    dollars = '$$$$';
                 } else if (mv === 'HIGH' || mv === 'WYSOKA') {
-                    cls = 'badge-market-high';
-                    iconHtml = '<span class="val-symbol">$$</span>';
-                    label = (window.APP_LANG === 'en') ? 'High' : 'Wysoka';
-                } else if (mv === 'MEDIUM' || mv.includes('SRED') || mv.includes('ŚRED')) {
-                    cls = 'badge-market-medium';
-                    iconHtml = '<span class="val-symbol">$</span>';
-                    label = (window.APP_LANG === 'en') ? 'Medium' : 'Średnia';
-                } else if (mv === 'LOW' || mv === 'NISKA') {
-                    cls = 'badge-market-low';
-                    iconHtml = '<span class="val-symbol">$</span>';
-                    label = (window.APP_LANG === 'en') ? 'Low' : 'Niska';
-                } else if (mv === 'TRASH' || mv.includes('ZNIK')) {
-                    cls = 'badge-market-trash';
-                    iconHtml = '<span class="trash-icon">🗑️</span>';
-                    label = (window.APP_LANG === 'en') ? 'Trash' : 'Znikoma';
+                    dollars = '$$$';
+                } else if (mv === 'MEDIUM' || mv === 'MED' || mv.includes('SRED') || mv.includes('ŚRED')) {
+                    dollars = '$$';
                 }
                 marketValueHtml = `
-                    <div style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08);">
-                        <span style="font-size: 0.78rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px;">${window.I18N.market_value_label}:</span>
-                        <span class="badge-market ${cls}">${iconHtml} ${label}</span>
+                    <div style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${window.I18N.market_value_label}:</span>
+                        <span class="val-indicator val-dollars" style="font-size: 1.35rem;">${dollars}</span>
                     </div>
                 `;
             }
@@ -3039,7 +3249,7 @@ async function setAppLanguage(newLang) {
             document.getElementById('modalItemBody').innerHTML = `
                 <div>
                     <div style="background: #06070a; border: 1px solid #282833; border-radius: 6px; padding: 10px; text-align: center;">
-                        ${it.preview_filename ? `<img src="/previews/${it.preview_filename}" style="max-width: 100%; max-height: 260px; object-fit: contain;">` : `<img src="${it.image_path || '/static/images/database/misc/klucz--key.png'}" style="max-width: 100px; height: 100px; object-fit: contain;">`}
+                        ${it.preview_filename ? `<img src="/previews/${it.preview_filename}" style="max-width: 100%; max-height: 260px; object-fit: contain;">` : `<img src="${it.image_path || it.base_image_path || '/static/images/database/misc/klucz--key.png'}" data-base="${it.base_image_path || ''}" onerror="if(this.dataset.base && this.src !== this.dataset.base){this.src=this.dataset.base;}" style="max-width: 100px; height: 100px; object-fit: contain;">`}
                     </div>
                     <div style="margin-top: 12px; font-size: 0.85rem; color: #aaa;">
                         <div>${window.I18N.location}: <strong>${it.location || window.I18N.general}</strong></div>
