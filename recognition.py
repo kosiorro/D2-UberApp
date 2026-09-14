@@ -1,7 +1,9 @@
 import json
 import time
-from PIL import Image
-from google.genai import types
+try:
+    from google.genai import types
+except ImportError:
+    types = None
 import config
 from db import record_api_call
 from catalog_matcher import catalog_matcher
@@ -53,32 +55,58 @@ def process_image(image_path, scan_mode='normal', request_id=''):
 
         if kind == 'item':
             name = content['name']
-            from scan_validation import normalized
             quality = content.get('quality', '')
-            cat = catalog_matcher.find_item(name, None, quality)
-            if quality in ('runeword', 'unikalny', 'zestaw'):
-                if cat and normalized(name) not in (normalized(cat.get('name', '')), normalized(cat.get('name_en', ''))):
-                    raise RejectedScan(f'Niepewna nazwa "{name}" - podobne dopasowanie katalogowe zostalo odrzucone. Zeskanuj nazwe ponownie.')
-                if not cat:
-                    raise RejectedScan(f'Nie potwierdzono nazwy "{name}" w katalogu. Popraw czytelnosc opisu i ponow skan.')
-                if cat and quality == 'runeword':
+            name_en = content.get('name_en') or ''
+            cat = catalog_matcher.find_item(name, name_en, quality)
+
+            if cat:
+                # Automatyczna kanonizacja nazwy z katalogu (np. OLSINIENIE -> Olśnienie / Insight)
+                content['name'] = cat.get('name') or name
+                content['name_en'] = cat.get('name_en') or name_en
+                content['catalog_id'] = cat.get('id') or ''
+                content['market_value'] = cat.get('market_value') or ''
+                content['stat_priority'] = cat.get('stat_priority') or ''
+                content['build_notes'] = cat.get('build_notes') or ''
+                if cat.get('image'):
+                    content['image_path'] = cat['image']
+
+                if quality == 'runeword':
                     types_allowed = json.loads(cat.get('include_types_json') or '[]')
                     armor_types = {'tors':'armor','shld':'shield','ashd':'shield','head':'shield','helm':'head','phlm':'head','pelt':'head','circ':'head'}
                     allowed = {armor_types.get(t, 'weapon') for t in types_allowed}
-                    if allowed and content['slot'] not in allowed:
-                        raise RejectedScan('Nazwa slowa runicznego nie zgadza sie z typem widocznej bazy. Ponow skan calego opisu.')
+                    if allowed and content.get('slot') not in allowed:
+                        content['slot'] = cat.get('slot') or list(allowed)[0]
             else:
-                # Bazy przedmiotow normalnych, magicznych, rzadkich i rzemielniczych
-                # Szukanie bazy w katalogu jesli brak dokladnego dopasowania nazwy
-                if cat and normalized(name) not in (normalized(cat.get('name', '')), normalized(cat.get('name_en', ''))):
+                if quality in ('runeword', 'unikalny', 'zestaw'):
+                    # Zapasowe wyszukiwanie bez filtra jakości
+                    cat_retry = catalog_matcher.find_item(name, name_en, None)
+                    if cat_retry:
+                        cat = cat_retry
+                        content['name'] = cat.get('name') or name
+                        content['name_en'] = cat.get('name_en') or name_en
+                        content['catalog_id'] = cat.get('id') or ''
+                        content['market_value'] = cat.get('market_value') or ''
+                        content['stat_priority'] = cat.get('stat_priority') or ''
+                        content['build_notes'] = cat.get('build_notes') or ''
+                        if cat.get('image'):
+                            content['image_path'] = cat['image']
+                    else:
+                        raise RejectedScan(f'Nie potwierdzono nazwy "{name}" w katalogu. Popraw czytelnosc opisu i ponow skan.')
+                else:
                     base_candidate = content.get('base') or name
                     base_cat = catalog_matcher.find_item(base_candidate, None, 'normalny')
                     cat = base_cat if base_cat else None
-            content['catalog_id'] = cat.get('id') if cat else ''
+                    if cat:
+                        content['catalog_id'] = cat.get('id') or ''
+                        content['market_value'] = cat.get('market_value') or ''
+                        content['stat_priority'] = cat.get('stat_priority') or ''
+                        content['build_notes'] = cat.get('build_notes') or ''
+                        if cat.get('image'):
+                            content['image_path'] = cat['image']
 
             content['rolls_eval'] = catalog_matcher.evaluate_item_rolls(cat, content['stats'], content.get('rolls') or {}) if cat else []
             content['requirements'] = {k: content.get(k) for k in ('level_req', 'req_str', 'req_dex')}
-            content['slot'] = detect_item_slot(name, content.get('name_en') or '', content.get('base') or '', content['slot'], content['quality'])
+            content['slot'] = detect_item_slot(content['name'], content.get('name_en') or '', content.get('base') or '', content['slot'], content['quality'])
         elif kind == 'character':
             name = content['name']
         else:

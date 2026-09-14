@@ -93,6 +93,14 @@ TRANSLATIONS = {
         'btn_add_trade': 'Dodaj do sprzedaży',
         'btn_remove_trade': 'Usuń ze sprzedaży',
         'btn_equip': 'Załóż na postać',
+        'market_value_label': 'Wartość rynkowa',
+        'stat_priority_label': 'Priorytety statystyk',
+        'build_notes_label': 'Zastosowanie w buildach',
+        'market_val_very_high': 'Bardzo Wysoka',
+        'market_val_high': 'Wysoka',
+        'market_val_medium': 'Średnia',
+        'market_val_low': 'Niska',
+        'market_val_trash': 'Znikoma',
 
         # Stash Table
         'th_table_item': 'PRZEDMIOT',
@@ -320,6 +328,14 @@ TRANSLATIONS = {
         'btn_add_trade': 'Add to Trade',
         'btn_remove_trade': 'Remove from Trade',
         'btn_equip': 'Equip on Hero',
+        'market_value_label': 'Market Value',
+        'stat_priority_label': 'Stat Priority',
+        'build_notes_label': 'Build Usage & Notes',
+        'market_val_very_high': 'Very High',
+        'market_val_high': 'High',
+        'market_val_medium': 'Medium',
+        'market_val_low': 'Low',
+        'market_val_trash': 'Trash',
 
         # Stash Table
         'th_table_item': 'ITEM',

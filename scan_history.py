@@ -21,7 +21,7 @@ def finish(request_id,state,kind='',name='',result_id='',message='',response=Non
 def recent(limit=20):
     with get_db() as con:
         from config import PREVIEWS_DIR
-        rows=[dict(r) for r in con.execute('SELECT id,created_at,mode,target,state,kind,name,result_id,message,screenshot FROM scan_requests ORDER BY rowid DESC LIMIT ?',(limit,))]
+        rows=[dict(r) for r in con.execute('SELECT s.id,s.created_at,s.mode,s.target,s.state,s.kind,s.name,s.result_id,s.message,s.screenshot,i.market_value,i.quality FROM scan_requests s LEFT JOIN items i ON i.id=s.result_id ORDER BY s.rowid DESC LIMIT ?',(limit,))]
         for row in rows:row['has_preview']=(PREVIEWS_DIR/(row['id']+'.png')).is_file()
         return rows
 

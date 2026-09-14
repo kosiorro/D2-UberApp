@@ -71,7 +71,10 @@ def init_db():
             ("duplicate_of", "TEXT DEFAULT ''"),
             ("image_hash", "TEXT DEFAULT ''"),
             ("character_name", "TEXT DEFAULT ''"),
-            ("character_slot", "TEXT DEFAULT ''")
+            ("character_slot", "TEXT DEFAULT ''"),
+            ("market_value", "TEXT DEFAULT ''"),
+            ("stat_priority", "TEXT DEFAULT ''"),
+            ("build_notes", "TEXT DEFAULT ''")
         ]:
             if col_name not in cols:
                 con.execute(f"ALTER TABLE items ADD COLUMN {col_name} {col_type}")
@@ -473,17 +476,65 @@ def _get_hac_items():
         import sqlite3
         conn = sqlite3.connect(CATALOG_DB_PATH)
         c = conn.cursor()
-        c.execute('SELECT kind, quality, category, name, name_en, base_name, image FROM items')
-        for kind, qual, cat, name, name_en, base_name, img in c.fetchall():
+        c.execute('SELECT kind, quality, category, name, name_en, base_name, image, market_value, stat_priority, build_notes FROM items')
+        for kind, qual, cat, name, name_en, base_name, img, mval, spri, bnot in c.fetchall():
             items.append({
                 'kind': kind,
                 'quality': qual,
                 'category': cat,
+                'name': name,
+                'name_en': name_en,
+                'base_name': base_name,
                 'image': f"/static/images/database/{img[7:]}" if img and img.startswith("images/") else (img or ""),
+                'market_value': mval or "",
+                'stat_priority': spri or "",
+                'build_notes': bnot or "",
                 'norm_name': _clean_str(name),
                 'norm_en': _clean_str(name_en),
                 'norm_base': _clean_str(base_name)
             })
+        # Load valuable magic items
+        try:
+            c.execute('SELECT name, item_type, quality, market_value, stat_priority, build_notes, image FROM valuable_magic_items')
+            for m_name, m_type, m_qual, m_val, m_pri, m_not, m_img in c.fetchall():
+                items.append({
+                    'kind': 'magic',
+                    'quality': m_qual or 'magiczny',
+                    'category': m_type or '',
+                    'name': m_name,
+                    'name_en': m_name,
+                    'base_name': '',
+                    'image': m_img or '',
+                    'market_value': m_val or '',
+                    'stat_priority': m_pri or '',
+                    'build_notes': m_not or '',
+                    'norm_name': _clean_str(m_name),
+                    'norm_en': _clean_str(m_name),
+                    'norm_base': ''
+                })
+        except Exception:
+            pass
+        # Load runewords
+        try:
+            c.execute('SELECT name, name_en, market_value, stat_priority, build_notes FROM runewords')
+            for rw_name, rw_en, rw_val, rw_pri, rw_not in c.fetchall():
+                items.append({
+                    'kind': 'runeword',
+                    'quality': 'runiczne',
+                    'category': 'runeword',
+                    'name': rw_name,
+                    'name_en': rw_en,
+                    'base_name': '',
+                    'image': '',
+                    'market_value': rw_val or '',
+                    'stat_priority': rw_pri or '',
+                    'build_notes': rw_not or '',
+                    'norm_name': _clean_str(rw_name),
+                    'norm_en': _clean_str(rw_en),
+                    'norm_base': ''
+                })
+        except Exception:
+            pass
         conn.close()
     except Exception:
         pass
@@ -501,7 +552,18 @@ def resolve_item_image(name, name_en, base, slot, quality=""):
     clean_base = _clean_str(base)
     clean_en = _clean_str(name_en)
 
-    # 1. Sprawdź kanoniczną bazę bezpośrednio po nazwie, bazie lub name_en
+    hac_items = _get_hac_items()
+
+    # 1. Sprawdź najpierw unikatowe lub zestawowe przedmioty (Maxroll wysokiej jakości .webp)
+    if quality in ('unikalny', 'unique', 'zestaw', 'set') or not quality:
+        for h in hac_items:
+            if h['kind'] in ('unique', 'set') and h.get('image'):
+                if clean_name and clean_name == h['norm_name']:
+                    return h['image']
+                if clean_en and clean_en == h['norm_en']:
+                    return h['image']
+
+    # 2. Sprawdź kanoniczną bazę bezpośrednio po nazwie, bazie lub name_en
     for target in [clean_name, clean_base, clean_en]:
         if target and target in CANONICAL_SPRITES:
             return CANONICAL_SPRITES[target]
@@ -535,18 +597,7 @@ def resolve_item_image(name, name_en, base, slot, quality=""):
         elif any(k in clean_base or k in clean_name for k in ["miecz", "sword", "topor", "axe", "bulaw", "mace", "kostur", "staff", "rozdzka", "wand", "luk", "bow", "kusz", "flail", "korbacz", "kosa", "wloczni", "drzewc"]):
             slot = "weapon"
 
-    # 2. Przeszukiwanie bazy katalogowej przedmiotow
-    hac_items = _get_hac_items()
-
-    # A) Jeśli unikat lub zestaw - szukamy najpierw po nazwie przedmiotu
-    if quality in ('unikalny', 'unique', 'zestaw', 'set'):
-        for h in hac_items:
-            if h['kind'] in ('unique', 'set'):
-                if clean_name and clean_name == h['norm_name']:
-                    return h['image']
-                if clean_en and clean_en == h['norm_en']:
-                    return h['image']
-
+    # 3. Przeszukiwanie bazy katalogowej przedmiotow
     # B) Dopasowanie bazy przedmiotu z katalogu
     if clean_base:
         # Dokładne dopasowanie bazy (PL lub EN)
@@ -639,8 +690,9 @@ def insert_item(item_dict: dict):
             id, name, name_en, base, quality, defense, damage, level_req,
             req_str, req_dex, sockets, stats_json, rolls_eval_json, requirements_json,
             catalog_id, preview_filename, screenshot_filename, location, notes,
-            is_duplicate, duplicate_of, image_hash, character_name, character_slot, image_path
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            is_duplicate, duplicate_of, image_hash, character_name, character_slot, image_path,
+            market_value, stat_priority, build_notes
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             item_dict["id"],
             item_dict.get("name", "Nieznany"),
@@ -666,7 +718,10 @@ def insert_item(item_dict: dict):
             item_dict.get("image_hash", ""),
             item_dict.get("character_name", ""),
             item_dict.get("character_slot", ""),
-            img_path
+            img_path,
+            item_dict.get("market_value", ""),
+            item_dict.get("stat_priority", ""),
+            item_dict.get("build_notes", "")
         ))
         con.commit()
 
@@ -707,14 +762,30 @@ def _parse_item_row(r, con=None) -> dict:
     base_clean = (it.get("base") or "").lower()
     is_actual_crown = any("koron" in s or "crown" in s for s in [name_clean, name_en_clean, base_clean])
 
-    if not img or "klucz--key.png" in img or ("fs-duchowa-maska--dr5.png" in img and "duch" in name_clean) or ("fs-korona--crn.png" in (img or "") and not is_actual_crown):
-        it["image_path"] = resolve_item_image(
-            it.get("name"),
-            it.get("name_en"),
-            it.get("base"),
-            it.get("character_slot"),
-            it.get("quality")
-        )
+    resolved_img = resolve_item_image(
+        it.get("name"),
+        it.get("name_en"),
+        it.get("base"),
+        it.get("character_slot"),
+        it.get("quality")
+    )
+    if resolved_img and "/static/images/catalog/" in resolved_img:
+        it["image_path"] = resolved_img
+    elif not img or "klucz--key.png" in img or ("fs-duchowa-maska--dr5.png" in img and "duch" in name_clean) or ("fs-korona--crn.png" in (img or "") and not is_actual_crown):
+        it["image_path"] = resolved_img
+
+    # Auto-enrich market value, stat priority, build notes from catalog if empty
+    if not it.get("market_value"):
+        for h in _get_hac_items():
+            if (it.get("name") and _clean_str(it["name"]) == h["norm_name"]) or \
+               (it.get("name_en") and _clean_str(it["name_en"]) == h["norm_en"]):
+                if h.get("market_value"):
+                    it["market_value"] = h["market_value"]
+                    if not it.get("stat_priority"):
+                        it["stat_priority"] = h.get("stat_priority", "")
+                    if not it.get("build_notes"):
+                        it["build_notes"] = h.get("build_notes", "")
+                break
     try:
         it["stats"] = json.loads(it.get("stats_json") or "[]")
     except Exception:

@@ -368,14 +368,27 @@ async function refresh() {
             const stateDict = window.APP_LANG === 'en'
                 ? { success: 'saved', processing: 'analyzing', rejected: 'rejected', error: 'error', review: 'wizard', cancelled: 'cancelled' }
                 : { success: 'zapisano', processing: 'analiza', rejected: 'odrzucono', error: 'błąd', review: 'kreator', cancelled: 'anulowano' };
-            historyEl.innerHTML = state.history.slice(0, 8).map(h => `
+            historyEl.innerHTML = state.history.slice(0, 8).map(h => {
+                let mvHtml = '';
+                if (h.market_value) {
+                    let mv = String(h.market_value).toUpperCase();
+                    let color = '#55eedd';
+                    let icon = '💎';
+                    if (mv.includes('VERY') || mv.includes('BARDZO')) { color = '#ffe680'; icon = '💰'; }
+                    else if (mv === 'HIGH' || mv === 'WYSOKA') { color = '#ffd27d'; icon = '💰'; }
+                    else if (mv === 'LOW' || mv === 'NISKA') { color = '#9cb5d9'; icon = '🔹'; }
+                    else if (mv === 'TRASH' || mv.includes('ZNIK')) { color = '#8c7f7a'; icon = '⚪'; }
+                    mvHtml = `<span style="display: inline-block; margin-left: 6px; padding: 1px 5px; font-size: 10px; font-weight: 700; border-radius: 2px; background: rgba(0,0,0,0.5); border: 1px solid ${color}; color: ${color};">${icon} ${esc(h.market_value)}</span>`;
+                }
+                return `
                 <div class="scan-entry ${esc(h.state)}">
                     <time>${esc(h.created_at)}</time>
                     <span> · ${esc(stateDict[h.state] || h.state)}</span>
                     <strong>${esc(h.name || h.message)}</strong>
+                    ${mvHtml}
                     ${h.has_preview ? `<a href="/previews/${encodeURIComponent(h.id)}.png" target="_blank">${window.APP_LANG === 'en' ? 'AI Crop' : 'Wycinek AI'}</a>` : ''}
                 </div>
-            `).join('');
+            `;}).join('');
         }
 
         if (state.wizard_active && state.wizard) {

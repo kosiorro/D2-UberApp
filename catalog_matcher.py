@@ -151,6 +151,64 @@ def clean_prop_name_en(prop: str, param: str = "") -> str:
         return f"{param} (Oskill)"
     return PROP_NAMES_EN.get(prop, clean_prop_name(prop, param))
 
+ITEM_ALIASES = {
+    # Polish OCR misreads & abbreviations
+    "olsinienie": "olśnienie",
+    "olsnienie": "olśnienie",
+    "insight": "olśnienie",
+    "czako": "czapka arlekina",
+    "shako": "harlequin crest",
+    "hoto": "serce dębu",
+    "serce debu": "serce dębu",
+    "cta": "wezwanie do broni",
+    "call to arms": "wezwanie do broni",
+    "wezwanie": "wezwanie do broni",
+    "soj": "kamień jordana",
+    "kamien jordana": "kamień jordana",
+    "stone of jordan": "kamień jordana",
+    "mara": "kalejdoskop mary",
+    "kalejdoskop": "kalejdoskop mary",
+    "griffon": "oko gryfa",
+    "griffons eye": "oko gryfa",
+    "oko gryfa": "oko gryfa",
+    "arach": "siatka arachnidów",
+    "arachnid": "siatka arachnidów",
+    "siatka arachnidow": "siatka arachnidów",
+    "eni": "enigma",
+    "enigma": "enigma",
+    "forti": "hart",
+    "fortitude": "hart",
+    "hart": "hart",
+    "infa": "nieskończoność",
+    "infinity": "nieskończoność",
+    "nieskonczonosc": "nieskończoność",
+    "grief": "żal",
+    "zal": "żal",
+    "anni": "annihilus",
+    "annihilus": "annihilus",
+    "torch": "pochodnia piekielnego ognia",
+    "pochodnia": "pochodnia piekielnego ognia",
+    "jmod": "jeweler's monarch of deflection",
+    "coa": "korona wieków",
+    "crown of ages": "korona wieków",
+    "korona wiekow": "korona wieków",
+    "dweb": "pajęczyna śmierci",
+    "deaths web": "pajęczyna śmierci",
+    "pajeczyna smierci": "pajęczyna śmierci",
+    "dfathom": "głębia śmierci",
+    "deaths fathom": "głębia śmierci",
+    "glebia smierci": "głębia śmierci",
+    "andy": "oblicze andariel",
+    "andariels visage": "oblicze andariel",
+    "oblicze andariel": "oblicze andariel",
+    "zaka": "herald zakarum",
+    "herald of zakarum": "herald zakarum",
+    "herald zakarum": "herald zakarum",
+    "gheed": "talizman gheeda",
+    "gheeda": "talizman gheeda",
+    "tal rasha": "tal rasha",
+}
+
 class CatalogMatcher:
     def __init__(self, db_path=CATALOG_PATH):
         self.db_path = Path(db_path)
@@ -174,7 +232,11 @@ class CatalogMatcher:
                     self._item_bases = json.load(f)
 
             with self._get_con() as con:
-                items = con.execute("SELECT id, name, name_en, quality, category, base_code, level_req, req_str, req_dex FROM items").fetchall()
+                items = con.execute("""
+                    SELECT id, name, name_en, quality, category, base_code, level_req, req_str, req_dex,
+                           image, market_value, stat_priority, build_notes, subcategory
+                    FROM items
+                """).fetchall()
                 self._items_cache = [dict(r) for r in items]
                 for it in self._items_cache:
                     it["norm_pl"] = normalize_text(it["name"])
@@ -194,7 +256,31 @@ class CatalogMatcher:
                             slot = "misc"
                     it["slot"] = slot
 
-                rws = con.execute("SELECT id, name, name_en, runes_json, include_types_json FROM runewords WHERE complete = 1").fetchall()
+                # Załaduj wartościowe przedmioty magiczne (charms, jewels, circlets itp.)
+                try:
+                    magics = con.execute("""
+                        SELECT id, name, name_en, 'magiczny' as quality, category, subcategory,
+                               market_value, stat_priority, build_notes, image
+                        FROM valuable_magic_items
+                    """).fetchall()
+                    for m in magics:
+                        md = dict(m)
+                        md["norm_pl"] = normalize_text(md["name"])
+                        md["norm_en"] = normalize_text(md["name_en"])
+                        md["level_req"] = None
+                        md["req_str"] = None
+                        md["req_dex"] = None
+                        cat_l = (md.get("category") or "").lower()
+                        md["slot"] = "charm" if "charm" in cat_l else ("ring" if "ring" in cat_l else ("amulet" if "amulet" in cat_l else "misc"))
+                        self._items_cache.append(md)
+                except Exception:
+                    pass
+
+                rws = con.execute("""
+                    SELECT id, name, name_en, runes_json, include_types_json,
+                           market_value, stat_priority, build_notes
+                    FROM runewords WHERE complete = 1
+                """).fetchall()
                 self._runewords_cache = [dict(r) for r in rws]
                 for rw in self._runewords_cache:
                     rw["norm_pl"] = normalize_text(rw["name"])
@@ -228,51 +314,78 @@ class CatalogMatcher:
 
         norm_input_en = normalize_text(name_en)
         norm_input_pl = normalize_text(name)
+
         is_runeword_hint = quality and ("rune" in quality.lower() or "słowo" in quality.lower())
+        is_unique_hint = quality and ("unik" in quality.lower() or "uniq" in quality.lower())
+        is_set_hint = quality and ("zest" in quality.lower() or "set" in quality.lower())
+
+        alias_target = ""
+        for inp in [norm_input_pl, norm_input_en]:
+            if inp and inp in ITEM_ALIASES:
+                alias_target = normalize_text(ITEM_ALIASES[inp])
+                break
+
+        phonetic_pl = norm_input_pl.replace("si", "s") if "si" in norm_input_pl else ""
+
+        all_inputs = [x for x in [alias_target, norm_input_en, norm_input_pl, phonetic_pl] if x]
 
         found_item = None
         is_runeword = False
 
-        search_pools = [
-            (self._runewords_cache, True),
-            (self._items_cache, False)
-        ] if is_runeword_hint else [
-            (self._items_cache, False),
-            (self._runewords_cache, True)
-        ]
+        if is_runeword_hint:
+            search_pools = [
+                (self._runewords_cache, True),
+                (self._items_cache, False)
+            ]
+        elif is_unique_hint:
+            uniques = [x for x in self._items_cache if x.get("quality") == "unique"]
+            others = [x for x in self._items_cache if x.get("quality") != "unique"]
+            search_pools = [
+                (uniques, False),
+                (others, False),
+                (self._runewords_cache, True)
+            ]
+        elif is_set_hint:
+            sets = [x for x in self._items_cache if x.get("quality") == "set"]
+            others = [x for x in self._items_cache if x.get("quality") != "set"]
+            search_pools = [
+                (sets, False),
+                (others, False),
+                (self._runewords_cache, True)
+            ]
+        else:
+            search_pools = [
+                (self._items_cache, False),
+                (self._runewords_cache, True)
+            ]
 
+        # 1. Dokładne dopasowanie (PL, EN, Alias, Fonetyczne)
         for pool, rw_flag in search_pools:
-            if norm_input_en:
+            for inp in all_inputs:
                 for candidate in pool:
-                    if candidate["norm_en"] == norm_input_en or candidate["norm_pl"] == norm_input_en:
+                    if candidate["norm_en"] == inp or candidate["norm_pl"] == inp:
                         found_item = candidate
                         is_runeword = rw_flag
                         break
-            if found_item:
-                break
-
-            if norm_input_pl:
-                for candidate in pool:
-                    if candidate["norm_pl"] == norm_input_pl or candidate["norm_en"] == norm_input_pl:
-                        found_item = candidate
-                        is_runeword = rw_flag
-                        break
-            if found_item:
-                break
-
-            for candidate in pool:
-                if norm_input_en and len(norm_input_en) >= 4 and (norm_input_en in candidate["norm_en"] or norm_input_en in candidate["norm_pl"]):
-                    found_item = candidate
-                    is_runeword = rw_flag
-                    break
-                if norm_input_pl and len(norm_input_pl) >= 4 and (norm_input_pl in candidate["norm_pl"] or norm_input_pl in candidate["norm_en"]):
-                    found_item = candidate
-                    is_runeword = rw_flag
+                if found_item:
                     break
             if found_item:
                 break
 
-        # Fuzzy matching
+            # 2. Dopasowanie prefiksu / podciągu (dla nazw >= 4 znaki)
+            for inp in all_inputs:
+                if len(inp) >= 4:
+                    for candidate in pool:
+                        if inp in candidate["norm_en"] or inp in candidate["norm_pl"]:
+                            found_item = candidate
+                            is_runeword = rw_flag
+                            break
+                    if found_item:
+                        break
+            if found_item:
+                break
+
+        # 3. Dopasowanie rozmyte (Fuzzy Matching z difflib)
         if not found_item:
             best_score = 0.0
             best_cand = None
@@ -284,23 +397,18 @@ class CatalogMatcher:
             ]:
                 for candidate in pool:
                     score = 0.0
-                    if norm_input_en:
+                    for inp in all_inputs:
                         if candidate["norm_en"]:
-                            score = max(score, difflib.SequenceMatcher(None, norm_input_en, candidate["norm_en"]).ratio())
+                            score = max(score, difflib.SequenceMatcher(None, inp, candidate["norm_en"]).ratio())
                         if candidate["norm_pl"]:
-                            score = max(score, difflib.SequenceMatcher(None, norm_input_en, candidate["norm_pl"]).ratio())
-                    if norm_input_pl:
-                        if candidate["norm_pl"]:
-                            score = max(score, difflib.SequenceMatcher(None, norm_input_pl, candidate["norm_pl"]).ratio())
-                        if candidate["norm_en"]:
-                            score = max(score, difflib.SequenceMatcher(None, norm_input_pl, candidate["norm_en"]).ratio())
+                            score = max(score, difflib.SequenceMatcher(None, inp, candidate["norm_pl"]).ratio())
                     
                     if score > best_score:
                         best_score = score
                         best_cand = candidate
                         best_is_rw = rw_flag
 
-            if best_score >= 0.70:
+            if best_score >= 0.68:
                 found_item = best_cand
                 is_runeword = best_is_rw
 
