@@ -373,11 +373,11 @@ async function refresh() {
                 if (h.market_value) {
                     let mv = String(h.market_value).toUpperCase();
                     let color = '#55eedd';
-                    let icon = '💎';
-                    if (mv.includes('VERY') || mv.includes('BARDZO')) { color = '#ffe680'; icon = '💰'; }
-                    else if (mv === 'HIGH' || mv === 'WYSOKA') { color = '#ffd27d'; icon = '💰'; }
-                    else if (mv === 'LOW' || mv === 'NISKA') { color = '#9cb5d9'; icon = '🔹'; }
-                    else if (mv === 'TRASH' || mv.includes('ZNIK')) { color = '#8c7f7a'; icon = '⚪'; }
+                    let icon = '$';
+                    if (mv.includes('VERY') || mv.includes('BARDZO')) { color = '#ffe680'; icon = '$'; }
+                    else if (mv === 'HIGH' || mv === 'WYSOKA') { color = '#ffd27d'; icon = '$'; }
+                    else if (mv === 'LOW' || mv === 'NISKA') { color = '#9cb5d9'; icon = '$'; }
+                    else if (mv === 'TRASH' || mv.includes('ZNIK')) { color = '#ff5555'; icon = '🗑️'; }
                     mvHtml = `<span style="display: inline-block; margin-left: 6px; padding: 1px 5px; font-size: 10px; font-weight: 700; border-radius: 2px; background: rgba(0,0,0,0.5); border: 1px solid ${color}; color: ${color};">${icon} ${esc(h.market_value)}</span>`;
                 }
                 return `

@@ -509,9 +509,10 @@
             border: 1px solid #334057;
         }
         .badge-market-trash {
-            background: #201a18;
-            color: #8c7f7a;
-            border: 1px solid #3d3330;
+            background: rgba(45, 14, 14, 0.9);
+            color: #ff6b6b;
+            border: 1px solid #992828;
+            box-shadow: 0 0 6px rgba(255, 60, 60, 0.25);
         }
 
         /* ROLL EVALUATION BADGES */
@@ -1656,17 +1657,17 @@
                                     {% if it.market_value %}
                                     {% set mv = it.market_value|upper %}
                                     {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">💰 {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
+                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">$ {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
                                     {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">💰 {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
+                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">$ {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
                                     {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">💎 {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
+                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">$ {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
                                     {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">{{ lang == 'en' and 'Low' or 'Niska' }}</span>
+                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">$ {{ lang == 'en' and 'Low' or 'Niska' }}</span>
                                     {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">{{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
+                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">🗑️ {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
                                     {% else %}
-                                    <span class="badge-market badge-market-medium">{{ it.market_value }}</span>
+                                    <span class="badge-market badge-market-medium">$ {{ it.market_value }}</span>
                                     {% endif %}
                                     {% endif %}
                                 </div>
@@ -1783,17 +1784,17 @@
                                     {% if it.market_value %}
                                     {% set mv = it.market_value|upper %}
                                     {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">💰 {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
+                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">$ {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
                                     {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">💰 {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
+                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">$ {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
                                     {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">💎 {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
+                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">$ {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
                                     {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">{{ lang == 'en' and 'Low' or 'Niska' }}</span>
+                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">$ {{ lang == 'en' and 'Low' or 'Niska' }}</span>
                                     {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">{{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
+                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">🗑️ {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
                                     {% else %}
-                                    <span class="badge-market badge-market-medium">{{ it.market_value }}</span>
+                                    <span class="badge-market badge-market-medium">$ {{ it.market_value }}</span>
                                     {% endif %}
                                     {% endif %}
                                 </div>
@@ -2147,17 +2148,17 @@
                                     {% if it.market_value %}
                                     {% set mv = it.market_value|upper %}
                                     {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">💰 {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
+                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">$ {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
                                     {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">💰 {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
+                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">$ {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
                                     {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">💎 {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
+                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">$ {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
                                     {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">{{ lang == 'en' and 'Low' or 'Niska' }}</span>
+                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">$ {{ lang == 'en' and 'Low' or 'Niska' }}</span>
                                     {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">{{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
+                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">🗑️ {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
                                     {% else %}
-                                    <span class="badge-market badge-market-medium">{{ it.market_value }}</span>
+                                    <span class="badge-market badge-market-medium">$ {{ it.market_value }}</span>
                                     {% endif %}
                                     {% endif %}
                                 </div>
@@ -2826,27 +2827,27 @@ async function setAppLanguage(newLang) {
             if (it.market_value) {
                 let mv = String(it.market_value).toUpperCase();
                 let cls = 'badge-market-medium';
-                let icon = '💎';
+                let icon = '$';
                 let label = it.market_value;
                 if (mv.includes('VERY') || mv.includes('BARDZO')) {
                     cls = 'badge-market-very-high';
-                    icon = '💰';
+                    icon = '$';
                     label = (window.APP_LANG === 'en') ? 'Very High' : 'Bardzo Wysoka';
                 } else if (mv === 'HIGH' || mv === 'WYSOKA') {
                     cls = 'badge-market-high';
-                    icon = '💰';
+                    icon = '$';
                     label = (window.APP_LANG === 'en') ? 'High' : 'Wysoka';
                 } else if (mv === 'MEDIUM' || mv.includes('SRED') || mv.includes('ŚRED')) {
                     cls = 'badge-market-medium';
-                    icon = '💎';
+                    icon = '$';
                     label = (window.APP_LANG === 'en') ? 'Medium' : 'Średnia';
                 } else if (mv === 'LOW' || mv === 'NISKA') {
                     cls = 'badge-market-low';
-                    icon = '🔹';
+                    icon = '$';
                     label = (window.APP_LANG === 'en') ? 'Low' : 'Niska';
                 } else if (mv === 'TRASH' || mv.includes('ZNIK')) {
                     cls = 'badge-market-trash';
-                    icon = '⚪';
+                    icon = '🗑️';
                     label = (window.APP_LANG === 'en') ? 'Trash' : 'Znikoma';
                 }
                 marketValueHtml = `
