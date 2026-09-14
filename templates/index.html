@@ -2179,6 +2179,44 @@
                 </div>
             </div>
 
+            <!-- TRADE LISTS SELECTOR & MANAGEMENT BAR -->
+            <div class="trade-lists-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; background: #0c0d12; border: 1px solid #29241b; border-radius: 6px; padding: 8px 14px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span style="font-family: 'Cinzel', serif; font-size: 0.85rem; color: #a49271; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; margin-right: 4px;">
+                        {{ lang == "en" and "Sales Lists:" or "Listy sprzedaży:" }}
+                    </span>
+                    <div id="tradeListsTabs" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        {% for tl in trade_lists %}
+                        <button type="button" 
+                                class="btn-d2 {% if tl.name == active_trade_list %}btn-gold{% else %}btn-stone{% endif %} btn-sm trade-list-tab-btn" 
+                                onclick="switchTradeList('{{ tl.name|escape }}')"
+                                style="padding: 5px 12px; font-size: 0.82rem; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px;">
+                            <span>{{ tl.name }}</span>
+                            <span class="badge-count" style="background: rgba(0,0,0,0.5); border-radius: 10px; padding: 1px 6px; font-size: 0.72rem; color: #ffd27d;">{{ tl.item_count }}</span>
+                        </button>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="btn-d2 btn-stone btn-sm" onclick="promptCreateTradeList()" style="padding: 5px 10px; font-size: 0.82rem; border-color: #6ed352; color: #a6f592;" title="{{ lang == 'en' and 'Create a new custom sales list' or 'Utwórz nową własną listę sprzedaży' }}">
+                        <span>➕ {{ lang == "en" and "New List" or "Nowa lista" }}</span>
+                    </button>
+                </div>
+
+                <!-- Active List Actions (Rename / Delete) -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+                    <span style="font-size: 0.8rem; color: #777;">
+                        {{ lang == "en" and "Active list:" or "Aktywna lista:" }} <strong style="color: #ffd27d;" id="currentActiveListNameDisplay">{{ active_trade_list }}</strong>
+                    </span>
+                    <button type="button" class="btn-d2 btn-stone btn-sm" onclick="promptRenameCurrentTradeList()" style="padding: 4px 8px; font-size: 0.76rem;" title="{{ lang == 'en' and 'Rename active list' or 'Zmień nazwę bieżącej listy' }}">
+                        <span>✏️ {{ lang == "en" and "Rename" or "Zmień nazwę" }}</span>
+                    </button>
+                    {% if trade_lists|length > 1 %}
+                    <button type="button" class="btn-d2 btn-danger btn-sm" onclick="confirmDeleteCurrentTradeList()" style="padding: 4px 8px; font-size: 0.76rem;" title="{{ lang == 'en' and 'Delete active list and all its offers' or 'Usuń bieżącą listę wraz z jej ofertami' }}">
+                        <span>🗑️ {{ lang == "en" and "Delete" or "Usuń" }}</span>
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+
             <!-- FILTERS & STATS BAR -->
             <div style="display: flex; gap: 12px; margin-bottom: 20px; background: rgba(0,0,0,0.4); padding: 12px 16px; border-radius: 4px; border: 1px solid #332a1e; align-items: center; flex-wrap: wrap;">
                 <input type="text" id="tradeSearchInput" class="input-d2" placeholder="{{ lang == "en" and "Filter offers by name, base or shorthand (e.g. Shako, Hoto, FCR, Pul)..." or "Filtruj listę ofert po nazwie, bazie lub skrócie (np. Shako, Hoto, FCR, Pul)..." }}" onkeyup="filterTradeListUI()" style="min-width: 320px; flex: 1;">
@@ -2662,6 +2700,17 @@
             </div>
             
             <div style="padding: 10px 0;">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 4px; border: 1px solid #2f281e; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 0.85rem; color: #ffd27d; font-weight: 700;">{{ lang == "en" and "Target Sales List:" or "Docelowa lista sprzedaży:" }}</span>
+                        <select id="tradeAddTargetListSelect" class="select-d2" onchange="onTargetListChangedInModal()" style="min-width: 160px; padding: 4px 8px; font-size: 0.85rem;">
+                            {% for tl in trade_lists %}
+                            <option value="{{ tl.name }}" {% if tl.name == active_trade_list %}selected{% endif %}>{{ tl.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <span style="font-size: 0.78rem; color: #888;">{{ lang == "en" and "Clicking ADD adds item to the selected list." or "Kliknięcie DODAJ dodaje przedmiot do wybranej listy." }}</span>
+                </div>
                 <input type="text" id="tradeAddSearch" class="input-d2" placeholder="{{ lang == 'en' and 'Search item by name or base...' or 'Wyszukaj przedmiot po nazwie lub bazie...' }}" onkeyup="filterTradeAddModal()" style="width: 100%; margin-bottom: 15px; box-sizing: border-box;">
                 
                 <div id="tradeAddListContainer" style="max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
@@ -2673,6 +2722,7 @@
 
     <!-- JAVASCRIPT -->
     <script>
+        window.ACTIVE_TRADE_LIST = "{{ active_trade_list or 'Główna' }}";
         const tooltip = document.getElementById('d2ItemTooltip');
         const sfxGem = document.getElementById('sfxGem');
         const sfxDrop = document.getElementById('sfxDrop');
@@ -3412,21 +3462,95 @@ async function setAppLanguage(newLang) {
         }
     
         // =========================================================================
-        // TRADE LIST JAVASCRIPT LOGIC
+        // TRADE LIST JAVASCRIPT LOGIC (MULTI-LIST SUPPORT)
         // =========================================================================
+
+        function switchTradeList(name) {
+            localStorage.setItem('active_trade_list', name);
+            let url = new URL(window.location.href);
+            url.searchParams.set('tab', 'trade');
+            url.searchParams.set('trade_list', name);
+            window.location.href = url.toString();
+        }
+
+        async function promptCreateTradeList() {
+            let name = prompt(window.APP_LANG === 'en' ? "Enter new sales list name (e.g. D2JSP, Traderie, Cheap, Runes):" : "Podaj nazwę nowej listy sprzedaży (np. D2JSP, Traderie, Tanie, Runy):");
+            if (!name || !name.trim()) return;
+            try {
+                let resp = await fetch('/api/trade/lists/create', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name: name.trim()})
+                });
+                let data = await resp.json();
+                if (data.status === 'success') {
+                    switchTradeList(name.trim());
+                } else {
+                    alert(data.message || (window.APP_LANG === 'en' ? 'Failed to create list' : 'Błąd podczas tworzenia listy'));
+                }
+            } catch(err) {
+                alert(String(err));
+            }
+        }
+
+        async function promptRenameCurrentTradeList() {
+            let current = window.ACTIVE_TRADE_LIST || 'Główna';
+            let newName = prompt(window.APP_LANG === 'en' ? `Rename list "${current}" to:` : `Zmień nazwę listy "${current}" na:`, current);
+            if (!newName || !newName.trim() || newName.trim() === current) return;
+            try {
+                let resp = await fetch('/api/trade/lists/rename', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({old_name: current, new_name: newName.trim()})
+                });
+                let data = await resp.json();
+                if (data.status === 'success') {
+                    switchTradeList(newName.trim());
+                } else {
+                    alert(data.message || (window.APP_LANG === 'en' ? 'Failed to rename list' : 'Błąd podczas zmiany nazwy listy'));
+                }
+            } catch(err) {
+                alert(String(err));
+            }
+        }
+
+        async function confirmDeleteCurrentTradeList() {
+            let current = window.ACTIVE_TRADE_LIST || 'Główna';
+            let msg = window.APP_LANG === 'en' 
+                ? `Are you sure you want to delete sales list "${current}" and all offers on this list?`
+                : `Czy na pewno chcesz usunąć listę sprzedaży "${current}" oraz wszystkie przypisane do niej oferty?`;
+            if (!confirm(msg)) return;
+            try {
+                let resp = await fetch('/api/trade/lists/delete', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name: current})
+                });
+                let data = await resp.json();
+                if (data.status === 'success') {
+                    let remaining = data.lists || [];
+                    let nextList = remaining.length > 0 ? remaining[0].name : 'Główna';
+                    switchTradeList(nextList);
+                } else {
+                    alert(data.message || (window.APP_LANG === 'en' ? 'Failed to delete list' : 'Błąd podczas usuwania listy'));
+                }
+            } catch(err) {
+                alert(String(err));
+            }
+        }
 
         async function toggleTrade(itemId, event) {
             if (event) event.stopPropagation();
             try {
-                // Check if already in trade
                 let btn = event ? event.currentTarget : null;
                 let isCurrentlyInTrade = btn ? btn.classList.contains('btn-trade-active') : false;
+                let activeList = window.ACTIVE_TRADE_LIST || 'Główna';
 
                 if (isCurrentlyInTrade) {
                     let resp = await fetch('/api/trade/remove', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({item_id: itemId})
+                        body: JSON.stringify({item_id: itemId, list_name: activeList})
                     });
                     let data = await resp.json();
                     if (data.status === 'success') {
@@ -3440,13 +3564,13 @@ async function setAppLanguage(newLang) {
                     let resp = await fetch('/api/trade/add', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({item_id: itemId, price: window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę', notes: ''})
+                        body: JSON.stringify({item_id: itemId, price: window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę', notes: '', list_name: activeList})
                     });
                     let data = await resp.json();
                     if (data.status === 'success') {
                         if (btn) {
                             btn.classList.add('btn-trade-active');
-                            btn.title = window.APP_LANG === 'en' ? "Listed for trade. Click to remove." : "Wystawiono na sprzedaż. Kliknij, aby usunąć.";
+                            btn.title = (window.APP_LANG === 'en' ? "Listed on " : "Wystawiono na liście: ") + activeList;
                         }
                         updateTradeBadges(data.trade_count);
                     }
@@ -3461,12 +3585,13 @@ async function setAppLanguage(newLang) {
             let notesEl = document.getElementById(`notes-${itemId}`);
             let price = priceEl ? priceEl.value : (window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę');
             let notes = notesEl ? notesEl.value : '';
+            let activeList = window.ACTIVE_TRADE_LIST || 'Główna';
 
             try {
                 let resp = await fetch('/api/trade/update', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({item_id: itemId, price: price, notes: notes})
+                    body: JSON.stringify({item_id: itemId, price: price, notes: notes, list_name: activeList})
                 });
                 let data = await resp.json();
                 if (data.status === 'success') {
@@ -3489,12 +3614,13 @@ async function setAppLanguage(newLang) {
         }
 
         async function removeFromTrade(itemId) {
-            if (!confirm(window.APP_LANG === 'en' ? "Are you sure you want to remove this item from the trade list?" : "Czy na pewno chcesz usunąć ten przedmiot z listy sprzedaży?")) return;
+            let activeList = window.ACTIVE_TRADE_LIST || 'Główna';
+            if (!confirm(window.APP_LANG === 'en' ? `Are you sure you want to remove this item from "${activeList}"?` : `Czy na pewno chcesz usunąć ten przedmiot z listy "${activeList}"?`)) return;
             try {
                 let resp = await fetch('/api/trade/remove', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({item_id: itemId})
+                    body: JSON.stringify({item_id: itemId, list_name: activeList})
                 });
                 let data = await resp.json();
                 if (data.status === 'success') {
@@ -3589,6 +3715,7 @@ async function setAppLanguage(newLang) {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
+                        list_name: window.ACTIVE_TRADE_LIST,
                         lang: lang,
                         include_rolls: include_rolls,
                         include_base: include_base,
@@ -3899,23 +4026,35 @@ async function setAppLanguage(newLang) {
         }
 
         async function addFromModal(itemId, btn) {
+            let targetList = document.getElementById('tradeAddTargetListSelect')?.value || window.ACTIVE_TRADE_LIST || 'Główna';
             try {
                 let resp = await fetch('/api/trade/add', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({item_id: itemId, price: window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę', notes: ''})
+                    body: JSON.stringify({
+                        item_id: itemId, 
+                        price: window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę', 
+                        notes: '',
+                        list_name: targetList
+                    })
                 });
                 let data = await resp.json();
                 if (data.status === 'success') {
                     if (btn) {
-                        let listedBadge = window.APP_LANG === 'en' ? '✓ LISTED' : '✓ WYSTAWIONY';
+                        let listedBadge = window.APP_LANG === 'en' ? `✓ LISTED (${targetList})` : `✓ WYSTAWIONY (${targetList})`;
                         btn.outerHTML = `<button class="btn-d2 btn-stone btn-sm" disabled style="opacity: 0.6; cursor: default;">${listedBadge}</button>`;
                     }
-                    updateTradeBadges(data.trade_count);
+                    if (targetList === window.ACTIVE_TRADE_LIST) {
+                        updateTradeBadges(data.trade_count);
+                    }
                 }
             } catch (err) {
                 console.error("Błąd addFromModal:", err);
             }
+        }
+
+        function onTargetListChangedInModal() {
+            // Optional callback when user switches target list in add modal
         }
 
         // Check saved trade shorthand on page load

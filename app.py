@@ -8,6 +8,7 @@ import time
 from config import PREVIEWS_DIR, SCREENSHOTS_DIR, FLASK_PORT
 from db import (
     get_trade_items, add_to_trade, remove_from_trade, update_trade_item, get_trade_count, is_in_trade,
+    get_trade_lists, create_trade_list, rename_trade_list, delete_trade_list,
     init_db, get_all_items, delete_item, insert_item,
     get_runes, get_api_summary, update_item_meta,
     get_distinct_locations, check_for_duplicate, calculate_file_hash,
@@ -158,7 +159,17 @@ def index():
     
     # Podsumowanie API i lokalizacje
     api_summary = get_api_summary()
-    trade_items = get_trade_items()
+    trade_lists = get_trade_lists()
+    trade_list_names = [tl["name"] for tl in trade_lists]
+    req_trade_list = request.args.get("trade_list", "").strip()
+    if req_trade_list and req_trade_list in trade_list_names:
+        active_trade_list = req_trade_list
+    elif trade_list_names:
+        active_trade_list = trade_list_names[0]
+    else:
+        active_trade_list = "Główna"
+
+    trade_items = get_trade_items(active_trade_list)
     trade_count = len(trade_items)
     locations = get_distinct_locations()
 
@@ -202,6 +213,8 @@ def index():
         ai_model=config.GEMINI_MODEL,
         service_running=capture_service.is_running,
         service_status=capture_service.last_status,
+        trade_lists=trade_lists,
+        active_trade_list=active_trade_list,
         trade_items=trade_items,
         trade_count=trade_count
     )
@@ -633,8 +646,51 @@ def generate_trade_export_text(trade_items: list[dict], lang: str = "pl", includ
 
 @app.route("/api/trade/list", methods=["GET"])
 def api_trade_list():
-    items = get_trade_items()
-    return jsonify({"status": "success", "count": len(items), "items": items})
+    list_name = request.args.get("list_name", "").strip() or None
+    items = get_trade_items(list_name)
+    return jsonify({"status": "success", "count": len(items), "items": items, "list_name": list_name})
+
+@app.route("/api/trade/lists", methods=["GET"])
+def api_trade_lists():
+    lists = get_trade_lists()
+    return jsonify({"status": "success", "lists": lists})
+
+@app.route("/api/trade/lists/create", methods=["POST"])
+def api_trade_lists_create():
+    data = request.get_json(force=True, silent=True) or {}
+    name = (data.get("name") or "").strip()
+    if not name:
+        return jsonify({"status": "error", "message": "Nazwa listy nie może być pusta"}), 400
+    try:
+        new_list = create_trade_list(name, data.get("description", ""))
+        return jsonify({"status": "success", "list": new_list, "lists": get_trade_lists()})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 400
+
+@app.route("/api/trade/lists/rename", methods=["POST"])
+def api_trade_lists_rename():
+    data = request.get_json(force=True, silent=True) or {}
+    old_name = (data.get("old_name") or "").strip()
+    new_name = (data.get("new_name") or "").strip()
+    if not old_name or not new_name:
+        return jsonify({"status": "error", "message": "Brak wymaganych nazw"}), 400
+    try:
+        rename_trade_list(old_name, new_name)
+        return jsonify({"status": "success", "lists": get_trade_lists()})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 400
+
+@app.route("/api/trade/lists/delete", methods=["POST"])
+def api_trade_lists_delete():
+    data = request.get_json(force=True, silent=True) or {}
+    name = (data.get("name") or "").strip()
+    if not name:
+        return jsonify({"status": "error", "message": "Brak nazwy listy"}), 400
+    try:
+        delete_trade_list(name)
+        return jsonify({"status": "success", "lists": get_trade_lists()})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 400
 
 @app.route("/api/trade/add", methods=["POST"])
 def api_trade_add():
@@ -642,19 +698,21 @@ def api_trade_add():
     item_id = data.get("item_id")
     price = data.get("price") or "Czekam na ofertę"
     notes = data.get("notes") or ""
+    list_name = data.get("list_name")
     if not item_id:
         return jsonify({"status": "error", "message": "Brak item_id"}), 400
-    add_to_trade(item_id, price, notes)
-    return jsonify({"status": "success", "trade_count": get_trade_count()})
+    add_to_trade(item_id, price, notes, list_name)
+    return jsonify({"status": "success", "trade_count": get_trade_count(list_name), "list_name": list_name})
 
 @app.route("/api/trade/remove", methods=["POST"])
 def api_trade_remove():
     data = request.get_json(force=True, silent=True) or {}
     item_id = data.get("item_id")
+    list_name = data.get("list_name")
     if not item_id:
         return jsonify({"status": "error", "message": "Brak item_id"}), 400
-    remove_from_trade(item_id)
-    return jsonify({"status": "success", "trade_count": get_trade_count()})
+    remove_from_trade(item_id, list_name)
+    return jsonify({"status": "success", "trade_count": get_trade_count(list_name), "list_name": list_name})
 
 @app.route("/api/trade/update", methods=["POST"])
 def api_trade_update():
@@ -662,9 +720,10 @@ def api_trade_update():
     item_id = data.get("item_id")
     price = data.get("price")
     notes = data.get("notes")
+    list_name = data.get("list_name")
     if not item_id:
         return jsonify({"status": "error", "message": "Brak item_id"}), 400
-    update_trade_item(item_id, price, notes)
+    update_trade_item(item_id, price, notes, list_name)
     return jsonify({"status": "success"})
 
 @app.route("/api/trade/export", methods=["POST", "GET"])
@@ -675,6 +734,7 @@ def api_trade_export():
         data = request.args.to_dict()
         
     lang = data.get("lang", "pl").lower()
+    list_name = data.get("list_name")
     include_rolls = str(data.get("include_rolls", "true")).lower() in ("true", "1", "yes")
     include_base = str(data.get("include_base", "true")).lower() in ("true", "1", "yes")
     include_sockets = str(data.get("include_sockets", "true")).lower() in ("true", "1", "yes")
@@ -682,9 +742,9 @@ def api_trade_export():
     include_notes = str(data.get("include_notes", "true")).lower() in ("true", "1", "yes")
     use_shorthand = str(data.get("use_shorthand", "false")).lower() in ("true", "1", "yes")
 
-    items = get_trade_items()
+    items = get_trade_items(list_name)
     text = '\n'.join(trade_line(it, lang, include_rolls, include_base, include_sockets, include_price, include_notes, use_shorthand=use_shorthand) for it in items)
-    return jsonify({"status": "success", "text": text, "count": len(items)})
+    return jsonify({"status": "success", "text": text, "count": len(items), "list_name": list_name})
 
 @app.route("/api/trade/online_sync", methods=["POST"])
 def api_trade_online_sync():

@@ -133,15 +133,56 @@ def init_db():
         """)
 
         con.execute("""
-        CREATE TABLE IF NOT EXISTS trade_items (
+        CREATE TABLE IF NOT EXISTS trade_lists (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            item_id TEXT NOT NULL UNIQUE,
-            price TEXT DEFAULT 'Czekam na ofertę',
-            notes TEXT DEFAULT '',
-            created_at TEXT DEFAULT (datetime('now', 'localtime')),
-            FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
+            name TEXT NOT NULL UNIQUE,
+            description TEXT DEFAULT '',
+            created_at TEXT DEFAULT (datetime('now', 'localtime'))
         )
         """)
+        con.execute("INSERT OR IGNORE INTO trade_lists (name) VALUES ('Główna')")
+
+        # Bezpieczna migracja struktury trade_items
+        table_sql = con.execute("SELECT sql FROM sqlite_master WHERE name = 'trade_items'").fetchone()
+        if not table_sql:
+            con.execute("""
+            CREATE TABLE IF NOT EXISTS trade_items (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                item_id TEXT NOT NULL,
+                list_name TEXT DEFAULT 'Główna',
+                price TEXT DEFAULT 'Czekam na ofertę',
+                notes TEXT DEFAULT '',
+                created_at TEXT DEFAULT (datetime('now', 'localtime')),
+                FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+                UNIQUE(item_id, list_name)
+            )
+            """)
+        elif "UNIQUE(item_id, list_name)" not in table_sql[0]:
+            con.execute("""
+            CREATE TABLE IF NOT EXISTS trade_items_new (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                item_id TEXT NOT NULL,
+                list_name TEXT DEFAULT 'Główna',
+                price TEXT DEFAULT 'Czekam na ofertę',
+                notes TEXT DEFAULT '',
+                created_at TEXT DEFAULT (datetime('now', 'localtime')),
+                FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+                UNIQUE(item_id, list_name)
+            )
+            """)
+            cols = [r[1] for r in con.execute("PRAGMA table_info(trade_items)").fetchall()]
+            if "list_name" in cols:
+                con.execute("""
+                INSERT OR IGNORE INTO trade_items_new (id, item_id, list_name, price, notes, created_at)
+                SELECT id, item_id, COALESCE(NULLIF(list_name, ''), 'Główna'), price, notes, created_at FROM trade_items
+                """)
+            else:
+                con.execute("""
+                INSERT OR IGNORE INTO trade_items_new (id, item_id, list_name, price, notes, created_at)
+                SELECT id, item_id, 'Główna', price, notes, created_at FROM trade_items
+                """)
+            con.execute("DROP TABLE trade_items")
+            con.execute("ALTER TABLE trade_items_new RENAME TO trade_items")
 
         con.execute("""
         CREATE TABLE IF NOT EXISTS rune_scans (
@@ -862,7 +903,9 @@ def get_all_items(quality_filter=None, search_query=None, location_filter=None, 
         sql = """
             SELECT items.*, t.id as trade_id, t.price as trade_price, t.notes as trade_notes
             FROM items
-            LEFT JOIN trade_items t ON items.id = t.item_id
+            LEFT JOIN (
+                SELECT item_id, id, price, notes FROM trade_items GROUP BY item_id
+            ) t ON items.id = t.item_id
         """
         if where:
             sql += " WHERE " + " AND ".join(where)
@@ -1116,23 +1159,85 @@ def get_all_characters() -> list[str]:
 
 
 # ==========================================
-# MODUŁ LISTY SPRZEDAŻY (TRADE LIST)
+# MODUŁ LISTY SPRZEDAŻY (TRADE LISTS)
 # ==========================================
 
-def get_trade_items() -> list[dict]:
-    """Pobiera wszystkie przedmioty wystawione na listę sprzedaży z pełnymi informacjami o przedmiocie."""
+def get_trade_lists() -> list[dict]:
+    """Pobiera wszystkie listy sprzedaży wraz z liczbą przypisanych ofert."""
     with get_db() as con:
+        con.execute("INSERT OR IGNORE INTO trade_lists (name) VALUES ('Główna')")
         rows = con.execute("""
-            SELECT t.id as trade_id, t.price as trade_price, t.notes as trade_notes, t.created_at as trade_created_at,
+            SELECT tl.id, tl.name, tl.description, tl.created_at,
+                   COUNT(ti.id) as item_count
+            FROM trade_lists tl
+            LEFT JOIN trade_items ti ON tl.name = ti.list_name
+            GROUP BY tl.id, tl.name
+            ORDER BY tl.id ASC
+        """).fetchall()
+        return [dict(r) for r in rows]
+
+def create_trade_list(name: str, description: str = "") -> dict:
+    """Tworzy nową listę sprzedaży."""
+    clean_name = name.strip()
+    if not clean_name:
+        raise ValueError("Nazwa listy nie może być pusta.")
+    with get_db() as con:
+        con.execute(
+            "INSERT INTO trade_lists (name, description) VALUES (?, ?)",
+            (clean_name, description.strip())
+        )
+        con.commit()
+        row = con.execute("SELECT * FROM trade_lists WHERE name = ?", (clean_name,)).fetchone()
+        return dict(row)
+
+def rename_trade_list(old_name: str, new_name: str) -> bool:
+    """Zmienia nazwę listy sprzedaży oraz aktualizuje przypisane przedmioty."""
+    clean_old = old_name.strip()
+    clean_new = new_name.strip()
+    if not clean_old or not clean_new:
+        raise ValueError("Nazwy nie mogą być puste.")
+    if clean_old == clean_new:
+        return True
+    with get_db() as con:
+        con.execute("UPDATE trade_lists SET name = ? WHERE name = ?", (clean_new, clean_old))
+        con.execute("UPDATE trade_items SET list_name = ? WHERE list_name = ?", (clean_new, clean_old))
+        con.commit()
+        return True
+
+def delete_trade_list(name: str) -> bool:
+    """Usuwa listę sprzedaży i przypisane do niej przedmioty (nie pozwala usunąć ostatniej listy)."""
+    clean_name = name.strip()
+    with get_db() as con:
+        count = con.execute("SELECT COUNT(*) FROM trade_lists").fetchone()[0]
+        if count <= 1:
+            raise ValueError("Nie można usunąć jedynej istniejącej listy sprzedaży.")
+        con.execute("DELETE FROM trade_items WHERE list_name = ?", (clean_name,))
+        con.execute("DELETE FROM trade_lists WHERE name = ?", (clean_name,))
+        con.commit()
+        return True
+
+def get_trade_items(list_name: str = None) -> list[dict]:
+    """Pobiera przedmioty wystawione na liście sprzedaży z pełnymi informacjami o przedmiocie."""
+    with get_db() as con:
+        target_list = list_name.strip() if list_name and list_name.strip() else None
+        if not target_list:
+            first_list = con.execute("SELECT name FROM trade_lists ORDER BY id ASC LIMIT 1").fetchone()
+            target_list = first_list[0] if first_list else "Główna"
+
+        rows = con.execute("""
+            SELECT t.id as trade_id, t.list_name, t.price as trade_price, t.notes as trade_notes, t.created_at as trade_created_at,
                    i.*
             FROM trade_items t
             JOIN items i ON t.item_id = i.id
+            WHERE t.list_name = ?
             ORDER BY t.created_at DESC
-        """).fetchall()
+        """, (target_list,)).fetchall()
+
         result = []
         for r in rows:
             it = _parse_item_row(r)
             it["trade_id"] = r["trade_id"]
+            it["trade_list_name"] = r["list_name"] or "Główna"
             it["trade_price"] = r["trade_price"] or "Czekam na ofertę"
             it["trade_notes"] = r["trade_notes"] or ""
             it["trade_created_at"] = r["trade_created_at"]
@@ -1140,25 +1245,34 @@ def get_trade_items() -> list[dict]:
             result.append(it)
         return result
 
-def add_to_trade(item_id: str, price: str = "Czekam na ofertę", notes: str = "") -> bool:
-    """Dodaje przedmiot do listy sprzedaży lub aktualizuje jego cenę."""
+def add_to_trade(item_id: str, price: str = "Czekam na ofertę", notes: str = "", list_name: str = None) -> bool:
+    """Dodaje przedmiot do wybranej listy sprzedaży lub aktualizuje jego cenę."""
     with get_db() as con:
+        target_list = list_name.strip() if list_name and list_name.strip() else None
+        if not target_list:
+            first = con.execute("SELECT name FROM trade_lists ORDER BY id ASC LIMIT 1").fetchone()
+            target_list = first[0] if first else "Główna"
+        
+        con.execute("INSERT OR IGNORE INTO trade_lists (name) VALUES (?)", (target_list,))
         con.execute("""
-            INSERT INTO trade_items (item_id, price, notes)
-            VALUES (?, ?, ?)
-            ON CONFLICT(item_id) DO UPDATE SET price = excluded.price, notes = excluded.notes
-        """, (item_id, price.strip() or "Czekam na ofertę", notes.strip()))
+            INSERT INTO trade_items (item_id, list_name, price, notes)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(item_id, list_name) DO UPDATE SET price = excluded.price, notes = excluded.notes
+        """, (item_id, target_list, price.strip() or "Czekam na ofertę", notes.strip()))
         con.commit()
         return True
 
-def remove_from_trade(item_id: str) -> bool:
-    """Usuwa przedmiot z listy sprzedaży."""
+def remove_from_trade(item_id: str, list_name: str = None) -> bool:
+    """Usuwa przedmiot z listy sprzedaży (lub ze wszystkich list, jeśli list_name nie podano)."""
     with get_db() as con:
-        con.execute("DELETE FROM trade_items WHERE item_id = ?", (item_id,))
+        if list_name:
+            con.execute("DELETE FROM trade_items WHERE item_id = ? AND list_name = ?", (item_id, list_name.strip()))
+        else:
+            con.execute("DELETE FROM trade_items WHERE item_id = ?", (item_id,))
         con.commit()
         return True
 
-def update_trade_item(item_id: str, price: str = None, notes: str = None) -> bool:
+def update_trade_item(item_id: str, price: str = None, notes: str = None, list_name: str = None) -> bool:
     """Aktualizuje cenę lub notatkę przedmiotu na liście sprzedaży."""
     with get_db() as con:
         updates = []
@@ -1170,20 +1284,30 @@ def update_trade_item(item_id: str, price: str = None, notes: str = None) -> boo
             updates.append("notes = ?")
             params.append(notes.strip())
         if updates:
+            where_clause = "WHERE item_id = ?"
             params.append(item_id)
-            con.execute(f"UPDATE trade_items SET {', '.join(updates)} WHERE item_id = ?", params)
+            if list_name:
+                where_clause += " AND list_name = ?"
+                params.append(list_name.strip())
+            con.execute(f"UPDATE trade_items SET {', '.join(updates)} {where_clause}", params)
             con.commit()
             return True
         return False
 
-def is_in_trade(item_id: str) -> bool:
+def is_in_trade(item_id: str, list_name: str = None) -> bool:
     """Sprawdza czy przedmiot znajduje się na liście sprzedaży."""
     with get_db() as con:
-        row = con.execute("SELECT 1 FROM trade_items WHERE item_id = ? LIMIT 1", (item_id,)).fetchone()
+        if list_name:
+            row = con.execute("SELECT 1 FROM trade_items WHERE item_id = ? AND list_name = ? LIMIT 1", (item_id, list_name.strip())).fetchone()
+        else:
+            row = con.execute("SELECT 1 FROM trade_items WHERE item_id = ? LIMIT 1", (item_id,)).fetchone()
         return bool(row)
 
-def get_trade_count() -> int:
+def get_trade_count(list_name: str = None) -> int:
     """Zwraca liczbę przedmiotów na liście sprzedaży."""
     with get_db() as con:
-        row = con.execute("SELECT COUNT(*) FROM trade_items").fetchone()
+        if list_name:
+            row = con.execute("SELECT COUNT(*) FROM trade_items WHERE list_name = ?", (list_name.strip(),)).fetchone()
+        else:
+            row = con.execute("SELECT COUNT(*) FROM trade_items").fetchone()
         return row[0] if row else 0
