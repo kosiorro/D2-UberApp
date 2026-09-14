@@ -358,6 +358,7 @@ def api_get_all_characters():
 
 @app.route("/api/character/wizard_listen", methods=["POST"])
 def api_wizard_listen():
+    capture_service.wizard_active = True
     capture_service.set_scan_mode("stat_screen")
     capture_service.last_stat_scan = None
     if not capture_service.is_running:
@@ -376,8 +377,9 @@ def api_wizard_poll():
 
 @app.route("/api/character/stop_gear_scan", methods=["POST"])
 def api_stop_gear_scan():
-    capture_service.set_scan_mode("normal")
-    return jsonify({"success": True, "scan_mode": "normal"})
+    capture_service.wizard_active = False
+    capture_service.set_scan_mode("stash")
+    return jsonify({"success": True, "scan_mode": "stash"})
 
 @app.route("/api/character/start_gear_scan", methods=["POST"])
 def api_start_gear_scan():

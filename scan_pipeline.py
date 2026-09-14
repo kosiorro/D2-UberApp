@@ -19,7 +19,8 @@ def run_capture(service):
         service.last_activity=dict(state=state,message=message,item_name=name,item_id=result_id,request_id=uid,timestamp=time.time(),queue_count=0)
         service._add_log(message,{'success':'Zapisano','rejected':'Odrzucono','error':'Błąd','review':'Do zatwierdzenia'}.get(state,state))
     try:
-        if mode in ('character','merc') and not get_character(character):raise ValueError('Wybierz istniejącą postać przed skanowaniem wyposażenia.')
+        if mode == 'merc' and not get_character(character):
+            raise ValueError('Wybierz istniejącą postać przed skanowaniem wyposażenia najemnika.')
         service.last_activity=dict(state='analyzing',message='Wycinam obszar odczytu i sprawdzam zawartość…',request_id=uid,timestamp=time.time())
         screen=capture_screen()
         screen.save(SCREENSHOTS_DIR/filename)
@@ -60,7 +61,10 @@ def run_capture(service):
                 else:raise ValueError('Przedmiot nie pasuje do wyposażenia najemnika.')
                 char_name=character
             elif mode=='character':
-                if not character:raise ValueError('Wybierz postać przed skanowaniem ekwipunku.')
+                active_char = character or service.current_character
+                if not active_char or not get_character(active_char):
+                    raise ValueError('Wybierz istniejącą postać przed skanowaniem ekwipunku.')
+                character = active_char
                 eq=get_character_equipment(character)
                 w_slot='weapon2' if swap else 'weapon1'
                 s_slot='shield2' if swap else 'shield1'

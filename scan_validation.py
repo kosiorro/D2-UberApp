@@ -27,8 +27,17 @@ def validate(data, mode='normal'):
     raw=data.get('raw_text')
     if not isinstance(evidence,list) or len([e for e in evidence if isinstance(e,str) and e.strip()])<1 or not isinstance(raw,str) or len(raw.strip())<6:
         raise RejectedScan('Brak wystarczających danych potwierdzających odczyt.')
-    expected={'stat_screen':'character','runes':'rune_stash','stash':'item','character':'item','merc':'item'}.get(mode)
-    if expected and kind!=expected:raise RejectedScan('Ekran nie pasuje do wybranego trybu. Wybierz Automatycznie lub właściwy cel skanowania.')
+    valid_kinds = {
+        'stat_screen': ('character', 'item'),
+        'character': ('item', 'character'),
+        'stash': ('item',),
+        'merc': ('item',),
+        'runes': ('rune_stash',),
+        'normal': ('item', 'character', 'rune_stash')
+    }
+    allowed = valid_kinds.get(mode, ('item', 'character', 'rune_stash'))
+    if kind not in allowed:
+        raise RejectedScan('Ekran nie pasuje do wybranego trybu. Wybierz właściwy cel skanowania.')
     if kind=='item':
         item=data.get('item')
         if not isinstance(item,dict):raise RejectedScan('Brak danych przedmiotu.')

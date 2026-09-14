@@ -42,7 +42,7 @@ def process_image(image_path, scan_mode='normal', request_id=''):
                 request_id=request_id
             )
 
-        hint = {'normal':'automatyczny','stat_screen':'wylacznie okno statystyk postaci','runes':'wylacznie cala zakladka run','stash':'wylacznie tooltip przedmiotu','character':'wylacznie tooltip wyposazenia postaci','merc':'wylacznie tooltip wyposazenia najemnika'}.get(scan_mode, 'automatyczny')
+        hint = {'normal':'automatyczny','stat_screen':'okno statystyk postaci lub tooltip przedmiotu','runes':'wylacznie cala zakladka run','stash':'wylacznie tooltip przedmiotu','character':'tooltip wyposazenia postaci lub okno statystyk postaci','merc':'wylacznie tooltip wyposazenia najemnika'}.get(scan_mode, 'automatyczny')
         response = get_client().models.generate_content(
             model=config.GEMINI_MODEL,
             contents=[image, PROMPT + '\nWybrany cel: ' + hint],
