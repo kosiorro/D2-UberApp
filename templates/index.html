@@ -473,6 +473,35 @@
         .badge-normal   { background: #202229; color: #b5b5b5; border: 1px solid #3c3e4a; }
         .badge-craft    { background: #3d2212; color: #f58742; border: 1px solid #824119; }
 
+        /* AUTHENTIC DIABLO 2 QUALITY COLORS */
+        .quality-unikalny, .quality-unique {
+            color: #c7b377 !important;
+            text-shadow: 0 0 10px rgba(199, 179, 119, 0.45);
+        }
+        .quality-zestaw, .quality-set {
+            color: #00ff00 !important;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+        }
+        .quality-runiczne, .quality-runeword, .quality-słowo-runiczne {
+            color: #f3b142 !important;
+            text-shadow: 0 0 10px rgba(243, 177, 66, 0.4);
+        }
+        .quality-rzadki, .quality-rare {
+            color: #ffff66 !important;
+            text-shadow: 0 0 10px rgba(255, 255, 102, 0.4);
+        }
+        .quality-magiczny, .quality-magic {
+            color: #6882ff !important;
+            text-shadow: 0 0 10px rgba(104, 130, 255, 0.4);
+        }
+        .quality-rzemieslniczy, .quality-rzemieślniczy, .quality-craft, .quality-crafted {
+            color: #ff8400 !important;
+            text-shadow: 0 0 10px rgba(255, 132, 0, 0.4);
+        }
+        .quality-normalny, .quality-normal, .quality-superior {
+            color: #f0f0f0 !important;
+        }
+
         /* MARKET VALUE BADGES */
         .badge-market {
             display: inline-flex;
@@ -483,36 +512,57 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             padding: 2px 7px;
-            border-radius: 3px;
+            border-radius: 4px;
             text-transform: uppercase;
             white-space: nowrap;
+            line-height: 1.2;
+            box-sizing: border-box;
+        }
+        .badge-market .val-symbol {
+            font-weight: 900;
+            letter-spacing: -0.5px;
         }
         .badge-market-very-high {
-            background: linear-gradient(135deg, #422904, #664107);
-            color: #ffe680;
+            background: linear-gradient(135deg, rgba(65, 42, 6, 0.95), rgba(115, 75, 10, 0.95));
+            color: #fff0a8;
             border: 1px solid #d4af37;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.45);
         }
+        .badge-market-very-high .val-symbol { color: #ffd700; }
+        
         .badge-market-high {
-            background: #352608;
+            background: linear-gradient(135deg, rgba(48, 34, 10, 0.9), rgba(85, 58, 14, 0.9));
             color: #ffd27d;
-            border: 1px solid #9e7a2b;
+            border: 1px solid #a88132;
+            box-shadow: 0 0 6px rgba(168, 129, 50, 0.3);
         }
+        .badge-market-high .val-symbol { color: #ffd27d; }
+
         .badge-market-medium {
-            background: #0d2826;
+            background: linear-gradient(135deg, rgba(10, 36, 36, 0.9), rgba(20, 60, 58, 0.9));
             color: #55eedd;
-            border: 1px solid #1c6660;
+            border: 1px solid #23857d;
+            box-shadow: 0 0 6px rgba(35, 133, 125, 0.25);
         }
+        .badge-market-medium .val-symbol { color: #55eedd; }
+
         .badge-market-low {
-            background: #1c222e;
-            color: #9cb5d9;
-            border: 1px solid #334057;
+            background: linear-gradient(135deg, rgba(24, 30, 42, 0.9), rgba(35, 45, 62, 0.9));
+            color: #a8c2e8;
+            border: 1px solid #415575;
         }
+        .badge-market-low .val-symbol { color: #8daed8; }
+
         .badge-market-trash {
-            background: rgba(45, 14, 14, 0.9);
-            color: #ff6b6b;
-            border: 1px solid #992828;
-            box-shadow: 0 0 6px rgba(255, 60, 60, 0.25);
+            background: linear-gradient(135deg, rgba(48, 14, 14, 0.95), rgba(75, 20, 20, 0.95));
+            color: #ff7777;
+            border: 1px solid #a82a2a;
+            box-shadow: 0 0 8px rgba(255, 60, 60, 0.3);
+        }
+        .badge-market-trash .trash-icon {
+            display: inline-flex;
+            align-items: center;
+            color: #ff4d4d;
         }
 
         /* ROLL EVALUATION BADGES */
@@ -867,20 +917,27 @@
             gap: 16px;
         }
         .item-card {
-            background: #101116;
+            background: #101116 radial-gradient(circle at 50% 0%, #171822 0%, #101116 100%);
             border: 1px solid #262733;
             border-radius: 6px;
-            padding: 16px;
+            padding: 14px 16px;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.2s;
+            transition: all 0.2s ease-in-out;
         }
         .item-card:hover {
             border-color: var(--gold-dark);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.85);
+            transform: translateY(-1px);
         }
+        .item-card[data-quality*="unikaln"], .item-card[data-quality*="unique"] { border-top: 2px solid #bca262; }
+        .item-card[data-quality*="zestaw"], .item-card[data-quality*="set"] { border-top: 2px solid #00cc00; }
+        .item-card[data-quality*="runiczn"], .item-card[data-quality*="runeword"] { border-top: 2px solid #d47a24; }
+        .item-card[data-quality*="rzadk"], .item-card[data-quality*="rare"] { border-top: 2px solid #cccc33; }
+        .item-card[data-quality*="magiczn"], .item-card[data-quality*="magic"] { border-top: 2px solid #4a6ee0; }
+
         .item-card-top {
             display: flex;
             gap: 14px;
@@ -898,23 +955,76 @@
             flex-shrink: 0;
             position: relative;
             cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .item-card-img-wrap:hover {
+            border-color: var(--gold-main);
         }
         .item-card-img { max-width: 90%; max-height: 90%; object-fit: contain; }
-        .item-card-details { flex: 1; }
+        .item-card-sockets-badge {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            background: rgba(10, 12, 16, 0.92);
+            border: 1px solid #3b4252;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #88c0d0;
+            padding: 1px 4px;
+            line-height: 1;
+        }
+        .item-card-details { flex: 1; min-width: 0; }
         .item-card-header-row {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             gap: 8px;
             margin-bottom: 2px;
         }
         .item-card-name {
             font-family: 'Cinzel', serif;
-            font-size: 1.05rem;
+            font-size: 1.08rem;
             font-weight: 700;
-            line-height: 1.3;
+            line-height: 1.25;
+            cursor: pointer;
+            transition: filter 0.15s;
         }
-        .item-card-base { font-size: 0.8rem; color: #8e8e96; text-transform: uppercase; }
+        .item-card-name:hover {
+            filter: brightness(1.2);
+        }
+        .item-card-subline {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+        .item-card-base-name {
+            font-size: 0.78rem;
+            color: #9da0aa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        .item-card-alt-name {
+            font-size: 0.78rem;
+            color: #71737e;
+            font-style: italic;
+        }
+        .item-card-priority {
+            margin-top: 6px;
+            font-size: 0.74rem;
+            color: #ffd27d;
+            background: rgba(45, 34, 12, 0.5);
+            border: 1px solid rgba(184, 141, 59, 0.35);
+            border-radius: 3px;
+            padding: 3px 7px;
+            line-height: 1.35;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
         .item-base-chips {
             display: flex;
@@ -1631,53 +1741,49 @@
             {% if view_mode != 'table' %}
             <div class="items-grid">
                 {% for it in items %}
-                <div class="item-card" data-item='{{ it|tojson|forceescape }}'>
+                <div class="item-card" data-item='{{ it|tojson|forceescape }}' data-quality="{{ it.quality|lower }}">
                     <div>
                         <div class="item-card-top">
                             <div class="item-card-img-wrap" onclick="openItemModal('{{ it.id }}')">
                                 <img src="{{ it.image_path }}" class="item-card-img" alt="">
+                                {% if it.sockets and it.sockets > 0 %}
+                                <span class="item-card-sockets-badge" title="{{ t('label_sockets') }}: {{ it.sockets }}">⬡ {{ it.sockets }}</span>
+                                {% endif %}
                             </div>
                             <div class="item-card-details">
                                 <div class="item-card-header-row">
-                                    <div class="item-card-name quality-{{ it.quality }}">{{ item_title(it) }}</div>
-                                    <!-- QUALITY BADGE -->
-                                    {% if it.quality == 'unikalny' %}
-                                    <span class="badge-quality badge-unique">{{ t("quality_unique") }}</span>
-                                    {% elif it.quality == 'runiczne' %}
-                                    <span class="badge-quality badge-runeword">{{ t("quality_runeword") }}</span>
-                                    {% elif it.quality == 'zestaw' %}
-                                    <span class="badge-quality badge-set">{{ t("quality_set") }}</span>
-                                    {% elif it.quality == 'rzadki' %}
-                                    <span class="badge-quality badge-rare">{{ t("quality_rare") }}</span>
-                                    {% elif it.quality == 'magiczny' %}
-                                    <span class="badge-quality badge-magic">{{ t("quality_magic") }}</span>
-                                    {% else %}
-                                    <span class="badge-quality badge-normal">{{ it.quality|upper }}</span>
-                                    {% endif %}
+                                    <div class="item-card-name quality-{{ (it.quality or 'normalny')|lower|replace(' ', '-') }}" onclick="openItemModal('{{ it.id }}')">{{ item_title(it) }}</div>
                                     {% if it.market_value %}
                                     {% set mv = it.market_value|upper %}
                                     {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">$ {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
+                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}"><span class="val-symbol">$$$</span> {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
                                     {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">$ {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
+                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}"><span class="val-symbol">$$</span> {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
                                     {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">$ {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
+                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
                                     {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">$ {{ lang == 'en' and 'Low' or 'Niska' }}</span>
+                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Low' or 'Niska' }}</span>
                                     {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">🗑️ {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
+                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}"><span class="trash-icon">🗑️</span> {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
                                     {% else %}
-                                    <span class="badge-market badge-market-medium">$ {{ it.market_value }}</span>
+                                    <span class="badge-market badge-market-medium"><span class="val-symbol">$</span> {{ it.market_value }}</span>
                                     {% endif %}
                                     {% endif %}
                                 </div>
-                                {% if lang == 'en' and it.name and it.name != it.name_en and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
-                                <div style="font-size: 0.8rem; color: #aaa;">{{ it.name }}</div>
-                                {% elif lang != 'en' and it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
-                                <div style="font-size: 0.8rem; color: #aaa;">{{ it.name_en }}</div>
-                                {% endif %}
-                                {% if (it.display_name or it.name) != it.base and it.base %}
-                                <div class="item-card-base">{{ it.base }}</div>
+                                <div class="item-card-subline">
+                                    {% if (it.display_name or it.name) != it.base and it.base %}
+                                    <span class="item-card-base-name">{{ it.base }}</span>
+                                    {% endif %}
+                                    {% if lang == 'en' and it.name and it.name != it.name_en and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                    <span class="item-card-alt-name">({{ it.name }})</span>
+                                    {% elif lang != 'en' and it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
+                                    <span class="item-card-alt-name">({{ it.name_en }})</span>
+                                    {% endif %}
+                                </div>
+                                {% if it.stat_priority %}
+                                <div class="item-card-priority" title="{{ t('stat_priority_label') }}">
+                                    <span>🎯</span> <strong>{{ it.stat_priority }}</strong>
+                                </div>
                                 {% endif %}
 
                                 <!-- BASE STATS CHIPS -->
@@ -1687,7 +1793,6 @@
                                     {% if it.level_req %}<span class="chip">{{ t("chip_level", val=it.level_req) }}</span>{% endif %}
                                     {% if it.req_str %}<span class="chip">{{ t("chip_str", val=it.req_str) }}</span>{% endif %}
                                     {% if it.req_dex %}<span class="chip">{{ t("chip_dex", val=it.req_dex) }}</span>{% endif %}
-                                    {% if it.sockets and it.sockets > 0 %}<span class="chip">{{ t("label_sockets") }} {{ it.sockets }}</span>{% endif %}
                                 </div>
                             </div>
                         </div>
@@ -1741,7 +1846,7 @@
                         <tr>
                             <th>{{ lang == "en" and "ICON" or "GRAFIKA" }}</th>
                             <th>{{ lang == "en" and "NAME" or "NAZWA" }}</th>
-                            <th>{{ lang == "en" and "TYPE" or "RODZAJ" }}</th>
+                            <th>{{ lang == "en" and "VALUE" or "WARTOŚĆ" }}</th>
                             <th>{{ lang == "en" and "BASE" or "BAZA" }}</th>
                             <th>{{ t("th_table_def_dmg") }}</th>
                             <th>{{ lang == "en" and "REQS" or "WYMOGI" }}</th>
@@ -1757,7 +1862,7 @@
                                 <img src="{{ it.image_path }}" style="width: 32px; height: 32px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
                             </td>
                             <td>
-                                <strong class="quality-{{ it.quality }}">{{ item_title(it) }}</strong>
+                                <strong class="quality-{{ (it.quality or 'normalny')|lower|replace(' ', '-') }}" style="cursor: pointer;" onclick="openItemModal('{{ it.id }}')">{{ item_title(it) }}</strong>
                                 {% if lang == 'en' and it.name and it.name != it.name_en %}
                                 <div style="font-size: 0.75rem; color: #888;">{{ it.name }}</div>
                                 {% elif (it.display_name or it.name) != it.name %}
@@ -1767,39 +1872,26 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
-                                    {% if it.quality == 'unikalny' %}
-                                    <span class="badge-quality badge-unique">{{ t("quality_unique") }}</span>
-                                    {% elif it.quality == 'runiczne' %}
-                                    <span class="badge-quality badge-runeword">{{ t("quality_runeword") }}</span>
-                                    {% elif it.quality == 'zestaw' %}
-                                    <span class="badge-quality badge-set">{{ t("quality_set") }}</span>
-                                    {% elif it.quality == 'rzadki' %}
-                                    <span class="badge-quality badge-rare">{{ t("quality_rare") }}</span>
-                                    {% elif it.quality == 'magiczny' %}
-                                    <span class="badge-quality badge-magic">{{ t("quality_magic") }}</span>
-                                    {% else %}
-                                    <span class="badge-quality badge-normal">{{ it.quality|upper }}</span>
-                                    {% endif %}
-                                    {% if it.market_value %}
-                                    {% set mv = it.market_value|upper %}
-                                    {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">$ {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
-                                    {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">$ {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
-                                    {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">$ {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
-                                    {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">$ {{ lang == 'en' and 'Low' or 'Niska' }}</span>
-                                    {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">🗑️ {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
-                                    {% else %}
-                                    <span class="badge-market badge-market-medium">$ {{ it.market_value }}</span>
-                                    {% endif %}
-                                    {% endif %}
-                                </div>
+                                {% if it.market_value %}
+                                {% set mv = it.market_value|upper %}
+                                {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
+                                <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}"><span class="val-symbol">$$$</span> {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
+                                {% elif mv in ('HIGH', 'WYSOKA') %}
+                                <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}"><span class="val-symbol">$$</span> {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
+                                {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
+                                <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
+                                {% elif mv in ('LOW', 'NISKA') %}
+                                <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Low' or 'Niska' }}</span>
+                                {% elif mv in ('TRASH', 'ZNIKOMA') %}
+                                <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}"><span class="trash-icon">🗑️</span> {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
+                                {% else %}
+                                <span class="badge-market badge-market-medium"><span class="val-symbol">$</span> {{ it.market_value }}</span>
+                                {% endif %}
+                                {% else %}
+                                <span style="color: #666; font-size: 0.8rem;">—</span>
+                                {% endif %}
                             </td>
-                            <td>{{ it.base }}</td>
+                            <td>{{ it.base }}{% if it.sockets and it.sockets > 0 %} <span style="color: #88c0d0; font-size: 0.78rem; font-weight: 600;">(⬡{{ it.sockets }})</span>{% endif %}</td>
                             <td>{{ it.defense or it.damage or '—' }}</td>
                             <td>Lvl {{ it.level_req or 1 }}{% if it.req_str %}, Str {{ it.req_str }}{% endif %}</td>
                             <td>
@@ -2122,8 +2214,8 @@
                                 <img src="{{ it.image_path }}" style="width: 38px; height: 38px; object-fit: contain; cursor: pointer;" onclick="openItemModal('{{ it.id }}')" alt="">
                             </td>
                             <td>
-                                <strong class="quality-{{ it.quality }} trade-name-standard" style="font-size: 0.95rem; cursor: pointer;" onclick="openItemModal('{{ it.id }}')">{{ item_title(it) }}</strong>
-                                <strong class="quality-{{ it.quality }} trade-name-shorthand" style="font-size: 0.95rem; cursor: pointer; display: none;" onclick="openItemModal('{{ it.id }}')">{{ it.colloquial_name or item_title(it) }}</strong>
+                                <strong class="quality-{{ (it.quality or 'normalny')|lower|replace(' ', '-') }} trade-name-standard" style="font-size: 0.95rem; cursor: pointer;" onclick="openItemModal('{{ it.id }}')">{{ item_title(it) }}</strong>
+                                <strong class="quality-{{ (it.quality or 'normalny')|lower|replace(' ', '-') }} trade-name-shorthand" style="font-size: 0.95rem; cursor: pointer; display: none;" onclick="openItemModal('{{ it.id }}')">{{ it.colloquial_name or item_title(it) }}</strong>
                                 {% if lang == 'en' and it.name and it.name != it.name_en and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
                                 <div class="trade-name-en" style="font-size: 0.78rem; color: #888;">{{ it.name }}</div>
                                 {% elif lang != 'en' and it.name_en and it.name_en != it.name and it.quality in ('unikalny', 'zestaw', 'runiczne') %}
@@ -2132,33 +2224,20 @@
                             </td>
                             <td>
                                 <div style="margin-bottom: 4px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center;">
-                                    {% if it.quality == 'unikalny' %}
-                                    <span class="badge-quality badge-unique">{{ t("quality_unique") }}</span>
-                                    {% elif it.quality == 'runiczne' or 'słowo' in it.quality %}
-                                    <span class="badge-quality badge-runeword">{{ t("quality_runeword") }}</span>
-                                    {% elif it.quality == 'zestaw' %}
-                                    <span class="badge-quality badge-set">{{ t("quality_set") }}</span>
-                                    {% elif it.quality == 'rzadki' %}
-                                    <span class="badge-quality badge-rare">{{ t("quality_rare") }}</span>
-                                    {% elif it.quality == 'magiczny' %}
-                                    <span class="badge-quality badge-magic">{{ t("quality_magic") }}</span>
-                                    {% else %}
-                                    <span class="badge-quality badge-normal">{{ it.quality|upper }}</span>
-                                    {% endif %}
                                     {% if it.market_value %}
                                     {% set mv = it.market_value|upper %}
                                     {% if mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}">$ {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
+                                    <span class="badge-market badge-market-very-high" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość rynkowa: Bardzo Wysoka' }}"><span class="val-symbol">$$$</span> {{ lang == 'en' and 'Very High' or 'Bardzo Wysoka' }}</span>
                                     {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}">$ {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
+                                    <span class="badge-market badge-market-high" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość rynkowa: Wysoka' }}"><span class="val-symbol">$$</span> {{ lang == 'en' and 'High' or 'Wysoka' }}</span>
                                     {% elif mv in ('MEDIUM', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}">$ {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
+                                    <span class="badge-market badge-market-medium" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość rynkowa: Średnia' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Medium' or 'Średnia' }}</span>
                                     {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}">$ {{ lang == 'en' and 'Low' or 'Niska' }}</span>
+                                    <span class="badge-market badge-market-low" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość rynkowa: Niska' }}"><span class="val-symbol">$</span> {{ lang == 'en' and 'Low' or 'Niska' }}</span>
                                     {% elif mv in ('TRASH', 'ZNIKOMA') %}
-                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}">🗑️ {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
+                                    <span class="badge-market badge-market-trash" title="{{ lang == 'en' and 'Estimated Market Value: Trash' or 'Szacowana wartość rynkowa: Znikoma' }}"><span class="trash-icon">🗑️</span> {{ lang == 'en' and 'Trash' or 'Znikoma' }}</span>
                                     {% else %}
-                                    <span class="badge-market badge-market-medium">$ {{ it.market_value }}</span>
+                                    <span class="badge-market badge-market-medium"><span class="val-symbol">$</span> {{ it.market_value }}</span>
                                     {% endif %}
                                     {% endif %}
                                 </div>
@@ -2821,39 +2900,45 @@ async function setAppLanguage(newLang) {
         function renderItemModalContent(it) {
             let isNonNamed = ['normalny', 'normal', 'superior', 'magiczny', 'magic', 'rzadki', 'rare'].includes((it.quality || '').toLowerCase());
             let title = (window.APP_LANG === 'en' && it.name_en) ? it.name_en : (isNonNamed ? (it.display_name || it.base || it.name) : (it.display_name || it.name));
-            document.getElementById('modalItemTitle').textContent = `${title} (${it.base || it.quality})`;
+            let qClass = (it.quality || 'normalny').toLowerCase().replace(/\s+/g, '-');
+            
+            let modalTitleEl = document.getElementById('modalItemTitle');
+            if (modalTitleEl) {
+                modalTitleEl.className = `panel-title quality-${qClass}`;
+                modalTitleEl.textContent = `${title}${it.base && it.base !== title ? ` (${it.base})` : ''}`;
+            }
             
             let marketValueHtml = '';
             if (it.market_value) {
                 let mv = String(it.market_value).toUpperCase();
                 let cls = 'badge-market-medium';
-                let icon = '$';
+                let iconHtml = '<span class="val-symbol">$</span>';
                 let label = it.market_value;
                 if (mv.includes('VERY') || mv.includes('BARDZO')) {
                     cls = 'badge-market-very-high';
-                    icon = '$';
+                    iconHtml = '<span class="val-symbol">$$$</span>';
                     label = (window.APP_LANG === 'en') ? 'Very High' : 'Bardzo Wysoka';
                 } else if (mv === 'HIGH' || mv === 'WYSOKA') {
                     cls = 'badge-market-high';
-                    icon = '$';
+                    iconHtml = '<span class="val-symbol">$$</span>';
                     label = (window.APP_LANG === 'en') ? 'High' : 'Wysoka';
                 } else if (mv === 'MEDIUM' || mv.includes('SRED') || mv.includes('ŚRED')) {
                     cls = 'badge-market-medium';
-                    icon = '$';
+                    iconHtml = '<span class="val-symbol">$</span>';
                     label = (window.APP_LANG === 'en') ? 'Medium' : 'Średnia';
                 } else if (mv === 'LOW' || mv === 'NISKA') {
                     cls = 'badge-market-low';
-                    icon = '$';
+                    iconHtml = '<span class="val-symbol">$</span>';
                     label = (window.APP_LANG === 'en') ? 'Low' : 'Niska';
                 } else if (mv === 'TRASH' || mv.includes('ZNIK')) {
                     cls = 'badge-market-trash';
-                    icon = '🗑️';
+                    iconHtml = '<span class="trash-icon">🗑️</span>';
                     label = (window.APP_LANG === 'en') ? 'Trash' : 'Znikoma';
                 }
                 marketValueHtml = `
                     <div style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08);">
                         <span style="font-size: 0.78rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px;">${window.I18N.market_value_label}:</span>
-                        <span class="badge-market ${cls}">${icon} ${label}</span>
+                        <span class="badge-market ${cls}">${iconHtml} ${label}</span>
                     </div>
                 `;
             }
@@ -2915,12 +3000,12 @@ async function setAppLanguage(newLang) {
                     </button>
                 </div>
                 <div>
-                    <div style="font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold-bright);">
-                        ${title} ${(!isNonNamed && it.name_en && it.name_en !== it.name) ? (window.APP_LANG === 'en' ? `(${it.name})` : `(${it.name_en})`) : ''}
+                    <div class="quality-${qClass}" style="font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 700;">
+                        ${title} ${(!isNonNamed && it.name_en && it.name_en !== it.name) ? (window.APP_LANG === 'en' ? `<span style="font-size: 0.9rem; font-weight: normal; font-style: italic; opacity: 0.8;">(${it.name})</span>` : `<span style="font-size: 0.9rem; font-weight: normal; font-style: italic; opacity: 0.8;">(${it.name_en})</span>`) : ''}
                     </div>
                     ${(isNonNamed && it.name && it.name !== title) ? `<div style="font-size: 0.82rem; color: #888; margin-top: 3px;">${window.I18N.affix_name}: ${it.name}</div>` : ''}
-                    <div style="font-size: 0.85rem; color: #888; text-transform: uppercase; margin-top: 4px;">
-                        ${it.quality} • ${it.base}
+                    <div style="font-size: 0.85rem; color: #9da0aa; text-transform: uppercase; margin-top: 4px; letter-spacing: 0.5px; font-weight: 600;">
+                        ${it.base || ''}
                     </div>
                     ${marketValueHtml}
 
@@ -2930,7 +3015,7 @@ async function setAppLanguage(newLang) {
                         ${it.level_req ? `<span class="chip">${window.I18N.req_level} ${it.level_req}</span>` : ''}
                         ${it.req_str ? `<span class="chip">${window.I18N.req_str} ${it.req_str}</span>` : ''}
                         ${it.req_dex ? `<span class="chip">${window.I18N.req_dex} ${it.req_dex}</span>` : ''}
-                        ${it.sockets ? `<span class="chip">${window.I18N.sockets} ${it.sockets}</span>` : ''}
+                        ${it.sockets ? `<span class="chip">⬡ ${window.I18N.sockets} ${it.sockets}</span>` : ''}
                     </div>
 
                     ${rollsHtml}
