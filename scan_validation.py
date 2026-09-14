@@ -17,6 +17,39 @@ Zwróć WYŁĄCZNIE ten JSON.'''
 def normalized(value):
     return re.sub(r'\s+',' ',''.join(c for c in unicodedata.normalize('NFKD',str(value).casefold().replace('ł','l')) if not unicodedata.combining(c))).strip()
 
+def _text_match_loose(needle, haystack):
+    n_needle = normalized(needle)
+    n_haystack = normalized(haystack)
+    if not n_needle:
+        return False
+    if n_needle in n_haystack:
+        return True
+    def fold_d2_digraphs(s):
+        s = s.replace('si', 's').replace('zi', 'z').replace('ci', 'c').replace('ni', 'n')
+        return re.sub(r'[^a-z0-9]', '', s)
+    f_needle = fold_d2_digraphs(n_needle)
+    f_haystack = fold_d2_digraphs(n_haystack)
+    if f_needle and (f_needle in f_haystack):
+        return True
+    words = [w for w in re.findall(r'[a-z0-9]+', n_needle) if len(w) >= 3]
+    if words and all(w in n_haystack or fold_d2_digraphs(w) in f_haystack for w in words):
+        return True
+    return False
+
+def _is_name_confirmed(name, item, raw, evidence):
+    if _text_match_loose(name, raw):
+        return True
+    name_en = item.get('name_en')
+    if name_en and _text_match_loose(name_en, raw):
+        return True
+    for ev in evidence:
+        if isinstance(ev, str) and (_text_match_loose(name, ev) or (name_en and _text_match_loose(name_en, ev))):
+            return True
+    base = item.get('base')
+    if base and _text_match_loose(base, raw) and item.get('quality') in ('normalny', 'rzadki', 'magiczny'):
+        return True
+    return False
+
 def validate(data, mode='normal'):
     if not isinstance(data,dict):raise RejectedScan('Odpowiedź nie zawiera obiektu rozpoznania.')
     kind=data.get('type')
@@ -42,7 +75,7 @@ def validate(data, mode='normal'):
         item=data.get('item')
         if not isinstance(item,dict):raise RejectedScan('Brak danych przedmiotu.')
         name=item.get('name')
-        if not isinstance(name,str) or len(name.strip())<2 or normalized(name) in ('unknown','nieznany','przedmiot','item','none','null') or normalized(name) not in normalized(raw):
+        if not isinstance(name,str) or len(name.strip())<2 or normalized(name) in ('unknown','nieznany','przedmiot','item','none','null') or not _is_name_confirmed(name, item, raw, evidence):
             raise RejectedScan('Nazwa przedmiotu nie jest potwierdzona w odczytanym opisie.')
         if item.get('slot') not in ('head','armor','shield','weapon','gloves','belt','boots','amulet','ring','charm','misc'):
             raise RejectedScan('Nie rozpoznano rodzaju przedmiotu.')

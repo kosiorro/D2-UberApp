@@ -23,7 +23,7 @@ def process_image(image_path, scan_mode='normal', request_id=''):
         with Image.open(image_path) as original:
             image = original.convert('RGB')
 
-        is_rune_grid = (scan_mode == 'runes') or (460 <= image.width <= 480 and 250 <= image.height <= 275)
+        is_rune_grid = (scan_mode == 'runes')
         if is_rune_grid:
             from rune_processor import read_rune_stash
             runes_dict, prompt_tokens, output_tokens = read_rune_stash(image, get_client(), config.GEMINI_MODEL)

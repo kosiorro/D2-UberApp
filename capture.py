@@ -88,6 +88,72 @@ def capture_screen() -> Image.Image:
     user32.ReleaseDC(0, hdc_screen)
     return image
 
+def _detect_text_cluster_tooltip(arr, mode='normal'):
+    h, w, _ = arr.shape
+    is_bright = (np.max(arr, axis=2) >= 70) & (np.min(arr, axis=2) >= 8)
+    is_bright[:45, :] = False
+    is_bright[h-80:, :] = False
+    is_bright[:, :40] = False
+    is_bright[:, w-40:] = False
+
+    lines = []
+    for y in range(45, h - 80):
+        cols = np.where(is_bright[y])[0]
+        if len(cols) >= 12:
+            diffs = np.diff(cols)
+            splits = np.where(diffs > 35)[0] + 1
+            for g in np.split(cols, splits):
+                if len(g) >= 12 and (g[-1] - g[0]) >= 40:
+                    lines.append((y, g[0], g[-1], (g[0] + g[-1]) / 2, g[-1] - g[0]))
+
+    if not lines:
+        return None
+
+    clusters = []
+    for l in lines:
+        y, x0, x1, xc, width = l
+        matched = False
+        for c in clusters:
+            last_l = c[-1]
+            gap = y - last_l[0]
+            if 1 <= gap <= 32 and abs(xc - c[0][3]) <= 40:
+                c.append(l)
+                matched = True
+                break
+        if not matched:
+            clusters.append([l])
+
+    best_cluster_crop = None
+    best_cluster_score = 0
+    for c in clusters:
+        rows = sorted(set(l[0] for l in c))
+        if len(rows) >= 28:
+            ymin = min(rows)
+            ymax = max(rows)
+            height = ymax - ymin
+            if 45 <= height <= int(h * 0.70):
+                xmin = min(l[1] for l in c)
+                xmax = max(l[2] for l in c)
+                width = xmax - xmin
+                if 80 <= width <= int(w * 0.70):
+                    pad_x = 35
+                    pad_y = 25
+                    bx = max(0, xmin - pad_x)
+                    by = max(0, ymin - pad_y)
+                    bw = min(w - bx, width + 2 * pad_x)
+                    bh = min(h - by, height + 2 * pad_y)
+                    sub = arr[by:by+bh, bx:bx+bw]
+                    dark_ratio = np.mean(np.max(sub, axis=2) <= 30)
+                    text_ratio = np.mean(np.max(sub, axis=2) >= 70)
+                    if dark_ratio >= 0.35 and 0.01 <= text_ratio <= 0.35:
+                        score = len(rows) * width
+                        if score > best_cluster_score:
+                            best_cluster_score = score
+                            best_cluster_crop = (int(bx), int(by), int(bw), int(bh))
+
+    return best_cluster_crop
+
+
 def _detect_dark_tooltip_rectangle(arr):
     h, w, _ = arr.shape
     is_dark = np.max(arr, axis=2) <= 24
@@ -127,12 +193,14 @@ def _detect_dark_tooltip_rectangle(arr):
     best_score = 0
     
     for s_bin, runs in by_start.items():
+        if s_bin <= 20: # Exclude extreme screen bezels
+            continue
         if len(runs) >= 35:
             runs_y = [r[0] for r in runs]
             ymin = min(runs_y)
             ymax = max(runs_y)
             height = ymax - ymin
-            if height >= 55 and len(runs) / height >= 0.50:
+            if 55 <= height <= int(h * 0.70) and len(runs) / height >= 0.50:
                 s_val = int(np.median([r[1] for r in runs]))
                 e_val = int(np.median([r[2] for r in runs]))
                 width = e_val - s_val
@@ -155,7 +223,7 @@ def _detect_dark_tooltip_rectangle(arr):
     return best_candidate
 
 
-def find_tooltip_crop(img: Image.Image, strict=False) -> tuple[int, int, int, int] | None:
+def find_tooltip_crop(img: Image.Image, strict=False, mode='normal') -> tuple[int, int, int, int] | None:
     arr = np.array(img.convert("RGB"))
     h, w, _ = arr.shape
     
@@ -173,7 +241,7 @@ def find_tooltip_crop(img: Image.Image, strict=False) -> tuple[int, int, int, in
         ends = np.where(diff == -1)[0]
         for s, e in zip(starts, ends):
             length = e - s
-            if length >= min_len:
+            if length >= min_len and s >= 15 and s + length <= w - 15:
                 pix = row[s + length // 2]
                 r, g, b = int(pix[0]), int(pix[1]), int(pix[2])
                 if 20 <= r <= 130 and abs(r - g) <= 20 and abs(g - b) <= 20:
@@ -184,22 +252,31 @@ def find_tooltip_crop(img: Image.Image, strict=False) -> tuple[int, int, int, in
     for i, (y1, s1, l1) in enumerate(edges):
         for y2, s2, l2 in edges[i+1:]:
             height = y2 - y1
-            if 65 <= height <= int(h * 0.90):
+            if 65 <= height <= int(h * 0.70):
                 if abs(s1 - s2) <= 12 and abs(l1 - l2) <= 18:
                     area = min(l1, l2) * height
                     if area > best_area:
-                        best_area = area
-                        best = (int(min(s1, s2)), int(y1), int(min(l1, l2)), int(height))
+                        bx, by, bw, bh = (int(min(s1, s2)), int(y1), int(min(l1, l2)), int(height))
+                        sub = arr[by+5:by+bh-5, bx+5:bx+bw-5]
+                        if sub.size > 0:
+                            dark_ratio = np.mean(np.max(sub, axis=2) < 32)
+                            text_ratio = np.mean(np.max(sub, axis=2) >= 70)
+                            if dark_ratio > 0.40 and 0.01 <= text_ratio <= 0.35:
+                                best_area = area
+                                best = (bx, by, bw, bh)
                         
     if best:
-        bx, by, bw, bh = best
-        sub = arr[by+5:by+bh-5, bx+5:bx+bw-5]
-        if sub.size > 0:
-            dark_ratio = np.mean(np.max(sub, axis=2) < 32)
-            if dark_ratio > 0.40:
-                return best
+        return best
 
-    # 2. Dark / borderless tooltip rectangle detector (equipped gear, grief, runewords)
+    if strict or mode == 'stash':
+        return None
+
+    # 2. Text cluster detector for equipped / borderless items (character & mercenary)
+    cluster_box = _detect_text_cluster_tooltip(arr, mode=mode)
+    if cluster_box:
+        return cluster_box
+
+    # 3. Dark / borderless tooltip rectangle detector
     dark_box = _detect_dark_tooltip_rectangle(arr)
     if dark_box:
         return dark_box

@@ -17,7 +17,7 @@ def _check_rune_grid_presence(screen):
     if width == 1920 and height == 1080:
         score_236 = np.abs(arr[236, 175:175+468, :3].mean(axis=1) - 58).mean()
         score_207 = np.abs(arr[207, 175:175+468, :3].mean(axis=1) - 58).mean()
-        return min(score_236, score_207) < 8.0
+        return min(score_236, score_207) < 15.0
     return False
 
 def crop_for_ai(screen, mode):
@@ -69,7 +69,7 @@ def crop_for_ai(screen, mode):
             "Kliknij przycisk '💎 Runy', aby zapisać stan run."
         )
 
-    box = find_tooltip_crop(screen)
+    box = find_tooltip_crop(screen, mode=mode)
     if not box:
         raise ValueError(
             f"Odrzucono: Nie wykryto opisu przedmiotu (ramki tooltip) dla trybu '{mode_name}'. "
