@@ -6,7 +6,7 @@ import winsound
 from ctypes import wintypes
 from pathlib import Path
 from PIL import Image
-import numpy as np
+from tooltip_detection import find_tooltip_crop
 
 from config import SCREENSHOTS_DIR, PREVIEWS_DIR
 import config
@@ -69,6 +69,8 @@ def capture_screen() -> Image.Image:
     hbmp = gdi32.CreateCompatibleBitmap(hdc_screen, width, height)
     gdi32.SelectObject(hdc_mem, hbmp)
     
+    cursor = wintypes.POINT()
+    has_cursor = user32.GetCursorPos(ctypes.byref(cursor))
     gdi32.BitBlt(hdc_mem, 0, 0, width, height, hdc_screen, 0, 0, 0x00CC0020)
     
     bmi = BITMAPINFOHEADER()
@@ -86,202 +88,9 @@ def capture_screen() -> Image.Image:
     gdi32.DeleteObject(hbmp)
     gdi32.DeleteDC(hdc_mem)
     user32.ReleaseDC(0, hdc_screen)
+    if has_cursor:
+        image.info['cursor'] = (cursor.x, cursor.y)
     return image
-
-def _detect_text_cluster_tooltip(arr, mode='normal'):
-    h, w, _ = arr.shape
-    is_bright = (np.max(arr, axis=2) >= 70) & (np.min(arr, axis=2) >= 8)
-    is_bright[:45, :] = False
-    is_bright[h-80:, :] = False
-    is_bright[:, :40] = False
-    is_bright[:, w-40:] = False
-
-    lines = []
-    for y in range(45, h - 80):
-        cols = np.where(is_bright[y])[0]
-        if len(cols) >= 12:
-            diffs = np.diff(cols)
-            splits = np.where(diffs > 35)[0] + 1
-            for g in np.split(cols, splits):
-                if len(g) >= 12 and (g[-1] - g[0]) >= 40:
-                    lines.append((y, g[0], g[-1], (g[0] + g[-1]) / 2, g[-1] - g[0]))
-
-    if not lines:
-        return None
-
-    clusters = []
-    for l in lines:
-        y, x0, x1, xc, width = l
-        matched = False
-        for c in clusters:
-            last_l = c[-1]
-            gap = y - last_l[0]
-            if 1 <= gap <= 32 and abs(xc - c[0][3]) <= 40:
-                c.append(l)
-                matched = True
-                break
-        if not matched:
-            clusters.append([l])
-
-    best_cluster_crop = None
-    best_cluster_score = 0
-    for c in clusters:
-        rows = sorted(set(l[0] for l in c))
-        if len(rows) >= 28:
-            ymin = min(rows)
-            ymax = max(rows)
-            height = ymax - ymin
-            if 45 <= height <= int(h * 0.70):
-                xmin = min(l[1] for l in c)
-                xmax = max(l[2] for l in c)
-                width = xmax - xmin
-                if 80 <= width <= int(w * 0.70):
-                    pad_x = 35
-                    pad_y = 25
-                    bx = max(0, xmin - pad_x)
-                    by = max(0, ymin - pad_y)
-                    bw = min(w - bx, width + 2 * pad_x)
-                    bh = min(h - by, height + 2 * pad_y)
-                    sub = arr[by:by+bh, bx:bx+bw]
-                    dark_ratio = np.mean(np.max(sub, axis=2) <= 30)
-                    text_ratio = np.mean(np.max(sub, axis=2) >= 70)
-                    if dark_ratio >= 0.35 and 0.01 <= text_ratio <= 0.35:
-                        score = len(rows) * width
-                        if score > best_cluster_score:
-                            best_cluster_score = score
-                            best_cluster_crop = (int(bx), int(by), int(bw), int(bh))
-
-    return best_cluster_crop
-
-
-def _detect_dark_tooltip_rectangle(arr):
-    h, w, _ = arr.shape
-    is_dark = np.max(arr, axis=2) <= 24
-    row_runs = []
-    min_w = int(w * 0.10)
-    
-    # Exclude title bar (y < 45) and bottom HUD (y > h - 80)
-    for y in range(45, h - 80):
-        row = is_dark[y]
-        diff = np.diff(np.pad(row.astype(np.int8), (1, 1)))
-        starts = np.where(diff == 1)[0]
-        ends = np.where(diff == -1)[0]
-        
-        merged = []
-        for s, e in zip(starts, ends):
-            if not merged:
-                merged.append([s, e])
-            else:
-                if s - merged[-1][1] <= 24: # text gap
-                    merged[-1][1] = e
-                else:
-                    merged.append([s, e])
-        for s, e in merged:
-            if (e - s) >= min_w:
-                row_runs.append((y, s, e))
-                
-    if not row_runs:
-        return None
-        
-    from collections import defaultdict
-    by_start = defaultdict(list)
-    for y, s, e in row_runs:
-        s_bin = round(s / 20) * 20
-        by_start[s_bin].append((y, s, e))
-        
-    best_candidate = None
-    best_score = 0
-    
-    for s_bin, runs in by_start.items():
-        if s_bin <= 20: # Exclude extreme screen bezels
-            continue
-        if len(runs) >= 35:
-            runs_y = [r[0] for r in runs]
-            ymin = min(runs_y)
-            ymax = max(runs_y)
-            height = ymax - ymin
-            if 55 <= height <= int(h * 0.70) and len(runs) / height >= 0.50:
-                s_val = int(np.median([r[1] for r in runs]))
-                e_val = int(np.median([r[2] for r in runs]))
-                width = e_val - s_val
-                
-                # Exclude edge bezels
-                if s_val >= int(w * 0.82) or width < 200:
-                    continue
-                
-                sub = arr[ymin:ymax, s_val:e_val]
-                text_mask = np.max(sub, axis=2) >= 70
-                text_ratio = np.mean(text_mask)
-                dark_ratio = np.mean(np.max(sub, axis=2) <= 26)
-                
-                if 0.01 <= text_ratio <= 0.35 and dark_ratio >= 0.35:
-                    score = width * height
-                    if score > best_score:
-                        best_score = score
-                        best_candidate = (s_val, ymin, width, height)
-                        
-    return best_candidate
-
-
-def find_tooltip_crop(img: Image.Image, strict=False, mode='normal') -> tuple[int, int, int, int] | None:
-    arr = np.array(img.convert("RGB"))
-    h, w, _ = arr.shape
-    
-    # 1. Framed tooltip detector (horizontal edge lines with gray border)
-    edges = []
-    min_len = int(w * 0.10)
-    
-    # Exclude title bar (y < 45) and bottom HUD (y > h - 80)
-    for y in range(45, h - 80):
-        row = arr[y]
-        diffs = np.max(np.abs(np.diff(row.astype(int), axis=0)), axis=1)
-        run_mask = diffs <= 2
-        diff = np.diff(np.pad(run_mask.astype(np.int8), (1, 1)))
-        starts = np.where(diff == 1)[0]
-        ends = np.where(diff == -1)[0]
-        for s, e in zip(starts, ends):
-            length = e - s
-            if length >= min_len and s >= 15 and s + length <= w - 15:
-                pix = row[s + length // 2]
-                r, g, b = int(pix[0]), int(pix[1]), int(pix[2])
-                if 20 <= r <= 130 and abs(r - g) <= 20 and abs(g - b) <= 20:
-                    edges.append((y, s, length))
-                    
-    best = None
-    best_area = 0
-    for i, (y1, s1, l1) in enumerate(edges):
-        for y2, s2, l2 in edges[i+1:]:
-            height = y2 - y1
-            if 65 <= height <= int(h * 0.70):
-                if abs(s1 - s2) <= 12 and abs(l1 - l2) <= 18:
-                    area = min(l1, l2) * height
-                    if area > best_area:
-                        bx, by, bw, bh = (int(min(s1, s2)), int(y1), int(min(l1, l2)), int(height))
-                        sub = arr[by+5:by+bh-5, bx+5:bx+bw-5]
-                        if sub.size > 0:
-                            dark_ratio = np.mean(np.max(sub, axis=2) < 32)
-                            text_ratio = np.mean(np.max(sub, axis=2) >= 70)
-                            if dark_ratio > 0.40 and 0.01 <= text_ratio <= 0.35:
-                                best_area = area
-                                best = (bx, by, bw, bh)
-                        
-    if best:
-        return best
-
-    if strict or mode == 'stash':
-        return None
-
-    # 2. Text cluster detector for equipped / borderless items (character & mercenary)
-    cluster_box = _detect_text_cluster_tooltip(arr, mode=mode)
-    if cluster_box:
-        return cluster_box
-
-    # 3. Dark / borderless tooltip rectangle detector
-    dark_box = _detect_dark_tooltip_rectangle(arr)
-    if dark_box:
-        return dark_box
-            
-    return None
 
 SFX_DIR = Path(__file__).parent / "static" / "sfx"
 

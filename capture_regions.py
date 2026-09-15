@@ -1,6 +1,5 @@
 import config
 import numpy as np
-from rune_processor import detect_and_crop_rune_grid
 
 MODE_LABELS = {
     'stash': '📦 Skrzynia',
@@ -21,7 +20,7 @@ def _check_rune_grid_presence(screen):
     return False
 
 def crop_for_ai(screen, mode):
-    from capture import find_tooltip_crop
+    from tooltip_detection import find_tooltip_crop
     width, height = screen.size
     mode_name = MODE_LABELS.get(mode, mode)
 
@@ -45,6 +44,7 @@ def crop_for_ai(screen, mode):
                     "Otwórz skrzynię w grze i przejdź do zakładki z runami, a następnie naciśnij skrót."
                 )
         try:
+            from rune_processor import detect_and_crop_rune_grid
             return detect_and_crop_rune_grid(screen)
         except Exception:
             defaults = [0, 0, .65, .95]
@@ -62,27 +62,30 @@ def crop_for_ai(screen, mode):
         return screen.crop(box), box
 
     # 3. ITEM MODES (stash, character, merc)
-    # Check if user accidentally snapped the rune tab
-    if _check_rune_grid_presence(screen):
+    # An item can be hovered above the rune tab. Identify the item before
+    # applying the coarse rune-tab check, which samples just one screen row.
+    box = find_tooltip_crop(screen, mode=mode, cursor=screen.info.get('cursor'))
+    if not box and _check_rune_grid_presence(screen):
         raise ValueError(
             f"Odrzucono: Na ekranie znajduje się zakładka RUN, a masz wybrany tryb '{mode_name}'. "
             "Kliknij przycisk '💎 Runy', aby zapisać stan run."
         )
 
-    box = find_tooltip_crop(screen, mode=mode)
     if not box:
         raise ValueError(
-            f"Odrzucono: Nie wykryto opisu przedmiotu (ramki tooltip) dla trybu '{mode_name}'. "
-            "Najedź kursorem myszy na przedmiot w grze, aby wyświetlić jego opis, a następnie naciśnij skrót."
+            f"Odrzucono: Nie znaleziono jednego czytelnego opisu przedmiotu dla trybu '{mode_name}'. "
+            "Pokaż cały opis, zamknij porównanie przedmiotów i ponownie naciśnij skrót."
         )
 
     x, y, w, h = box
-    if w < 90 or h < 55 or w > width * .85 or w * h > width * height * .75:
+    scale = max(.5, min(width / 1920, height / 1080))
+    if w < 75 * scale or h < 45 * scale or w > width or h > height or w * h > width * height * .95:
         raise ValueError(
             "Odrzucono: Niepewny wycinek przedmiotu. "
             "Upewnij się, że kursor wskazuje przedmiot i cały opis jest widoczny na ekranie."
         )
 
-    margin = 8
-    bounds = (max(0, x - margin), max(0, y - margin), min(width, x + w + margin), min(height, y + h + margin))
+    # The detector already includes a small glyph-safe margin. Adding another
+    # one here would bring action hints and unrelated interface back into view.
+    bounds = (x, y, x + w, y + h)
     return screen.crop(bounds), bounds
