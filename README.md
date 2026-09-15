@@ -10,17 +10,7 @@ Scan items, characters, stats, skills, runes and more directly from the game.
 
 <br>
 
-<a href="#wersja-polska">
-  <img src="https://flagcdn.com/32x24/pl.png" alt="Polski" width="32" height="24">
-  <b> Polski</b>
-</a>
-
-&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
-
-<a href="#english">
-  <img src="https://flagcdn.com/32x24/gb.png" alt="English" width="32" height="24">
-  <b> English</b>
-</a>
+<a href="#wersja-polska"><img src="https://flagcdn.com/32x24/pl.png" alt="Polski" width="32" height="24"> <strong>Polski</strong></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#english"><img src="https://flagcdn.com/32x24/gb.png" alt="English" width="32" height="24"> <strong>English</strong></a>
 
 <br><br>
 
@@ -34,7 +24,7 @@ Scan items, characters, stats, skills, runes and more directly from the game.
 <br>
 
 <div align="center">
-  <img src="docs/screenshots/01-tooltip-scan.jpg" alt="D2 UberApp - item tooltip scanning" width="100%">
+  <img src="docs/screenshots/tooltip.jpg" alt="D2 UberApp - skanowanie tooltipu przedmiotu" width="100%">
 </div>
 
 ---
@@ -220,7 +210,7 @@ GEMINI_API_KEY="your_key"
 
 - [Project website](https://kosiorro.github.io/D2-UberApp/)
 - [Latest releases](https://github.com/kosiorro/D2-UberApp/releases)
-- [D2 UberApp Market](https://d2uberappmarket.tw5.org)
+- [D2 UberApp Market](https://d2app.xyz)
 - [GitHub repository](https://github.com/kosiorro/D2-UberApp)
 
 ## Project status
@@ -231,47 +221,47 @@ D2 UberApp is an actively developed **Beta** project.
 
 # Screenshots
 
-### Character statistics scanning
+### Character statistics scanning / Skanowanie statystyk postaci
 
-<img src="docs/screenshots/02-character-stats.png" alt="Character statistics scanning" width="100%">
+<img src="docs/screenshots/stats-check.png" alt="Character statistics scanning" width="100%">
 
-### Item scanning and Companion Panel
+### Item scanning and Companion Panel / Skanowanie przedmiotu
 
-<img src="docs/screenshots/03-item-scan.png" alt="Item scanning" width="100%">
+<img src="docs/screenshots/app-item-check.png" alt="Item scanning" width="100%">
 
-### Character scanning wizard
+### Character scanning wizard / Kreator skanowania postaci
 
-<img src="docs/screenshots/04-character-creator.png" alt="Character scanning wizard" width="100%">
+<img src="docs/screenshots/char-creator.png" alt="Character scanning wizard" width="100%">
 
-### Character, equipment and skill trees
+### Character, equipment and skill trees / Postać, ekwipunek i skille
 
-<img src="docs/screenshots/05-character-overview.png" alt="Character equipment and skill trees" width="100%">
+<img src="docs/screenshots/char-web.png" alt="Character equipment and skill trees" width="100%">
 
-### Item Vault — card view
+### Item Vault — card view / Skarbiec kafelkowy
 
-<img src="docs/screenshots/06-vault-cards.png" alt="Item vault cards" width="100%">
+<img src="docs/screenshots/item1-web.png" alt="Item vault cards" width="100%">
 
-### Item Vault — table view
+### Item Vault — table view / Skarbiec tabelaryczny
 
-<img src="docs/screenshots/07-vault-table.png" alt="Item vault table" width="100%">
+<img src="docs/screenshots/item2-web.png" alt="Item vault table" width="100%">
 
-### Character Wizard — equipment scan
+### Character Wizard — equipment scan / Skanowanie ekwipunku
 
 <div align="center">
-  <img src="docs/screenshots/08-character-wizard.png" alt="Character Wizard equipment scan" width="520">
+  <img src="docs/screenshots/kreator.png" alt="Character Wizard equipment scan" width="520">
 </div>
 
-### Materials
+### Materials / Materiały
 
-<img src="docs/screenshots/09-materials.png" alt="Materials" width="100%">
+<img src="docs/screenshots/materials-web.png" alt="Materials" width="100%">
 
-### Rune scanning
+### Rune scanning / Skanowanie run
 
-<img src="docs/screenshots/10-runes-scan.png" alt="Rune scanning" width="100%">
+<img src="docs/screenshots/runes.png" alt="Rune scanning" width="100%">
 
-### Runes and Runewords
+### Runes and Runewords / Runy i słowa runiczne
 
-<img src="docs/screenshots/11-runes-runewords.png" alt="Runes and Runewords" width="100%">
+<img src="docs/screenshots/runes-web.png" alt="Runes and Runewords" width="100%">
 
 ---
 
