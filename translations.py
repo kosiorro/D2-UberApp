@@ -5,7 +5,7 @@ TRANSLATIONS = {
     'pl': {
         # Brand & Nav
         'brand_name': 'D2 UberApp',
-        'brand_subtitle': 'DIIR · TWÓJ SKARBIEC',
+        'brand_subtitle': 'Companion App',
         'sub_brand': 'SANCTUARY VAULT · GEMINI AI',
         'companion_btn': 'Aplikacja towarzysząca',
         'companion_title_hint': 'Przechwytywanie, skrót i ustawienia AI',
