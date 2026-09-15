@@ -39,7 +39,7 @@ def register(app):
                 if name and not get_character(name):raise ValueError('Wybierz istniejącą postać.')
                 mode=data.get('mode','stash')
                 if mode == 'normal': mode = 'stash'
-                if mode not in ('stash','runes','stat_screen','character','merc'):raise ValueError('Nieznany tryb.')
+                if mode not in ('stash','runes','gems','materials','stat_screen','character','merc'):raise ValueError('Nieznany tryb.')
                 service.current_character=name;service.set_scan_mode(mode);service.set_swap(bool(data.get('swap')) if mode=='character' else False);service.offhand=False
                 from desktop_companion import persist
                 persist()

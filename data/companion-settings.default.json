@@ -23,10 +23,15 @@
     ]
   },
   "mode_hotkeys": {
-    "stash": "F9",
-    "character": "F11",
-    "merc": "F12",
-    "runes": "F8",
-    "stat_screen": "F7"
+    "stash": "F1",
+    "character": "F2",
+    "merc": "F3",
+    "runes": "F4",
+    "stat_screen": "F5",
+    "gems": "F6",
+    "materials": "F7",
+    "swap": "F8",
+    "toggle_listener": "F9",
+    "toggle_mini": "F11"
   }
 }

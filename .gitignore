@@ -14,7 +14,10 @@ ENV/
 .env.local
 
 # Application dynamic data & user stash
+data/companion-settings.json
 data/stash.sqlite*
+*.sqlite-shm
+*.sqlite-wal
 data/screenshots/*
 !data/screenshots/.gitkeep
 data/previews/*

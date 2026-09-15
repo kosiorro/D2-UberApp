@@ -198,7 +198,7 @@ class Bridge:
 
         raw_mode_hotkeys = data.get('mode_hotkeys', {})
         new_mode_hotkeys = {}
-        for m in ('stash', 'character', 'merc', 'runes', 'stat_screen'):
+        for m in ('stash', 'character', 'merc', 'runes', 'stat_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'):
             k = str(raw_mode_hotkeys.get(m, '')).strip()
             if not k or k.lower() in ('brak', 'none', ''):
                 new_mode_hotkeys[m] = ''
@@ -262,7 +262,7 @@ class Bridge:
         if _active_window:
             try:
                 if is_mini:
-                    _active_window.resize(360, 230)
+                    _active_window.resize(370, 290)
                 else:
                     _active_window.resize(430, 730)
             except Exception:
@@ -270,7 +270,7 @@ class Bridge:
         return {'success': True}
 
     def open_web(self, tab='items'):
-        if tab not in ('items', 'character', 'runes', 'trade', 'costs'):
+        if tab not in ('items', 'character', 'runes', 'gems', 'materials', 'trade', 'costs'):
             tab = 'items'
         webbrowser.open(f'http://127.0.0.1:{config.FLASK_PORT}/?tab={tab}')
 
@@ -317,7 +317,7 @@ def run(app):
             js_api=bridge,
             width=430,
             height=730,
-            min_size=(320, 180),
+            min_size=(320, 200),
             background_color='#0c100d',
             on_top=bool(config.COMPANION_SETTINGS.get('topmost', False)),
             text_select=True

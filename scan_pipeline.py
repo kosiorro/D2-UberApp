@@ -1,7 +1,8 @@
 import time
 import uuid
 from db import (get_character_equipment,get_character,get_item,insert_item,create_or_update_character,
-                check_for_duplicate,calculate_file_hash,update_runes)
+                check_for_duplicate,calculate_file_hash,update_runes,
+                touch_character,update_item_full,find_character_equipped_item)
 from config import SCREENSHOTS_DIR, PREVIEWS_DIR
 from recognition import process_image
 from scan_history import begin,finish
@@ -36,15 +37,29 @@ def run_capture(service):
         kind=result['type'];data=result['data']
         if kind=='character':
             data=dict(data,screenshot_filename=filename)
-            if getattr(service,'wizard_active',False):
-                service.last_stat_scan=dict(status='success',character=data,data=data,request_id=uid)
-                outcome('review','Odczytano '+data['name']+'. Potwierdź postać w kreatorze.',kind,data['name'],raw=result['raw'])
-                return
-            existing=get_character(data['name']) or {}
-            existing.update({k:v for k,v in data.items() if v is not None})
-            saved=create_or_update_character(existing)
-            service.current_character=saved['name'];service.last_stat_scan=dict(status='success',character=saved)
-            outcome('success','Zapisano statystyki: '+saved['name'],kind,saved['name'],saved['id'],result['raw'])
+            existing=get_character(data.get('name', ''))
+            if existing:
+                merged = dict(existing)
+                merged.update({k: v for k, v in data.items() if v is not None and v != ''})
+                merged['screenshot_filename'] = filename
+                saved = create_or_update_character(merged)
+                service.current_character = saved['name']
+                service.last_stat_scan = dict(status='success', character=saved, data=saved)
+                service.wizard_active = False
+                outcome('success', 'Zaktualizowano postać: ' + saved['name'], kind, saved['name'], saved['id'], result['raw'])
+            elif getattr(service, 'wizard_active', False):
+                service.last_stat_scan = dict(status='success', character=data, data=data, request_id=uid)
+                outcome('review', 'Odczytano ' + data['name'] + '. Potwierdź postać w kreatorze.', kind, data['name'], raw=result['raw'])
+            else:
+                saved = create_or_update_character(data)
+                service.current_character = saved['name']
+                service.last_stat_scan = dict(status='success', character=saved, data=saved)
+                outcome('success', 'Zapisano statystyki: ' + saved['name'], kind, saved['name'], saved['id'], result['raw'])
+        elif kind in ('gems_stash', 'materials_stash'):
+            from stack_stash import save_snapshot, TABS
+            tab = kind.removesuffix('_stash')
+            save_snapshot(tab, data)
+            outcome('success', TABS[tab][0]+': '+str(sum(x['count'] for x in data))+' szt.', kind, TABS[tab][0], raw=result['raw'])
         elif kind=='rune_stash':
             update_runes(data,preview_filename=preview)
             outcome('success','Zapisano zakładkę run: '+str(sum(data.values()))+' szt.',kind,'Zakładka run',raw=result['raw'])
@@ -77,14 +92,56 @@ def run_capture(service):
                 else:raise ValueError('Nie znaleziono slotu dla tego przedmiotu. Użyj trybu Skrzynia.')
                 char_name=character
             image_hash=calculate_file_hash(PREVIEWS_DIR/preview)
-            if not char_name:is_dup,dup_of,_=check_for_duplicate(data['name'],data['quality'],data['stats'],image_hash)
-            record=dict(data,id=uid,preview_filename=preview,screenshot_filename=filename,location=target if char_name else location,notes='',is_duplicate=int(is_dup),duplicate_of=dup_of,image_hash=image_hash,character_name=char_name,character_slot=char_slot)
-            insert_item(record)
-            saved=get_item(uid)
-            if data.get('socket_contents'):
-                from uber_features import trade_details,save_trade_details
-                extra=trade_details(saved);contents=data['socket_contents'];extra['socket_contents']=', '.join(contents) if isinstance(contents,list) else str(contents);save_trade_details(saved,extra)
-            outcome('success',('Zapisano możliwy duplikat: ' if is_dup else 'Zapisano: ')+saved['name'],kind,saved['name'],saved['id'],result['raw'])
+            equipped_target_char = char_name or getattr(service, 'current_character', '')
+            equipped_item = None
+            if equipped_target_char:
+                equipped_item = find_character_equipped_item(
+                    equipped_target_char,
+                    name=data.get('name', ''),
+                    quality=data.get('quality', ''),
+                    stats=data.get('stats'),
+                    image_hash=image_hash,
+                    slot=char_slot
+                )
+
+            if equipped_item:
+                item_id = equipped_item['id']
+                update_payload = dict(data,
+                    preview_filename=preview,
+                    screenshot_filename=filename,
+                    image_hash=image_hash,
+                    location=target if char_name else equipped_item.get('location', 'Postać: ' + equipped_target_char),
+                    character_name=equipped_target_char,
+                    character_slot=char_slot or equipped_item.get('character_slot', '')
+                )
+                update_item_full(item_id, update_payload)
+                touch_character(equipped_target_char)
+                saved = get_item(item_id)
+                if data.get('socket_contents'):
+                    from uber_features import trade_details, save_trade_details
+                    extra = trade_details(saved)
+                    contents = data['socket_contents']
+                    extra['socket_contents'] = ', '.join(contents) if isinstance(contents, list) else str(contents)
+                    save_trade_details(saved, extra)
+                outcome('success', f"Zaktualizowano postać {equipped_target_char}: {saved['name']}", kind, saved['name'], saved['id'], result['raw'])
+            else:
+                if not char_name:
+                    is_dup, dup_of, _ = check_for_duplicate(data['name'], data['quality'], data['stats'], image_hash)
+                record = dict(data, id=uid, preview_filename=preview, screenshot_filename=filename, location=target if char_name else location, notes='', is_duplicate=int(is_dup), duplicate_of=dup_of, image_hash=image_hash, character_name=char_name, character_slot=char_slot)
+                insert_item(record)
+                if char_name:
+                    touch_character(char_name)
+                saved = get_item(uid)
+                if data.get('socket_contents'):
+                    from uber_features import trade_details, save_trade_details
+                    extra = trade_details(saved)
+                    contents = data['socket_contents']
+                    extra['socket_contents'] = ', '.join(contents) if isinstance(contents, list) else str(contents)
+                    save_trade_details(saved, extra)
+                msg = ('Zapisano możliwy duplikat: ' if is_dup else 'Zapisano: ') + saved['name']
+                if char_name:
+                    msg = f"Zaktualizowano ekwipunek {char_name}: {saved['name']}"
+                outcome('success', msg, kind, saved['name'], saved['id'], result['raw'])
         play_sound('drop')
     except Exception as error:
         play_sound('error')

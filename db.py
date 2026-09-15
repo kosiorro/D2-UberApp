@@ -776,7 +776,7 @@ def resolve_item_image(name, name_en, base, slot, quality=""):
 def insert_item(item_dict: dict):
     with get_db() as con:
         if item_dict.get('character_name') and item_dict.get('character_slot') not in ('', 'charms', 'charm', None):
-            con.execute("UPDATE items SET character_name='', character_slot='', location='' WHERE LOWER(character_name)=LOWER(?) AND character_slot=?", (item_dict['character_name'],item_dict['character_slot']))
+            con.execute("UPDATE items SET character_name='', character_slot='', location='Skrzynia' WHERE LOWER(character_name)=LOWER(?) AND character_slot=?", (item_dict['character_name'],item_dict['character_slot']))
         img_path = item_dict.get("image_path")
         if not img_path:
             img_path = resolve_item_image(
@@ -934,6 +934,77 @@ def _parse_item_row(r, con=None) -> dict:
     it["trade_price"] = it.get("trade_price") or "Czekam na ofertę"
     it["trade_notes"] = it.get("trade_notes") or ""
     return it
+
+def update_item_full(item_id: str, item_dict: dict):
+    img_path = item_dict.get("image_path")
+    if not img_path:
+        img_path = resolve_item_image(
+            item_dict.get("name"),
+            item_dict.get("name_en"),
+            item_dict.get("base"),
+            item_dict.get("character_slot"),
+            item_dict.get("quality")
+        )
+    with get_db() as con:
+        con.execute("""
+        UPDATE items SET
+            name = ?, name_en = ?, base = ?, quality = ?, defense = ?, damage = ?,
+            level_req = ?, req_str = ?, req_dex = ?, sockets = ?, stats_json = ?,
+            rolls_eval_json = ?, requirements_json = ?, preview_filename = ?,
+            screenshot_filename = ?, image_hash = ?, image_path = ?,
+            location = COALESCE(NULLIF(?, ''), location),
+            character_name = COALESCE(NULLIF(?, ''), character_name),
+            character_slot = COALESCE(NULLIF(?, ''), character_slot)
+        WHERE id = ?
+        """, (
+            item_dict.get("name", "Nieznany"),
+            item_dict.get("name_en", ""),
+            item_dict.get("base", ""),
+            item_dict.get("quality", "normalny"),
+            item_dict.get("defense"),
+            item_dict.get("damage"),
+            item_dict.get("level_req"),
+            item_dict.get("req_str"),
+            item_dict.get("req_dex"),
+            item_dict.get("sockets"),
+            json.dumps(item_dict.get("stats", []), ensure_ascii=False),
+            json.dumps(item_dict.get("rolls_eval", []), ensure_ascii=False),
+            json.dumps(item_dict.get("requirements", {}), ensure_ascii=False),
+            item_dict.get("preview_filename", ""),
+            item_dict.get("screenshot_filename", ""),
+            item_dict.get("image_hash", ""),
+            img_path,
+            item_dict.get("location", ""),
+            item_dict.get("character_name", ""),
+            item_dict.get("character_slot", ""),
+            item_id
+        ))
+        con.commit()
+
+def find_character_equipped_item(character_name: str, name: str = "", quality: str = "", stats: list = None, image_hash: str = "", slot: str = "") -> dict | None:
+    if not character_name:
+        return None
+    with get_db() as con:
+        if image_hash:
+            row = con.execute("SELECT * FROM items WHERE LOWER(character_name) = LOWER(?) AND image_hash = ? LIMIT 1", (character_name, image_hash)).fetchone()
+            if row:
+                return _parse_item_row(row, con)
+        if slot and slot not in ("", "charms", "charm"):
+            row = con.execute("SELECT * FROM items WHERE LOWER(character_name) = LOWER(?) AND character_slot = ? LIMIT 1", (character_name, slot)).fetchone()
+            if row:
+                it = _parse_item_row(row, con)
+                if not name or it.get("name", "").lower() == (name or "").lower() or it.get("base", "").lower() == (name or "").lower():
+                    return it
+        if name:
+            if stats:
+                stats_str = json.dumps(stats, ensure_ascii=False)
+                row = con.execute("SELECT * FROM items WHERE LOWER(character_name) = LOWER(?) AND LOWER(name) = LOWER(?) AND stats_json = ? LIMIT 1", (character_name, name, stats_str)).fetchone()
+                if row:
+                    return _parse_item_row(row, con)
+            row = con.execute("SELECT * FROM items WHERE LOWER(character_name) = LOWER(?) AND LOWER(name) = LOWER(?) LIMIT 1", (character_name, name)).fetchone()
+            if row:
+                return _parse_item_row(row, con)
+    return None
 
 def get_all_items(quality_filter=None, search_query=None, location_filter=None, include_duplicates=False, character_filter=None, exclude_character_gear=False):
     with get_db() as con:
@@ -1113,7 +1184,14 @@ def get_all_characters_detailed() -> list[dict]:
 def delete_character(name: str):
     with get_db() as con:
         con.execute("DELETE FROM characters WHERE LOWER(name) = LOWER(?)", (name,))
-        con.execute("UPDATE items SET character_name = '', character_slot = '', location = '' WHERE LOWER(character_name) = LOWER(?)", (name,))
+        con.execute("UPDATE items SET character_name = '', character_slot = '', location = 'Skrzynia' WHERE LOWER(character_name) = LOWER(?)", (name,))
+        con.commit()
+
+def touch_character(name: str):
+    if not name:
+        return
+    with get_db() as con:
+        con.execute("UPDATE characters SET updated_at = datetime('now', 'localtime') WHERE LOWER(name) = LOWER(?)", (name,))
         con.commit()
 
 

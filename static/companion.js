@@ -72,9 +72,44 @@ async function selectHeroFromMini(el) {
     await changeSession();
 }
 
+let stashModesOpen = false;
+let characterModesOpen = false;
+function updateModeButtons() {
+    document.querySelectorAll('.mode-btn[data-mode]').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === currentMode));
+    const stashActive = ['stash', 'runes', 'gems', 'materials'].includes(currentMode);
+    const characterActive = ['character', 'stat_screen', 'merc'].includes(currentMode);
+
+    if ($('stash-mode-toggle')) {
+        $('stash-mode-toggle').classList.toggle('active', stashActive);
+        $('stash-mode-toggle').setAttribute('aria-expanded', String(stashModesOpen));
+    }
+    if ($('stash-modes')) {
+        $('stash-modes').hidden = !stashModesOpen;
+    }
+
+    if ($('character-mode-toggle')) {
+        $('character-mode-toggle').classList.toggle('active', characterActive);
+        $('character-mode-toggle').setAttribute('aria-expanded', String(characterModesOpen));
+    }
+    if ($('character-modes')) {
+        $('character-modes').hidden = !characterModesOpen;
+    }
+}
+function toggleStashModes() {
+    stashModesOpen = true;
+    characterModesOpen = false;
+    setMode('stash');
+}
+function toggleCharacterModes() {
+    characterModesOpen = true;
+    stashModesOpen = false;
+    setMode('character');
+}
 function setMode(mode) {
     currentMode = mode;
-    document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === mode));
+    stashModesOpen = ['stash', 'runes', 'gems', 'materials'].includes(mode);
+    characterModesOpen = ['character', 'stat_screen', 'merc'].includes(mode);
+    updateModeButtons();
     if ($('swap-option')) $('swap-option').hidden = mode !== 'character';
     changeSession();
 }
@@ -206,7 +241,7 @@ async function settingsOpen() {
     $('set-stat-region').value = (data.regions.stat_screen || [0, 0, .58, 1]).join(', ');
     $('set-rune-region').value = (data.regions.runes || [0, 0, .65, .95]).join(', ');
     const mhk = data.mode_hotkeys || {};
-    ['stash', 'character', 'merc', 'runes', 'stat_screen'].forEach(m => {
+    ['stash', 'character', 'merc', 'runes', 'stat_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'].forEach(m => {
         setSelectValue($('set-mode-hk-' + m), mhk[m] || '');
     });
     $('settings-dialog').showModal();
@@ -216,7 +251,7 @@ async function saveSettings(event) {
     event.preventDefault();
     const region = id => $(id).value.split(',').map(x => Number(x.trim()));
     const modeHotkeys = {};
-    ['stash', 'character', 'merc', 'runes', 'stat_screen'].forEach(m => {
+    ['stash', 'character', 'merc', 'runes', 'stat_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'].forEach(m => {
         const el = $('set-mode-hk-' + m);
         if (el) modeHotkeys[m] = el.value || '';
     });
@@ -349,8 +384,12 @@ async function refresh() {
         if (miniPicker && focused !== miniPicker) miniPicker.value = state.character;
 
         if (state.mode && state.mode !== 'normal') {
+            if (currentMode !== state.mode) {
+                stashModesOpen = ['stash', 'runes', 'gems', 'materials'].includes(state.mode);
+                characterModesOpen = ['character', 'stat_screen', 'merc'].includes(state.mode);
+            }
             currentMode = state.mode;
-            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === state.mode));
+            updateModeButtons();
         }
         if ($('capture-swap')) $('capture-swap').checked = state.swap;
         if ($('swap-option')) $('swap-option').hidden = currentMode !== 'character';

@@ -103,7 +103,12 @@ DEFAULT_MODE_HOTKEYS = {
     'character': 'F6',
     'merc': 'F7',
     'runes': 'F8',
-    'stat_screen': 'F9'
+    'stat_screen': 'F9',
+    'gems': '',
+    'materials': '',
+    'swap': '',
+    'toggle_listener': '',
+    'toggle_mini': ''
 }
 saved_mode_hotkeys = COMPANION_SETTINGS.get('mode_hotkeys', {})
 MODE_HOTKEYS = {}

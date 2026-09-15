@@ -117,31 +117,55 @@
         <!-- TRYB SKANOWANIA -->
         <section class="session-card">
             <div class="panel-kicker">{{ t("companion_mode_title") }}</div>
-            <div class="mode-buttons-grid">
+            <div class="mode-buttons-grid parent-modes-grid">
+                <button type="button" id="stash-mode-toggle" class="mode-btn active" aria-expanded="false" aria-controls="stash-modes" onclick="toggleStashModes()">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8z"/><path d="M3 8l3-5h12l3 5"/><circle cx="12" cy="14" r="1.5"/></svg>
+                    <span>{{ lang == 'en' and 'Stash' or 'Skrzynia' }}</span>
+                    <span aria-hidden="true">▾</span>
+                </button>
+                <button type="button" id="character-mode-toggle" class="mode-btn" aria-expanded="false" aria-controls="character-modes" onclick="toggleCharacterModes()">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/></svg>
+                    <span>{{ lang == 'en' and 'Character' or 'Postać' }}</span>
+                    <span aria-hidden="true">▾</span>
+                </button>
+            </div>
+            <div id="stash-modes" class="mode-buttons-grid stash-modes" hidden>
                 <button type="button" class="mode-btn active" data-mode="stash" onclick="setMode('stash')" title="{{ lang == 'en' and 'Scan items from stash' or 'Skanuj przedmioty ze skrzyni' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8z"/><path d="M3 8l3-5h12l3 5"/><circle cx="12" cy="14" r="1.5"/></svg>
-                    <span>{{ t("companion_nav_vault") }}</span>
+                    <span>{{ lang == 'en' and 'Items' or 'Przedmioty' }}</span>
                     <span class="mode-hotkey-badge" data-mode-key="stash">F5</span>
-                </button>
-                <button type="button" class="mode-btn" data-mode="character" onclick="setMode('character')" title="{{ lang == 'en' and 'Scan hero equipment' or 'Skanuj ekwipunek postaci' }}">
-                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    <span>{{ t("companion_mode_character") }}</span>
-                    <span class="mode-hotkey-badge" data-mode-key="character">F6</span>
-                </button>
-                <button type="button" class="mode-btn" data-mode="merc" onclick="setMode('merc')" title="{{ lang == 'en' and 'Scan mercenary gear' or 'Skanuj rynsztunek najemnika' }}">
-                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    <span>{{ t("companion_mode_merc") }}</span>
-                    <span class="mode-hotkey-badge" data-mode-key="merc">F7</span>
                 </button>
                 <button type="button" class="mode-btn" data-mode="runes" onclick="setMode('runes')" title="{{ lang == 'en' and 'Scan runes tab' or 'Skanuj zakładkę z runami' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 18 3 22 9 12 22 2 9"/></svg>
                     <span>{{ t("companion_nav_runes") }}</span>
                     <span class="mode-hotkey-badge" data-mode-key="runes">F8</span>
                 </button>
+                <button type="button" class="mode-btn" data-mode="gems" onclick="setMode('gems')" title="{{ lang == 'en' and 'Scan gems tab' or 'Skanuj zakładkę z klejnotami' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 18 3 22 9 12 22 2 9"/><polyline points="2 9 12 13 22 9"/><line x1="12" y1="22" x2="12" y2="13"/></svg>
+                    <span>{{ lang == 'en' and 'Gems' or 'Klejnoty' }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="gems"></span>
+                </button>
+                <button type="button" class="mode-btn" data-mode="materials" onclick="setMode('materials')" title="{{ lang == 'en' and 'Scan materials tab' or 'Skanuj zakładkę z materiałami' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v5.5a2 2 0 0 1-.5 1.3L4.2 16.5A4 4 0 0 0 7.3 22h9.4a4 4 0 0 0 3.1-5.5L14.5 8.8A2 2 0 0 1 14 7.5V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="7" y1="14" x2="17" y2="14"/></svg>
+                    <span>{{ lang == 'en' and 'Materials' or 'Materiały' }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="materials"></span>
+                </button>
+            </div>
+            <div id="character-modes" class="mode-buttons-grid character-modes" hidden>
+                <button type="button" class="mode-btn" data-mode="character" onclick="setMode('character')" title="{{ lang == 'en' and 'Scan hero equipment' or 'Skanuj ekwipunek postaci' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span>{{ lang == 'en' and 'Equipment' or 'Ekwipunek' }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="character">F6</span>
+                </button>
                 <button type="button" class="mode-btn" data-mode="stat_screen" onclick="setMode('stat_screen')" title="{{ lang == 'en' and 'Scan character stats window (A/C)' or 'Skanuj okno statystyk (A)' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     <span>{{ t("companion_mode_stats") }}</span>
                     <span class="mode-hotkey-badge" data-mode-key="stat_screen">F9</span>
+                </button>
+                <button type="button" class="mode-btn" data-mode="merc" onclick="setMode('merc')" title="{{ lang == 'en' and 'Scan mercenary gear' or 'Skanuj rynsztunek najemnika' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>{{ t("companion_mode_merc") }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="merc">F7</span>
                 </button>
             </div>
             <div class="checkbox-row full-view-section">
@@ -252,6 +276,35 @@
                 </label>
                 <label>{{ t("companion_mode_stats") }}
                     <select id="set-mode-hk-stat_screen">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+                <label>{{ lang == 'en' and 'Gems' or 'Klejnoty' }}
+                    <select id="set-mode-hk-gems">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+                <label>{{ lang == 'en' and 'Materials' or 'Materiały' }}
+                    <select id="set-mode-hk-materials">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+            </div>
+
+            <h3>{{ lang == 'en' and 'Action Hotkeys' or 'Skróty akcji' }}</h3>
+            <div class="edit-grid mode-hotkeys-grid">
+                <label>{{ lang == 'en' and 'Weapon Set II (Swap)' or 'Zestaw broni II (Swap)' }}
+                    <select id="set-mode-hk-swap">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+                <label>{{ lang == 'en' and 'Toggle Listener' or 'Włącz/Wstrzymaj nasłuch' }}
+                    <select id="set-mode-hk-toggle_listener">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
+                <label>{{ lang == 'en' and 'Mini / Full View' or 'Tryb Mini / Pełny' }}
+                    <select id="set-mode-hk-toggle_mini">
                         {{ hotkey_options(true) }}
                     </select>
                 </label>

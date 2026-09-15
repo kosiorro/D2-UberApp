@@ -24,6 +24,15 @@ def process_image(image_path, scan_mode='normal', request_id=''):
             image = original.convert('RGB')
 
         is_rune_grid = (scan_mode == 'runes')
+        if scan_mode in ('gems', 'materials'):
+            from stack_stash import read_stack_stash, validate_snapshot, TABS
+            kind = scan_mode + '_stash'
+            data, prompt_tokens, output_tokens = read_stack_stash(image, get_client(), config.GEMINI_MODEL, scan_mode)
+            content = validate_snapshot(data, scan_mode)
+            name = TABS[scan_mode][0]
+            status = 'success'
+            message = f'Odczyt zweryfikowany: {name}'
+            return dict(status=status, type=kind, data=content, raw=data, request_id=request_id)
         if is_rune_grid:
             from rune_processor import read_rune_stash
             runes_dict, prompt_tokens, output_tokens = read_rune_stash(image, get_client(), config.GEMINI_MODEL)

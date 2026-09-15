@@ -23,6 +23,18 @@ def crop_for_ai(screen, mode):
     from tooltip_detection import find_tooltip_crop
     width, height = screen.size
     mode_name = MODE_LABELS.get(mode, mode)
+    if mode in ('gems', 'materials'):
+        # Crop to the stash window area for high-resolution, uncompressed AI recognition.
+        # Panel bounds at standard 1920x1080: X=90..730, Y=70..820 (includes title, tabs, and complete grid)
+        if width == 1920 and height == 1080:
+            box = (90, 70, 730, 820)
+            return screen.crop(box), box
+        elif width > 1400 and height > 800:
+            scale_x = width / 1920.0
+            scale_y = height / 1080.0
+            box = (int(90 * scale_x), int(70 * scale_y), int(730 * scale_x), int(820 * scale_y))
+            return screen.crop(box), box
+        return screen.copy(), (0, 0, width, height)
 
     # 1. RUNES MODE
     if mode == 'runes':

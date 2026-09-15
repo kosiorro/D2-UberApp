@@ -318,17 +318,33 @@
             color: #aaa;
         }
         .header-char-del {
-            background: none;
-            border: none;
-            color: #777;
-            font-size: 0.85rem;
+            background: rgba(120, 30, 30, 0.4);
+            border: 1px solid rgba(220, 60, 60, 0.3);
+            border-radius: 50%;
+            color: #b58888;
+            font-size: 0.75rem;
             cursor: pointer;
-            padding: 0 2px;
-            margin-left: 2px;
+            width: 16px;
+            height: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin-left: 4px;
             line-height: 1;
+            opacity: 0;
+            transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .header-char-chip:hover .header-char-del,
+        .header-char-dropdown-item:hover .header-char-del {
+            opacity: 0.85;
         }
         .header-char-del:hover {
-            color: #ff5555;
+            opacity: 1 !important;
+            background: #8b1818;
+            border-color: #ff5555;
+            color: #fff;
+            transform: scale(1.1);
         }
 
         /* BUTTONS */
@@ -1104,18 +1120,30 @@
             filter: drop-shadow(0 0 10px rgba(255, 45, 45, 0.95));
         }
         .val-indicator.val-dollars {
-            font-family: 'Cinzel', 'Trajan Pro', Georgia, serif;
-            font-size: 1.18rem;
-            font-weight: 900;
-            color: #ffd700 !important;
-            letter-spacing: -1.5px;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.65), 0 0 2px #000;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 4px 7px;
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            border-radius: 6px;
+            background: linear-gradient(180deg, #28251d, #191a1e);
+            font-family: Georgia, serif;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
             cursor: default;
-            transition: transform 0.15s, text-shadow 0.15s;
         }
-        .val-indicator.val-dollars:hover {
-            transform: scale(1.08);
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.95), 0 0 3px #000;
+        .val-dollars .val-dollar {
+            display: inline-block;
+            width: 0.65em;
+            text-align: center;
+            color: #737680;
+            text-shadow: none;
+        }
+        .val-dollars .val-dollar.is-active {
+            color: #f2cc73;
+            text-shadow: 0 1px 2px #000, 0 0 5px rgba(242, 204, 115, 0.2);
         }
 
         .item-card-top {
@@ -1309,6 +1337,32 @@
         @media (max-width: 1000px) {
             .d2r-rune-stash-grid { grid-template-columns: repeat(6, 1fr); }
         }
+        .d2r-gems-stash-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            background: #08090d;
+            border: 2px solid #2e2616;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 1000px) {
+            .d2r-gems-stash-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .d2r-materials-stash-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+            background: #08090d;
+            border: 2px solid #2e2616;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 1000px) {
+            .d2r-materials-stash-grid { grid-template-columns: repeat(4, 1fr); }
+        }
         .rune-cell {
             background: #0e0f14;
             border: 1px solid #22232c;
@@ -1319,7 +1373,10 @@
             position: relative;
         }
         .rune-cell.empty {
-            opacity: 0.35;
+            opacity: 0.4;
+        }
+        .rune-cell.empty .rune-cell-img {
+            filter: grayscale(80%) brightness(0.7);
         }
         .rune-cell.owned.tier-low {
             border: 1px solid #8f5829;
@@ -1777,6 +1834,14 @@
                     <img src="/static/images/database/armor/fs-korona--crn.png" class="nav-icon" alt="">
                     <span>{{ t("nav_character") }}</span>
                 </a>
+                <a href="/?tab=gems" class="nav-tab {% if active_tab == 'gems' %}active{% endif %}">
+                    <img src="/static/images/database/gem/doskona-y-ametyst--gpv.png" class="nav-icon" alt="">
+                    <span>{{ lang == 'en' and 'Gems' or 'Klejnoty' }}</span>
+                </a>
+                <a href="/?tab=materials" class="nav-tab {% if active_tab == 'materials' %}active{% endif %}">
+                    <img src="/static/images/database/misc/spaczona-esencja-cierpienia--tes.png" class="nav-icon" alt="">
+                    <span>{{ lang == 'en' and 'Materials' or 'Materiały' }}</span>
+                </a>
                 <a href="/?tab=runes" class="nav-tab {% if active_tab == 'runes' %}active{% endif %}">
                     <img src="/static/images/database/rune/runa-jah--r31.png" class="nav-icon" alt="">
                     <span>{{ t("nav_runes") }}</span>
@@ -1813,6 +1878,7 @@
                             <span class="header-char-name">{{ c.name }}</span>
                             <span class="header-char-lvl">Lvl {{ c.level }}</span>
                         </div>
+                        <button type="button" class="header-char-del" onclick="event.stopPropagation(); deleteSpecificChar('{{ c.name }}')" title="{{ lang == 'en' and 'Delete character ' ~ c.name or 'Usuń postać ' ~ c.name }}">×</button>
                     </div>
                     {% endfor %}
 
@@ -1832,6 +1898,7 @@
                                     <span class="header-char-name">{{ c.name }}</span>
                                     <span class="header-char-lvl">{{ c.class_name }} · Lvl {{ c.level }}</span>
                                 </div>
+                                <button type="button" class="header-char-del" onclick="event.stopPropagation(); deleteSpecificChar('{{ c.name }}')" title="{{ lang == 'en' and 'Delete character ' ~ c.name or 'Usuń postać ' ~ c.name }}">×</button>
                             </div>
                             {% endfor %}
                         </div>
@@ -1866,7 +1933,7 @@
     <main>
         <section class="sanctuary-intro">
             <div><div class="sanctuary-kicker">{{ t("kicker_collection") }}</div>
-            <h1>{{ {'items':t('intro_title_items'),'character':t('intro_title_character'),'runes':t('intro_title_runes'),'trade':t('intro_title_trade'),'duplicates':t('intro_title_duplicates'),'costs':t('intro_title_costs')}.get(active_tab, t('intro_title_default')) }}</h1>
+            <h1>{{ {'gems':(lang == 'en' and 'Gems' or 'Klejnoty'),'materials':(lang == 'en' and 'Materials' or 'Materiały'),'items':t('intro_title_items'),'character':t('intro_title_character'),'runes':t('intro_title_runes'),'trade':t('intro_title_trade'),'duplicates':t('intro_title_duplicates'),'costs':t('intro_title_costs')}.get(active_tab, t('intro_title_default')) }}</h1>
             <p>{{ t("intro_quote") }}</p></div>
             <div class="collection-total">{{ all_characters|length }}<small>{{ t("hero_count_label") }}</small></div>
         </section>
@@ -1938,15 +2005,15 @@
                             </svg>
                         </span>
                         {% elif mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }}">$$$$</span>
+                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }} (4/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }} (4/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span></span>
                         {% elif mv in ('HIGH', 'WYSOKA') %}
-                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }}">$$$</span>
+                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }} (3/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }} (3/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                         {% elif mv in ('MEDIUM', 'MED', 'SREDNIA', 'ŚREDNIA') %}
-                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }}">$$</span>
+                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }} (2/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }} (2/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                         {% elif mv in ('LOW', 'NISKA') %}
-                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }}">$</span>
+                        <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }} (1/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }} (1/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                         {% else %}
-                        <span class="val-indicator val-dollars" title="{{ it.market_value }}">$</span>
+                        <span class="val-indicator val-dollars" title="{{ it.market_value }} (1/4)" role="img" aria-label="{{ it.market_value }} (1/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                         {% endif %}
                     </div>
 
@@ -2072,15 +2139,15 @@
                                     </svg>
                                 </span>
                                 {% elif mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }}">$$$$</span>
+                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }} (4/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }} (4/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span></span>
                                 {% elif mv in ('HIGH', 'WYSOKA') %}
-                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }}">$$$</span>
+                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }} (3/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }} (3/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                                 {% elif mv in ('MEDIUM', 'MED', 'SREDNIA', 'ŚREDNIA') %}
-                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }}">$$</span>
+                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }} (2/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }} (2/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                                 {% elif mv in ('LOW', 'NISKA') %}
-                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }}">$</span>
+                                <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }} (1/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }} (1/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                                 {% else %}
-                                <span class="val-indicator val-dollars" title="{{ it.market_value }}">$</span>
+                                <span class="val-indicator val-dollars" title="{{ it.market_value }} (1/4)" role="img" aria-label="{{ it.market_value }} (1/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                                 {% endif %}
                             </td>
                             <td>{{ it.base }}{% if it.sockets and it.sockets > 0 %} <span style="color: #88c0d0; font-size: 0.78rem; font-weight: 600;">(⬡{{ it.sockets }})</span>{% endif %}</td>
@@ -2131,6 +2198,87 @@
         <!-- ========================================================================= -->
         <!-- Tab: Runes & Runewords -->
         <!-- ========================================================================= -->
+        {% elif active_tab == 'gems' %}
+        <div class="stone-panel">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <img src="/static/images/database/gem/doskona-y-ametyst--gpv.png" class="nav-icon" alt="">
+                    <div>
+                        <div class="panel-title">{{ lang == 'en' and 'Gems Stash' or 'Zakładka Klejnotów' }}</div>
+                        <div class="panel-subtitle">{{ lang == 'en' and 'Authentic 35 gems grid (7 types: Diamond, Emerald, Ruby, Topaz, Amethyst, Sapphire, Skull; 5 qualities: Chipped to Perfect)' or 'Układ 35 klejnotów z gry (7 rodzajów: Diament, Szmaragd, Rubin, Topaz, Ametyst, Szafir, Czaszka; 5 jakości: od Nadkruszonych po Doskonałe)' }}</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <div style="font-size: 0.85rem; color: #a0a0a0;">
+                        {{ lang == 'en' and 'Saved quantity' or 'Zapisana ilość' }}: <strong style="color: #fff; font-size: 1.05rem;">{{ stack_data.total }}</strong>
+                    </div>
+                    {% if stack_data.updated_at %}
+                    <div style="font-size: 0.8rem; color: #777;">
+                        {{ lang == 'en' and 'Last scan' or 'Ostatni skan' }}: <time datetime="{{ stack_data.updated_at }}" style="color: #9cdcfe;">{{ stack_data.updated_at[:19]|replace('T', ' ') }} UTC</time>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <p class="panel-subtitle" style="margin-bottom: 15px; color: #888;">
+                {{ lang == 'en' and 'Open the Gems tab in Diablo II: Resurrected, choose the Gems mode in companion, and press F10 to scan.' or 'Otwórz zakładkę Klejnoty w Diablo II: Resurrected, wybierz tryb Klejnoty w aplikacji wspomagającej i naciśnij F10, aby zsynchronizować ilości.' }}
+            </p>
+
+            <div class="d2r-gems-stash-grid">
+                {% for entry in stack_data['items'] %}
+                <div class="rune-cell {% if entry.count > 0 %}owned {% if entry.code in ('gpw','gpg','gpr','gpy','gpv','gpb','skz') %}tier-high{% elif entry.code in ('glw','glg','glr','gly','gzv','glb','skl') %}tier-mid{% else %}tier-low{% endif %}{% else %}empty{% endif %}"
+                     title="{{ entry.name_en if lang == 'en' else entry.name }}: {{ entry.count }}">
+                    {% if entry.image %}
+                    <img src="{{ entry.image }}" class="rune-cell-img" alt="{{ entry.name }}">
+                    {% endif %}
+                    <div class="rune-cell-name">{{ entry.name_en if lang == 'en' else entry.name }}</div>
+                    <div class="rune-cell-count">{{ entry.count }}</div>
+                </div>
+                {% else %}
+                <p>{{ lang == 'en' and 'This tab is empty.' or 'Ta zakładka jest pusta.' }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% elif active_tab == 'materials' %}
+        <div class="stone-panel">
+            <div class="panel-header">
+                <div class="panel-title-group">
+                    <img src="/static/images/database/misc/spaczona-esencja-cierpienia--tes.png" class="nav-icon" alt="">
+                    <div>
+                        <div class="panel-title">{{ lang == 'en' and 'Materials Stash' or 'Zakładka Materiałów' }}</div>
+                        <div class="panel-subtitle">{{ lang == 'en' and 'Keys, organs, worldstone shards, essences, token of absolution and rejuvenation potions' or 'Klucze, organy, odłamki Kamienia Świata, esencje, znak rozgrzeszenia i eliksiry ze skrytki D2R' }}</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <div style="font-size: 0.85rem; color: #a0a0a0;">
+                        {{ lang == 'en' and 'Saved quantity' or 'Zapisana ilość' }}: <strong style="color: #fff; font-size: 1.05rem;">{{ stack_data.total }}</strong>
+                    </div>
+                    {% if stack_data.updated_at %}
+                    <div style="font-size: 0.8rem; color: #777;">
+                        {{ lang == 'en' and 'Last scan' or 'Ostatni skan' }}: <time datetime="{{ stack_data.updated_at }}" style="color: #9cdcfe;">{{ stack_data.updated_at[:19]|replace('T', ' ') }} UTC</time>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <p class="panel-subtitle" style="margin-bottom: 15px; color: #888;">
+                {{ lang == 'en' and 'Open the Materials tab in Diablo II: Resurrected, choose the Materials mode in companion, and press F10 to scan.' or 'Otwórz zakładkę Materiały w Diablo II: Resurrected, wybierz tryb Materiały w aplikacji wspomagającej i naciśnij F10, aby zsynchronizować ilości.' }}
+            </p>
+
+            <div class="d2r-materials-stash-grid">
+                {% for entry in stack_data['items'] %}
+                <div class="rune-cell {% if entry.count > 0 %}owned tier-mid{% else %}empty{% endif %}"
+                     title="{{ entry.name_en if lang == 'en' else entry.name }}: {{ entry.count }}">
+                    {% if entry.image %}
+                    <img src="{{ entry.image }}" class="rune-cell-img" alt="{{ entry.name }}">
+                    {% endif %}
+                    <div class="rune-cell-name">{{ entry.name_en if lang == 'en' else entry.name }}</div>
+                    <div class="rune-cell-count">{{ entry.count }}</div>
+                </div>
+                {% else %}
+                <p>{{ lang == 'en' and 'This tab is empty.' or 'Ta zakładka jest pusta.' }}</p>
+                {% endfor %}
+            </div>
+        </div>
         {% elif active_tab == 'runes' %}
         <div class="stone-panel">
             <div class="panel-header">
@@ -2467,15 +2615,15 @@
                                         </svg>
                                     </span>
                                     {% elif mv in ('VERY HIGH', 'VERY_HIGH', 'BARDZO WYSOKA') %}
-                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }}">$$$$</span>
+                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }} (4/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Very High' or 'Szacowana wartość: Bardzo Wysoka' }} (4/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span></span>
                                     {% elif mv in ('HIGH', 'WYSOKA') %}
-                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }}">$$$</span>
+                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }} (3/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: High' or 'Szacowana wartość: Wysoka' }} (3/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                                     {% elif mv in ('MEDIUM', 'MED', 'SREDNIA', 'ŚREDNIA') %}
-                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }}">$$</span>
+                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }} (2/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Medium' or 'Szacowana wartość: Średnia' }} (2/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                                     {% elif mv in ('LOW', 'NISKA') %}
-                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }}">$</span>
+                                    <span class="val-indicator val-dollars" title="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }} (1/4)" role="img" aria-label="{{ lang == 'en' and 'Estimated Market Value: Low' or 'Szacowana wartość: Niska' }} (1/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                                     {% else %}
-                                    <span class="val-indicator val-dollars" title="{{ it.market_value }}">$</span>
+                                    <span class="val-indicator val-dollars" title="{{ it.market_value }} (1/4)" role="img" aria-label="{{ it.market_value }} (1/4)"><span class="val-dollar is-active" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span><span class="val-dollar" aria-hidden="true">$</span></span>
                                     {% endif %}
                                 </div>
                                 <div class="trade-base-standard" style="color: #bbb; font-size: 0.82rem;">{{ it.base }}</div>
@@ -3182,18 +3330,18 @@ async function setAppLanguage(newLang) {
                     </div>
                 `;
             } else {
-                let dollars = '$';
+                let valueLevel = 1;
                 if (mv.includes('VERY') || mv.includes('BARDZO')) {
-                    dollars = '$$$$';
+                    valueLevel = 4;
                 } else if (mv === 'HIGH' || mv === 'WYSOKA') {
-                    dollars = '$$$';
+                    valueLevel = 3;
                 } else if (mv === 'MEDIUM' || mv === 'MED' || mv.includes('SRED') || mv.includes('ŚRED')) {
-                    dollars = '$$';
+                    valueLevel = 2;
                 }
                 marketValueHtml = `
                     <div style="margin-top: 8px; display: inline-flex; align-items: center; gap: 8px;">
                         <span style="font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">${window.I18N.market_value_label}:</span>
-                        <span class="val-indicator val-dollars" style="font-size: 1.35rem;">${dollars}</span>
+                        <span class="val-indicator val-dollars" role="img" aria-label="${window.I18N.market_value_label}: ${valueLevel}/4" title="${valueLevel}/4">${Array.from({ length: 4 }, (_, i) => `<span class="val-dollar${i < valueLevel ? ' is-active' : ''}" aria-hidden="true">$</span>`).join('')}</span>
                     </div>
                 `;
             }
@@ -3534,9 +3682,20 @@ async function setAppLanguage(newLang) {
         }
 
         function deleteSpecificChar(name) {
-            if (!confirm(window.APP_LANG === 'en' ? `Are you sure you want to delete character ${name}? Equipped items will return to stash.` : `Czy na pewno usunąć postać ${name}? Założone przedmioty powrócą do skrzyni.`)) return;
+            if (!name) return;
+            const msg = (window.APP_LANG === 'en')
+                ? `Are you sure you want to delete character "${name}"? Equipped items will return to stash.`
+                : `Czy na pewno usunąć postać "${name}"? Założone przedmioty powrócą do skrzyni.`;
+            if (!confirm(msg)) return;
             fetch(`/api/character/${encodeURIComponent(name)}`, { method: 'DELETE' })
-                .then(() => window.location.href = '/?tab=character');
+                .then(r => r.json())
+                .then(() => {
+                    window.location.href = '/?tab=character';
+                })
+                .catch(err => {
+                    console.error(err);
+                    window.location.href = '/?tab=character';
+                });
         }
 
         function deleteCurrentChar() {

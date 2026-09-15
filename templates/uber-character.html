@@ -20,7 +20,15 @@
       {% endfor %}
     </div>
     <p class="uber-caption">{{ t('char_sheet_note') }}</p>
-    <button class="btn-d2 btn-gold" onclick="openCompanion()">{{ t('btn_manage_companion') }}</button>
+    <div style="display: flex; gap: 8px; margin-top: 14px;">
+      <button class="btn-d2 btn-gold" style="flex: 1;" onclick="openCompanion()">{{ t('btn_manage_companion') }}</button>
+      {% if hero.get('name') and hero.get('name') != t('char_default_name') %}
+      <button type="button" class="btn-d2 btn-danger" onclick="deleteSpecificChar('{{ hero.get('name')|escape }}')" title="{{ lang == 'en' and 'Delete character' or 'Usuń postać' }}" style="padding: 9px 14px; font-size: 0.88rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        <span>{{ lang == 'en' and 'Delete' or 'Usuń postać' }}</span>
+      </button>
+      {% endif %}
+    </div>
   </aside>
   <div class="stone-panel uber-equipment">
     <div class="uber-engraving">{{ t('char_gear_title') }}</div>

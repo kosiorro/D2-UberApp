@@ -4,6 +4,7 @@ import re
 import unicodedata
 import difflib
 from pathlib import Path
+from item_names import clean_item_name
 
 CATALOG_PATH = Path(__file__).parent / "data" / "catalog.sqlite"
 BASES_PATH = Path(__file__).parent / "data" / "item_bases.json"
@@ -239,6 +240,7 @@ class CatalogMatcher:
                 """).fetchall()
                 self._items_cache = [dict(r) for r in items]
                 for it in self._items_cache:
+                    it["name"] = clean_item_name(it["name"])
                     it["norm_pl"] = normalize_text(it["name"])
                     it["norm_en"] = normalize_text(it["name_en"])
                     b_code = it.get("base_code")
@@ -265,6 +267,7 @@ class CatalogMatcher:
                     """).fetchall()
                     for m in magics:
                         md = dict(m)
+                        md["name"] = clean_item_name(md["name"])
                         md["norm_pl"] = normalize_text(md["name"])
                         md["norm_en"] = normalize_text(md["name_en"])
                         md["level_req"] = None
@@ -283,6 +286,7 @@ class CatalogMatcher:
                 """).fetchall()
                 self._runewords_cache = [dict(r) for r in rws]
                 for rw in self._runewords_cache:
+                    rw["name"] = clean_item_name(rw["name"])
                     rw["norm_pl"] = normalize_text(rw["name"])
                     rw["norm_en"] = normalize_text(rw["name_en"])
                     rw["quality"] = "runeword"

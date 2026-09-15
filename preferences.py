@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 PATH = Path(__file__).resolve().parent / 'data' / 'companion-settings.json'
+DEFAULT_PATH = Path(__file__).resolve().parent / 'data' / 'companion-settings.default.json'
 
 class Blob(ctypes.Structure):
     _fields_ = [('size', wintypes.DWORD), ('data', ctypes.POINTER(ctypes.c_ubyte))]
@@ -27,6 +28,13 @@ def protect(value, decrypt=False):
 
 def load():
     if not PATH.exists():
+        if DEFAULT_PATH.exists():
+            try:
+                import shutil
+                shutil.copyfile(DEFAULT_PATH, PATH)
+            except Exception:
+                pass
+            return json.loads(DEFAULT_PATH.read_text(encoding='utf-8'))
         return {}
     data = json.loads(PATH.read_text(encoding='utf-8'))
     if 'api_key_protected' in data:

@@ -20,6 +20,7 @@ from capture import capture_service
 from ai_processor import process_image, process_character_stat_screen
 from runeword_calc import calculate_runewords_crafting
 from translations import get_t, get_item_title
+from stack_stash import get_snapshot
 
 app = Flask(__name__)
 
@@ -192,6 +193,7 @@ def index():
         selected_character=active_character,
         current_char_name=char_name,
         all_characters=all_characters,
+        stack_data=get_snapshot(tab) if tab in ('gems', 'materials') else {'items': [], 'total': 0, 'updated_at': None},
         runes_data=runes_data,
         runewords_calc=runewords_calc,
         runewords_crafting=runewords_calc,
@@ -350,6 +352,8 @@ def api_get_character_info(name):
 @app.route("/api/character/<name>", methods=["DELETE"])
 def api_delete_character(name):
     delete_character(name)
+    if getattr(capture_service, "current_character", "") and capture_service.current_character.lower() == name.lower():
+        capture_service.current_character = ""
     return jsonify({"success": True})
 
 @app.route("/api/characters/all", methods=["GET"])

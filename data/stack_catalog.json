@@ -1,0 +1,297 @@
+{
+  "pk1": {
+    "name": "Klucz Grozy",
+    "name_en": "Key of Terror",
+    "image": "/static/images/database/misc/klucz-do-czarnej-wie-y--luv.png"
+  },
+  "pk2": {
+    "name": "Klucz Nienawiści",
+    "name_en": "Key of Hate",
+    "image": "/static/images/database/misc/klucz-do-czarnej-wie-y--luv.png"
+  },
+  "pk3": {
+    "name": "Klucz Zniszczenia",
+    "name_en": "Key of Destruction",
+    "image": "/static/images/database/misc/klucz-do-czarnej-wie-y--luv.png"
+  },
+  "ua1": {
+    "name": "Cierpienie Talika",
+    "name_en": "Talic's Anguish",
+    "image": "/static/images/database/misc/cierpienie-talika--ua1.png"
+  },
+  "ua2": {
+    "name": "Ból Korlika",
+    "name_en": "Korlic's Pain",
+    "image": "/static/images/database/misc/b-l-korlika--ua2.png"
+  },
+  "ua3": {
+    "name": "Gniew Madoka",
+    "name_en": "Madawc's Ire",
+    "image": "/static/images/database/misc/gniew-madoka--ua3.png"
+  },
+  "ua4": {
+    "name": "Koszmar Bul-Kathosa",
+    "name_en": "Bul-Kathos' Nightmare",
+    "image": "/static/images/database/misc/koszmar-bul-kathosa--ua4.png"
+  },
+  "ua5": {
+    "name": "Koniec Woruska",
+    "name_en": "Worusk's End",
+    "image": "/static/images/database/misc/koniec-woruska--ua5.png"
+  },
+  "dhn": {
+    "name": "Róg Diablo",
+    "name_en": "Diablo's Horn",
+    "image": "/static/images/database/misc/ms-kie--fng.png"
+  },
+  "bey": {
+    "name": "Oko Baala",
+    "name_en": "Baal's Eye",
+    "image": "/static/images/database/misc/nl-oko--eyz.png"
+  },
+  "mbr": {
+    "name": "Mózg Mefista",
+    "name_en": "Mephisto's Brain",
+    "image": "/static/images/database/misc/ms-m-zg--brz.png"
+  },
+  "xa1": {
+    "name": "Zachodni Odłamek Kamienia Świata",
+    "name_en": "Western Worldstone Shard",
+    "image": "/static/images/database/misc/zachodni-od-amek-kamienia-wiata--xa1.png"
+  },
+  "xa2": {
+    "name": "Wschodni Odłamek Kamienia Świata",
+    "name_en": "Eastern Worldstone Shard",
+    "image": "/static/images/database/misc/wschodni-od-amek-kamienia-wiata--xa2.png"
+  },
+  "xa3": {
+    "name": "Południowy Odłamek Kamienia Świata",
+    "name_en": "Southern Worldstone Shard",
+    "image": "/static/images/database/misc/po-udniowy-od-amek-kamienia-wiata--xa3.png"
+  },
+  "xa4": {
+    "name": "Głęboki Odłamek Kamienia Świata",
+    "name_en": "Deep Worldstone Shard",
+    "image": "/static/images/database/misc/g-boki-od-amek-kamienia-wiata--xa4.png"
+  },
+  "xa5": {
+    "name": "Północny Odłamek Kamienia Świata",
+    "name_en": "Northern Worldstone Shard",
+    "image": "/static/images/database/misc/p-nocny-od-amek-kamienia-wiata--xa5.png"
+  },
+  "rvs": {
+    "name": "Mikstura wzmocnienia",
+    "name_en": "Rejuvenation Potion",
+    "image": "/static/images/database/potion/mikstura-wzmocnienia--rvs.png"
+  },
+  "rvl": {
+    "name": "Mikstura pełnego wzmocnienia",
+    "name_en": "Full Rejuvenation Potion",
+    "image": "/static/images/database/potion/mikstura-pe-nego-wzmocnienia--rvl.png"
+  },
+  "toa": {
+    "name": "Znak Rozgrzeszenia",
+    "name_en": "Token of Absolution",
+    "image": "/static/images/database/misc/znak-rozgrzeszenia--toa.png"
+  },
+  "tes": {
+    "name": "Spaczona Esencja Cierpienia",
+    "name_en": "Twisted Essence of Suffering",
+    "image": "/static/images/database/misc/spaczona-esencja-cierpienia--tes.png"
+  },
+  "ceh": {
+    "name": "Wzmocniona Esencja Nienawiści",
+    "name_en": "Charged Essence of Hatred",
+    "image": "/static/images/database/misc/wzmocniona-esencja-nienawi-ci--ceh.png"
+  },
+  "bet": {
+    "name": "Płonąca Esencja Grozy",
+    "name_en": "Burning Essence of Terror",
+    "image": "/static/images/database/misc/p-on-ca-esencja-grozy--bet.png"
+  },
+  "fed": {
+    "name": "Ropiejąca Esencja Zniszczenia",
+    "name_en": "Festering Essence of Destruction",
+    "image": "/static/images/database/misc/ropiej-ca-esencja-zniszczenia--fed.png"
+  },
+  "gcv": {
+    "name": "Nadkruszony ametyst",
+    "name_en": "Chipped Amethyst",
+    "image": "/static/images/database/gem/nadkruszony-ametyst--gcv.png"
+  },
+  "gfv": {
+    "name": "Ametyst ze skazą",
+    "name_en": "Flawed Amethyst",
+    "image": "/static/images/database/gem/ametyst-ze-skaz--gfv.png"
+  },
+  "gsv": {
+    "name": "Ametyst",
+    "name_en": "Amethyst",
+    "image": "/static/images/database/gem/ametyst--gsv.png"
+  },
+  "gzv": {
+    "name": "Ametyst bez skazy",
+    "name_en": "Flawless Amethyst",
+    "image": "/static/images/database/gem/ametyst-bez-skazy--gzv.png"
+  },
+  "gpv": {
+    "name": "Doskonały ametyst",
+    "name_en": "Perfect Amethyst",
+    "image": "/static/images/database/gem/doskona-y-ametyst--gpv.png"
+  },
+  "gcy": {
+    "name": "Nadkruszony topaz",
+    "name_en": "Chipped Topaz",
+    "image": "/static/images/database/gem/nadkruszony-topaz--gcy.png"
+  },
+  "gfy": {
+    "name": "Topaz ze skazą",
+    "name_en": "Flawed Topaz",
+    "image": "/static/images/database/gem/topaz-ze-skaz--gfy.png"
+  },
+  "gsy": {
+    "name": "Topaz",
+    "name_en": "Topaz",
+    "image": "/static/images/database/gem/topaz--gsy.png"
+  },
+  "gly": {
+    "name": "Topaz bez skazy",
+    "name_en": "Flawless Topaz",
+    "image": "/static/images/database/gem/topaz-bez-skazy--gly.png"
+  },
+  "gpy": {
+    "name": "Doskonały topaz",
+    "name_en": "Perfect Topaz",
+    "image": "/static/images/database/gem/doskona-y-topaz--gpy.png"
+  },
+  "gcb": {
+    "name": "Nadkruszony szafir",
+    "name_en": "Chipped Sapphire",
+    "image": "/static/images/database/gem/nadkruszony-szafir--gcb.png"
+  },
+  "gfb": {
+    "name": "Szafir ze skazą",
+    "name_en": "Flawed Sapphire",
+    "image": "/static/images/database/gem/szafir-ze-skaz--gfb.png"
+  },
+  "gsb": {
+    "name": "Szafir",
+    "name_en": "Sapphire",
+    "image": "/static/images/database/gem/szafir--gsb.png"
+  },
+  "glb": {
+    "name": "Szafir bez skazy",
+    "name_en": "Flawless Sapphire",
+    "image": "/static/images/database/gem/szafir-bez-skazy--glb.png"
+  },
+  "gpb": {
+    "name": "Doskonały szafir",
+    "name_en": "Perfect Sapphire",
+    "image": "/static/images/database/gem/doskona-y-szafir--gpb.png"
+  },
+  "gcg": {
+    "name": "Nadkruszony szmaragd",
+    "name_en": "Chipped Emerald",
+    "image": "/static/images/database/gem/nadkruszony-szmaragd--gcg.png"
+  },
+  "gfg": {
+    "name": "Szmaragd ze skazą",
+    "name_en": "Flawed Emerald",
+    "image": "/static/images/database/gem/szmaragd-ze-skaz--gfg.png"
+  },
+  "gsg": {
+    "name": "Szmaragd",
+    "name_en": "Emerald",
+    "image": "/static/images/database/gem/szmaragd--gsg.png"
+  },
+  "glg": {
+    "name": "Szmaragd bez skazy",
+    "name_en": "Flawless Emerald",
+    "image": "/static/images/database/gem/szmaragd-bez-skazy--glg.png"
+  },
+  "gpg": {
+    "name": "Doskonały szmaragd",
+    "name_en": "Perfect Emerald",
+    "image": "/static/images/database/gem/doskona-y-szmaragd--gpg.png"
+  },
+  "gcr": {
+    "name": "Nadkruszony rubin",
+    "name_en": "Chipped Ruby",
+    "image": "/static/images/database/gem/nadkruszony-rubin--gcr.png"
+  },
+  "gfr": {
+    "name": "Rubin ze skazą",
+    "name_en": "Flawed Ruby",
+    "image": "/static/images/database/gem/rubin-ze-skaz--gfr.png"
+  },
+  "gsr": {
+    "name": "Rubin",
+    "name_en": "Ruby",
+    "image": "/static/images/database/gem/rubin--gsr.png"
+  },
+  "glr": {
+    "name": "Rubin bez skazy",
+    "name_en": "Flawless Ruby",
+    "image": "/static/images/database/gem/rubin-bez-skazy--glr.png"
+  },
+  "gpr": {
+    "name": "Doskonały rubin",
+    "name_en": "Perfect Ruby",
+    "image": "/static/images/database/gem/doskona-y-rubin--gpr.png"
+  },
+  "gcw": {
+    "name": "Nadkruszony diament",
+    "name_en": "Chipped Diamond",
+    "image": "/static/images/database/gem/nadkruszony-diament--gcw.png"
+  },
+  "gfw": {
+    "name": "Diament ze skazą",
+    "name_en": "Flawed Diamond",
+    "image": "/static/images/database/gem/diament-ze-skaz--gfw.png"
+  },
+  "gsw": {
+    "name": "Diament",
+    "name_en": "Diamond",
+    "image": "/static/images/database/gem/diament--gsw.png"
+  },
+  "glw": {
+    "name": "Diament bez skazy",
+    "name_en": "Flawless Diamond",
+    "image": "/static/images/database/gem/diament-bez-skazy--glw.png"
+  },
+  "gpw": {
+    "name": "Doskonały diament",
+    "name_en": "Perfect Diamond",
+    "image": "/static/images/database/gem/doskona-y-diament--gpw.png"
+  },
+  "skc": {
+    "name": "Nadkruszona czaszka",
+    "name_en": "Chipped Skull",
+    "image": "/static/images/database/gem/nadkruszona-czaszka--skc.png"
+  },
+  "skf": {
+    "name": "Czaszka ze skazą",
+    "name_en": "Flawed Skull",
+    "image": "/static/images/database/gem/czaszka-ze-skaz--skf.png"
+  },
+  "sku": {
+    "name": "Czaszka",
+    "name_en": "Skull",
+    "image": "/static/images/database/gem/czaszka--sku.png"
+  },
+  "skl": {
+    "name": "Czaszka bez skazy",
+    "name_en": "Flawless Skull",
+    "image": "/static/images/database/gem/czaszka-bez-skazy--skl.png"
+  },
+  "skz": {
+    "name": "Doskonała czaszka",
+    "name_en": "Perfect Skull",
+    "image": "/static/images/database/gem/doskona-a-czaszka--skz.png"
+  },
+  "cjw": {
+    "name": "Światło Strażnika",
+    "name_en": "Guardian's Light",
+    "image": "/static/images/database/gem/doskona-y-diament--gpw.png"
+  }
+}

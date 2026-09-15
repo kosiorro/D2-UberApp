@@ -25,6 +25,11 @@ MODE_MAP = {
     'merc': 213,
     'runes': 214,
     'stat_screen': 215,
+    'gems': 216,
+    'materials': 217,
+    'swap': 218,
+    'toggle_listener': 219,
+    'toggle_mini': 220,
 }
 ID_TO_MODE = {v: k for k, v in MODE_MAP.items()}
 
@@ -170,7 +175,7 @@ class CaptureService:
         print(f"[Serwis] Ustawiono aktywną lokalizację na: '{self.current_location}'")
 
     def set_scan_mode(self, mode: str):
-        if mode in ("character", "stat_screen", "runes", "stash", "merc"):
+        if mode in ("character", "stat_screen", "runes", "stash", "merc", "gems", "materials"):
             self.scan_mode = mode
         else:
             self.scan_mode = "stash"
@@ -268,21 +273,45 @@ class CaptureService:
                             # Asynchroniczne przetwarzanie zrzutu ekranu
                             threading.Thread(target=self._safe_process_screen, daemon=True).start()
                         elif msg.wParam in ID_TO_MODE:
-                            target_mode = ID_TO_MODE[msg.wParam]
-                            self.set_scan_mode(target_mode)
-                            mode_labels = {
-                                'stash': 'Skrzynia',
-                                'character': 'Postać',
-                                'merc': 'Najemnik',
-                                'runes': 'Runy',
-                                'stat_screen': 'Statystyki'
-                            }
-                            label = mode_labels.get(target_mode, target_mode)
-                            self._add_log(f"Skrót: Tryb {label}", "Tryb")
-                            try:
-                                play_sound("gem")
-                            except Exception:
-                                pass
+                            target = ID_TO_MODE[msg.wParam]
+                            if target == 'swap':
+                                self.is_swap = not self.is_swap
+                                sw_txt = 'II' if self.is_swap else 'I'
+                                self._add_log(f"Skrót: Swap broni {sw_txt}", "Tryb")
+                                try:
+                                    play_sound("gem")
+                                except Exception:
+                                    pass
+                            elif target == 'toggle_listener':
+                                self._add_log("Skrót: Przełącznik nasłuchu", "Tryb")
+                                try:
+                                    play_sound("gem")
+                                except Exception:
+                                    pass
+                            elif target == 'toggle_mini':
+                                self._add_log("Skrót: Przełącznik trybu mini", "Tryb")
+                                try:
+                                    play_sound("gem")
+                                except Exception:
+                                    pass
+                            else:
+                                target_mode = target
+                                self.set_scan_mode(target_mode)
+                                mode_labels = {
+                                    'stash': 'Skrzynia',
+                                    'character': 'Postać',
+                                    'merc': 'Najemnik',
+                                    'runes': 'Runy',
+                                    'stat_screen': 'Statystyki',
+                                    'gems': 'Klejnoty',
+                                    'materials': 'Materiały'
+                                }
+                                label = mode_labels.get(target_mode, target_mode)
+                                self._add_log(f"Skrót: Tryb {label}", "Tryb")
+                                try:
+                                    play_sound("gem")
+                                except Exception:
+                                    pass
                     user32.TranslateMessage(ctypes.byref(msg))
                     user32.DispatchMessageW(ctypes.byref(msg))
                 else:
