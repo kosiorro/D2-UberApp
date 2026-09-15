@@ -3,8 +3,9 @@ import json
 from pathlib import Path
 from collections import Counter
 
-CATALOG_PATH = Path(__file__).parent / "data" / "catalog.sqlite"
-STASH_PATH = Path(__file__).parent / "data" / "stash.sqlite"
+import config
+CATALOG_PATH = config.DATA_DIR / "catalog.sqlite"
+STASH_PATH = config.DB_PATH
 
 R_CODE_TO_NUM = {f"r{i:02d}": i for i in range(1, 34)}
 

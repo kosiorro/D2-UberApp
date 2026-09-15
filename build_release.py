@@ -21,6 +21,8 @@ def build():
     dist_dir = BASE_DIR / 'dist'
     build_dir = BASE_DIR / 'build'
     
+    icon_path = BASE_DIR / 'static' / 'images' / 'uberapp.ico'
+
     # 2. Argumenty PyInstaller
     cmd = [
         sys.executable, '-m', 'PyInstaller',
@@ -30,6 +32,8 @@ def build():
         '--add-data', f'{BASE_DIR / "templates"}{os.pathsep}templates',
         '--add-data', f'{BASE_DIR / "static"}{os.pathsep}static',
         '--add-data', f'{BASE_DIR / "data"}{os.pathsep}data',
+        '--collect-all', 'webview',
+        '--collect-all', 'google.genai',
         '--hidden-import', 'sqlite3',
         '--hidden-import', 'PIL',
         '--hidden-import', 'PIL.Image',
@@ -37,15 +41,54 @@ def build():
         '--hidden-import', 'google.genai',
         '--hidden-import', 'flask',
         '--hidden-import', 'jinja2',
+        '--hidden-import', 'werkzeug',
+        '--hidden-import', 'clr',
+        '--hidden-import', 'pythonnet',
+        '--hidden-import', 'webview',
+        '--hidden-import', 'bottle',
+        '--hidden-import', 'stack_stash',
+        '--hidden-import', 'item_names',
+        '--hidden-import', 'translations',
         str(BASE_DIR / 'app.py')
     ]
+
+    if icon_path.exists():
+        cmd.extend(['--icon', str(icon_path)])
 
     print('Uruchamianie kompilacji PyInstaller...')
     subprocess.check_call(cmd, cwd=str(BASE_DIR))
 
-    # 3. Kopiuj pomocnicze skrypty startowe i baze do dist/D2UberApp
     target_app_dir = dist_dir / 'D2UberApp'
-    for launcher_name in ['Launch_D2_UberApp.bat', 'start.bat', 'Uruchom_D2_UberApp.bat', 'README.md']:
+
+    # 3. Zapewnij dostępność zasobów w głównym katalogu dist/D2UberApp (PyInstaller 6 umieszcza je w _internal)
+    for folder in ['templates', 'static', 'data']:
+        src = BASE_DIR / folder
+        dst = target_app_dir / folder
+        if src.exists():
+            if not dst.exists():
+                shutil.copytree(src, dst, ignore=shutil.ignore_patterns('*.tmp', '*.sqlite-shm', '*.sqlite-wal', 'stash.sqlite*'))
+            else:
+                for item in src.iterdir():
+                    target_item = dst / item.name
+                    if not target_item.exists() and not item.name.startswith('stash.sqlite') and not item.suffix in ('.tmp', '.shm', '.wal'):
+                        if item.is_dir():
+                            shutil.copytree(item, target_item)
+                        else:
+                            shutil.copy2(item, target_item)
+
+    # Inicjalizuj domyślne ustawienia jeśli brak
+    dist_data_dir = target_app_dir / 'data'
+    dist_data_dir.mkdir(parents=True, exist_ok=True)
+    (dist_data_dir / 'screenshots').mkdir(parents=True, exist_ok=True)
+    (dist_data_dir / 'previews').mkdir(parents=True, exist_ok=True)
+
+    default_settings = dist_data_dir / 'companion-settings.default.json'
+    active_settings = dist_data_dir / 'companion-settings.json'
+    if default_settings.exists() and not active_settings.exists():
+        shutil.copy2(default_settings, active_settings)
+
+    # 4. Kopiuj pomocnicze skrypty startowe i dokumentację
+    for launcher_name in ['Launch_D2_UberApp.bat', 'start.bat', 'Uruchom_D2_UberApp.bat', 'README.md', 'LICENSE']:
         fpath = BASE_DIR / launcher_name
         if fpath.exists():
             shutil.copy2(fpath, target_app_dir)
@@ -53,7 +96,7 @@ def build():
     print('\n[SUKCES] Aplikacja skompilowana do folderu:', target_app_dir)
     print('Aby uruchomic na dowolnym Windowsie: dist/D2UberApp/D2UberApp.exe')
 
-    # 4. Spakuj do ZIP
+    # 5. Spakuj do ZIP (Wersja Portable)
     zip_target = BASE_DIR / 'D2UberApp_Windows_x64'
     print(f'Tworzenie archiwum ZIP: {zip_target}.zip...')
     shutil.make_archive(str(zip_target), 'zip', str(dist_dir), 'D2UberApp')

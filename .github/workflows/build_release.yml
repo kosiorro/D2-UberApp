@@ -43,35 +43,39 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: "D2 UberApp ${{ github.ref_name || 'v1.0.0' }}"
+          name: "D2 UberApp ${{ github.ref_name || 'v1.1.0' }}"
           draft: false
           prerelease: false
           files: |
-            Output/D2UberApp_Setup_v1.0.0.exe
-            D2UberApp_Windows_x64.zip
+            Output/*.exe
+            *.zip
           body: |
-            ## D2 UberApp Windows Release ⚔️
+            ## D2 UberApp Windows Release ⚔️ (${{ github.ref_name || 'v1.1.0' }})
+
+            ### 🇵🇱 Co nowego w tej wersji:
+            - **💎 Pełny Magazyn Stackowalny**: Dedykowane zakładki i skanowanie **Klejnotów** (35 rodzajów) oraz **Materiałów** (23 składniki, esencje, tokeny) z licznikami ilości.
+            - **⌨️ Skróty klawiszowe do wszystkiego**: Możliwość przypisania własnych klawiszy do wszystkich 7 trybów (Skrzynia, Postać, Najemnik, Runy, Statystyki, Klejnoty, Materiały) oraz akcji (Swap broni, Nasłuch, Tryb Mini).
+            - **🎯 Domyślny wybór w Companionie**: Kliknięcie „Postać” automatycznie aktywuje Ekwipunek, a kliknięcie „Skrzynia” – Przedmioty.
+            - **💵 4-stopniowa czytelna skala wartości**: Estetyczne złote symbole dolarów dla aktywnej wartości z wyszarzonymi symbolami nieaktywnymi.
+            - **🧙 Inteligentne zarządzanie postaciami**: Automatyczna aktualizacja statystyk i założonego ekwipunku po skanie, brak duplikatów oraz możliwość usuwania postaci z poziomu aplikacji.
+            - **🛡️ Niezawodny instalator EXE**: Kompatybilny z każdym kontem Windows (nie wymaga uprawnień administratora, pełne uprawnienia do zapisu bazy danych i ustawień).
 
             ### 🇵🇱 Pliki do pobrania:
-            - **🎮 Instalator Windows (.exe) [Zalecane dla graczy]**: `D2UberApp_Setup_v1.0.0.exe` &mdash; klasyczny kreator instalacji, tworzy skrót na Pulpicie i w Menu Start, 0% konfiguracji.
+            - **🎮 Instalator Windows (.exe) [Zalecane dla graczy]**: `D2UberApp_Setup_v1.1.0.exe` &mdash; 1-kliknięcie, instaluje się u każdego, tworzy skróty na Pulpicie i w Menu Start.
             - **📦 Wersja Przenośna Portable (.zip)**: `D2UberApp_Windows_x64.zip` &mdash; wystarczy rozpakować i uruchomić `Launch_D2_UberApp.bat` lub `D2UberApp.exe`. Nie wymaga instalacji.
 
-            ### 🎮 Błyskawiczna Instrukcja Obsługi w Grze:
-            1. **Uruchom program**: Odpal aplikację przez skrót na Pulpicie lub `Launch_D2_UberApp.bat`.
-            2. **Wskaż przedmiot w D2R**: Najedź kursorem myszy na przedmiot na ziemi lub w ekwipunku, aby wyświetlił się tooltip ze statystykami.
-            3. **Wciśnij F10**: Dźwięk potwierdzi zrzut ekranu, a sztuczna inteligencja Gemini 3.5 przeanalizuje parametry i widełki w ~1.2s.
-            4. **Widełki i 1-Klik Giełda**: Odznaki `PERFECT (100%)`, `HIGH`, `MID`, `LOW`. Kliknij "Eksportuj do marketu", by od razu wystawić ofertę na giełdzie [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org).
+            ### 🎮 Błyskawiczna Instrukcja Obsługi:
+            1. **Uruchom program**: Otwórz aplikację przez skrót na Pulpicie lub `Launch_D2_UberApp.bat`.
+            2. **Wskaż przedmiot w D2R**: Najedź kursorem myszy na przedmiot na ziemi lub w ekwipunku, aby wyświetlił się tooltip.
+            3. **Wciśnij F10**: Dźwięk potwierdzi zrzut ekranu, a Gemini AI natychmiast rozpozna i oceni statystyki oraz widełki.
+            4. **Widełki i Giełda**: Oceny `PERFECT (100%)`, `HIGH`, `MID`, `LOW`. Kliknij "Eksportuj do marketu", by wystawić ofertę na giełdzie [d2uberappmarket.tw5.org](https://d2uberappmarket.tw5.org).
 
             ---
 
-            ### 🇬🇧 Download Options:
-            - **🎮 Windows Setup Wizard (.exe) [Recommended]**: `D2UberApp_Setup_v1.0.0.exe` &mdash; 1-click wizard installer, creates Desktop & Start Menu shortcuts.
-            - **📦 Portable Bundle (.zip)**: `D2UberApp_Windows_x64.zip` &mdash; fully standalone, simply extract and launch `Launch_D2_UberApp.bat` or `D2UberApp.exe`.
-
-            ### 🎮 In-Game Quick Start Guide:
-            1. **Launch App**: Open via Desktop shortcut or `Launch_D2_UberApp.bat`.
-            2. **Hover Cursor in D2R**: Hover your mouse over any item tooltip in Sanctuary.
-            3. **Press F10**: Audio chime confirms capture. Gemini AI parses affixes and rolls in ~1.2s.
-            4. **Check Rolls & Export**: View exact roll ratings (`PERFECT`, `HIGH`, `MID`, `LOW`) and export to the online trading hub with 1 click.
+            ### 🇬🇧 English Summary:
+            - **Stackable Stash Support**: Real-time counters and dedicated scanning for Gems and Materials.
+            - **Custom Hotkeys for Everything**: Assign hotkeys for all 7 modes and helper actions (weapon swap, mini view, toggle listener).
+            - **Smart Character Updates**: Auto-updates character equipment and stats upon scan without duplicate creation; in-app character deletion.
+            - **Universal Installer**: Runs on any Windows account without admin rights requirements.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

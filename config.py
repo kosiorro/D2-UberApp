@@ -1,7 +1,13 @@
 import os
+import sys
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
+if getattr(sys, 'frozen', False):
+    BASE_DIR = Path(sys.executable).resolve().parent
+    BUNDLE_DIR = Path(getattr(sys, '_MEIPASS', BASE_DIR)).resolve()
+else:
+    BASE_DIR = Path(__file__).resolve().parent
+    BUNDLE_DIR = BASE_DIR
 
 try:
     from dotenv import load_dotenv
@@ -17,8 +23,25 @@ SCREENSHOTS_DIR = DATA_DIR / 'screenshots'
 PREVIEWS_DIR = DATA_DIR / 'previews'
 DB_PATH = DATA_DIR / 'stash.sqlite'
 
-SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
-PREVIEWS_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
+    PREVIEWS_DIR.mkdir(parents=True, exist_ok=True)
+except Exception:
+    pass
+
+# When running bundled exe, ensure essential data files exist in writeable DATA_DIR
+if getattr(sys, 'frozen', False) and BUNDLE_DIR != BASE_DIR:
+    try:
+        import shutil
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        bundle_data = BUNDLE_DIR / 'data'
+        if bundle_data.exists():
+            for f in bundle_data.iterdir():
+                target_f = DATA_DIR / f.name
+                if not target_f.exists() and f.is_file():
+                    shutil.copy2(f, target_f)
+    except Exception:
+        pass
 
 MOD_ALT = 0x0001
 MOD_CONTROL = 0x0002

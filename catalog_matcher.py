@@ -6,8 +6,9 @@ import difflib
 from pathlib import Path
 from item_names import clean_item_name
 
-CATALOG_PATH = Path(__file__).parent / "data" / "catalog.sqlite"
-BASES_PATH = Path(__file__).parent / "data" / "item_bases.json"
+import config
+CATALOG_PATH = config.DATA_DIR / "catalog.sqlite"
+BASES_PATH = config.DATA_DIR / "item_bases.json"
 
 RUNE_REQ_LEVELS = {
     "r01": 11, "r02": 11, "r03": 13, "r04": 13, "r05": 15,

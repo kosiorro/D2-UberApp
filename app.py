@@ -22,7 +22,15 @@ from runeword_calc import calculate_runewords_crafting
 from translations import get_t, get_item_title
 from stack_stash import get_snapshot
 
-app = Flask(__name__)
+_tmpl = config.BASE_DIR / 'templates'
+if not _tmpl.exists() and hasattr(config, 'BUNDLE_DIR'):
+    _tmpl = config.BUNDLE_DIR / 'templates'
+
+_stat = config.BASE_DIR / 'static'
+if not _stat.exists() and hasattr(config, 'BUNDLE_DIR'):
+    _stat = config.BUNDLE_DIR / 'static'
+
+app = Flask(__name__, template_folder=str(_tmpl), static_folder=str(_stat))
 
 CLASS_ICONS = {
     "paladyn": "/static/images/classes/paladin.jpg",

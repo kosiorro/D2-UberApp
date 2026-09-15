@@ -97,7 +97,9 @@ def capture_screen() -> Image.Image:
         image.info['cursor'] = (cursor.x, cursor.y)
     return image
 
-SFX_DIR = Path(__file__).parent / "static" / "sfx"
+SFX_DIR = config.BASE_DIR / "static" / "sfx"
+if not SFX_DIR.exists() and hasattr(config, 'BUNDLE_DIR'):
+    SFX_DIR = config.BUNDLE_DIR / "static" / "sfx"
 
 def play_sound(sound_type="gem"):
     if not config.SOUND_ENABLED:

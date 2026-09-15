@@ -5,8 +5,11 @@ from ctypes import wintypes
 import json
 from pathlib import Path
 
-PATH = Path(__file__).resolve().parent / 'data' / 'companion-settings.json'
-DEFAULT_PATH = Path(__file__).resolve().parent / 'data' / 'companion-settings.default.json'
+import config
+PATH = config.DATA_DIR / 'companion-settings.json'
+DEFAULT_PATH = config.DATA_DIR / 'companion-settings.default.json'
+if not DEFAULT_PATH.exists() and hasattr(config, 'BUNDLE_DIR'):
+    DEFAULT_PATH = config.BUNDLE_DIR / 'data' / 'companion-settings.default.json'
 
 class Blob(ctypes.Structure):
     _fields_ = [('size', wintypes.DWORD), ('data', ctypes.POINTER(ctypes.c_ubyte))]

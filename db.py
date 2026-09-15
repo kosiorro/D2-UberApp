@@ -3,6 +3,7 @@ import json
 import uuid
 import hashlib
 from pathlib import Path
+import config
 from config import DB_PATH
 
 ALL_RUNES = [
@@ -316,7 +317,9 @@ def get_runes():
         }
 
 
-CATALOG_DB_PATH = Path(__file__).resolve().parent / 'data' / 'catalog.sqlite'
+CATALOG_DB_PATH = config.DATA_DIR / 'catalog.sqlite'
+if not CATALOG_DB_PATH.exists() and hasattr(config, 'BUNDLE_DIR'):
+    CATALOG_DB_PATH = config.BUNDLE_DIR / 'data' / 'catalog.sqlite'
 
 # Kanoniczna baza grafik Diablo 2 dla gwarantowanego dopasowania bez klucza
 CANONICAL_SPRITES = {

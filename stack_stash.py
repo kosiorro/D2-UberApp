@@ -6,8 +6,12 @@ from pathlib import Path
 from scan_validation import RejectedScan
 
 TABS = {'gems': ('Klejnoty', 'Gems'), 'materials': ('Materiały', 'Materials')}
-ROOT = Path(__file__).resolve().parent
-CATALOG = json.loads((ROOT / 'data' / 'stack_catalog.json').read_text(encoding='utf-8'))
+import config
+ROOT = config.BASE_DIR
+_cat_path = config.DATA_DIR / 'stack_catalog.json'
+if not _cat_path.exists() and hasattr(config, 'BUNDLE_DIR'):
+    _cat_path = config.BUNDLE_DIR / 'data' / 'stack_catalog.json'
+CATALOG = json.loads(_cat_path.read_text(encoding='utf-8'))
 # Ordered slots in the materials tab, separated by the gaps visible in-game.
 MATERIAL_ROWS = [
     (('pk1', 'pk2', 'pk3'), ('ua1', 'ua2', 'ua3', 'ua4', 'ua5')),

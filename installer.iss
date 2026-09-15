@@ -1,6 +1,6 @@
 ; Inno Setup Script dla D2 UberApp
 #define MyAppName "D2 UberApp"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "D2 Community"
 #define MyAppURL "https://d2uberappmarket.tw5.org"
 #define MyAppExeName "D2UberApp.exe"
@@ -16,12 +16,14 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=Output
-OutputBaseFilename=D2UberApp_Setup_v1.0.0
+OutputBaseFilename=D2UberApp_Setup_v1.1.0
 SetupIconFile=static\images\uberapp.ico
 UninstallDisplayIcon={app}\static\images\uberapp.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
+PrivilegesRequired=lowest
+PrivilegesRequiredOverridesAllowed=dialog
 
 [Languages]
 Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
@@ -29,6 +31,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
+
+[Dirs]
+Name: "{app}\data"; Permissions: users-full
+Name: "{app}\data\screenshots"; Permissions: users-full
+Name: "{app}\data\previews"; Permissions: users-full
 
 [Files]
 Source: "dist\D2UberApp\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs

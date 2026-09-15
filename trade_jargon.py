@@ -7,8 +7,11 @@ import json
 import re
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
-CATALOG_FILE = BASE_DIR / "data" / "trade_catalog_500.json"
+import config
+BASE_DIR = config.BASE_DIR
+CATALOG_FILE = config.DATA_DIR / "trade_catalog_500.json"
+if not CATALOG_FILE.exists() and hasattr(config, 'BUNDLE_DIR'):
+    CATALOG_FILE = config.BUNDLE_DIR / "data" / "trade_catalog_500.json"
 
 _CATALOG_DATA = []
 _CATALOG_BY_CLEAN_NAME = {}
