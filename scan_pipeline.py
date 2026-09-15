@@ -92,11 +92,10 @@ def run_capture(service):
                 else:raise ValueError('Nie znaleziono slotu dla tego przedmiotu. Użyj trybu Skrzynia.')
                 char_name=character
             image_hash=calculate_file_hash(PREVIEWS_DIR/preview)
-            equipped_target_char = char_name or getattr(service, 'current_character', '')
             equipped_item = None
-            if equipped_target_char:
+            if mode in ('character', 'merc') and char_name:
                 equipped_item = find_character_equipped_item(
-                    equipped_target_char,
+                    char_name,
                     name=data.get('name', ''),
                     quality=data.get('quality', ''),
                     stats=data.get('stats'),
@@ -104,18 +103,18 @@ def run_capture(service):
                     slot=char_slot
                 )
 
-            if equipped_item:
+            if equipped_item and mode in ('character', 'merc'):
                 item_id = equipped_item['id']
                 update_payload = dict(data,
                     preview_filename=preview,
                     screenshot_filename=filename,
                     image_hash=image_hash,
-                    location=target if char_name else equipped_item.get('location', 'Postać: ' + equipped_target_char),
-                    character_name=equipped_target_char,
+                    location=target,
+                    character_name=char_name,
                     character_slot=char_slot or equipped_item.get('character_slot', '')
                 )
                 update_item_full(item_id, update_payload)
-                touch_character(equipped_target_char)
+                touch_character(char_name)
                 saved = get_item(item_id)
                 if data.get('socket_contents'):
                     from uber_features import trade_details, save_trade_details
@@ -123,11 +122,12 @@ def run_capture(service):
                     contents = data['socket_contents']
                     extra['socket_contents'] = ', '.join(contents) if isinstance(contents, list) else str(contents)
                     save_trade_details(saved, extra)
-                outcome('success', f"Zaktualizowano postać {equipped_target_char}: {saved['name']}", kind, saved['name'], saved['id'], result['raw'])
+                outcome('success', f"Zaktualizowano postać {char_name}: {saved['name']}", kind, saved['name'], saved['id'], result['raw'])
             else:
                 if not char_name:
                     is_dup, dup_of, _ = check_for_duplicate(data['name'], data['quality'], data['stats'], image_hash)
-                record = dict(data, id=uid, preview_filename=preview, screenshot_filename=filename, location=target if char_name else location, notes='', is_duplicate=int(is_dup), duplicate_of=dup_of, image_hash=image_hash, character_name=char_name, character_slot=char_slot)
+                stash_loc = location or 'Skrzynia'
+                record = dict(data, id=uid, preview_filename=preview, screenshot_filename=filename, location=target if char_name else stash_loc, notes='', is_duplicate=int(is_dup), duplicate_of=dup_of, image_hash=image_hash, character_name=char_name, character_slot=char_slot)
                 insert_item(record)
                 if char_name:
                     touch_character(char_name)

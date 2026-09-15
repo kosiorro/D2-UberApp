@@ -1,6 +1,6 @@
 from flask import request,jsonify,render_template
 from capture import capture_service as service
-from db import get_all_characters_detailed,get_character,create_or_update_character
+from db import get_all_characters_detailed,get_character,create_or_update_character,get_distinct_locations
 from uber_features import edit_character
 from scan_history import recent,finish
 
@@ -24,7 +24,9 @@ def register(app):
             history=recent(),
             wizard_active=getattr(service,'wizard_active',False),
             wizard=service.last_stat_scan if getattr(service,'wizard_active',False) else None,
-            lang=config.COMPANION_SETTINGS.get('lang', 'pl')
+            lang=config.COMPANION_SETTINGS.get('lang', 'pl'),
+            location=service.current_location,
+            locations=get_distinct_locations()
         )
     @app.post('/api/companion/action')
     def action():
@@ -40,9 +42,16 @@ def register(app):
                 mode=data.get('mode','stash')
                 if mode == 'normal': mode = 'stash'
                 if mode not in ('stash','runes','gems','materials','stat_screen','character','merc'):raise ValueError('Nieznany tryb.')
+                if 'location' in data:
+                    service.current_location = str(data.get('location') or '').strip()
                 service.current_character=name;service.set_scan_mode(mode);service.set_swap(bool(data.get('swap')) if mode=='character' else False);service.offhand=False
                 from desktop_companion import persist
-                persist()
+                persist(location=service.current_location)
+            elif command=='set_location':
+                service.current_location = str(data.get('location') or '').strip()
+                from desktop_companion import persist
+                persist(location=service.current_location)
+                return jsonify(success=True, location=service.current_location)
             elif command=='wizard_start':
                 service.wizard_previous_mode=service.scan_mode;service.wizard_active=True;service.last_stat_scan=None;service.set_scan_mode('stat_screen');service.start()
             elif command=='wizard_cancel':

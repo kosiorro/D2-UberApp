@@ -9,7 +9,7 @@ import db
 from db import (
     init_db, create_or_update_character, get_character, delete_character,
     touch_character, insert_item, get_item, get_character_equipment,
-    update_item_full, find_character_equipped_item
+    update_item_full, find_character_equipped_item, get_all_items
 )
 from scan_history import init_history
 
@@ -248,6 +248,64 @@ class CharacterManagementTests(unittest.TestCase):
         self.assertEqual(config.MODE_HOTKEYS['toggle_listener'], 'F9')
         self.assertEqual(config.MODE_HOTKEYS['toggle_mini'], 'F11')
 
+
+    def test_scan_pipeline_stash_mode_never_hijacks_character_gear(self):
+        create_or_update_character({
+            "name": "StashPala",
+            "class_name": "Paladyn",
+            "level": 90
+        })
+
+        equipped = {
+            "id": "belt1",
+            "name": "Sznur Verdungo",
+            "base": "Pas z pajęczej siatki",
+            "quality": "unikalny",
+            "character_name": "StashPala",
+            "character_slot": "belt",
+            "location": "Postać: StashPala"
+        }
+        insert_item(equipped)
+
+        import scan_pipeline
+
+        mock_service = MagicMock()
+        mock_service.scan_mode = "stash"
+        mock_service.current_character = "StashPala"
+        mock_service.is_swap = False
+        mock_service.current_location = "Muł Zbroje"
+        mock_service.wizard_active = False
+
+        fake_scan = {
+            "status": "success",
+            "type": "item",
+            "data": {
+                "name": "Sznur Verdungo",
+                "base": "Pas z pajęczej siatki",
+                "quality": "unikalny",
+                "slot": "belt",
+                "stats": ["+40 do żywotności", "Zmniejsza obrażenia o 15%"]
+            },
+            "raw": {}
+        }
+
+        with patch('capture.capture_screen'), \
+             patch('capture_regions.crop_for_ai', return_value=(MagicMock(), (0, 0, 100, 100))), \
+             patch('scan_pipeline.process_image', return_value=fake_scan), \
+             patch('capture.play_sound'):
+            scan_pipeline.run_capture(mock_service)
+
+        # 1. Equipped item on StashPala should NOT be overwritten or touched
+        orig_equipped = get_item("belt1")
+        self.assertEqual(orig_equipped["character_name"], "StashPala")
+        self.assertEqual(orig_equipped["character_slot"], "belt")
+
+        # 2. A new item must be saved in stash with location = "Muł Zbroje"
+        stash_items = get_all_items(location_filter="Muł Zbroje", exclude_character_gear=True)
+        self.assertEqual(len(stash_items), 1)
+        self.assertEqual(stash_items[0]["name"], "Sznur Verdungo")
+        self.assertEqual(stash_items[0]["location"], "Muł Zbroje")
+        self.assertEqual(stash_items[0]["character_name"], "")
 
 if __name__ == '__main__':
     unittest.main()

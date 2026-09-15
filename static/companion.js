@@ -94,6 +94,24 @@ function updateModeButtons() {
     if ($('character-modes')) {
         $('character-modes').hidden = !characterModesOpen;
     }
+    if ($('stash-location-wrap')) {
+        $('stash-location-wrap').hidden = !stashModesOpen;
+    }
+    if ($('mini-stash-location') && $('mini-hero-choice')) {
+        $('mini-stash-location').style.display = stashModesOpen ? 'inline-block' : 'none';
+        $('mini-hero-choice').style.display = stashModesOpen ? 'none' : 'inline-block';
+    }
+}
+
+async function updateStashLocation(val) {
+    val = (val || '').trim();
+    if ($('stash-location-input')) $('stash-location-input').value = val;
+    if ($('mini-stash-location')) $('mini-stash-location').value = val;
+    if ($('set-location')) $('set-location').value = val;
+    await action({
+        action: 'set_location',
+        location: val
+    });
 }
 function toggleStashModes() {
     stashModesOpen = true;
@@ -119,7 +137,8 @@ async function changeSession() {
         action: 'session',
         character: $('hero-choice')?.value || '',
         mode: currentMode,
-        swap: $('capture-swap')?.checked || false
+        swap: $('capture-swap')?.checked || false,
+        location: $('stash-location-input')?.value || $('mini-stash-location')?.value || ''
     });
 }
 
@@ -382,6 +401,18 @@ async function refresh() {
         }
         if (picker && focused !== picker) picker.value = state.character;
         if (miniPicker && focused !== miniPicker) miniPicker.value = state.character;
+
+        const locInput = $('stash-location-input');
+        const miniLocInput = $('mini-stash-location');
+        const setLocInput = $('set-location');
+        if (locInput && focused !== locInput) locInput.value = state.location || '';
+        if (miniLocInput && focused !== miniLocInput) miniLocInput.value = state.location || '';
+        if (setLocInput && focused !== setLocInput) setLocInput.value = state.location || '';
+
+        const dlist = $('known-locations');
+        if (dlist && state.locations) {
+            dlist.innerHTML = state.locations.map(loc => `<option value="${esc(loc)}"></option>`).join('');
+        }
 
         if (state.mode && state.mode !== 'normal') {
             if (currentMode !== state.mode) {

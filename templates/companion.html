@@ -95,6 +95,7 @@
                 <div class="panel-kicker">{{ t("companion_status_title") }}</div>
                 <div class="char-picker-wrap">
                     <select id="mini-hero-choice" class="mini-hero-select" onchange="selectHeroFromMini(this)" title="{{ lang == 'en' and 'Select active hero' or 'Wybierz aktywną postać' }}"></select>
+                    <input type="text" id="mini-stash-location" class="mini-hero-select" list="known-locations" placeholder="{{ lang == 'en' and 'Stash / Mule' or 'Skrzynia / Muł' }}" onchange="updateStashLocation(this.value)" style="display: none; width: 130px; font-size: 11px; padding: 2px 6px; height: 24px; color: #d0b074; background: #131710; border: 1px solid #4a3e20; border-radius: 4px;" title="{{ lang == 'en' and 'Active Stash / Mule' or 'Aktywna skrzynia / muł' }}">
                 </div>
             </div>
             <div class="status-row-hud">
@@ -150,6 +151,16 @@
                     <span>{{ lang == 'en' and 'Materials' or 'Materiały' }}</span>
                     <span class="mode-hotkey-badge" data-mode-key="materials"></span>
                 </button>
+            </div>
+            <div id="stash-location-wrap" class="stash-location-wrap" style="margin-top: 10px;" hidden>
+                <label class="form-group" style="margin: 0;">
+                    <span style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">{{ lang == 'en' and 'Active Stash / Mule Name:' or 'Aktywna skrzynia / nazwa muła:' }}</span>
+                    <div style="display: flex; gap: 6px; margin-top: 4px;">
+                        <input type="text" id="stash-location-input" list="known-locations" placeholder="{{ lang == 'en' and 'e.g. Mule 1, Armor, Gems, Stash' or 'np. Muł 1, Zbroje, Skrzynia, Biżuteria' }}" onchange="updateStashLocation(this.value)" style="flex: 1; background: #131710; border: 1px solid #4a3e20; color: #d0b074; padding: 5px 8px; border-radius: 4px; font-size: 0.85rem;">
+                        <button type="button" onclick="updateStashLocation('')" title="{{ lang == 'en' and 'Default Stash' or 'Domyślna Skrzynia' }}" style="padding: 4px 8px; font-size: 0.75rem; background: #1b1a16; border: 1px solid #3d392e; color: #a09784; border-radius: 4px; cursor: pointer;">✕</button>
+                    </div>
+                </label>
+                <datalist id="known-locations"></datalist>
             </div>
             <div id="character-modes" class="mode-buttons-grid character-modes" hidden>
                 <button type="button" class="mode-btn" data-mode="character" onclick="setMode('character')" title="{{ lang == 'en' and 'Scan hero equipment' or 'Skanuj ekwipunek postaci' }}">

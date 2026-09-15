@@ -257,6 +257,7 @@ def api_live_activity():
         "status_text": capture_service.last_status,
         "scan_mode": capture_service.scan_mode,
         "character": capture_service.current_character,
+        "location": capture_service.current_location,
         "is_swap": capture_service.is_swap,
         "total_captured": capture_service.total_captured, "hotkey": config.HOTKEY_NAME
     })
