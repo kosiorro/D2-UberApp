@@ -29,6 +29,10 @@ def get_db():
 
 def init_db():
     with get_db() as con:
+        con.execute("CREATE TABLE IF NOT EXISTS stash_locations (name TEXT PRIMARY KEY)")
+        saved_location = str(config.COMPANION_SETTINGS.get('location') or '').strip()
+        if saved_location:
+            con.execute("INSERT OR IGNORE INTO stash_locations(name) VALUES (?)", (saved_location,))
         con.execute("""
         CREATE TABLE IF NOT EXISTS items (
             id TEXT PRIMARY KEY,
@@ -376,8 +380,15 @@ CANONICAL_SPRITES = {
     "święta rondela": "/static/images/database/armor/fs-rodela--pa2.png",
     "swieta rondela": "/static/images/database/armor/fs-rodela--pa2.png",
     "święta rõdela": "/static/images/database/armor/fs-rodela--pa2.png",
+    "święta ródela": "/static/images/database/armor/fs-rodela--pa2.png",
+    "święta rødela": "/static/images/database/armor/fs-rodela--pa2.png",
+    "swieta rodela": "/static/images/database/armor/fs-rodela--pa2.png",
+    "święta rodela": "/static/images/database/armor/fs-rodela--pa2.png",
     "sacred rondache": "/static/images/database/armor/fs-rodela--pa2.png",
     "rodela": "/static/images/database/armor/fs-rodela--pa2.png",
+    "ródela": "/static/images/database/armor/fs-rodela--pa2.png",
+    "rødela": "/static/images/database/armor/fs-rodela--pa2.png",
+    "rõdela": "/static/images/database/armor/fs-rodela--pa2.png",
     "rondela": "/static/images/database/armor/fs-rodela--pa2.png",
     "rondache": "/static/images/database/armor/fs-rodela--pa2.png",
     "aerinowa tarcza": "/static/images/database/armor/fs-aerinowa-tarcza--pa4.png",
@@ -462,10 +473,16 @@ CANONICAL_SPRITES = {
     "skorzana zbroja": "/static/images/database/armor/fs-sk-rzana-zbroja--lea.png",
     "gadzia skóra": "/static/images/database/armor/fs-sk-rzana-zbroja--lea.png",
     "gadzia skora": "/static/images/database/armor/fs-sk-rzana-zbroja--lea.png",
-    "wyrmhide": "/static/images/database/armor/fs-sk-rzana-zbroja--lea.png",
     "dusk shroud": "/static/images/database/armor/fs-sk-rzana-zbroja--lea.png",
-    "archon plate": "/static/images/database/armor/fs-pe-na-zbroja-p-ytowa--ful.png",
-    "pancerz archonta": "/static/images/database/armor/fs-pe-na-zbroja-p-ytowa--ful.png",
+    "archon plate": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
+    "archoncka zbroja płytowa": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
+    "archoncka zbroja plytowa": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
+    "archonska zbroja płytowa": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
+    "archonska zbroja plytowa": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
+    "archoncka": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
+    "archonska": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
+    "archon": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
+    "pancerz archonta": "/static/images/database/armor/fs-lekka-zbroja-p-ytowa--ltp.png",
 
     # Bronie (Weapons)
     "korbacz": "/static/images/database/weapon/ms-korbacz--fla.png",
@@ -501,12 +518,23 @@ def _clean_str(s: str) -> str:
         return ""
     import re
     res = re.sub(r'\[.*?\]', '', s).lower()
-    charmap = {'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z'}
+    charmap = {
+        'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z',
+        'ø':'o','ö':'o','õ':'o','ò':'o','ô':'o','ō':'o','º':'o',
+        'ü':'u','ú':'u','ù':'u','û':'u',
+        'ä':'a','à':'a','á':'a','â':'a','ã':'a','å':'a',
+        'é':'e','è':'e','ê':'e','ë':'e',
+        'í':'i','ì':'i','î':'i','ï':'i',
+        'ß':'s','θ':'o'
+    }
     for k, v in charmap.items():
         res = res.replace(k, v)
     res = re.sub(r'[^a-z0-9\s]', ' ', res)
+    res = re.sub(r'\br[o0]del[aei]?\b', 'rodela', res)
     res = re.sub(r'\brondel[aei]?\b', 'rodela', res)
+    res = re.sub(r'\brondach[ei]?\b', 'rondache', res)
     res = re.sub(r'\bobledniczy\b', 'oblezniczy', res)
+    res = re.sub(r'\barchon[sc]k[a-z]*\b', 'archoncka', res)
     return ' '.join(res.split())
 
 _HAC_CACHE = None
@@ -597,6 +625,10 @@ def _init_base_images():
         'phase blade': 'fazowe ostrze',
         'crystal sword': 'krysztalowy miecz',
         'archon plate': 'archoncka zbroja plytowa',
+        'archonska zbroja plytowa': 'archoncka zbroja plytowa',
+        'archonska': 'archoncka zbroja plytowa',
+        'archoncka': 'archoncka zbroja plytowa',
+        'archon': 'archoncka zbroja plytowa',
         'mage plate': 'lekka zbroja plytowa',
         'dusk shroud': 'wieczorny calun',
         'flail': 'korbacz',
@@ -646,26 +678,109 @@ def _init_base_images():
     _BASE_IMAGES_CACHE = cache
     return _BASE_IMAGES_CACHE
 
-def get_base_image(base_name):
+GENERIC_ADJECTIVES = {
+    "swieta", "swiete", "swiety", "sacred",
+    "wielki", "wielka", "wielkie", "great", "grand",
+    "maly", "mala", "male", "small", "mniejszy", "mniejsza", "mniejsze",
+    "ciezki", "ciezka", "ciezkie", "heavy",
+    "lekki", "lekka", "lekkie", "light",
+    "gotycki", "gotycka", "gotyckie", "gothic",
+    "kosciany", "kosciana", "kosciane", "bone",
+    "kolczy", "kolcza", "kolcze", "kolczasta", "kolczasty", "kolczaste", "chain", "spiked",
+    "plytowy", "plytowa", "plytowe", "plate",
+    "bojowy", "bojowa", "bojowe", "war",
+    "bitewny", "bitewna", "bitewne", "battle",
+    "prastary", "prastara", "prastare", "ancient",
+    "krolewski", "krolewska", "krolewskie", "royal",
+    "zdobiony", "zdobiona", "zdobione", "ornate",
+    "koronny", "koronowa", "koronowe", "crown",
+    "zamkowa", "zamkowy", "castle",
+    "demoniczny", "demoniczna", "demoniczne", "demonhide",
+    "gadzi", "gadzia", "gadzie", "wyrmhide",
+    "tyranicka", "tyranicki", "tyraniczy", "tyrant",
+    "okuta", "okuty", "okute",
+    "podwojny", "podwojna", "podwojne", "double",
+    "szeroki", "szeroka", "szerokie", "broad",
+    "ogromny", "ogromna", "ogromne", "giant",
+    "dlugi", "dluga", "dlugie", "long",
+    "krotki", "krotka", "krotkie", "short"
+}
+
+def is_category_compatible_with_slot(category: str, slot: str) -> bool:
+    if not category or not slot:
+        return True
+    cat = category.lower().strip()
+    s = slot.lower().strip()
+    if s in ("shield", "shield1", "shield2"):
+        return cat in ("armor", "shield")
+    if s in ("weapon", "weapon1", "weapon2", "merc_weapon"):
+        return cat in ("weapon",)
+    if s in ("head", "merc_head", "armor", "merc_armor", "gloves", "boots", "belt"):
+        return cat in ("armor", "head", "boots", "gloves", "belt")
+    if s in ("ring", "ring1", "ring2"):
+        return cat in ("ring",)
+    if s in ("amulet",):
+        return cat in ("amulet",)
+    if s in ("charm", "charms"):
+        return cat in ("charm",)
+    return True
+
+def is_slot_compatible(img_path: str, slot: str) -> bool:
+    if not img_path or not slot:
+        return True
+    s = slot.lower().strip()
+    img = img_path.lower()
+
+    if "/catalog/" in img:
+        return True
+
+    if s in ("shield", "shield1", "shield2"):
+        if "/weapon/" in img or "/ring/" in img or "/amulet/" in img or "/charm/" in img or "/gem/" in img:
+            return False
+    elif s in ("weapon", "weapon1", "weapon2", "merc_weapon"):
+        if "/ring/" in img or "/amulet/" in img or "/charm/" in img or "/gem/" in img or "/armor/" in img:
+            return False
+    elif s in ("head", "merc_head", "armor", "merc_armor", "gloves", "boots", "belt"):
+        if "/weapon/" in img or "/ring/" in img or "/amulet/" in img or "/charm/" in img or "/gem/" in img:
+            return False
+    elif s in ("ring", "ring1", "ring2"):
+        if "/ring/" not in img and "ring" not in img:
+            return False
+    elif s == "amulet":
+        if "/amulet/" not in img and "amulet" not in img and "amu" not in img:
+            return False
+    elif s in ("charm", "charms"):
+        if "/charm/" not in img and "charm" not in img and "torch" not in img and "annihilus" not in img and "gheed" not in img:
+            return False
+    return True
+
+def get_base_image(base_name, slot=None):
     if not base_name:
         return None
     cache = _init_base_images()
     cb = _clean_str(base_name)
     if not cb:
         return None
-    if cb in cache:
+    if cb in cache and is_slot_compatible(cache[cb], slot):
         return cache[cb]
     # Substring match
     for k, v in cache.items():
         if len(k) >= 3 and (k == cb or k in cb or cb in k):
-            return v
+            if is_slot_compatible(v, slot):
+                return v
     # Word overlap
     words_b = set(cb.split())
     best = None
     best_score = 0
     for k, v in cache.items():
         k_words = set(k.split())
-        score = len(words_b & k_words)
+        common = words_b & k_words
+        # Skip if common words are only generic adjectives
+        if not (common - GENERIC_ADJECTIVES):
+            continue
+        if not is_slot_compatible(v, slot):
+            continue
+        score = len(common)
         if score > best_score:
             best_score = score
             best = v
@@ -684,47 +799,65 @@ def resolve_item_image(name, name_en, base, slot, quality=""):
     clean_base = _clean_str(base)
     clean_en = _clean_str(name_en)
 
+    # Special handling for Duch / Spirit:
+    is_shield_context = slot in ("shield", "shield1", "shield2") or any(k in clean_base or k in clean_name for k in ["rodel", "rondache", "tarcz", "shield", "monarch", "kurast", "zakarum", "aerin", "targ"])
+    if ("duch" in clean_name or "spirit" in clean_en or "spirit" in clean_name) and is_shield_context:
+        if any(k in clean_base for k in ["rodel", "rondache"]):
+            return "/static/images/database/armor/fs-rodela--pa2.png"
+        elif "monarch" in clean_base:
+            return "/static/images/database/armor/fs-tr-jk-tna-tarcza--kit.png"
+        elif any(k in clean_base for k in ["targ"]):
+            return "/static/images/database/armor/fs-aerinowa-tarcza--pa4.png"
+        elif "kurast" in clean_base:
+            return "/static/images/database/armor/fs-heraldyczna-tarcza--pa3.png"
+        elif "zakarum" in clean_base or "vortex" in clean_base or "wiro" in clean_base:
+            return "/static/images/database/armor/fs-koronowa-tarcza--pa5.png"
+        return "/static/images/database/armor/fs-rodela--pa2.png"
+
     hac_items = _get_hac_items()
 
     # 1. Sprawdź najpierw unikatowe lub zestawowe przedmioty (specjalna grafika .webp)
     if quality in ('unikalny', 'unique', 'zestaw', 'set') or not quality:
         for h in hac_items:
             if h['kind'] in ('unique', 'set') and h.get('image'):
-                if clean_name and clean_name == h['norm_name']:
-                    return h['image']
-                if clean_en and clean_en == h['norm_en']:
-                    return h['image']
+                if (clean_name and clean_name == h['norm_name']) or (clean_en and clean_en == h['norm_en']):
+                    candidate = h['image']
+                    if is_category_compatible_with_slot(h.get('category'), slot) and is_slot_compatible(candidate, slot):
+                        return candidate
 
     # 2. "jak nie masz grafiki do itemu to daj grafikę bazy itemu"
     # A) Jeśli mamy podaną bazę przedmiotu (np. Monarch, Crystal Sword, Archon Plate)
     if base:
-        b_img = get_base_image(base)
-        if b_img:
+        b_img = get_base_image(base, slot)
+        if b_img and is_slot_compatible(b_img, slot):
             return b_img
 
     # B) Jeśli unikat/zestaw nie ma własnej grafiki, pobierz grafikę jego bazy z katalogu
     for h in hac_items:
         if (clean_name and clean_name == h['norm_name']) or (clean_en and clean_en == h['norm_en']):
             if h.get('base_name'):
-                b_img = get_base_image(h['base_name'])
-                if b_img:
+                b_img = get_base_image(h['base_name'], slot)
+                if b_img and is_slot_compatible(b_img, slot):
                     return b_img
 
     # C) Sprawdź czy nazwa lub name_en zawiera bazę (np. "Bursztynowy Mały Talizman", "Ring of the Zodiac")
     for target in [clean_base, clean_name, clean_en]:
         if target:
-            b_img = get_base_image(target)
-            if b_img:
+            b_img = get_base_image(target, slot)
+            if b_img and is_slot_compatible(b_img, slot):
                 return b_img
 
     # D) Sprawdź kanoniczną bazę bezpośrednio po nazwie, bazie lub name_en
     for target in [clean_name, clean_base, clean_en]:
         if target and target in CANONICAL_SPRITES:
-            return CANONICAL_SPRITES[target]
+            candidate = CANONICAL_SPRITES[target]
+            if is_slot_compatible(candidate, slot):
+                return candidate
 
     for key, sprite_path in CANONICAL_SPRITES.items():
         if len(key) >= 4 and (key in clean_base or key in clean_name or key in clean_en):
-            return sprite_path
+            if is_slot_compatible(sprite_path, slot):
+                return sprite_path
 
     # Wykrywanie slotu na podstawie słów kluczowych jeśli slot pusty
     if not slot or slot in ("misc", ""):
@@ -856,8 +989,29 @@ def update_item_meta(item_id: str, location: str = None, notes: str = None, is_d
 
 def get_distinct_locations() -> list[str]:
     with get_db() as con:
-        rows = con.execute("SELECT DISTINCT location FROM items WHERE location IS NOT NULL AND location != '' AND (character_name IS NULL OR character_name = '') ORDER BY location ASC").fetchall()
+        rows = con.execute("SELECT name FROM stash_locations UNION SELECT location FROM items WHERE location IS NOT NULL AND location != '' AND (character_name IS NULL OR character_name = '') ORDER BY 1").fetchall()
         return [r[0] for r in rows]
+
+
+def save_stash_location(name):
+    if name:
+        with get_db() as con:
+            con.execute("INSERT OR IGNORE INTO stash_locations(name) VALUES (?)", (name,))
+
+
+def change_stash_location(original, name=None):
+    with get_db() as con:
+        exists = con.execute("SELECT name FROM stash_locations WHERE name=? UNION SELECT location FROM items WHERE location=? AND COALESCE(character_name, '')=''", (original, original)).fetchone()
+        if not exists:
+            raise ValueError('Ta skrzynia już nie istnieje. Odśwież listę.')
+        if name is not None:
+            duplicate = con.execute("SELECT name FROM stash_locations WHERE name=? UNION SELECT location FROM items WHERE location=? AND COALESCE(character_name, '')=''", (name, name)).fetchone()
+            if name != original and duplicate:
+                raise ValueError('Taka nazwa już istnieje.')
+            con.execute("INSERT OR IGNORE INTO stash_locations(name) VALUES (?)", (name,))
+        con.execute("UPDATE items SET location=? WHERE location=? AND COALESCE(character_name, '')=''", (name or '', original))
+        if name != original:
+            con.execute("DELETE FROM stash_locations WHERE name=?", (original,))
 
 def _parse_item_row(r, con=None) -> dict:
     it = dict(r)
@@ -876,7 +1030,12 @@ def _parse_item_row(r, con=None) -> dict:
     )
     if resolved_img:
         it["image_path"] = resolved_img
-    it["base_image_path"] = get_base_image(it.get("base")) or get_base_image(it.get("name")) or ""
+    if it.get("image_path") and it["image_path"].startswith("images/"):
+        it["image_path"] = f"/static/images/database/{it['image_path'][7:]}"
+    base_img = get_base_image(it.get("base"), it.get("character_slot")) or get_base_image(it.get("name"), it.get("character_slot")) or ""
+    if base_img and base_img.startswith("images/"):
+        base_img = f"/static/images/database/{base_img[7:]}"
+    it["base_image_path"] = base_img
 
     # Auto-enrich market value, stat priority, build notes from catalog if empty
     if not it.get("market_value"):

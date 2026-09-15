@@ -5,7 +5,7 @@ title D2 UberApp - Diablo II Resurrected AI Companion
 cd /d "%~dp0"
 
 echo ===================================================================
-echo        ⚔️  D2 UberApp - Diablo II Resurrected AI Companion  ⚔️
+echo          D2 UberApp - Diablo II Resurrected AI Companion
 echo          AI Vault, Roll Evaluation & Online Trading Hub
 echo ===================================================================
 echo.

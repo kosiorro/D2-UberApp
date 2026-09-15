@@ -122,14 +122,15 @@ SOUND_ENABLED = COMPANION_SETTINGS.get('sound', True)
 CAPTURE_AUTOSTART = COMPANION_SETTINGS.get('autostart', True)
 
 DEFAULT_MODE_HOTKEYS = {
-    'stash': 'F5',
-    'character': 'F6',
-    'merc': 'F7',
-    'runes': 'F8',
-    'stat_screen': 'F9',
-    'gems': '',
-    'materials': '',
-    'swap': '',
+    'stash': 'Ctrl+F9',
+    'runes': 'Ctrl+F10',
+    'gems': 'Ctrl+F11',
+    'materials': 'Ctrl+F12',
+    'character': 'Alt+F9',
+    'stat_screen': 'Alt+F10',
+    'merc': 'Alt+F11',
+    'skill_screen': 'Alt+F12',
+    'swap': 'F8',
     'toggle_listener': '',
     'toggle_mini': ''
 }

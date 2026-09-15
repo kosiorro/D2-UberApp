@@ -1,6 +1,6 @@
 function uberSetGear(key) {
   document.querySelectorAll('.uber-gear-view').forEach(el => el.hidden = el.id !== 'gear-'+key);
-  document.querySelectorAll('.uber-tabs button').forEach(el => {const active=el.id==='tab-'+key;el.classList.toggle('active',active);el.setAttribute('aria-selected',String(active));});
+  document.querySelectorAll('.uber-equipment .uber-tabs button').forEach(el => {const active=el.id==='tab-'+key;el.classList.toggle('active',active);el.setAttribute('aria-selected',String(active));});
 }
 let uberTradeItem = null;
 async function uberTradeOptions(id) {
@@ -74,3 +74,10 @@ async function uberSaveTradeOptions(event) {
   }catch(error){alert(error.message);}
 }
 document.addEventListener('keydown',event=>{if(event.key==='Escape')document.getElementById('uber-trade-options')?.classList.remove('active');});
+async function openCharacterCreator() {
+  try {
+    const response = await fetch('/api/character-creator/open', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: '{}'});
+    const result = await response.json();
+    if (!response.ok) throw Error(result.error);
+  } catch (error) { alert(error.message); }
+}

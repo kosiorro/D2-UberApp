@@ -75,9 +75,15 @@ async function selectHeroFromMini(el) {
 let stashModesOpen = false;
 let characterModesOpen = false;
 function updateModeButtons() {
-    document.querySelectorAll('.mode-btn[data-mode]').forEach(btn => btn.classList.toggle('active', btn.dataset.mode === currentMode));
+    if ($('stats-scan-options')) $('stats-scan-options').hidden = currentMode !== 'skill_screen';
+    if ($('skill-scan-progress')) $('skill-scan-progress').textContent = currentMode === 'skill_screen' ? (window.APP_LANG === 'en' ? 'Scanned trees: ' : 'Zeskanowane drzewka: ') + (state.skill_scan_pages || []).length + '/3 · ' + (state.skill_scan_pages || []).join(', ') : '';
+    document.querySelectorAll('.mode-btn[data-mode]').forEach(btn => {
+        const active = btn.dataset.mode === currentMode;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', String(active));
+    });
     const stashActive = ['stash', 'runes', 'gems', 'materials'].includes(currentMode);
-    const characterActive = ['character', 'stat_screen', 'merc'].includes(currentMode);
+    const characterActive = ['character', 'stat_screen', 'skill_screen', 'merc'].includes(currentMode);
 
     if ($('stash-mode-toggle')) {
         $('stash-mode-toggle').classList.toggle('active', stashActive);
@@ -100,6 +106,23 @@ function updateModeButtons() {
     if ($('mini-stash-location') && $('mini-hero-choice')) {
         $('mini-stash-location').style.display = stashModesOpen ? 'inline-block' : 'none';
         $('mini-hero-choice').style.display = stashModesOpen ? 'none' : 'inline-block';
+    }
+}
+
+async function promptAddStashLocation() {
+    const current = $('stash-location-input')?.value || '';
+    const name = prompt(window.APP_LANG === 'en' ? 'Enter new stash or mule name:' : 'Wprowadź nową nazwę skrzyni lub muła:', current);
+    if (name !== null) {
+        const trimmed = name.trim();
+        if (trimmed) {
+            const dlist = $('known-locations');
+            if (dlist && ![...dlist.options].some(opt => opt.value.toLowerCase() === trimmed.toLowerCase())) {
+                const opt = document.createElement('option');
+                opt.value = trimmed;
+                dlist.prepend(opt);
+            }
+            await updateStashLocation(trimmed);
+        }
     }
 }
 
@@ -126,9 +149,9 @@ function toggleCharacterModes() {
 function setMode(mode) {
     currentMode = mode;
     stashModesOpen = ['stash', 'runes', 'gems', 'materials'].includes(mode);
-    characterModesOpen = ['character', 'stat_screen', 'merc'].includes(mode);
+    characterModesOpen = ['character', 'stat_screen', 'skill_screen', 'merc'].includes(mode);
     updateModeButtons();
-    if ($('swap-option')) $('swap-option').hidden = mode !== 'character';
+    if ($('swap-option')) $('swap-option').hidden = !['character', 'skill_screen'].includes(mode);
     changeSession();
 }
 
@@ -260,7 +283,7 @@ async function settingsOpen() {
     $('set-stat-region').value = (data.regions.stat_screen || [0, 0, .58, 1]).join(', ');
     $('set-rune-region').value = (data.regions.runes || [0, 0, .65, .95]).join(', ');
     const mhk = data.mode_hotkeys || {};
-    ['stash', 'character', 'merc', 'runes', 'stat_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'].forEach(m => {
+    ['stash', 'character', 'merc', 'runes', 'stat_screen', 'skill_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'].forEach(m => {
         setSelectValue($('set-mode-hk-' + m), mhk[m] || '');
     });
     $('settings-dialog').showModal();
@@ -270,7 +293,7 @@ async function saveSettings(event) {
     event.preventDefault();
     const region = id => $(id).value.split(',').map(x => Number(x.trim()));
     const modeHotkeys = {};
-    ['stash', 'character', 'merc', 'runes', 'stat_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'].forEach(m => {
+    ['stash', 'character', 'merc', 'runes', 'stat_screen', 'skill_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'].forEach(m => {
         const el = $('set-mode-hk-' + m);
         if (el) modeHotkeys[m] = el.value || '';
     });
@@ -291,6 +314,18 @@ async function saveSettings(event) {
         toast(window.APP_LANG === 'en' ? 'Settings saved.' : 'Zapisano ustawienia.');
         await refresh();
     }
+}
+
+async function resetHotkeys() {
+    const result = await nativeCall('reset_hotkeys');
+    if (!result?.success) return;
+    for (const [id, value] of [['set-hotkey', result.hotkey], ...Object.entries(result.mode_hotkeys).map(([key, value]) => ['set-mode-hk-' + key, value])]) {
+        const select = $(id);
+        if (!select) continue;
+        if (![...select.options].some(option => option.value === value)) select.add(new Option(value || 'Brak', value));
+        select.value = value;
+    }
+    toast(window.APP_LANG === 'en' ? 'Default hotkeys restored.' : 'Przywrócono fabryczne skróty.');
 }
 
 function formatCompanionStatus(rawStatus, running, hotkey) {
@@ -417,13 +452,13 @@ async function refresh() {
         if (state.mode && state.mode !== 'normal') {
             if (currentMode !== state.mode) {
                 stashModesOpen = ['stash', 'runes', 'gems', 'materials'].includes(state.mode);
-                characterModesOpen = ['character', 'stat_screen', 'merc'].includes(state.mode);
+                characterModesOpen = ['character', 'stat_screen', 'skill_screen', 'merc'].includes(state.mode);
             }
             currentMode = state.mode;
             updateModeButtons();
         }
         if ($('capture-swap')) $('capture-swap').checked = state.swap;
-        if ($('swap-option')) $('swap-option').hidden = currentMode !== 'character';
+        if ($('swap-option')) $('swap-option').hidden = !['character', 'skill_screen'].includes(currentMode);
 
         const mhk = state.mode_hotkeys || {};
         document.querySelectorAll('.mode-hotkey-badge').forEach(badge => {

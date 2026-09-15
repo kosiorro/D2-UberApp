@@ -23,15 +23,16 @@
     ]
   },
   "mode_hotkeys": {
-    "stash": "F1",
-    "character": "F2",
-    "merc": "F3",
-    "runes": "F4",
-    "stat_screen": "F5",
-    "gems": "F6",
-    "materials": "F7",
+    "stash": "Ctrl+F9",
+    "runes": "Ctrl+F10",
+    "gems": "Ctrl+F11",
+    "materials": "Ctrl+F12",
+    "character": "Alt+F9",
+    "stat_screen": "Alt+F10",
+    "merc": "Alt+F11",
+    "skill_screen": "Alt+F12",
     "swap": "F8",
-    "toggle_listener": "F9",
-    "toggle_mini": "F11"
+    "toggle_listener": "",
+    "toggle_mini": ""
   }
 }

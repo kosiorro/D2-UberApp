@@ -90,25 +90,75 @@
             gap: 20px;
             flex-wrap: wrap;
         }
+        @font-face {
+            font-family: 'Exocet';
+            src: url('/ExocetReaper-Medium.woff2') format('woff2'),
+                 url('/static/fonts/ExocetReaper-Medium.woff2') format('woff2');
+            font-weight: 400 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
             color: inherit;
         }
         .brand-logo {
-            width: 34px;
-            height: 34px;
-            filter: drop-shadow(0 0 8px rgba(199, 179, 119, 0.4));
+            width: 36px;
+            height: 36px;
+            filter: drop-shadow(0 0 10px rgba(199, 179, 119, 0.45));
+            transition: transform 0.25s ease, filter 0.25s ease;
+        }
+        .brand:hover .brand-logo {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 14px rgba(240, 211, 141, 0.65));
         }
         .brand-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.15rem;
+            font-family: 'Exocet', 'Cinzel', serif;
+            font-size: 1.35rem;
+            line-height: 1.1;
+            letter-spacing: 1.5px;
+            display: inline-flex;
+            align-items: baseline;
+            gap: 7px;
+            user-select: none;
+        }
+        .brand-title .logo-d2 {
+            font-family: 'Exocet', 'Cinzel', serif;
             font-weight: 700;
             letter-spacing: 2px;
-            color: var(--gold-main);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            background: linear-gradient(180deg, #fff9d2 0%, #ff9514 40%, #d72810 78%, #7a0c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(255, 85, 20, 0.75)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95));
+            transition: filter 0.25s ease;
+        }
+        .brand-title .logo-uberapp {
+            font-family: 'Exocet', 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+            background: linear-gradient(180deg, #ffffff 0%, #f7e3b5 30%, #cbb16f 65%, #7a5f25 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(203, 177, 111, 0.45)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95));
+            transition: filter 0.25s ease;
+        }
+        .brand:hover .brand-title .logo-d2 {
+            filter: drop-shadow(0 0 16px rgba(255, 110, 30, 0.95)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95));
+        }
+        .brand:hover .brand-title .logo-uberapp {
+            filter: drop-shadow(0 0 14px rgba(240, 215, 140, 0.75)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95));
+        }
+        .brand-subtitle {
+            font-family: 'Cinzel', Georgia, serif;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: #9c9786;
+            text-transform: uppercase;
+            margin-top: 3px;
         }
 
         /* NAVIGATION TABS */
@@ -1812,7 +1862,7 @@
             <a href="/" class="brand">
                 <img src="/static/images/uberapp.svg" class="brand-logo" alt="Diablo II">
                 <div>
-                    <div class="brand-title">D2 UberApp</div><div class="brand-subtitle">{{ t("brand_subtitle") }}</div>
+                    <div class="brand-title"><span class="logo-d2">D2</span><span class="logo-uberapp">UberApp</span></div><div class="brand-subtitle">{{ t("brand_subtitle") }}</div>
                 </div>
             </a>
 
@@ -1824,7 +1874,8 @@
             <button class="companion-link" onclick="openCompanion()" title="{{ t('companion_title_hint') }}">
                 <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle; margin-right:4px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                 {{ t('companion_btn') }}
-            </button><!-- NAVIGATION TABS -->
+            </button>
+            <button class="companion-link" onclick="openCharacterCreator()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 19l2 2 13-13-2-2zM17 2v3M20 5h3M5 3v4M3 5h4"/></svg> {{ 'Character creator' if lang == 'en' else 'Kreator postaci' }}</button><!-- NAVIGATION TABS -->
             <nav class="nav-tabs">
                 <a href="/?tab=items" class="nav-tab {% if active_tab == 'items' %}active{% endif %}">
                     <img src="/static/images/database/misc/kamie-duszy-mefista--mss.png" class="nav-icon" alt="">
@@ -1977,6 +2028,7 @@
                     <div class="active-stash-bar" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.45); border: 1px solid #3d392e; border-radius: 4px; padding: 2px 8px; margin-left: 6px;">
                         <span style="font-size: 0.72rem; color: #a09784; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">{{ lang == 'en' and 'Active Stash:' or 'Aktywna skrzynia:' }}</span>
                         <input type="text" id="webActiveStash" list="webStashList" value="{{ current_location }}" placeholder="{{ lang == 'en' and 'e.g. Mule 1, Stash' or 'np. Muł 1, Skrzynia' }}" style="background: #0d0f14; border: 1px solid #5a4825; color: #d0b074; padding: 4px 8px; border-radius: 3px; font-size: 0.8rem; width: 140px;" onchange="setWebActiveStash(this.value)">
+                        <button type="button" class="btn-d2 btn-stone" onclick="promptAddWebStash()" style="padding: 3px 8px; font-size: 0.8rem; font-weight: 700;" title="{{ lang == 'en' and 'Add new stash or mule name' or 'Dodaj nową skrzynię lub muła (+)' }}">+</button>
                         <button type="button" class="btn-d2 btn-stone" onclick="setWebActiveStash()" style="padding: 3px 8px; font-size: 0.75rem;" title="{{ lang == 'en' and 'Set active stash for new scans' or 'Ustaw skrzynię dla nowych skanów' }}">{{ lang == 'en' and 'Set' or 'Zapisz' }}</button>
                         <datalist id="webStashList">
                             {% for loc in distinct_locations %}
@@ -3510,6 +3562,26 @@ async function setAppLanguage(newLang) {
                 if (!response.ok) throw new Error(data.error || (window.APP_LANG === 'en' ? 'Could not open Companion app.' : 'Nie można otworzyć aplikacji towarzyszącej.'));
             } catch(error) { alert(error.message); }
         }
+        async
+        function promptAddWebStash() {
+            const current = document.getElementById('webActiveStash')?.value || '';
+            const name = prompt(window.APP_LANG === 'en' ? 'Enter new stash or mule name:' : 'Wprowadź nową nazwę skrzyni lub muła:', current);
+            if (name !== null) {
+                const trimmed = name.trim();
+                if (trimmed) {
+                    const input = document.getElementById('webActiveStash');
+                    if (input) input.value = trimmed;
+                    const dlist = document.getElementById('webStashList');
+                    if (dlist && ![...dlist.options].some(opt => opt.value.toLowerCase() === trimmed.toLowerCase())) {
+                        const opt = document.createElement('option');
+                        opt.value = trimmed;
+                        dlist.prepend(opt);
+                    }
+                    setWebActiveStash(trimmed);
+                }
+            }
+        }
+
         async function setWebActiveStash(val) {
             val = (val !== undefined ? val : (document.getElementById('webActiveStash')?.value || '')).trim();
             try {
@@ -3518,12 +3590,13 @@ async function setAppLanguage(newLang) {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ action: 'set_location', location: val })
                 });
+                if (!res.ok) throw new Error((await res.json()).error || 'Nie zapisano skrzyni.');
                 if (res.ok) {
                     const input = document.getElementById('webActiveStash');
                     if (input) input.value = val;
                 }
             } catch (e) {
-                console.error('Error setting active stash:', e);
+                alert(e.message);
             }
         }
 
@@ -4526,6 +4599,7 @@ async function setAppLanguage(newLang) {
     </form>
   </div>
 </div><script src="/static/uberapp.js"></script>
+<script src="/static/stash-locations.js"></script>
 
 <script>
 if (new URLSearchParams(location.search).get('embedded') === '1') {

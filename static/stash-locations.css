@@ -1,0 +1,17 @@
+dialog.stash-editor-dialog{box-sizing:border-box;position:fixed;inset:0;margin:auto;width:min(460px,calc(100vw - 32px));max-height:calc(100dvh - 40px);overflow:auto;padding:0;color:#e6dcc2;background:linear-gradient(145deg,#1b211b,#0e140f);border:1px solid #8b7545;border-radius:12px;box-shadow:0 24px 100px #000b;font:14px/1.5 'Segoe UI',sans-serif;text-align:left}
+.stash-editor-dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
+.stash-editor-dialog form{display:block;margin:0;padding:24px}
+.stash-editor-dialog h3{margin:0 0 22px;color:#e4c783;font:22px/1.25 Georgia,serif;letter-spacing:0;text-transform:none}
+.stash-editor-dialog .stash-editor-fields{display:grid;gap:14px}
+.stash-editor-dialog label{display:block;margin:0;font:13px/1.5 'Segoe UI',sans-serif;color:#bcb79f;text-transform:none}
+.stash-editor-dialog input,.stash-editor-dialog select{box-sizing:border-box;width:100%;min-height:42px;margin:6px 0 0!important;padding:9px 11px!important;border:1px solid #565c45;border-radius:6px;background:#080e0a;color:#eee5ce;font:14px 'Segoe UI',sans-serif;letter-spacing:normal;outline:none}
+.stash-editor-dialog input:focus,.stash-editor-dialog select:focus{border-color:#d6b65d;box-shadow:0 0 0 2px #d6b65d22}
+.stash-editor-dialog [hidden]{display:none!important}
+.stash-editor-dialog p{margin:14px 0 0;color:#acae9e;font:13px/1.5 'Segoe UI',sans-serif}
+.stash-editor-dialog p:empty{display:none}
+.stash-editor-dialog .stash-editor-error{color:#ffac94}
+.stash-editor-dialog .stash-editor-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:18px;border-top:1px solid #363d2e}
+.stash-editor-dialog button{min-height:40px;padding:8px 18px;border:1px solid #59604a;border-radius:6px;background:#20291e;color:#e1decf;font:600 13px 'Segoe UI',sans-serif;cursor:pointer;text-transform:none;letter-spacing:normal}
+.stash-editor-dialog button.stash-editor-save{background:#b8994e;border-color:#d0b263;color:#15190e}
+.stash-editor-dialog button.stash-editor-delete{background:#733d30;border-color:#a86c55;color:#fff0df}
+.stash-editor-dialog button:disabled{opacity:.5;cursor:wait}

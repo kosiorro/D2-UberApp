@@ -63,6 +63,13 @@ def process_image(image_path, scan_mode='normal', request_id=''):
         data = json.loads(response.text or '{}')
         kind, content = validate(data, scan_mode)
 
+        def _fix_cat_img(img_str):
+            if not img_str:
+                return ''
+            if img_str.startswith('images/'):
+                return f'/static/images/database/{img_str[7:]}'
+            return img_str
+
         if kind == 'item':
             name = content['name']
             quality = content.get('quality', '')
@@ -78,7 +85,7 @@ def process_image(image_path, scan_mode='normal', request_id=''):
                 content['stat_priority'] = cat.get('stat_priority') or ''
                 content['build_notes'] = cat.get('build_notes') or ''
                 if cat.get('image'):
-                    content['image_path'] = cat['image']
+                    content['image_path'] = _fix_cat_img(cat['image'])
 
                 if quality == 'runeword':
                     types_allowed = json.loads(cat.get('include_types_json') or '[]')
@@ -99,7 +106,7 @@ def process_image(image_path, scan_mode='normal', request_id=''):
                         content['stat_priority'] = cat.get('stat_priority') or ''
                         content['build_notes'] = cat.get('build_notes') or ''
                         if cat.get('image'):
-                            content['image_path'] = cat['image']
+                            content['image_path'] = _fix_cat_img(cat['image'])
                     else:
                         raise RejectedScan(f'Nie potwierdzono nazwy "{name}" w katalogu. Popraw czytelnosc opisu i ponow skan.')
                 else:
@@ -112,7 +119,7 @@ def process_image(image_path, scan_mode='normal', request_id=''):
                         content['stat_priority'] = cat.get('stat_priority') or ''
                         content['build_notes'] = cat.get('build_notes') or ''
                         if cat.get('image'):
-                            content['image_path'] = cat['image']
+                            content['image_path'] = _fix_cat_img(cat['image'])
 
             content['rolls_eval'] = catalog_matcher.evaluate_item_rolls(cat, content['stats'], content.get('rolls') or {}) if cat else []
             content['requirements'] = {k: content.get(k) for k in ('level_req', 'req_str', 'req_dex')}

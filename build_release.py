@@ -2,6 +2,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -20,6 +21,12 @@ def build():
 
     dist_dir = BASE_DIR / 'dist'
     build_dir = BASE_DIR / 'build'
+    build_dir.mkdir(exist_ok=True)
+    # Bundle only static catalogs and defaults, never the developer's live data.
+    package_data = Path(tempfile.mkdtemp(prefix='release-data-', dir=build_dir))
+    for name in ('armor_bases.json', 'item_bases.json', 'catalog.sqlite', 'stack_catalog.json',
+                 'trade_catalog_500.json', 'companion-settings.default.json'):
+        shutil.copy2(BASE_DIR / 'data' / name, package_data / name)
     
     icon_path = BASE_DIR / 'static' / 'images' / 'uberapp.ico'
 
@@ -31,7 +38,10 @@ def build():
         '--name', 'D2UberApp',
         '--add-data', f'{BASE_DIR / "templates"}{os.pathsep}templates',
         '--add-data', f'{BASE_DIR / "static"}{os.pathsep}static',
-        '--add-data', f'{BASE_DIR / "data"}{os.pathsep}data',
+        '--add-data', f'{package_data}{os.pathsep}data',
+        '--add-data', f'{BASE_DIR / "skille"}{os.pathsep}skille',
+        '--add-data', f'{BASE_DIR / "landing"}{os.pathsep}landing',
+        '--add-data', f'{BASE_DIR / "ExocetReaper-Medium.woff2"}{os.pathsep}.',
         '--collect-all', 'webview',
         '--collect-all', 'google.genai',
         '--hidden-import', 'sqlite3',
@@ -61,8 +71,8 @@ def build():
     target_app_dir = dist_dir / 'D2UberApp'
 
     # 3. Zapewnij dostępność zasobów w głównym katalogu dist/D2UberApp (PyInstaller 6 umieszcza je w _internal)
-    for folder in ['templates', 'static', 'data']:
-        src = BASE_DIR / folder
+    for folder in ['templates', 'static', 'data', 'skille', 'landing']:
+        src = package_data if folder == 'data' else BASE_DIR / folder
         dst = target_app_dir / folder
         if src.exists():
             if not dst.exists():
@@ -88,7 +98,7 @@ def build():
         shutil.copy2(default_settings, active_settings)
 
     # 4. Kopiuj pomocnicze skrypty startowe i dokumentację
-    for launcher_name in ['Launch_D2_UberApp.bat', 'start.bat', 'Uruchom_D2_UberApp.bat', 'README.md', 'LICENSE']:
+    for launcher_name in ['Launch_D2_UberApp.bat', 'start.bat', 'Uruchom_D2_UberApp.bat', 'README.md', 'LICENSE', 'ExocetReaper-Medium.woff2']:
         fpath = BASE_DIR / launcher_name
         if fpath.exists():
             shutil.copy2(fpath, target_app_dir)

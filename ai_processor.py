@@ -85,7 +85,7 @@ def detect_item_slot(name: str = "", name_en: str = "", base: str = "", current_
     combined = f"{name} {name_en} {base}".lower()
     base_lower = (base or "").lower()
 
-    shield_keys = ["rondel", "rondache", "rodel", "rodela", "ródela", "tarcz", "shield", "puklerz", "pelta", "egid", "aegis", 
+    shield_keys = ["rondel", "rondache", "rodel", "rodela", "ródela", "rødela", "rõdela", "tarcz", "shield", "puklerz", "pelta", "egid", "aegis",
                    "kuria", "herald", "targi", "targe", "tarża", "aerin", "kurast", "zakarum", "vortex", "ward", 
                    "pavise", "scutum", "monarch", "monarcha", "głowa", "glowa", "trofeum", "trophy", "kanty"]
     for k in shield_keys:
@@ -312,7 +312,7 @@ Jesteś ekspertem Diablo II: Resurrected. Na przesłanym zrzucie ekranu znajduje
 Przeanalizuj zrzut i zwróć DOKŁADNY obiekt JSON o strukturze:
 {
   "name": "Nazwa postaci (np. KOSIOR)",
-  "class_name": "Klasa postaci (Paladyn, Czarodziejka, Barbarzyńca, Amazonka, Zabójczyni, Nekromanta, Druid)",
+  "class_name": "Klasa postaci (Paladyn, Czarodziejka, Czarnoksiężnik / Warlock, Barbarzyńca, Amazonka, Zabójczyni, Nekromanta, Druid). Czarnoksiężnik to osobna klasa, NIGDY Czarodziejka.",
   "level": 85,
   "experience": "np. 1.050.337.625 z 1.145.236.814",
   "strength": 109,

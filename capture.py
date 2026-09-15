@@ -30,6 +30,7 @@ MODE_MAP = {
     'swap': 218,
     'toggle_listener': 219,
     'toggle_mini': 220,
+    'skill_screen': 221,
 }
 ID_TO_MODE = {v: k for k, v in MODE_MAP.items()}
 
@@ -177,7 +178,7 @@ class CaptureService:
         print(f"[Serwis] Ustawiono aktywną lokalizację na: '{self.current_location}'")
 
     def set_scan_mode(self, mode: str):
-        if mode in ("character", "stat_screen", "runes", "stash", "merc", "gems", "materials"):
+        if mode in ("character", "stat_screen", "skill_screen", "runes", "stash", "merc", "gems", "materials"):
             self.scan_mode = mode
         else:
             self.scan_mode = "stash"
@@ -211,6 +212,13 @@ class CaptureService:
         run_capture(self)
 
     def _safe_process_screen(self):
+        creator = getattr(self, 'creator_context', None)
+        if creator and getattr(self, 'creator_waiting_stage', None) == creator['stage']:
+            self._add_log('Zapisano skan. Kreator przechodzi do kolejnego kroku.', 'Kreator')
+            return
+        if creator and creator['stage'] in ('charIntro', 'char:swap', 'mercIntro', 'skillsIntro'):
+            self._add_log('Najpierw przejdź do slotu wskazanego w kreatorze.', 'Kreator')
+            return
         if not self.processing_lock.acquire(blocking=False):
             return
         if self.queue_count:
@@ -277,6 +285,9 @@ class CaptureService:
                         elif msg.wParam in ID_TO_MODE:
                             target = ID_TO_MODE[msg.wParam]
                             if target == 'swap':
+                                if getattr(self, 'creator_context', None):
+                                    self._add_log('Zestaw do skanowania ustawia kreator. W grze przełącz broń klawiszem W.', 'Kreator')
+                                    continue
                                 self.is_swap = not self.is_swap
                                 sw_txt = 'II' if self.is_swap else 'I'
                                 self._add_log(f"Skrót: Swap broni {sw_txt}", "Tryb")
@@ -298,6 +309,9 @@ class CaptureService:
                                     pass
                             else:
                                 target_mode = target
+                                if getattr(self, 'creator_context', None):
+                                    self._add_log('Trybem skanowania steruje otwarty kreator.', 'Kreator')
+                                    continue
                                 self.set_scan_mode(target_mode)
                                 mode_labels = {
                                     'stash': 'Skrzynia',
@@ -305,6 +319,7 @@ class CaptureService:
                                     'merc': 'Najemnik',
                                     'runes': 'Runy',
                                     'stat_screen': 'Statystyki',
+                                    'skill_screen': 'Skille',
                                     'gems': 'Klejnoty',
                                     'materials': 'Materiały'
                                 }

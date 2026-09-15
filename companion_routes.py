@@ -1,16 +1,21 @@
 from flask import request,jsonify,render_template
 from capture import capture_service as service
-from db import get_all_characters_detailed,get_character,create_or_update_character,get_distinct_locations
+from db import get_all_characters_detailed,get_character,create_or_update_character,get_distinct_locations,save_stash_location,change_stash_location
 from uber_features import edit_character
 from scan_history import recent,finish
 
 def register(app):
+    from character_creator import register as register_creator
+    register_creator(app)
     def busy():return service.queue_count or service.processing_lock.locked()
     @app.get('/companion')
     def companion_page():return render_template('companion.html')
     @app.get('/api/companion/state')
     def state():
         import config
+        from character_skills import character_class
+        hero = get_character(service.current_character)
+        hero_class = character_class(hero) if hero else None
         return jsonify(
             running=service.is_running,
             status=service.last_status,
@@ -20,12 +25,19 @@ def register(app):
             mode=service.scan_mode,
             character=service.current_character,
             swap=service.is_swap,
+            skill_scan_pages=getattr(service, 'skill_scan_pages', []),
+            skill_trees=hero_class['trees'] if hero_class else [],
             characters=get_all_characters_detailed(),
             history=recent(),
             wizard_active=getattr(service,'wizard_active',False),
             wizard=service.last_stat_scan if getattr(service,'wizard_active',False) else None,
             lang=config.COMPANION_SETTINGS.get('lang', 'pl'),
             location=service.current_location,
+            creator_context=getattr(service, 'creator_context', None),
+            creator_activity=getattr(service, 'creator_activity', None),
+            creator_key=getattr(service, 'creator_key', None),
+            busy=bool(busy()),
+            last_stat_scan=service.last_stat_scan,
             locations=get_distinct_locations()
         )
     @app.post('/api/companion/action')
@@ -33,6 +45,8 @@ def register(app):
         if not request.is_json or (request.headers.get('Origin') and request.headers['Origin']!=request.host_url.rstrip('/')):return jsonify(error='Niedozwolone żądanie'),403
         data=request.get_json();command=data.get('action')
         if busy():return jsonify(error='Poczekaj na zakończenie bieżącego skanu.'),409
+        if getattr(service, 'creator_context', None) and command in ('session', 'wizard_start', 'wizard_confirm', 'set_location', 'rename_location', 'delete_location', 'edit'):
+            return jsonify(error='Najpierw zakończ lub zamknij kreator postaci.'),409
         try:
             if command=='toggle':
                 service.stop() if service.is_running else service.start()
@@ -41,17 +55,33 @@ def register(app):
                 if name and not get_character(name):raise ValueError('Wybierz istniejącą postać.')
                 mode=data.get('mode','stash')
                 if mode == 'normal': mode = 'stash'
-                if mode not in ('stash','runes','gems','materials','stat_screen','character','merc'):raise ValueError('Nieznany tryb.')
+                if mode not in ('stash','runes','gems','materials','stat_screen','skill_screen','character','merc'):raise ValueError('Nieznany tryb.')
+                if mode == 'skill_screen':
+                    if service.scan_mode != mode or service.current_character != name or service.is_swap != bool(data.get('swap')):
+                        service.skill_scan_pages = []
+                    service.wizard_active = False
                 if 'location' in data:
                     service.current_location = str(data.get('location') or '').strip()
-                service.current_character=name;service.set_scan_mode(mode);service.set_swap(bool(data.get('swap')) if mode=='character' else False);service.offhand=False
+                    save_stash_location(service.current_location)
+                service.current_character=name;service.set_scan_mode(mode);service.set_swap(bool(data.get('swap')) if mode in ('character', 'skill_screen') else False);service.offhand=False
                 from desktop_companion import persist
                 persist(location=service.current_location)
             elif command=='set_location':
                 service.current_location = str(data.get('location') or '').strip()
+                save_stash_location(service.current_location)
                 from desktop_companion import persist
                 persist(location=service.current_location)
                 return jsonify(success=True, location=service.current_location)
+            elif command in ('rename_location', 'delete_location'):
+                original = str(data.get('original') or '').strip()
+                name = str(data.get('location') or '').strip() if command == 'rename_location' else None
+                if not original or name == '':
+                    raise ValueError('Podaj nazwę skrzyni lub muła.')
+                change_stash_location(original, name)
+                if service.current_location == original:
+                    service.current_location = name or ''
+                from desktop_companion import persist
+                persist(location=service.current_location)
             elif command=='wizard_start':
                 service.wizard_previous_mode=service.scan_mode;service.wizard_active=True;service.last_stat_scan=None;service.set_scan_mode('stat_screen');service.start()
             elif command=='wizard_cancel':

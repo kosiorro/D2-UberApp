@@ -11,6 +11,7 @@ Zawsze zwróć JSON z polami type (item|character|rune_stash|invalid), confidenc
 Dla type=item dodaj item: {name: dokładna widoczna nazwa, name_en: null, base: widoczna baza lub pusty tekst, quality: unikalny|zestaw|runeword|rzadki|magiczny|normalny, slot: head|armor|shield|weapon|gloves|belt|boots|amulet|ring|charm|misc, defense: liczba|null, damage: tekst|null, level_req: liczba|null, req_str: liczba|null, req_dex: liczba|null, sockets: liczba|null, socket_contents: lista wyłącznie widocznej zawartości, stats_complete: true|false, stats: WSZYSTKIE linie właściwości, rolls: {}}.
 Nie pomijaj bonusów wszystkich umiejętności, klas, drzewek (np. Aury Ofensywne Paladyna), pojedynczych umiejętności, aur, ładunków, efektów zależnych od poziomu, warunkowych, obrażeń, odporności, gniazd. Zachowaj dokładne liczby, znaki, procenty, ograniczenia klasowe i warunki. Nie skracaj stats. Jeśli pełny odczyt nie jest możliwy, stats_complete=false.
 Dla type=character dodaj character: {name, class_name, level, experience, strength, dexterity, vitality, energy, defense, stamina, life, mana, fire_res, light_res, cold_res, poison_res, main_skill, damage}. Czytaj wyłącznie panel POSTAĆ. Pola niewidoczne mają null; nie myl nazwy umiejętności z nazwą postaci.
+Klasy postaci: Amazonka, Czarodziejka (Sorceress), Czarnoksiężnik (Warlock), Nekromanta, Paladyn, Barbarzyńca, Druid, Zabójczyni. Czarnoksiężnik / Warlock jest osobną klasą: NIE zamieniaj go na Czarodziejkę ani Nekromantę. Odczytaj nazwę klasy z panelu; przy nieczytelnej nazwie zwróć null, nie zgaduj z wyglądu ekwipunku.
 Dla type=rune_stash dodaj runes: słownik NAZWA RUNY: ILOŚĆ. Czytaj liczby przy widocznych runach, nie zgaduj po pozycji. Dodaj rune_grid_complete=true tylko jeśli cała zakładka jest widoczna i policzalna. Nie odczytuj pojedynczej runy jako całej zakładki. Wszystkie 33 typy mogą mieć zero. Nie aktualizuj zakładki na podstawie niepełnego obrazu.
 Zwróć WYŁĄCZNIE ten JSON.'''
 
@@ -102,6 +103,8 @@ def validate(data, mode='normal'):
         if not isinstance(name,str) or not name.strip() or normalized(name) not in normalized(raw):raise RejectedScan('Nie odczytano nazwy postaci.')
         if not isinstance(level,int) or isinstance(level,bool) or not 1<=level<=99:raise RejectedScan('Nie odczytano poziomu postaci.')
         classes=('paladyn','paladin','czarodziejka','sorceress','barbarzynca','barbarian','amazonka','amazon','nekromanta','necromancer','druid','zabojczyni','assassin','czarnoksieznik','warlock')
+        if re.search(r'\b(czarnoksieznik|warlock)\b', normalized(raw)):
+            char['class_name'] = 'Czarnoksiężnik'
         if normalized(char.get('class_name')) not in classes:raise RejectedScan('Nie odczytano klasy postaci.')
         for key in ('strength','dexterity','vitality','energy'):
             value=char.get(key)

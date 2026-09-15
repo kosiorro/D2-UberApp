@@ -65,6 +65,10 @@ def crop_for_ai(screen, mode):
             box = (int(x * width), int(y * height), int((x + w) * width), int((y + h) * height))
             return screen.crop(box), box
 
+    if mode == 'skill_screen':
+        # The skill panel can be on either side depending on game layout.
+        return screen.copy(), (0, 0, width, height)
+
     # 2. STAT SCREEN (CHARACTER CREATOR / STATS) MODE
     if mode == 'stat_screen':
         defaults = [0, 0, .58, 1]

@@ -1,0 +1,46 @@
+<section class="stone-panel skill-panel" aria-labelledby="skills-heading">
+  <div class="uber-engraving" id="skills-heading">{{ 'Skill trees' if lang == 'en' else 'Drzewka umiejętności' }}</div>
+  {% if skill_plan %}
+  <div class="skill-summary" id="skill-summary" aria-live="polite"></div>
+  <div class="uber-tabs skill-tabs" role="tablist" aria-label="{{ 'Skill trees' if lang == 'en' else 'Drzewka umiejętności' }}">
+    {% for tree in skill_plan['class']['trees'] %}
+    <button type="button" role="tab" id="skill-tab-{{ tree.page }}" aria-controls="skill-tree-{{ tree.page }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ 0 if loop.first else -1 }}" class="{{ 'active' if loop.first else '' }}">{{ tree['name_' + lang] }}</button>
+    {% endfor %}
+  </div>
+  <p class="uber-caption" id="skill-gear-label"></p>
+  <div class="skill-trees">
+  {% for tree in skill_plan['class']['trees'] %}
+    <section class="skill-tree" id="skill-tree-{{ tree.page }}" role="tabpanel" aria-labelledby="skill-tab-{{ tree.page }}" {% if not loop.first %}hidden{% endif %}>
+    <div class="skill-game-grid">
+
+      {% for skill in skill_plan.skills if skill.tree.page == tree.page %}
+        <article class="skill-node" data-skill="{{ skill.uid }}" data-max="{{ skill.max_hard_points }}" data-game-id="{{ skill.game_id }}" style="grid-row:{{ skill.position.row }};grid-column:{{ skill.position.column }}">
+          <div class="skill-hover" tabindex="0" aria-describedby="tooltip-{{ skill.uid }}"><img src="{{ url_for('skill_asset', filename=skill.icon.removeprefix('images/')) }}" alt="" loading="lazy"><span>{{ skill.name }}</span><div class="skill-tooltip" role="tooltip" id="tooltip-{{ skill.uid }}"><strong>{{ skill.name }}</strong>
+            <p>{{ skill.description_pl }}</p><p class="uber-caption">{{ skill.thresholds_pl }}</p>
+          </div></div>
+          <div class="skill-effective"><span class="skill-item-bonus"></span><strong class="skill-effective-level"></strong></div>
+          <div class="skill-edit-values">
+            <label>{{ 'Hard points' if lang == 'en' else 'Wbite' }}<input type="number" class="skill-hard-input" min="0" max="{{ skill.max_hard_points }}" step="1" aria-label="{{ skill.name }}: {{ 'hard points' if lang == 'en' else 'wbite' }}"></label>
+            <label>{{ 'From items' if lang == 'en' else 'Z itemów' }}<input type="number" class="skill-bonus-input" min="0" max="99" step="1" aria-label="{{ skill.name }}: {{ 'from items' if lang == 'en' else 'z itemów' }}"></label>
+            <button type="button" class="skill-auto-bonus" title="{{ 'Use calculated equipment bonus' if lang == 'en' else 'Przywróć bonus obliczony z ekwipunku' }}">Auto</button>
+          </div>
+          <div class="skill-counter"><button type="button" data-delta="-1" aria-label="{{ 'Remove point' if lang == 'en' else 'Odejmij punkt' }}: {{ skill.name }}">−</button><output>0 / {{ skill.max_hard_points }}</output><button type="button" data-delta="1" aria-label="{{ 'Add point' if lang == 'en' else 'Dodaj punkt' }}: {{ skill.name }}">+</button></div>
+        </article>
+      {% endfor %}
+    </div>
+    </section>
+  {% endfor %}
+  </div>
+  <div class="skill-toolbar">
+    <button type="button" class="btn-d2 btn-gold" id="skill-edit" aria-expanded="false">{{ 'Edit' if lang == 'en' else 'Edytuj' }}</button>
+    <strong>{{ 'Allocated' if lang == 'en' else 'Rozdane punkty' }}: <span id="skill-total">0</span></strong>
+    <button type="button" class="btn-d2 btn-gold" id="skill-save">{{ 'Save points' if lang == 'en' else 'Zapisz punkty' }}</button>
+    <button type="button" class="btn-d2" id="skill-recalculate" title="{{ 'Refresh equipment bonuses for the selected weapon set' if lang == 'en' else 'Pobierz aktualny ekwipunek i zastąp ręczne bonusy dla wybranego zestawu broni' }}">{{ 'Recalculate bonuses' if lang == 'en' else 'Przelicz bonusy' }}</button>
+    <button type="button" class="btn-d2" id="skill-reset">{{ 'Reset plan' if lang == 'en' else 'Wyzeruj plan' }}</button>
+    <button type="button" class="btn-d2" id="skill-export">{{ 'Export build (HTML)' if lang == 'en' else 'Eksportuj build (HTML)' }}</button>
+    <span id="skill-status" role="status" aria-live="polite"></span>
+  </div>
+  <script id="skill-plan-data" type="application/json">{{ skill_plan|tojson }}</script>
+  <script src="/static/character-skills.js" defer></script>
+  {% else %}<p class="uber-caption">{{ 'Select a character with a supported class to allocate skills.' if lang == 'en' else 'Wybierz postać z rozpoznaną klasą, aby rozdać umiejętności.' }}</p>{% endif %}
+</section>

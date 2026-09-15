@@ -10,16 +10,29 @@ from scan_history import begin,finish
 def run_capture(service):
     from capture import capture_screen,play_sound
     mode,character,swap,location=service.scan_mode,service.current_character,service.is_swap,service.current_location
+    creator = dict(getattr(service, 'creator_context', None) or {})
     uid=uuid.uuid4().hex
     filename=f"d2_{time.strftime('%Y-%m-%d_%H-%M-%S')}_{uid[:8]}.png"
-    target=('Najemnik: ' if mode=='merc' else 'Postać: ')+character if mode in ('character','merc') else (location or 'Skrzynia')
+    target=('Najemnik: ' if mode=='merc' else 'Postać: ')+character if mode in ('character','merc','skill_screen') else (location or 'Skrzynia')
     begin(uid,mode,target,filename)
     service.queue_count=1
     def outcome(state,message,kind='',name='',result_id='',raw=None):
         finish(uid,state,kind,name,result_id,message,raw)
-        service.last_activity=dict(state=state,message=message,item_name=name,item_id=result_id,request_id=uid,timestamp=time.time(),queue_count=0)
+        service.last_activity=dict(state=state,message=message,item_name=name,item_id=result_id,request_id=uid,timestamp=time.time(),queue_count=0,creator_stage=creator.get('stage'))
+        if creator:
+            service.creator_activity = dict(service.last_activity)
+            if state == 'success' and creator.get('stage') != 'inventoryScan':
+                service.creator_waiting_stage = creator['stage']
         service._add_log(message,{'success':'Zapisano','rejected':'Odrzucono','error':'Błąd','review':'Do zatwierdzenia'}.get(state,state))
     try:
+        skill_plan = None
+        if mode == 'skill_screen':
+            from character_skills import view
+            hero = get_character(character)
+            skill_plan = view(hero)
+            if not skill_plan:
+                raise ValueError('Wybierz istniejącą postać z rozpoznaną klasą przed skanowaniem skilli.')
+            skill_plan.update(character_id=hero['id'], gear_mode='swap' if swap else 'main')
         if mode == 'merc' and not get_character(character):
             raise ValueError('Wybierz istniejącą postać przed skanowaniem wyposażenia najemnika.')
         service.last_activity=dict(state='analyzing',message='Wycinam obszar odczytu i sprawdzam zawartość…',request_id=uid,timestamp=time.time())
@@ -29,6 +42,17 @@ def run_capture(service):
         crop,bounds=crop_for_ai(screen,mode)
         preview=uid+'.png';crop.save(PREVIEWS_DIR/preview)
         service.total_captured+=1
+        if mode == 'skill_screen':
+            from skill_scanning import read_tree, save_tree
+            raw = read_tree(crop, skill_plan, uid)
+            page, breakdown = save_tree(raw, skill_plan)
+            pages = set(getattr(service, 'skill_scan_pages', []))
+            pages.add(page)
+            service.skill_scan_pages = sorted(pages)
+            outcome('success', f'Zapisano drzewko {page}: {character} ({len(pages)}/3). Zachowano poziomy ze screena; podział punktów można edytować.',
+                    'skill_tree', character, skill_plan['character_id'], dict(raw, breakdown=breakdown))
+            play_sound('drop')
+            return
         result=process_image(PREVIEWS_DIR/preview,mode,uid)
         if result['status']!='success':
             play_sound('error')
@@ -39,6 +63,8 @@ def run_capture(service):
             data=dict(data,screenshot_filename=filename)
             existing=get_character(data.get('name', ''))
             if existing:
+                # A stat refresh must not silently change the identity/class of an existing hero.
+                data['class_name'] = existing['class_name']
                 merged = dict(existing)
                 merged.update({k: v for k, v in data.items() if v is not None and v != ''})
                 merged['screenshot_filename'] = filename
@@ -91,6 +117,12 @@ def run_capture(service):
                 elif slot in ('head','armor','gloves','belt','boots','amulet'):char_slot=slot
                 else:raise ValueError('Nie znaleziono slotu dla tego przedmiotu. Użyj trybu Skrzynia.')
                 char_name=character
+            if creator.get('slot'):
+                if slot not in creator['accepts']:
+                    raise ValueError('Przedmiot nie pasuje do wskazanego slotu. Powtórz skan lub pomiń krok.')
+                char_slot = creator['slot']
+            if creator.get('stage') == 'inventoryScan' and slot == 'charm':
+                char_name, char_slot = character, 'charms'
             image_hash=calculate_file_hash(PREVIEWS_DIR/preview)
             equipped_item = None
             if mode in ('character', 'merc') and char_name:

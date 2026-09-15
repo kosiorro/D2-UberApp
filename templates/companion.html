@@ -43,7 +43,7 @@
         <div class="header-brand">
             <img src="/static/images/uberapp.svg" alt="D2 UberApp">
             <div>
-                <h1>D2 UberApp</h1>
+                <h1 class="brand-title"><span class="logo-d2">D2</span><span class="logo-uberapp">UberApp</span></h1>
                 <small class="brand-subtitle-full">{{ t("companion_sub") }}</small>
                 <small class="brand-subtitle-mini" style="display:none;">MINI HUD</small>
             </div>
@@ -69,13 +69,10 @@
     <div class="web-nav-bar full-view-section">
         <div class="panel-kicker">{{ lang == 'en' and 'WEB BROWSER' or 'PRZEGLĄDARKA WWW' }}</div>
         <div class="web-nav-buttons">
+            <button onclick="nativeCall('open_creator')"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 20l12-12M14 6l4 4M17 2v3M20 5h3M5 3v4M3 5h4"/><path d="M3 19l2 2 13-13-2-2z"/></svg><span>{{ lang == 'en' and 'Character creator' or 'Kreator postaci' }}</span></button>
             <button onclick="nativeCall('open_web','items')">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8z"/><path d="M3 8l3-5h12l3 5"/><circle cx="12" cy="14" r="1.5"/></svg>
                 <span>{{ t("companion_nav_vault") }}</span>
-            </button>
-            <button onclick="nativeCall('open_web','runes')">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 18 3 22 9 12 22 2 9"/></svg>
-                <span>{{ t("companion_nav_runes") }}</span>
             </button>
             <button onclick="nativeCall('open_web','character')">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -134,12 +131,12 @@
                 <button type="button" class="mode-btn active" data-mode="stash" onclick="setMode('stash')" title="{{ lang == 'en' and 'Scan items from stash' or 'Skanuj przedmioty ze skrzyni' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8z"/><path d="M3 8l3-5h12l3 5"/><circle cx="12" cy="14" r="1.5"/></svg>
                     <span>{{ lang == 'en' and 'Items' or 'Przedmioty' }}</span>
-                    <span class="mode-hotkey-badge" data-mode-key="stash">F5</span>
+                    <span class="mode-hotkey-badge" data-mode-key="stash">Ctrl+F9</span>
                 </button>
                 <button type="button" class="mode-btn" data-mode="runes" onclick="setMode('runes')" title="{{ lang == 'en' and 'Scan runes tab' or 'Skanuj zakładkę z runami' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 18 3 22 9 12 22 2 9"/></svg>
                     <span>{{ t("companion_nav_runes") }}</span>
-                    <span class="mode-hotkey-badge" data-mode-key="runes">F8</span>
+                    <span class="mode-hotkey-badge" data-mode-key="runes">Ctrl+F10</span>
                 </button>
                 <button type="button" class="mode-btn" data-mode="gems" onclick="setMode('gems')" title="{{ lang == 'en' and 'Scan gems tab' or 'Skanuj zakładkę z klejnotami' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 18 3 22 9 12 22 2 9"/><polyline points="2 9 12 13 22 9"/><line x1="12" y1="22" x2="12" y2="13"/></svg>
@@ -157,6 +154,7 @@
                     <span style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">{{ lang == 'en' and 'Active Stash / Mule Name:' or 'Aktywna skrzynia / nazwa muła:' }}</span>
                     <div style="display: flex; gap: 6px; margin-top: 4px;">
                         <input type="text" id="stash-location-input" list="known-locations" placeholder="{{ lang == 'en' and 'e.g. Mule 1, Armor, Gems, Stash' or 'np. Muł 1, Zbroje, Skrzynia, Biżuteria' }}" onchange="updateStashLocation(this.value)" style="flex: 1; background: #131710; border: 1px solid #4a3e20; color: #d0b074; padding: 5px 8px; border-radius: 4px; font-size: 0.85rem;">
+                        <button type="button" onclick="promptAddStashLocation()" title="{{ lang == 'en' and 'Add new stash or mule name' or 'Dodaj nową skrzynię lub muła (+)' }}" style="padding: 4px 10px; font-size: 0.85rem; font-weight: 700; background: #26241a; border: 1px solid #63532d; color: #ecdba8; border-radius: 4px; cursor: pointer;">+</button>
                         <button type="button" onclick="updateStashLocation('')" title="{{ lang == 'en' and 'Default Stash' or 'Domyślna Skrzynia' }}" style="padding: 4px 8px; font-size: 0.75rem; background: #1b1a16; border: 1px solid #3d392e; color: #a09784; border-radius: 4px; cursor: pointer;">✕</button>
                     </div>
                 </label>
@@ -166,18 +164,27 @@
                 <button type="button" class="mode-btn" data-mode="character" onclick="setMode('character')" title="{{ lang == 'en' and 'Scan hero equipment' or 'Skanuj ekwipunek postaci' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     <span>{{ lang == 'en' and 'Equipment' or 'Ekwipunek' }}</span>
-                    <span class="mode-hotkey-badge" data-mode-key="character">F6</span>
+                    <span class="mode-hotkey-badge" data-mode-key="character">Alt+F9</span>
                 </button>
                 <button type="button" class="mode-btn" data-mode="stat_screen" onclick="setMode('stat_screen')" title="{{ lang == 'en' and 'Scan character stats window (A/C)' or 'Skanuj okno statystyk (A)' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     <span>{{ t("companion_mode_stats") }}</span>
-                    <span class="mode-hotkey-badge" data-mode-key="stat_screen">F9</span>
+                    <span class="mode-hotkey-badge" data-mode-key="stat_screen">Alt+F10</span>
                 </button>
                 <button type="button" class="mode-btn" data-mode="merc" onclick="setMode('merc')" title="{{ lang == 'en' and 'Scan mercenary gear' or 'Skanuj rynsztunek najemnika' }}">
                     <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     <span>{{ t("companion_mode_merc") }}</span>
-                    <span class="mode-hotkey-badge" data-mode-key="merc">F7</span>
+                    <span class="mode-hotkey-badge" data-mode-key="merc">Alt+F11</span>
                 </button>
+                <button type="button" class="mode-btn" data-mode="skill_screen" onclick="setMode('skill_screen')" aria-pressed="false" title="{{ lang == 'en' and 'Scan skill trees' or 'Skanuj drzewka umiejętności' }}">
+                    <svg class="mode-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="4" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 6v6M5 17v-5h14v5"/></svg>
+                    <span>{{ lang == 'en' and 'Skills' or 'Skille' }}</span>
+                    <span class="mode-hotkey-badge" data-mode-key="skill_screen">Alt+F12</span>
+                </button>
+            </div>
+            <div id="stats-scan-options" class="full-view-section" hidden>
+                <p>{{ 'Skills: open each of the 3 trees in the game and press the capture hotkey once per tree. Keep numbers unobscured. Select the same weapon set as in the game; saved equipment bonuses are subtracted.' if lang == 'en' else 'Skille: otwórz kolejno 3 drzewka w grze i na każdym naciśnij skrót skanowania. Nie zasłaniaj liczb kursorem ani opisem. Wybierz zestaw broni zgodny z grą — bonusy z zapisanych itemów zostaną odjęte.' }}</p>
+                <p id="skill-scan-progress" role="status"></p>
             </div>
             <div class="checkbox-row full-view-section">
                 <label id="swap-option" hidden><input type="checkbox" id="capture-swap" onchange="changeSession()"> {{ lang == 'en' and 'Weapon Set II (Swap)' or 'Zestaw II (Swap)' }}</label>
@@ -290,6 +297,11 @@
                         {{ hotkey_options(true) }}
                     </select>
                 </label>
+                <label>{{ lang == 'en' and 'Skills' or 'Skille' }}
+                    <select id="set-mode-hk-skill_screen">
+                        {{ hotkey_options(true) }}
+                    </select>
+                </label>
                 <label>{{ lang == 'en' and 'Gems' or 'Klejnoty' }}
                     <select id="set-mode-hk-gems">
                         {{ hotkey_options(true) }}
@@ -327,6 +339,7 @@
             <label>{{ t("companion_mode_runes") }}<input id="set-rune-region" required placeholder="0, 0, 0.65, 0.95"></label>
             <div class="dialog-actions">
                 <button type="button" onclick="document.getElementById('settings-dialog').close()">{{ lang == 'en' and 'Back' or 'Wróć' }}</button>
+                <button type="button" onclick="resetHotkeys()">{{ lang == 'en' and 'Reset hotkeys' or 'Reset skrótów' }}</button>
                 <button class="gold" type="submit">{{ lang == 'en' and 'Save Settings' or 'Zapisz ustawienia' }}</button>
             </div>
         </form>
@@ -347,5 +360,6 @@
     };
 </script>
 <script src="/static/companion.js"></script>
+<script src="/static/stash-locations.js"></script>
 </body>
 </html>

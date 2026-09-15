@@ -332,7 +332,8 @@ def find_catalog_entry(item: dict) -> dict | None:
         if c in _CATALOG_BY_CLEAN_NAME:
             return _CATALOG_BY_CLEAN_NAME[c]
     if "spirit" in name_en.lower() or "duch" in name_pl.lower():
-        is_shield = any(k in base.lower() for k in ["shield", "tarcza", "monarch", "rondela", "rodela", "targe"])
+        clean_b = base.lower().replace("ø", "o").replace("õ", "o").replace("ó", "o")
+        is_shield = any(k in clean_b for k in ["shield", "tarcza", "monarch", "rondela", "rodela", "rondache", "targe", "targi", "tarza", "tarża", "kurast", "zakarum", "aerin", "puklerz", "pelta", "egid", "aegis", "ward", "pavise", "scutum"])
         key = "spiritshield" if is_shield else "spiritsword"
         if key in _CATALOG_BY_CLEAN_NAME:
             return _CATALOG_BY_CLEAN_NAME[key]

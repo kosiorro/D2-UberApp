@@ -58,6 +58,8 @@ from scan_history import init_history, calls
 init_history()
 from companion_routes import register
 register(app)
+import character_skills
+character_skills.register(app)
 
 def get_current_lang():
     lang = request.args.get('lang')
@@ -111,6 +113,10 @@ def landing_page():
 @app.route('/landing/<path:filename>')
 def landing_static(filename):
     return send_from_directory(config.BASE_DIR / 'landing', filename)
+
+@app.route('/ExocetReaper-Medium.woff2')
+def font_exocet():
+    return send_from_directory(config.BASE_DIR, 'ExocetReaper-Medium.woff2')
 
 @app.route("/")
 def index():
@@ -199,6 +205,7 @@ def index():
         doll=character_doll,
         active_character=active_character,
         selected_character=active_character,
+        skill_plan=character_skills.view(active_character),
         current_char_name=char_name,
         all_characters=all_characters,
         stack_data=get_snapshot(tab) if tab in ('gems', 'materials') else {'items': [], 'total': 0, 'updated_at': None},

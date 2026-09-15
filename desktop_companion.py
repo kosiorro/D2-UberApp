@@ -16,6 +16,8 @@ except Exception:
 
 
 show_requested = threading.Event()
+creator_requested = threading.Event()
+_creator_window = None
 
 def free_port(port):
     try:
@@ -47,6 +49,8 @@ def persist(**updates):
         location=service.current_location
     )
     data.update(updates)
+    from db import save_stash_location
+    save_stash_location(str(data.get('location') or '').strip())
     save(data)
     config.COMPANION_SETTINGS = data
 
@@ -161,6 +165,24 @@ def set_window_topmost(topmost: bool):
 class Bridge:
     exiting = False
 
+    def reset_hotkeys(self):
+        if service.queue_count or service.processing_lock.locked():
+            return {'error': 'Poczekaj na zakończenie skanu.'}
+        running = service.is_running
+        service.stop()
+        try:
+            config.HOTKEY_MODIFIERS, config.HOTKEY_VK, config.HOTKEY_NAME = config.parse_hotkey('F10')
+            config.MODE_HOTKEYS = dict(config.DEFAULT_MODE_HOTKEYS)
+            persist()
+            return {'success': True, 'hotkey': config.HOTKEY_NAME, 'mode_hotkeys': config.MODE_HOTKEYS}
+        finally:
+            if running:
+                service.start()
+
+    def open_creator(self):
+        creator_requested.set()
+        return {'success': True}
+
     def settings(self):
         return dict(
             hotkey=config.HOTKEY_NAME,
@@ -198,7 +220,7 @@ class Bridge:
 
         raw_mode_hotkeys = data.get('mode_hotkeys', {})
         new_mode_hotkeys = {}
-        for m in ('stash', 'character', 'merc', 'runes', 'stat_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'):
+        for m in ('stash', 'character', 'merc', 'runes', 'stat_screen', 'skill_screen', 'gems', 'materials', 'swap', 'toggle_listener', 'toggle_mini'):
             k = str(raw_mode_hotkeys.get(m, '')).strip()
             if not k or k.lower() in ('brak', 'none', ''):
                 new_mode_hotkeys[m] = ''
@@ -326,13 +348,43 @@ def run(app):
 
         def on_closing():
             bridge.exiting = True
+            if _creator_window:
+                _creator_window.destroy()
         window.events.closing += on_closing
 
         def watcher():
+            global _creator_window
+            key_down = {}
             icon_path = str(config.BASE_DIR / 'static' / 'images' / 'uberapp.ico')
             icon_applied = False
             affinity_applied = False
             while not bridge.exiting:
+                if creator_requested.is_set():
+                    creator_requested.clear()
+                    if _creator_window is None:
+                        _creator_window = webview.create_window(
+                            'D2 UberApp · Kreator postaci',
+                            f'http://127.0.0.1:{config.FLASK_PORT}/character-creator',
+                            width=740, height=820, min_size=(520, 500),
+                            background_color='#080d09', on_top=True, js_api=bridge)
+                        def creator_closed():
+                            global _creator_window
+                            _creator_window = None
+                            from character_creator import close_creator
+                            close_creator()
+                        _creator_window.events.closed += creator_closed
+                        _creator_window.events.loaded += lambda: exclude_window_from_capture()
+                    else:
+                        _creator_window.on_top = True
+                        _creator_window.restore()
+                        _creator_window.show()
+                context = getattr(service, 'creator_context', None)
+                if _creator_window and context:
+                    for key in ('I', 'W', 'T'):
+                        down = bool(ctypes.windll.user32.GetAsyncKeyState(ord(key)) & 0x8000)
+                        if down and not key_down.get(key):
+                            service.creator_key = dict(key=key, stage=context['stage'], timestamp=time.time())
+                        key_down[key] = down
                 if not affinity_applied:
                     exclude_window_from_capture(window)
                     if config.COMPANION_SETTINGS.get('transparent'):
@@ -361,7 +413,7 @@ def run(app):
                     except Exception:
                         pass
 
-                if show_requested.wait(0.5):
+                if show_requested.wait(0.05):
                     show_requested.clear()
                     try:
                         window.restore()
