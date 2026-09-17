@@ -25,7 +25,7 @@ class ApiSetupTests(unittest.TestCase):
         for lang, label, update in [('pl', 'Podłącz Gemini API', 'Sprawdź aktualizacje'),
                                     ('en', 'Connect Gemini API', 'Check for updates')]:
             with app.test_request_context(), self.subTest(lang=lang):
-                html = render_template('app-status.html', lang=lang, api_configured=False)
+                html = render_template('api-onboarding.html', lang=lang, api_configured=False) + render_template('app-status.html', lang=lang)
                 self.assertIn(label, html)
                 self.assertIn(update, html)
                 self.assertIn('https://aistudio.google.com/apikey', html)

@@ -1850,7 +1850,7 @@
 <link rel="stylesheet" href="/static/shared-repair.css">
 </head>
 <body class="{{ 'embedded' if request.args.get('embedded') == '1' else '' }}">
-    {% include 'app-status.html' %}
+    {% include 'api-onboarding.html' %}
 
     <!-- AUDIO FOR DIABLO II ITEM SOUNDS (GEM CLICK) -->
     <audio id="sfxGem" src="/static/sfx/gem.wav" preload="auto"></audio>
@@ -2834,6 +2834,7 @@
     <!-- Activity Radar Widget -->
     <!-- ========================================================================= -->
     <footer class="sanctuary-footer"><strong>D2 UberApp</strong><span>{{ lang == "en" and "Diablo II: Resurrected · Your gear vault, always at hand" or "Diablo II: Resurrected · Twoja kolekcja, zawsze pod ręką" }}</span><span>{{ lang == "en" and "Capture & AI running in Companion App" or "Przechwytywanie i AI w aplikacji towarzyszącej" }}</span></footer>
+    {% include 'app-status.html' %}
     <button class="update-notice" id="stashUpdateNotice" hidden onclick="window.location.reload()">{{ lang == "en" and "New items in vault · Refresh view ↻" or "Nowe dane w skarbcu · Odśwież widok ↻" }}</button>
     <div id="d2ItemTooltip"></div>
 

@@ -1,0 +1,6 @@
+<section class="app-service-status full-view-section" id="api-onboarding" {% if api_configured %}hidden{% endif %} role="status">
+        <strong>{{ 'Connect Gemini API' if lang == 'en' else 'Podłącz Gemini API' }}</strong>
+        <p>{{ 'Add your Gemini API key in AI settings to start scanning. Your inventory is available without a key.' if lang == 'en' else 'Aby rozpocząć skanowanie, dodaj klucz Gemini API w ustawieniach AI. Bez klucza nadal możesz przeglądać swoje przedmioty.' }}</p>
+        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">{{ 'Get a Gemini API key' if lang == 'en' else 'Uzyskaj klucz Gemini API' }}</a>
+        <button type="button" onclick="openApiSettings()">{{ 'Open AI settings' if lang == 'en' else 'Otwórz ustawienia AI' }}</button>
+</section>

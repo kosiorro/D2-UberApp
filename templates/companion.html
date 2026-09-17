@@ -65,7 +65,7 @@
             </button>
         </div>
     </header>
-    {% include 'app-status.html' %}
+    {% include 'api-onboarding.html' %}
 
     <div class="web-nav-bar full-view-section">
         <div class="panel-kicker">{{ lang == 'en' and 'WEB BROWSER' or 'PRZEGLĄDARKA WWW' }}</div>
@@ -217,6 +217,7 @@
             <div id="scan-history" aria-live="polite"></div>
         </section>
     </main>
+    {% include 'app-status.html' %}
 
     <div id="toast" role="status" hidden></div>
 
