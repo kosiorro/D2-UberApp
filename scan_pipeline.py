@@ -10,6 +10,9 @@ from scan_history import begin,finish
 def run_capture(service):
     from capture import capture_screen,play_sound
     mode,character,swap,location=service.scan_mode,service.current_character,service.is_swap,service.current_location
+    requested_mode = mode
+    screen = None
+    bounds = None
     creator = dict(getattr(service, 'creator_context', None) or {})
     uid=uuid.uuid4().hex
     filename=f"d2_{time.strftime('%Y-%m-%d_%H-%M-%S')}_{uid[:8]}.png"
@@ -17,6 +20,16 @@ def run_capture(service):
     begin(uid,mode,target,filename)
     service.queue_count=1
     def outcome(state,message,kind='',name='',result_id='',raw=None):
+        if screen is not None:
+            from scan_diagnostics import save_diagnostics
+            try:
+                save_diagnostics((SCREENSHOTS_DIR/filename).with_suffix('.json'),
+                                 screen=screen, requested_mode=requested_mode,
+                                 effective_mode=mode, bounds=bounds, state=state,
+                                 message=message, request_id=uid)
+            except OSError:
+                # A diagnostic failure must not change the result of a scan.
+                pass
         finish(uid,state,kind,name,result_id,message,raw)
         service.last_activity=dict(state=state,message=message,item_name=name,item_id=result_id,request_id=uid,timestamp=time.time(),queue_count=0,creator_stage=creator.get('stage'))
         if creator:
@@ -33,12 +46,24 @@ def run_capture(service):
             if not skill_plan:
                 raise ValueError('Wybierz istniejącą postać z rozpoznaną klasą przed skanowaniem skilli.')
             skill_plan.update(character_id=hero['id'], gear_mode='swap' if swap else 'main')
-        if mode == 'merc' and not get_character(character):
-            raise ValueError('Wybierz istniejącą postać przed skanowaniem wyposażenia najemnika.')
         service.last_activity=dict(state='analyzing',message='Wycinam obszar odczytu i sprawdzam zawartość…',request_id=uid,timestamp=time.time())
         screen=capture_screen()
         screen.save(SCREENSHOTS_DIR/filename)
-        from capture_regions import crop_for_ai
+        from capture_regions import crop_for_ai, resolve_scan_mode
+        if not creator and not getattr(service, 'wizard_active', False):
+            resolved = resolve_scan_mode(screen, mode)
+            if resolved != mode:
+                previous = mode
+                mode = resolved
+                target = location or 'Skrzynia'
+                from scan_history import update_target
+                update_target(uid, mode, target)
+                # Do not overwrite a manual selection made during capture.
+                if service.scan_mode == previous:
+                    service.set_scan_mode(mode)
+                service._add_log(f'Automatycznie zmieniono tryb: {previous} → {mode}', 'Skanowanie')
+        if mode == 'merc' and not get_character(character):
+            raise ValueError('Wybierz istniejącą postać przed skanowaniem wyposażenia najemnika.')
         crop,bounds=crop_for_ai(screen,mode)
         preview=uid+'.png';crop.save(PREVIEWS_DIR/preview)
         service.total_captured+=1

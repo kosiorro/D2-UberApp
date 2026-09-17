@@ -115,6 +115,70 @@ class TooltipDetectionTests(unittest.TestCase):
         self.assertLessEqual(bounds[3], rows[-1][1])
         self.assertLess(cropped.width * cropped.height, image.width * image.height / 4)
 
+    def test_auto_mode_uses_tooltip_without_changing_equipment_owner(self):
+        from capture_regions import resolve_scan_mode, crop_for_ai
+        image, _ = example_tooltip()
+        for mode in ('runes', 'gems', 'materials', 'stat_screen', 'normal'):
+            with self.subTest(mode=mode):
+                resolved = resolve_scan_mode(image, mode)
+                self.assertEqual(resolved, 'stash')
+                crop, _ = crop_for_ai(image, resolved)
+                self.assertLess(crop.width * crop.height, image.width * image.height / 4)
+        for mode in ('character', 'merc', 'skill_screen'):
+            self.assertEqual(resolve_scan_mode(image, mode), mode)
+
+    def test_auto_mode_does_not_treat_flat_grey_as_runes(self):
+        from capture_regions import resolve_scan_mode
+        image = Image.new('RGB', (1920, 1080), (58, 58, 58))
+        self.assertEqual(resolve_scan_mode(image, 'stash'), 'stash')
+
+    def test_failed_tooltip_on_grey_background_does_not_claim_runes(self):
+        from capture_regions import crop_for_ai, _check_rune_grid_presence
+        for colour in (44, 58, 72):
+            image = Image.new('RGB', (1920, 1080), (colour,) * 3)
+            with self.subTest(colour=colour), patch('tooltip_detection.find_tooltip_crop', return_value=None):
+                self.assertFalse(_check_rune_grid_presence(image))
+                for mode in ('stash', 'character', 'merc'):
+                    with self.assertRaisesRegex(ValueError, 'Nie znaleziono jednego czytelnego opisu'):
+                        crop_for_ai(image, mode)
+                with self.assertRaisesRegex(ValueError, 'Nie wykryto otwartej zakładki run'):
+                    crop_for_ai(image, 'runes')
+
+    def test_single_grey_row_is_not_a_rune_grid(self):
+        from capture_regions import _check_rune_grid_presence
+        image = Image.new('RGB', (1920, 1080), 'black')
+        ImageDraw.Draw(image).line((175, 236, 643, 236), fill=(58, 58, 58))
+        self.assertFalse(_check_rune_grid_presence(image))
+
+    def test_english_equipment_over_grey_background(self):
+        from capture_regions import resolve_scan_mode, crop_for_ai
+        tooltip, rows = example_tooltip()
+        image = Image.new('RGB', tooltip.size, (58, 58, 58))
+        image.paste(tooltip.crop((600, 300, 1161, 571)), (600, 300))
+        for mode in ('stash', 'character', 'merc'):
+            with self.subTest(mode=mode):
+                self.assertEqual(resolve_scan_mode(image, mode), mode)
+                _, bounds = crop_for_ai(image, mode)
+                for row in rows[:-1]:
+                    self.assert_contains((bounds[0], bounds[1], bounds[2]-bounds[0], bounds[3]-bounds[1]), row)
+
+    def test_ambiguous_comparison_never_claims_runes(self):
+        from capture_regions import crop_for_ai
+        image = Image.new('RGB', (1920, 1080), 'black')
+        with patch('tooltip_detection.find_tooltip_crop', side_effect=[None, (1, 2, 3, 4)]), \
+                patch('capture_regions._check_rune_grid_presence', return_value=True):
+            with self.assertRaisesRegex(ValueError, 'Nie znaleziono jednego czytelnego opisu'):
+                crop_for_ai(image, 'character')
+
+    def test_auto_mode_recognizes_grid_and_keeps_ambiguous_tooltips(self):
+        from capture_regions import resolve_scan_mode
+        image = Image.new('RGB', (1920, 1080), (58, 58, 58))
+        ImageDraw.Draw(image).rectangle((180, 210, 400, 240), fill='white')
+        with patch('tooltip_detection.find_tooltip_crop', return_value=None):
+            self.assertEqual(resolve_scan_mode(image, 'stash'), 'runes')
+        with patch('tooltip_detection.find_tooltip_crop', side_effect=[None, (1, 2, 3, 4)]):
+            self.assertEqual(resolve_scan_mode(image, 'stash'), 'stash')
+
     def test_rune_mode_rejects_item_before_calling_ai(self):
         from capture_regions import crop_for_ai
         image, _ = example_tooltip()

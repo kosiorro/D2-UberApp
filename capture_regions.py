@@ -12,12 +12,33 @@ MODE_LABELS = {
 
 def _check_rune_grid_presence(screen):
     width, height = screen.size
-    arr = np.array(screen)
+    arr = np.asarray(screen.convert('RGB'))
     if width == 1920 and height == 1080:
-        score_236 = np.abs(arr[236, 175:175+468, :3].mean(axis=1) - 58).mean()
-        score_207 = np.abs(arr[207, 175:175+468, :3].mean(axis=1) - 58).mean()
-        return min(score_236, score_207) < 15.0
+        # A single grey row is common in equipment panels and game scenery.
+        # Require repeated grid separators and textured cell contents instead.
+        for top in (207, 236):
+            rows = [arr[top + step * 52, 175:643, :3] for step in range(6)]
+            if all(np.abs(row.mean(axis=1) - 58).mean() < 15 for row in rows):
+                interior = arr[top + 2:top + 50, 177:641, :3]
+                if interior.std() > 15:
+                    return True
     return False
+
+def resolve_scan_mode(screen, mode):
+    """Choose a locally recognizable target without any model request."""
+    from tooltip_detection import find_tooltip_crop
+    if mode not in ('normal', 'stash', 'character', 'merc', 'runes', 'gems', 'materials', 'stat_screen'):
+        return mode
+    box = find_tooltip_crop(screen, mode='stash', cursor=screen.info.get('cursor'))
+    if box:
+        return mode if mode in ('stash', 'character', 'merc') else 'stash'
+    # An ambiguous comparison must never become a stash-grid scan.
+    if find_tooltip_crop(screen, strict=True):
+        return mode
+    if mode in ('normal', 'stash', 'character', 'merc') and _check_rune_grid_presence(screen):
+        return 'runes'
+    return mode
+
 
 def crop_for_ai(screen, mode):
     from tooltip_detection import find_tooltip_crop
@@ -46,11 +67,8 @@ def crop_for_ai(screen, mode):
                 "Kliknij przycisk '📦 Skrzynia' lub '♜ Postać', aby dodać ten przedmiot."
             )
         # Check if rune grid is actually present
-        arr = np.array(screen)
         if width == 1920 and height == 1080:
-            score_236 = np.abs(arr[236, 175:175+468, :3].mean(axis=1) - 58).mean()
-            score_207 = np.abs(arr[207, 175:175+468, :3].mean(axis=1) - 58).mean()
-            if min(score_236, score_207) > 18.0:
+            if not _check_rune_grid_presence(screen):
                 raise ValueError(
                     "Odrzucono: Nie wykryto otwartej zakładki run w grze. "
                     "Otwórz skrzynię w grze i przejdź do zakładki z runami, a następnie naciśnij skrót."
@@ -79,11 +97,11 @@ def crop_for_ai(screen, mode):
 
     # 3. ITEM MODES (stash, character, merc)
     # An item can be hovered above the rune tab. Identify the item before
-    # applying the coarse rune-tab check, which samples just one screen row.
+    # applying the grid check. Ambiguous comparisons also take priority.
     box = find_tooltip_crop(screen, mode=mode, cursor=screen.info.get('cursor'))
-    if not box and _check_rune_grid_presence(screen):
+    if not box and not find_tooltip_crop(screen, strict=True) and _check_rune_grid_presence(screen):
         raise ValueError(
-            f"Odrzucono: Na ekranie znajduje się zakładka RUN, a masz wybrany tryb '{mode_name}'. "
+            f"Odrzucono: Wykryto układ przypominający zakładkę run, a masz wybrany tryb '{mode_name}'. "
             "Kliknij przycisk '💎 Runy', aby zapisać stan run."
         )
 

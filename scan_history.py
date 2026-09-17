@@ -14,6 +14,11 @@ def begin(request_id,mode,target,screenshot):
     with get_db() as con:
         con.execute('INSERT INTO scan_requests(id,mode,target,screenshot,state,message) VALUES(?,?,?,?,?,?)',(request_id,mode,target,screenshot,'processing','Trwa odczyt AI'))
 
+def update_target(request_id, mode, target):
+    with get_db() as con:
+        con.execute('UPDATE scan_requests SET mode=?,target=? WHERE id=?', (mode, target, request_id))
+
+
 def finish(request_id,state,kind='',name='',result_id='',message='',response=None):
     with get_db() as con:
         con.execute("UPDATE scan_requests SET finished_at=datetime('now','localtime'),state=?,kind=?,name=?,result_id=?,message=?,response_json=? WHERE id=?",(state,kind,name,result_id,message,json.dumps(response or {},ensure_ascii=False),request_id))
