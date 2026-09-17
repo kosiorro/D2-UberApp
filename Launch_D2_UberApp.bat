@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 setlocal
 chcp 65001 >nul
 title D2 UberApp - Diablo II Resurrected AI Companion
@@ -206,7 +206,7 @@ echo.
 echo   [AUDIO]   Dźwięk potwierdza przechwycenie przedmiotu.
 echo             Gemini AI automatycznie analizuje przedmiot.
 echo.
-echo   [MARKET]  https://d2uberappmarket.tw5.org
+echo   [MARKET]  https://market.d2app.xyz
 echo.
 echo -------------------------------------------------------------------
 echo.

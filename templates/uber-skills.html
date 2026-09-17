@@ -37,9 +37,50 @@
     <button type="button" class="btn-d2 btn-gold" id="skill-save">{{ 'Save points' if lang == 'en' else 'Zapisz punkty' }}</button>
     <button type="button" class="btn-d2" id="skill-recalculate" title="{{ 'Refresh equipment bonuses for the selected weapon set' if lang == 'en' else 'Pobierz aktualny ekwipunek i zastąp ręczne bonusy dla wybranego zestawu broni' }}">{{ 'Recalculate bonuses' if lang == 'en' else 'Przelicz bonusy' }}</button>
     <button type="button" class="btn-d2" id="skill-reset">{{ 'Reset plan' if lang == 'en' else 'Wyzeruj plan' }}</button>
-    <button type="button" class="btn-d2" id="skill-export">{{ 'Export build (HTML)' if lang == 'en' else 'Eksportuj build (HTML)' }}</button>
+    <button type="button" class="btn-d2" id="skill-export">{{ 'Export build' if lang == 'en' else 'Eksportuj build' }}</button>
+    <button type="button" class="btn-d2 btn-gold" id="skill-market-api-export" style="background: linear-gradient(180deg, #5b286b 0%, #301438 100%); border-color: #b366ff;" title="{{ 'Publish build to D2 UberApp Market online as full character view' if lang == 'en' else 'Opublikuj build na giełdzie online jako pełny widok' }}">{{ '🌐 Export to Market' if lang == 'en' else '🌐 Eksportuj do marketu' }}</button>
     <span id="skill-status" role="status" aria-live="polite"></span>
   </div>
+
+  <div id="buildMarketModal" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center;">
+    <div class="modal-card" style="max-width:540px; width:90%; background:#10141b; border:1px solid #705820; border-radius:6px; padding:20px; box-shadow:0 0 25px rgba(0,0,0,0.8); color:#eee;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #332d20; padding-bottom:12px; margin-bottom:16px;">
+        <h3 style="margin:0; font-family:'Cinzel',serif; color:#ffd27d; font-size:1.1rem;">{{ '🌐 Export Build to Market' if lang == 'en' else '🌐 Eksportuj build do marketu' }}</h3>
+        <button type="button" class="modal-close-btn" id="buildMarketModalClose" style="background:none; border:none; color:#aaa; font-size:1.5rem; cursor:pointer; line-height:1;">&times;</button>
+      </div>
+      <div style="display:grid; gap:12px;">
+        <div>
+          <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ 'Market Server URL:' if lang == 'en' else 'Adres serwera marketu:' }}</label>
+          <input type="text" id="buildMarketServerUrl" class="input-d2" style="width:100%; box-sizing:border-box;" value="https://market.d2app.xyz" placeholder="https://market.d2app.xyz">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ 'Market API Token (optional if login/pass provided):' if lang == 'en' else 'Token API z profilu giełdy (opcjonalny, jeśli podasz login/hasło):' }}</label>
+          <input type="text" id="buildMarketApiToken" class="input-d2" style="width:100%; box-sizing:border-box;" placeholder="{{ 'Paste API Token' if lang == 'en' else 'Wklej Token API' }}">
+        </div>
+        <div style="background:rgba(0,0,0,0.25); border:1px solid #232738; border-radius:4px; padding:10px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div>
+            <label style="display:block; font-size:0.75rem; color:#888; margin-bottom:3px;">{{ 'OR Username:' if lang == 'en' else 'LUB Login:' }}</label>
+            <input type="text" id="buildMarketUsername" class="input-d2" style="width:100%; box-sizing:border-box;" placeholder="{{ 'Username' if lang == 'en' else 'Login' }}">
+          </div>
+          <div>
+            <label style="display:block; font-size:0.75rem; color:#888; margin-bottom:3px;">{{ 'Password:' if lang == 'en' else 'Hasło:' }}</label>
+            <input type="password" id="buildMarketPassword" class="input-d2" style="width:100%; box-sizing:border-box;" placeholder="{{ 'Password' if lang == 'en' else 'Hasło' }}">
+          </div>
+        </div>
+        <div style="font-size:0.78rem; color:#bbb; background:rgba(184,134,11,0.08); border:1px solid #5a4518; padding:8px 10px; border-radius:4px;">
+          {{ 'The build will be published as a full interactive character view (with character sheet, equipment breakdown and skill tree).' if lang == 'en' else 'Build zostanie opublikowany na giełdzie jako pełny widok postaci (z arkuszem, ekwipunkiem i drzewkiem umiejętności).' }}
+        </div>
+        <div id="buildMarketModalResult" style="display:none; padding:10px; border-radius:4px; font-size:0.85rem;"></div>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+        <button type="button" class="btn-d2 btn-stone" id="buildMarketModalCancel">{{ 'Cancel' if lang == 'en' else 'Anuluj' }}</button>
+        <button type="button" class="btn-d2 btn-gold" id="buildMarketModalSubmit" style="background:linear-gradient(180deg, #5b286b 0%, #301438 100%); border-color:#b366ff;">
+          <span>{{ '🚀 Publish Build' if lang == 'en' else '🚀 Publikuj build' }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script id="skill-plan-data" type="application/json">{{ skill_plan|tojson }}</script>
   <script src="/static/character-skills.js" defer></script>
   {% else %}<p class="uber-caption">{{ 'Select a character with a supported class to allocate skills.' if lang == 'en' else 'Wybierz postać z rozpoznaną klasą, aby rozdać umiejętności.' }}</p>{% endif %}

@@ -82,6 +82,29 @@ class CharacterSkillsTests(unittest.TestCase):
         with self.client.get('/skill-assets/skills/amazon/magic-arrow.png') as response:
             self.assertEqual(response.status_code, 200)
 
+    def test_html_market_export_template_and_read_only_specs(self):
+        hero = db.create_or_update_character({'name': 'Pal', 'class_name': 'Paladyn'})
+        plan = skills.view(hero)
+        with self.app.test_request_context():
+            html = render_template('uber-skills.html', skill_plan=plan, lang='pl')
+
+        # 1. Verify JSON export button is removed
+        self.assertNotIn('id="skill-market-export"', html)
+
+        # 2. Verify HTML export to Market button & modal exist
+        self.assertIn('id="skill-market-api-export"', html)
+        self.assertIn('id="buildMarketModal"', html)
+        self.assertIn('id="buildMarketServerUrl"', html)
+
+        # 3. Verify character-skills.js contains read-only cleaning and styling
+        js_path = Path(__file__).resolve().parents[1] / 'static' / 'character-skills.js'
+        self.assertTrue(js_path.is_file())
+        js_content = js_path.read_text(encoding='utf-8')
+        self.assertIn('window.SKILL_EXPORT', js_content)
+        self.assertIn('.skill-counter button, [data-delta]', js_content)
+        self.assertIn('.skill-edit-values', js_content)
+        self.assertIn('isExport', js_content)
+
 
 if __name__ == '__main__':
     unittest.main()

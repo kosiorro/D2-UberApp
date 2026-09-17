@@ -106,14 +106,6 @@ def api_set_language():
     resp.set_cookie("app_lang", new_lang, max_age=31536000, path="/")
     return resp
 
-@app.route('/landing')
-def landing_page():
-    return send_from_directory(config.BASE_DIR / 'landing', 'index.html')
-
-@app.route('/landing/<path:filename>')
-def landing_static(filename):
-    return send_from_directory(config.BASE_DIR / 'landing', filename)
-
 @app.route('/ExocetReaper-Medium.woff2')
 def font_exocet():
     return send_from_directory(config.BASE_DIR, 'ExocetReaper-Medium.woff2')
@@ -125,7 +117,7 @@ def index():
     q = request.args.get("q", "").strip()
     quality = request.args.get("quality", "").strip()
     location = request.args.get("location", "").strip()
-    
+
     # Lista postaci
     all_characters = get_all_characters_detailed()
     char_name = (request.args.get("name") or request.args.get("char") or "").strip()
@@ -153,10 +145,10 @@ def index():
         include_duplicates=False,
         exclude_character_gear=True
     )
-    
+
     # Grupy duplikatów
     potential_duplicates = get_potential_duplicates()
-    
+
     # Statystyki jakości przedmiotów w skrzyni
     item_stats = {
         "total": len(stash_items),
@@ -167,11 +159,11 @@ def index():
         "magic": sum(1 for it in stash_items if "mag" in (it.get("quality") or "").lower()),
         "duplicates": len(potential_duplicates),
     }
-    
+
     # Runy i kalkulator słów
     runes_data = get_runes()
     runewords_calc = calculate_runewords_crafting()
-    
+
     # Podsumowanie API i lokalizacje
     api_summary = get_api_summary()
     trade_lists = get_trade_lists()
@@ -476,7 +468,7 @@ def api_delete_item(item_id):
 def api_upload_image():
     if "file" not in request.files:
         return jsonify({"error": "Brak pliku w żądaniu"}), 400
-        
+
     file = request.files["file"]
     if file.filename == "":
         return jsonify({"error": "Pusta nazwa pliku"}), 400
@@ -493,7 +485,7 @@ def api_upload_image():
 
     img_hash = calculate_file_hash(target_path)
     res = process_image(target_path)
-    
+
     if res.get("status") == "success":
         res_type = res.get("type", "item")
         if res_type == "item":
@@ -565,19 +557,19 @@ def api_upload_image():
 def generate_trade_export_text(trade_items: list[dict], lang: str = "pl", include_rolls: bool = True, include_base: bool = True, include_sockets: bool = True, include_price: bool = True, include_notes: bool = True) -> str:
     """Generuje sformatowany tekst listy sprzedaży (dla Discorda, forum, handlu itp.)."""
     is_pl = (lang.lower() == "pl")
-    
+
     header = "=== LISTA PRZEDMIOTÓW NA SPRZEDAŻ (D2R) ===" if is_pl else "=== D2R TRADE / SALE LIST ==="
     lines = [header, ""]
-    
+
     if not trade_items:
         lines.append("Brak przedmiotów na liście sprzedaży." if is_pl else "No items on the trade list.")
         return "\n".join(lines)
-        
+
     for i, it in enumerate(trade_items, 1):
         name_pl = it.get("name") or "Przedmiot"
         name_en = it.get("name_en") or ""
         quality = (it.get("quality") or "").lower()
-        
+
         # Nazwa w wybranym języku
         if is_pl:
             title = name_pl
@@ -587,7 +579,7 @@ def generate_trade_export_text(trade_items: list[dict], lang: str = "pl", includ
             title = name_en or name_pl
             if name_pl and name_pl.lower() != (name_en or "").lower():
                 title += f" ({name_pl})"
-                
+
         # Typ jakości
         q_tag = ""
         if "rune" in quality or "słowo" in quality:
@@ -600,16 +592,16 @@ def generate_trade_export_text(trade_items: list[dict], lang: str = "pl", includ
             q_tag = " [Rzadki]" if is_pl else " [Rare]"
         elif "mag" in quality:
             q_tag = " [Magiczny]" if is_pl else " [Magic]"
-            
+
         lines.append(f"{i}. {title}{q_tag}")
-        
+
         # Baza (zwłaszcza dla słów runicznych lub gdy różna od nazwy)
         base = it.get("base") or ""
         is_runeword = ("rune" in quality or "słowo" in quality)
         if base and (is_runeword or include_base):
             label_base = "Baza" if is_pl else "Base"
             lines.append(f"   • {label_base}: {base}")
-            
+
         # Obrona / Obrażenia jeśli istotne
         def_val = it.get("defense")
         dmg_val = it.get("damage")
@@ -619,13 +611,13 @@ def generate_trade_export_text(trade_items: list[dict], lang: str = "pl", includ
         if dmg_val:
             label_dmg = "Obrażenia" if is_pl else "Damage"
             lines.append(f"   • {label_dmg}: {dmg_val}")
-            
+
         # Gniazda (sockets)
         sockets = it.get("sockets")
         if include_sockets and sockets:
             label_soc = f"{sockets} gniazda" if is_pl else f"{sockets} sockets"
             lines.append(f"   • Gniazda: {label_soc}" if is_pl else f"   • Sockets: {label_soc}")
-            
+
         # Zmienne statystyki (rolls)
         if include_rolls:
             rolls = it.get("rolls_eval") or []
@@ -650,20 +642,20 @@ def generate_trade_export_text(trade_items: list[dict], lang: str = "pl", includ
                 if key_stats:
                     label_stats = "Statystyki" if is_pl else "Key Stats"
                     lines.append(f"   • {label_stats}: {'; '.join(key_stats)}")
-                    
+
         # Cena
         if include_price:
             price = it.get("trade_price") or ("Czekam na ofertę" if is_pl else "Offer")
             label_price = "Cena" if is_pl else "Price"
             lines.append(f"   • {label_price}: {price}")
-            
+
         # Notatka własna
         if include_notes and it.get("trade_notes"):
             label_notes = "Notatka" if is_pl else "Note"
             lines.append(f"   • {label_notes}: {it.get('trade_notes')}")
-            
+
         lines.append("") # Pusta linia odstępu
-        
+
     return "\n".join(lines).strip()
 
 @app.route("/api/trade/list", methods=["GET"])
@@ -754,7 +746,7 @@ def api_trade_export():
         data = request.get_json(force=True, silent=True) or {}
     else:
         data = request.args.to_dict()
-        
+
     lang = data.get("lang", "pl").lower()
     list_name = data.get("list_name")
     include_rolls = str(data.get("include_rolls", "true")).lower() in ("true", "1", "yes")
@@ -773,7 +765,7 @@ def api_trade_online_sync():
     import urllib.request
     import urllib.error
     data = request.get_json(force=True, silent=True) or {}
-    server_url = (data.get("server_url") or "https://d2uberappmarket.tw5.org").rstrip("/")
+    server_url = (data.get("server_url") or "https://market.d2app.xyz").rstrip("/")
     api_token = data.get("api_token") or ""
     username = data.get("username") or ""
     password = data.get("password") or ""
@@ -783,7 +775,10 @@ def api_trade_online_sync():
     item_ids = set(data.get("item_ids") or [])
 
     from db import get_trade_items
-    all_trade = get_trade_items()
+    list_name = data.get("list_name")
+    if list_name is not None and (not isinstance(list_name, str) or len(list_name) > 100):
+        return jsonify(status="error", error="Nieprawidłowa nazwa listy."), 400
+    all_trade = get_trade_items(list_name)
     selected_items = [it for it in all_trade if it["id"] in item_ids] if item_ids else all_trade
 
     if not selected_items:
@@ -796,6 +791,7 @@ def api_trade_online_sync():
         "realm_sc_hc": realm_sc_hc,
         "realm_ladder": realm_ladder,
         "realm_expansion": realm_expansion,
+        "list_name": list_name,
         "items": selected_items
     }
 
@@ -807,6 +803,213 @@ def api_trade_online_sync():
             method="POST"
         )
         with urllib.request.urlopen(req, timeout=10) as resp:
+            resp_data = json.loads(resp.read().decode("utf-8"))
+            resp_data["server_url"] = server_url
+            return jsonify(resp_data)
+    except urllib.error.HTTPError as he:
+        try:
+            err_msg = json.loads(he.read().decode("utf-8")).get("error", str(he))
+        except Exception:
+            err_msg = str(he)
+        return jsonify({"status": "error", "error": f"Błąd serwera giełdy ({he.code}): {err_msg}"}), 400
+    except Exception as e:
+        return jsonify({"status": "error", "error": f"Nie udało się połączyć z giełdą online ({server_url}): {e}"}), 500
+
+@app.route("/api/trade/anonymous_sync", methods=["POST"])
+def api_trade_anonymous_sync():
+    import urllib.request
+    import urllib.error
+    data = request.get_json(force=True, silent=True) or {}
+    server_url = (data.get("server_url") or "https://market.d2app.xyz").rstrip("/")
+    title = (data.get("title") or "").strip()
+    description = (data.get("description") or "").strip()
+    password = data.get("password") or ""
+    realm_sc_hc = (data.get("realm_sc_hc") or "sc").lower()
+    realm_ladder = (data.get("realm_ladder") or "ladder").lower()
+    realm_expansion = (data.get("realm_expansion") or "lod").lower()
+    item_ids = set(data.get("item_ids") or [])
+
+    if not title:
+        return jsonify({"status": "error", "error": "Podaj nazwę listy."}), 400
+    if not password or len(password) < 3:
+        return jsonify({"status": "error", "error": "Podaj hasło do listy (min. 3 znaki)."}), 400
+
+    from db import get_trade_items
+    list_name = data.get("list_name")
+    if list_name is not None and (not isinstance(list_name, str) or len(list_name) > 100):
+        return jsonify(status="error", error="Nieprawidłowa nazwa listy."), 400
+    all_trade = get_trade_items(list_name)
+    selected_items = [it for it in all_trade if it["id"] in item_ids] if item_ids else all_trade
+
+    if not selected_items:
+        return jsonify({"status": "error", "error": "Brak przedmiotów do udostępnienia."}), 400
+
+    payload = {
+        "title": title,
+        "description": description,
+        "password": password,
+        "realm_sc_hc": realm_sc_hc,
+        "realm_ladder": realm_ladder,
+        "realm_expansion": realm_expansion,
+        "items": selected_items
+    }
+
+    try:
+        req = urllib.request.Request(
+            f"{server_url}/api/marketplace/anonymous-list",
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            resp_data = json.loads(resp.read().decode("utf-8"))
+            resp_data["server_url"] = server_url
+            if "url" in resp_data:
+                resp_data["full_url"] = f"{server_url}{resp_data['url']}"
+            return jsonify(resp_data)
+    except urllib.error.HTTPError as he:
+        try:
+            err_msg = json.loads(he.read().decode("utf-8")).get("error", str(he))
+        except Exception:
+            err_msg = str(he)
+        return jsonify({"status": "error", "error": f"Błąd serwera giełdy ({he.code}): {err_msg}"}), 400
+    except Exception as e:
+        return jsonify({"status": "error", "error": f"Nie udało się połączyć z giełdą online ({server_url}): {e}"}), 500
+
+@app.route("/api/trade/anonymous_update", methods=["POST"])
+def api_trade_anonymous_update():
+    import urllib.request
+    import urllib.error
+    data = request.get_json(force=True, silent=True) or {}
+    server_url = (data.get("server_url") or "https://market.d2app.xyz").rstrip("/")
+    list_id = (data.get("list_id") or "").strip()
+    password = data.get("password") or ""
+    title = (data.get("title") or "").strip()
+    description = (data.get("description") or "").strip()
+    update_items = data.get("update_items", True)
+    item_ids = set(data.get("item_ids") or [])
+
+    if not list_id:
+        return jsonify({"status": "error", "error": "Brak identyfikatora listy."}), 400
+    if not password:
+        return jsonify({"status": "error", "error": "Wpisz hasło do listy."}), 400
+
+    payload = {"password": password}
+    if title:
+        payload["title"] = title
+    if description is not None:
+        payload["description"] = description
+
+    if update_items:
+        from db import get_trade_items
+        list_name = data.get("list_name")
+        all_trade = get_trade_items(list_name)
+        selected_items = [it for it in all_trade if it["id"] in item_ids] if item_ids else all_trade
+        payload["items"] = selected_items
+
+    try:
+        req = urllib.request.Request(
+            f"{server_url}/api/marketplace/anonymous-list/{list_id}/edit",
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            resp_data = json.loads(resp.read().decode("utf-8"))
+            resp_data["server_url"] = server_url
+            if "url" in resp_data:
+                resp_data["full_url"] = f"{server_url}{resp_data['url']}"
+            return jsonify(resp_data)
+    except urllib.error.HTTPError as he:
+        try:
+            err_msg = json.loads(he.read().decode("utf-8")).get("error", str(he))
+        except Exception:
+            err_msg = str(he)
+        return jsonify({"status": "error", "error": f"Błąd serwera giełdy ({he.code}): {err_msg}"}), 400
+    except Exception as e:
+        return jsonify({"status": "error", "error": f"Nie udało się połączyć z giełdą online ({server_url}): {e}"}), 500
+
+@app.route("/api/trade/anonymous_delete", methods=["POST"])
+def api_trade_anonymous_delete():
+    import urllib.request
+    import urllib.error
+    data = request.get_json(force=True, silent=True) or {}
+    server_url = (data.get("server_url") or "https://market.d2app.xyz").rstrip("/")
+    list_id = (data.get("list_id") or "").strip()
+    password = data.get("password") or ""
+
+    if not list_id:
+        return jsonify({"status": "error", "error": "Brak identyfikatora listy."}), 400
+    if not password:
+        return jsonify({"status": "error", "error": "Wpisz hasło do listy."}), 400
+
+    try:
+        req = urllib.request.Request(
+            f"{server_url}/api/marketplace/anonymous-list/{list_id}/delete",
+            data=json.dumps({"password": password}, ensure_ascii=False).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            resp_data = json.loads(resp.read().decode("utf-8"))
+            return jsonify(resp_data)
+    except urllib.error.HTTPError as he:
+        try:
+            err_msg = json.loads(he.read().decode("utf-8")).get("error", str(he))
+        except Exception:
+            err_msg = str(he)
+        return jsonify({"status": "error", "error": f"Błąd serwera giełdy ({he.code}): {err_msg}"}), 400
+    except Exception as e:
+        return jsonify({"status": "error", "error": f"Nie udało się połączyć z giełdą online ({server_url}): {e}"}), 500
+
+@app.route("/api/build/online_sync", methods=["POST"])
+def api_build_online_sync():
+    import urllib.request
+    import urllib.error
+    data = request.get_json(force=True, silent=True) or {}
+    server_url = (data.get("server_url") or "https://market.d2app.xyz").rstrip("/")
+    api_token = data.get("api_token") or ""
+    username = data.get("username") or ""
+    password = data.get("password") or ""
+    html_content = data.get("html_content") or ""
+    title = data.get("title")
+    class_name = data.get("class_name")
+    level = data.get("level")
+    description = data.get("description")
+    skills = data.get("skills")
+
+    if not html_content and not (title and class_name):
+        return jsonify(status="error", error="Brak danych buildu do opublikowania."), 400
+
+    payload = {
+        "api_token": api_token,
+        "username": username,
+        "password": password,
+        "html_content": html_content,
+    }
+    if title:
+        payload["title"] = title
+    if class_name:
+        payload["class_name"] = class_name
+    if level:
+        payload["level"] = level
+    if description:
+        payload["description"] = description
+    if skills:
+        payload["skills"] = skills
+
+    headers = {"Content-Type": "application/json"}
+    if api_token:
+        headers["X-API-Key"] = api_token
+
+    try:
+        req = urllib.request.Request(
+            f"{server_url}/api/marketplace/builds/publish",
+            data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+            headers=headers,
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=15) as resp:
             resp_data = json.loads(resp.read().decode("utf-8"))
             resp_data["server_url"] = server_url
             return jsonify(resp_data)

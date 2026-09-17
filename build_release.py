@@ -11,7 +11,7 @@ def build():
     print('=============================================')
     print('   D2 UberApp - Budowanie Paczki Wydania')
     print('=============================================')
-    
+
     # 1. Sprawdz pyinstaller
     try:
         import PyInstaller
@@ -27,7 +27,7 @@ def build():
     for name in ('armor_bases.json', 'item_bases.json', 'catalog.sqlite', 'stack_catalog.json',
                  'trade_catalog_500.json', 'companion-settings.default.json'):
         shutil.copy2(BASE_DIR / 'data' / name, package_data / name)
-    
+
     icon_path = BASE_DIR / 'static' / 'images' / 'uberapp.ico'
 
     # 2. Argumenty PyInstaller
@@ -40,7 +40,6 @@ def build():
         '--add-data', f'{BASE_DIR / "static"}{os.pathsep}static',
         '--add-data', f'{package_data}{os.pathsep}data',
         '--add-data', f'{BASE_DIR / "skille"}{os.pathsep}skille',
-        '--add-data', f'{BASE_DIR / "landing"}{os.pathsep}landing',
         '--add-data', f'{BASE_DIR / "ExocetReaper-Medium.woff2"}{os.pathsep}.',
         '--collect-all', 'webview',
         '--collect-all', 'google.genai',
@@ -71,7 +70,7 @@ def build():
     target_app_dir = dist_dir / 'D2UberApp'
 
     # 3. Zapewnij dostępność zasobów w głównym katalogu dist/D2UberApp (PyInstaller 6 umieszcza je w _internal)
-    for folder in ['templates', 'static', 'data', 'skille', 'landing']:
+    for folder in ['templates', 'static', 'data', 'skille']:
         src = package_data if folder == 'data' else BASE_DIR / folder
         dst = target_app_dir / folder
         if src.exists():

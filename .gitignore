@@ -44,3 +44,7 @@ Output/
 *.zip
 *.spec
 
+
+# Local landing page and runtime database
+/landing/
+/items.db

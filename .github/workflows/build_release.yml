@@ -28,6 +28,12 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Run tests
+        run: |
+          python -m unittest discover -s tests -p test_market*.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p test_character_skills.py -v
+
       - name: Build Standalone Release with PyInstaller
         run: |
           python build_release.py
@@ -49,8 +55,8 @@ jobs:
           prerelease: false
           fail_on_unmatched_files: true
           files: |
-            Output/D2UberApp_Setup_v1.2.0.exe
+            Output/D2UberApp_Setup_v1.3.0.exe
             D2UberApp_Windows_x64.zip
-          body_path: release-notes-v1.2.0.md
+          body_path: release-notes-v1.3.0.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

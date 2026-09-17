@@ -79,7 +79,7 @@ Możesz skanować:
 
 **Skarbiec** — własna baza zeskanowanych przedmiotów z filtrowaniem, widokiem kart i tabelą.
 
-**Trading / Market** — przygotowanie przedmiotów do sprzedaży i eksport do [D2 UberApp Market](https://d2uberappmarket.tw5.org).
+**Trading / Market** — integracja ze sklepem [D2 UberApp Market](https://market.d2app.xyz): tworzenie list online jednym kliknięciem, synchronizacja przedmiotów oraz udostępnianie list przez link.
 
 > [!WARNING]
 > Moduł marketu jest nadal rozwijany i znajduje się w fazie beta.
@@ -114,7 +114,7 @@ GEMINI_API_KEY="twoj_klucz"
 
 - [Strona projektu](https://kosiorro.github.io/D2-UberApp/)
 - [Najnowsze wydania](https://github.com/kosiorro/D2-UberApp/releases)
-- [D2 UberApp Market](https://d2uberappmarket.tw5.org)
+- [D2 UberApp Market](https://market.d2app.xyz)
 - [Repozytorium GitHub](https://github.com/kosiorro/D2-UberApp)
 
 <a name="status-projektu"></a>
@@ -175,7 +175,7 @@ You can scan:
 
 **Vault** — your own database of scanned items with filters, card view and table view.
 
-**Trading / Market** — prepare items for trading and export them to the [D2 UberApp Market](https://d2uberappmarket.tw5.org).
+**Trading / Market** — integration with the [D2 UberApp Market](https://market.d2app.xyz): create online lists with one click, synchronize items and share lists via a link.
 
 > [!WARNING]
 > The online market module is still under development and currently in beta.
@@ -210,7 +210,7 @@ GEMINI_API_KEY="your_key"
 
 - [Project website](https://kosiorro.github.io/D2-UberApp/)
 - [Latest releases](https://github.com/kosiorro/D2-UberApp/releases)
-- [D2 UberApp Market](https://d2app.xyz)
+- [D2 UberApp Market](https://market.d2app.xyz)
 - [GitHub repository](https://github.com/kosiorro/D2-UberApp)
 
 ## Project status
@@ -220,6 +220,10 @@ D2 UberApp is an actively developed **Beta** project.
 ---
 
 # Screenshots
+
+### Online shop lists / Listy sklepu online
+
+<img src="docs/screenshots/shop-list.png" alt="Tworzenie list online jednym kliknięciem / One-click online lists" width="100%">
 
 ### Character statistics scanning / Skanowanie statystyk postaci
 

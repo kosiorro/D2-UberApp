@@ -1,8 +1,8 @@
 ; Inno Setup Script dla D2 UberApp
 #define MyAppName "D2 UberApp"
-#define MyAppVersion "1.2.0"
+#define MyAppVersion "1.3.0"
 #define MyAppPublisher "D2 Community"
-#define MyAppURL "https://d2uberappmarket.tw5.org"
+#define MyAppURL "https://market.d2app.xyz"
 #define MyAppExeName "D2UberApp.exe"
 
 [Setup]

@@ -595,7 +595,7 @@
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.45);
         }
         .badge-market-very-high .val-symbol { color: #ffd700; }
-        
+
         .badge-market-high {
             background: linear-gradient(135deg, rgba(48, 34, 10, 0.9), rgba(85, 58, 14, 0.9));
             color: #ffd27d;
@@ -1728,7 +1728,7 @@
             margin: 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    
+
         /* TRADE LIST & PRESET CHIPS */
         .chip-preset {
             background: #191b24;
@@ -1786,7 +1786,7 @@
             user-select: none;
         }
 
-    
+
         /* AUTHENTIC CHARMS INVENTORY GRID (10x4) */
         .inv-grid-10x4 {
             display: grid;
@@ -2008,7 +2008,7 @@
                 <!-- FILTERS & VIEW SWITCH -->
                 <div class="stash-filters">
                     <input type="text" id="stashSearch" class="input-d2" placeholder="{{ t('stash_search_placeholder') }}" value="{{ search_query or '' }}" onkeyup="handleStashSearch(event)">
-                    
+
                     <select id="stashQuality" class="select-d2" onchange="filterStash()">
                         <option value="">{{ t("stash_all_qualities") }}</option>
                         <option value="unikalny" {% if quality_filter == 'unikalny' %}selected{% endif %}>{{ t("quality_unique_opt") }}</option>
@@ -2242,8 +2242,8 @@
                             </td>
                             <td>
                                 <div style="display: flex; gap: 6px;">
-                                    <button class="btn-icon-action {% if it.is_in_trade %}btn-trade-active{% endif %}" 
-                                            title="{% if it.is_in_trade %}{{ lang == 'en' and 'Listed for trade (Price: ' ~ it.trade_price ~ ')' or 'Wystawiono na sprzedaż (Cena: ' ~ it.trade_price ~ ')' }}{% else %}{{ lang == 'en' and 'Add to trade list' or 'Dodaj do listy sprzedaży' }}{% endif %}" 
+                                    <button class="btn-icon-action {% if it.is_in_trade %}btn-trade-active{% endif %}"
+                                            title="{% if it.is_in_trade %}{{ lang == 'en' and 'Listed for trade (Price: ' ~ it.trade_price ~ ')' or 'Wystawiono na sprzedaż (Cena: ' ~ it.trade_price ~ ')' }}{% else %}{{ lang == 'en' and 'Add to trade list' or 'Dodaj do listy sprzedaży' }}{% endif %}"
                                             onclick="toggleTrade('{{ it.id }}', event)">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v12M15 9.5a3.5 3.5 0 0 0-7 0c0 2 2 3 5 4s3 2 3 4a3.5 3.5 0 0 1-7 0"></path></svg>
                                     </button>
@@ -2595,8 +2595,8 @@
                     </span>
                     <div id="tradeListsTabs" style="display: flex; gap: 6px; flex-wrap: wrap;">
                         {% for tl in trade_lists %}
-                        <button type="button" 
-                                class="btn-d2 {% if tl.name == active_trade_list %}btn-gold{% else %}btn-stone{% endif %} btn-sm trade-list-tab-btn" 
+                        <button type="button"
+                                class="btn-d2 {% if tl.name == active_trade_list %}btn-gold{% else %}btn-stone{% endif %} btn-sm trade-list-tab-btn"
                                 onclick="switchTradeList('{{ tl.name|escape }}')"
                                 style="padding: 5px 12px; font-size: 0.82rem; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px;">
                             <span>{{ tl.name }}</span>
@@ -2732,7 +2732,7 @@
                             </td>
                             <td>
                                 <div style="display: flex; flex-direction: column; gap: 5px;">
-                                    <input type="text" class="input-d2" id="price-{{ it.id }}" value="{{ it.trade_price }}" 
+                                    <input type="text" class="input-d2" id="price-{{ it.id }}" value="{{ it.trade_price }}"
                                            placeholder="{{ lang == 'en' and 'e.g. Ist, Ber, 100 fg, Offer' or 'np. Ist, Ber, 100 fg, Oferty' }}"
                                            onchange="saveTradeItem('{{ it.id }}')" style="font-size: 0.85rem; padding: 5px 8px;">
                                     <div style="display: flex; gap: 4px; flex-wrap: wrap;">
@@ -2750,7 +2750,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="text" class="input-d2" id="notes-{{ it.id }}" value="{{ it.trade_notes }}" 
+                                <input type="text" class="input-d2" id="notes-{{ it.id }}" value="{{ it.trade_notes }}"
                                        placeholder="{{ lang == 'en' and 'Custom note (e.g. perf roll, eth, bundle)' or 'Własna notatka (np. perf roll, eth, pakiet)' }}"
                                        onchange="saveTradeItem('{{ it.id }}')" style="font-size: 0.85rem; padding: 6px 10px; width: 100%;">
                             </td>
@@ -2927,7 +2927,7 @@
         </div>
     </div>
 
-    
+
     <!-- ========================================================================= -->
     <!-- TRADE EXPORT MODAL -->
     <!-- ========================================================================= -->
@@ -2940,7 +2940,7 @@
                 </div>
                 <button class="modal-close-btn" onclick="closeExportModal()">&times;</button>
             </div>
-            
+
             <div style="padding: 10px 0;">
                 <!-- LANGUAGE & OPTIONS CONTROLS -->
                 <div class="trade-export-options">
@@ -3014,25 +3014,111 @@
             </div>
 
             <div style="padding: 10px 0;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
-                    <div>
-                        <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Online Market Server URL:" or "Adres serwera giełdy online:" }}</label>
-                        <input type="text" id="marketServerUrl" class="input-d2" value="https://d2uberappmarket.tw5.org" placeholder="https://d2uberappmarket.tw5.org">
-                    </div>
-                    <div>
-                        <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Your Market Profile API Token:" or "Twój Token API z profilu giełdy:" }}</label>
-                        <input type="text" id="marketApiToken" class="input-d2" placeholder="{{ lang == 'en' and 'Paste API Token (optional)' or 'Wklej Token API (opcjonalnie)' }}">
+                <div style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Online Market Server URL:" or "Adres serwera giełdy online:" }}</label>
+                    <input type="text" id="marketServerUrl" class="input-d2" value="https://market.d2app.xyz" placeholder="https://market.d2app.xyz">
+                </div>
+
+                <!-- WYBÓR TRYBU SYNCHRONIZACJI: KONTO CZY ANONIMOWA LISTA -->
+                <div style="display: flex; gap: 10px; margin-bottom: 14px;">
+                    <button type="button" id="tabSyncAccount" class="btn-d2 btn-sm" onclick="switchMarketSyncTab('account')" style="flex: 1; padding: 8px 12px; background: #262c3d; border-color: var(--gold-main); color: #ffd27d; font-weight: 700;">
+                        👤 {{ lang == "en" and "Market Account (Sync to profile)" or "Konto na Giełdzie (Do profilu)" }}
+                    </button>
+                    <button type="button" id="tabSyncAnon" class="btn-d2 btn-sm" onclick="switchMarketSyncTab('anon')" style="flex: 1; padding: 8px 12px; background: #151821; border-color: #3d4a66; color: #aaa; font-weight: 600;">
+                        🔗 {{ lang == "en" and "Anonymous List with Password" or "Anonimowa Lista z Hasłem" }}
+                    </button>
+                </div>
+
+                <!-- PANEL KONTO NA GIEŁDZIE -->
+                <div id="panelSyncAccount">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; border: 1px solid #2b3042;">
+                        <div>
+                            <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Your Market API Token:" or "Twój Token API z profilu giełdy:" }}</label>
+                            <input type="text" id="marketApiToken" class="input-d2" placeholder="{{ lang == 'en' and 'Paste API Token (optional)' or 'Wklej Token API (opcjonalnie)' }}">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "OR Login & Password:" or "LUB Login i Hasło:" }}</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                                <input type="text" id="marketUsername" class="input-d2" placeholder="{{ lang == 'en' and 'Login' or 'Login' }}">
+                                <input type="password" id="marketPassword" class="input-d2" placeholder="{{ lang == 'en' and 'Password' or 'Hasło' }}">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px; border: 1px solid #2b3042;">
-                    <div>
-                        <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "OR Username (if no token):" or "LUB Nazwa użytkownika (jeśli brak tokena):" }}</label>
-                        <input type="text" id="marketUsername" class="input-d2" placeholder="{{ lang == 'en' and 'Market username' or 'Login z giełdy' }}">
+                <!-- PANEL ANONIMOWA LISTA Z HASŁEM -->
+                <div id="panelSyncAnon" style="display: none; background: rgba(0,0,0,0.35); padding: 14px; border-radius: 4px; border: 1px solid #705820; margin-bottom: 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #332714; padding-bottom: 8px;">
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" id="btnSubAnonNew" class="btn-d2 btn-sm" onclick="switchAnonSubView('new')" style="background: #2b1f14; border-color: #ffd27d; color: #ffd27d; font-weight: 700; font-size: 0.78rem;">
+                                ➕ {{ lang == "en" and "Publish New List" or "Udostępnij nową listę" }}
+                            </button>
+                            <button type="button" id="btnSubAnonSaved" class="btn-d2 btn-sm" onclick="switchAnonSubView('saved')" style="background: #141721; border-color: #3d4a66; color: #aaa; font-size: 0.78rem;">
+                                📋 {{ lang == "en" and "Saved Shared Lists" or "Moje udostępnione listy" }} (<span id="anonSavedCountBadge">0</span>)
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <label style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Password:" or "Hasło użytkownika:" }}</label>
-                        <input type="password" id="marketPassword" class="input-d2" placeholder="{{ lang == 'en' and 'Market password' or 'Hasło z giełdy' }}">
+
+                    <!-- WIDOK 1: NOWA LISTA -->
+                    <div id="viewAnonNew">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px;">
+                            <div>
+                                <label style="display:block; font-size:0.82rem; color:#ffd27d; font-weight:700; margin-bottom:4px;">{{ lang == "en" and "List Name:" or "Nazwa listy:" }}</label>
+                                <input type="text" id="marketAnonTitle" class="input-d2" placeholder="{{ lang == 'en' and 'e.g. My Rune & Unique List' or 'Np. Moje Runy i Unikaty' }}" maxlength="120">
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:0.82rem; color:#ffd27d; font-weight:700; margin-bottom:4px;">{{ lang == "en" and "Password (for edit & delete):" or "Hasło do listy (do edycji i usuwania):" }}</label>
+                                <input type="password" id="marketAnonPassword" class="input-d2" placeholder="{{ lang == 'en' and 'Min. 3 characters password' or 'Hasło min. 3 znaki' }}">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <label style="display:block; font-size:0.82rem; color:#aaa; margin-bottom:4px;">{{ lang == "en" and "Description / Notes / Contact (textarea):" or "Opis listy / Kontakt / Zasady (textarea):" }}</label>
+                            <textarea id="marketAnonDescription" class="input-d2" rows="3" placeholder="{{ lang == 'en' and 'Describe rules, contact info, discord or in-game hours...' or 'Wpisz opis, kontakt, godziny obecności w grze, discord lub battle.tag...' }}" style="resize: vertical; width: 100%; box-sizing: border-box; font-family: inherit; font-size: 0.85rem;"></textarea>
+                        </div>
+                        <div style="font-size: 0.76rem; color: #888;">
+                            ℹ️ {{ lang == "en" and "Items will be displayed on the marketplace under a unique link without Buy/View buttons. Item stats show on hover. The list can be edited or deleted anytime with the password." or "Lista zostanie wystawiona w sklepie pod unikalnym linkiem bez przycisków kupna czy podglądu. Po najechaniu kursorem wyświetla się karta przedmiotu ze statystykami i grafiką. Lista zostanie zapamiętana w aplikacji, aby umożliwić jej późniejszą aktualizację po wpisaniu hasła." }}
+                        </div>
+                    </div>
+
+                    <!-- WIDOK 2: ZAPISANE LISTY (DO PRZEGLĄDANIA I AKTUALIZACJI) -->
+                    <div id="viewAnonSaved" style="display: none;">
+                        <div id="anonSavedListItems" style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
+
+                        <!-- FORMULARZ AKTUALIZACJI WYBRANEJ LISTY -->
+                        <div id="anonUpdateFormBox" style="display: none; margin-top: 14px; background: rgba(0,0,0,0.5); border: 1px solid #b89958; border-radius: 4px; padding: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #3d3019; padding-bottom: 6px;">
+                                <strong style="color: #ffd27d; font-size: 0.88rem;">🔄 {{ lang == "en" and "Update Shared List on Market" or "Aktualizacja udostępnionej listy na giełdzie" }}</strong>
+                                <button type="button" class="btn-d2 btn-stone btn-sm" onclick="cancelAnonUpdate()" style="padding: 2px 6px; font-size: 0.75rem;">✕</button>
+                            </div>
+                            <input type="hidden" id="anonUpdateListId">
+                            <input type="hidden" id="anonUpdateServerUrl">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                                <div>
+                                    <label style="display:block; font-size:0.78rem; color:#aaa; margin-bottom:2px;">{{ lang == "en" and "List Name:" or "Nazwa listy:" }}</label>
+                                    <input type="text" id="anonUpdateTitle" class="input-d2" maxlength="120">
+                                </div>
+                                <div>
+                                    <label style="display:block; font-size:0.78rem; color:#ffd27d; font-weight:700; margin-bottom:2px;">{{ lang == "en" and "List Password:" or "Wpisz hasło do listy:" }}</label>
+                                    <input type="password" id="anonUpdatePassword" class="input-d2" placeholder="{{ lang == 'en' and 'Password set during creation' or 'Hasło ustalone przy tworzeniu' }}">
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <label style="display:block; font-size:0.78rem; color:#aaa; margin-bottom:2px;">{{ lang == "en" and "Description / Notes (textarea):" or "Opis / Kontakt (textarea):" }}</label>
+                                <textarea id="anonUpdateDescription" class="input-d2" rows="2" style="resize: vertical; width: 100%; box-sizing: border-box; font-family: inherit; font-size: 0.82rem;"></textarea>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                <label style="font-size: 0.8rem; color: #ddd; display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                                    <input type="checkbox" id="anonUpdateSyncItemsCheck" checked style="accent-color: #ffd27d;">
+                                    <span>{{ lang == "en" and "Update items with currently selected items below" or "Zaktualizuj przedmioty zaznaczone poniżej" }}</span>
+                                </label>
+                                <div style="display: flex; gap: 8px;">
+                                    <button type="button" class="btn-d2 btn-stone btn-sm" onclick="cancelAnonUpdate()">{{ lang == "en" and "Cancel" or "Anuluj" }}</button>
+                                    <button type="button" class="btn-d2 btn-gold btn-sm" id="btnDoAnonUpdate" onclick="performAnonymousUpdate()" style="background: linear-gradient(180deg, #5b3e15 0%, #301f05 100%); border-color: #ffd27d;">
+                                        <span>💾 {{ lang == "en" and "Save & Update on Market" or "Zapisz i zaktualizuj" }}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -3093,7 +3179,7 @@
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
                     <button class="btn-d2 btn-stone" onclick="closeMarketSyncModal()">{{ lang == "en" and "CANCEL" or "ANULUJ" }}</button>
-                    <button class="btn-d2 btn-gold" id="btnDoMarketSync" onclick="performMarketSync()" style="min-width: 220px; background: linear-gradient(180deg, #6b2e6e 0%, #3a1542 100%); border-color: #d896ff;">
+                    <button class="btn-d2 btn-gold" id="btnDoMarketSync" onclick="dispatchMarketSync()" style="min-width: 220px; background: linear-gradient(180deg, #6b2e6e 0%, #3a1542 100%); border-color: #d896ff;">
                         <span>{{ lang == "en" and "🚀 PUBLISH TO ONLINE MARKET" or "🚀 OPUBLIKUJ NA GIEŁDZIE ONLINE" }}</span>
                     </button>
                 </div>
@@ -3113,7 +3199,7 @@
                 </div>
                 <button class="modal-close-btn" onclick="closeTradeAddModal()">&times;</button>
             </div>
-            
+
             <div style="padding: 10px 0;">
                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 4px; border: 1px solid #2f281e; flex-wrap: wrap;">
                     <div style="display: flex; align-items: center; gap: 8px;">
@@ -3127,7 +3213,7 @@
                     <span style="font-size: 0.78rem; color: #888;">{{ lang == "en" and "Clicking ADD adds item to the selected list." or "Kliknięcie DODAJ dodaje przedmiot do wybranej listy." }}</span>
                 </div>
                 <input type="text" id="tradeAddSearch" class="input-d2" placeholder="{{ lang == 'en' and 'Search item by name or base...' or 'Wyszukaj przedmiot po nazwie lub bazie...' }}" onkeyup="filterTradeAddModal()" style="width: 100%; margin-bottom: 15px; box-sizing: border-box;">
-                
+
                 <div id="tradeAddListContainer" style="max-height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
                     <!-- Filled dynamically -->
                 </div>
@@ -3143,7 +3229,7 @@
         const sfxDrop = document.getElementById('sfxDrop');
 
         // =========================================================================
-        
+
 function toggleMoreChars(event) {
     if (event) event.stopPropagation();
     const dd = document.getElementById('headerMoreCharsDropdown');
@@ -3366,13 +3452,13 @@ async function setAppLanguage(newLang) {
             let isNonNamed = ['normalny', 'normal', 'superior', 'magiczny', 'magic', 'rzadki', 'rare'].includes((it.quality || '').toLowerCase());
             let title = (window.APP_LANG === 'en' && it.name_en) ? it.name_en : (isNonNamed ? (it.display_name || it.base || it.name) : (it.display_name || it.name));
             let qClass = (it.quality || 'normalny').toLowerCase().replace(/\s+/g, '-');
-            
+
             let modalTitleEl = document.getElementById('modalItemTitle');
             if (modalTitleEl) {
                 modalTitleEl.className = `panel-title quality-${qClass}`;
                 modalTitleEl.textContent = `${title}${it.base && it.base !== title ? ` (${it.base})` : ''}`;
             }
-            
+
             let marketValueHtml = '';
             let mv = String(it.market_value || '').toUpperCase().trim();
             if (!mv || mv === 'NONE' || mv === '?' || mv === 'BRAK') {
@@ -3823,7 +3909,7 @@ async function setAppLanguage(newLang) {
             });
         });
 
-        
+
 
         function switchCharacter(name) {
             window.location.href = `/?tab=character&name=${encodeURIComponent(name)}`;
@@ -3972,7 +4058,7 @@ async function setAppLanguage(newLang) {
                 }
             }
         }
-    
+
         // =========================================================================
         // TRADE LIST JAVASCRIPT LOGIC (MULTI-LIST SUPPORT)
         // =========================================================================
@@ -4028,7 +4114,7 @@ async function setAppLanguage(newLang) {
 
         async function confirmDeleteCurrentTradeList() {
             let current = window.ACTIVE_TRADE_LIST || 'Główna';
-            let msg = window.APP_LANG === 'en' 
+            let msg = window.APP_LANG === 'en'
                 ? `Are you sure you want to delete sales list "${current}" and all offers on this list?`
                 : `Czy na pewno chcesz usunąć listę sprzedaży "${current}" oraz wszystkie przypisane do niej oferty?`;
             if (!confirm(msg)) return;
@@ -4269,12 +4355,67 @@ async function setAppLanguage(newLang) {
         // MARKETPLACE ONLINE SYNC LOGIC
         // =========================================================================
 
+        window.CURRENT_SYNC_MODE = 'account';
+
+        function switchMarketSyncTab(mode) {
+            window.CURRENT_SYNC_MODE = mode;
+            let panelAccount = document.getElementById('panelSyncAccount');
+            let panelAnon = document.getElementById('panelSyncAnon');
+            let tabAccount = document.getElementById('tabSyncAccount');
+            let tabAnon = document.getElementById('tabSyncAnon');
+            let btn = document.getElementById('btnDoMarketSync');
+            let resEl = document.getElementById('marketSyncResult');
+            if (resEl) resEl.style.display = 'none';
+
+            if (mode === 'anon') {
+                if (panelAccount) panelAccount.style.display = 'none';
+                if (panelAnon) panelAnon.style.display = 'block';
+                if (tabAccount) {
+                    tabAccount.style.background = '#151821';
+                    tabAccount.style.borderColor = '#3d4a66';
+                    tabAccount.style.color = '#aaa';
+                    tabAccount.style.fontWeight = 'normal';
+                }
+                if (tabAnon) {
+                    tabAnon.style.background = '#262c3d';
+                    tabAnon.style.borderColor = 'var(--gold-main)';
+                    tabAnon.style.color = '#ffd27d';
+                    tabAnon.style.fontWeight = '700';
+                }
+                if (btn) {
+                    btn.innerHTML = window.APP_LANG === 'en' ? '<span>🚀 PUBLISH ANONYMOUS LIST</span>' : '<span>🚀 OPUBLIKUJ ANONIMOWĄ LISTĘ</span>';
+                }
+            } else {
+                if (panelAccount) panelAccount.style.display = 'block';
+                if (panelAnon) panelAnon.style.display = 'none';
+                if (tabAccount) {
+                    tabAccount.style.background = '#262c3d';
+                    tabAccount.style.borderColor = 'var(--gold-main)';
+                    tabAccount.style.color = '#ffd27d';
+                    tabAccount.style.fontWeight = '700';
+                }
+                if (tabAnon) {
+                    tabAnon.style.background = '#151821';
+                    tabAnon.style.borderColor = '#3d4a66';
+                    tabAnon.style.color = '#aaa';
+                    tabAnon.style.fontWeight = 'normal';
+                }
+                if (btn) {
+                    btn.innerHTML = window.APP_LANG === 'en' ? '<span>🚀 PUBLISH TO ONLINE MARKET</span>' : '<span>🚀 OPUBLIKUJ NA GIEŁDZIE ONLINE</span>';
+                }
+            }
+        }
+
         function openMarketSyncModal() {
             let modal = document.getElementById('marketSyncModal');
             if (!modal) return;
             modal.style.display = 'flex';
 
-            let savedUrl = localStorage.getItem('d2_market_url') || 'https://d2uberappmarket.tw5.org';
+            let savedUrl = localStorage.getItem('d2_market_url') || 'https://market.d2app.xyz';
+            if (savedUrl.includes('d2uberappmarket.tw5.org')) {
+                savedUrl = 'https://market.d2app.xyz';
+                localStorage.setItem('d2_market_url', savedUrl);
+            }
             let savedToken = localStorage.getItem('d2_market_token') || '';
             let savedUser = localStorage.getItem('d2_market_user') || '';
             let savedScHc = localStorage.getItem('d2_market_schc') || 'sc';
@@ -4294,11 +4435,18 @@ async function setAppLanguage(newLang) {
             let expEl = document.getElementById('marketSyncExpansion');
             if (expEl) expEl.value = savedExp;
 
+            let anonTitle = document.getElementById('marketAnonTitle');
+            if (anonTitle && !anonTitle.value) {
+                anonTitle.value = window.ACTIVE_TRADE_LIST || (window.APP_LANG === 'en' ? 'Trade List' : 'Lista Handlowa');
+            }
+
             let resEl = document.getElementById('marketSyncResult');
             if (resEl) {
                 resEl.style.display = 'none';
                 resEl.innerHTML = '';
             }
+
+            renderSavedAnonymousLists();
         }
 
         function closeMarketSyncModal() {
@@ -4308,7 +4456,6 @@ async function setAppLanguage(newLang) {
 
         function toggleAllMarketSync(forceChecked) {
             let checkboxes = document.querySelectorAll('.sync-item-check');
-            let shouldCheck = typeof forceChecked === 'boolean' ? forceChecked : true;
             if (typeof forceChecked !== 'boolean') {
                 let anyUnchecked = Array.from(checkboxes).some(c => !c.checked);
                 shouldCheck = anyUnchecked;
@@ -4317,7 +4464,7 @@ async function setAppLanguage(newLang) {
         }
 
         async function performMarketSync() {
-            let serverUrl = (document.getElementById('marketServerUrl')?.value || 'https://d2uberappmarket.tw5.org').trim();
+            let serverUrl = (document.getElementById('marketServerUrl')?.value || 'https://market.d2app.xyz').trim();
             let apiToken = (document.getElementById('marketApiToken')?.value || '').trim();
             let username = (document.getElementById('marketUsername')?.value || '').trim();
             let password = document.getElementById('marketPassword')?.value || '';
@@ -4382,6 +4529,7 @@ async function setAppLanguage(newLang) {
                         realm_sc_hc: realmScHc,
                         realm_ladder: realmLadder,
                         realm_expansion: realmExp,
+                        list_name: window.ACTIVE_TRADE_LIST,
                         item_ids: selectedIds
                     })
                 });
@@ -4426,6 +4574,401 @@ async function setAppLanguage(newLang) {
                     ? `❌ Network error or market server unreachable at ${serverUrl}. Ensure the market server application is running.`
                     : `❌ Błąd sieci lub serwer giełdy jest niedostępny pod adresem ${serverUrl}. Upewnij się, że uruchomiono aplikację serwera giełdy.`;
                 console.error("Błąd performMarketSync:", err);
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = prevBtnText;
+                }
+            }
+        }
+
+        function dispatchMarketSync() {
+            if (window.CURRENT_SYNC_MODE === 'anon') {
+                performAnonymousSync();
+            } else {
+                performMarketSync();
+            }
+        }
+
+        function getSavedAnonymousLists() {
+            try {
+                return JSON.parse(localStorage.getItem('d2_shared_anonymous_lists') || '[]');
+            } catch (_) {
+                return [];
+            }
+        }
+
+        function saveAnonymousLists(lists) {
+            localStorage.setItem('d2_shared_anonymous_lists', JSON.stringify(lists));
+            renderSavedAnonymousLists();
+        }
+
+        function switchAnonSubView(sub) {
+            let btnNew = document.getElementById('btnSubAnonNew');
+            let btnSaved = document.getElementById('btnSubAnonSaved');
+            let viewNew = document.getElementById('viewAnonNew');
+            let viewSaved = document.getElementById('viewAnonSaved');
+            let btnSubmit = document.getElementById('btnDoMarketSync');
+            let resEl = document.getElementById('marketSyncResult');
+            if (resEl) resEl.style.display = 'none';
+
+            if (sub === 'saved') {
+                if (viewNew) viewNew.style.display = 'none';
+                if (viewSaved) viewSaved.style.display = 'block';
+                if (btnNew) {
+                    btnNew.style.background = '#141721';
+                    btnNew.style.borderColor = '#3d4a66';
+                    btnNew.style.color = '#aaa';
+                    btnNew.style.fontWeight = 'normal';
+                }
+                if (btnSaved) {
+                    btnSaved.style.background = '#2b1f14';
+                    btnSaved.style.borderColor = '#ffd27d';
+                    btnSaved.style.color = '#ffd27d';
+                    btnSaved.style.fontWeight = '700';
+                }
+                if (btnSubmit) btnSubmit.style.display = 'none';
+                renderSavedAnonymousLists();
+            } else {
+                if (viewNew) viewNew.style.display = 'block';
+                if (viewSaved) viewSaved.style.display = 'none';
+                if (btnNew) {
+                    btnNew.style.background = '#2b1f14';
+                    btnNew.style.borderColor = '#ffd27d';
+                    btnNew.style.color = '#ffd27d';
+                    btnNew.style.fontWeight = '700';
+                }
+                if (btnSaved) {
+                    btnSaved.style.background = '#141721';
+                    btnSaved.style.borderColor = '#3d4a66';
+                    btnSaved.style.color = '#aaa';
+                    btnSaved.style.fontWeight = 'normal';
+                }
+                if (btnSubmit) btnSubmit.style.display = 'inline-block';
+            }
+        }
+
+        function renderSavedAnonymousLists() {
+            let lists = getSavedAnonymousLists();
+            let badge = document.getElementById('anonSavedCountBadge');
+            if (badge) badge.textContent = lists.length;
+            let container = document.getElementById('anonSavedListItems');
+            if (!container) return;
+
+            if (lists.length === 0) {
+                container.innerHTML = `<div style="text-align: center; padding: 20px; color: #777; font-size: 0.85rem;">
+                    ${window.APP_LANG === 'en' ? 'No saved anonymous lists yet. Publish one using the form above!' : 'Brak zapisanych anonimowych list. Udostępnij pierwszą listę za pomocą formularza powyżej!'}
+                </div>`;
+                return;
+            }
+
+            const esc = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+            container.innerHTML = lists.map(l => `
+                <div style="background: rgba(0,0,0,0.45); border: 1px solid #44351a; border-radius: 4px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+                    <div style="min-width: 240px; flex: 1;">
+                        <div style="font-weight: 700; color: #ffd27d; font-size: 0.9rem;">${esc(l.title)}</div>
+                        <div style="font-size: 0.76rem; color: #888; margin-top: 2px;">
+                            <span>${l.created_at ? l.created_at.slice(0, 16).replace('T', ' ') : ''}</span> ·
+                            <span>Przedmiotów: <strong style="color: #a8e6a3;">${l.item_count || '?'}</strong></span>
+                            ${l.password ? ' · <span style="color:#ffd27d;">🔑 Hasło zapamiętane</span>' : ''}
+                        </div>
+                        <div style="font-size: 0.78rem; margin-top: 4px;">
+                            <a href="${esc(l.url)}" target="_blank" style="color: #8dda72; text-decoration: underline; word-break: break-all;">
+                                ↗ ${esc(l.url)}
+                            </a>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                        <button type="button" class="btn-d2 btn-stone btn-sm" onclick="navigator.clipboard.writeText('${esc(l.url)}'); this.textContent='✓ Skopiowano!'; setTimeout(()=>this.textContent='📋 Kopiuj', 2000);" style="padding: 4px 8px; font-size: 0.75rem;">
+                            📋 Kopiuj link
+                        </button>
+                        <button type="button" class="btn-d2 btn-gold btn-sm" onclick="startAnonUpdate('${esc(l.id)}')" style="padding: 4px 8px; font-size: 0.75rem; background: linear-gradient(180deg, #443015 0%, #241808 100%);">
+                            🔄 Aktualizuj
+                        </button>
+                        <button type="button" class="btn-d2 btn-stone btn-sm" onclick="deleteSavedAnonList('${esc(l.id)}')" style="padding: 4px 8px; font-size: 0.75rem; color: #ff9d9d; border-color: #552222;">
+                            🗑️ Usuń
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function startAnonUpdate(listId) {
+            let lists = getSavedAnonymousLists();
+            let l = lists.find(x => x.id === listId);
+            if (!l) return;
+            let formBox = document.getElementById('anonUpdateFormBox');
+            if (!formBox) return;
+            formBox.style.display = 'block';
+            document.getElementById('anonUpdateListId').value = l.id;
+            document.getElementById('anonUpdateServerUrl').value = l.server_url || localStorage.getItem('d2_market_url') || 'https://market.d2app.xyz';
+            document.getElementById('anonUpdateTitle').value = l.title || '';
+            document.getElementById('anonUpdateDescription').value = l.description || '';
+            document.getElementById('anonUpdatePassword').value = l.password || '';
+            formBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function cancelAnonUpdate() {
+            let formBox = document.getElementById('anonUpdateFormBox');
+            if (formBox) formBox.style.display = 'none';
+        }
+
+        async function performAnonymousUpdate() {
+            let listId = document.getElementById('anonUpdateListId')?.value;
+            let serverUrl = (document.getElementById('anonUpdateServerUrl')?.value || 'https://market.d2app.xyz').trim();
+            let title = (document.getElementById('anonUpdateTitle')?.value || '').trim();
+            let password = document.getElementById('anonUpdatePassword')?.value || '';
+            let description = (document.getElementById('anonUpdateDescription')?.value || '').trim();
+            let updateItems = document.getElementById('anonUpdateSyncItemsCheck')?.checked ?? true;
+            let selectedIds = updateItems ? Array.from(document.querySelectorAll('.sync-item-check:checked')).map(c => c.value) : [];
+
+            let resEl = document.getElementById('marketSyncResult');
+            if (!resEl) return;
+
+            if (!password) {
+                resEl.style.display = 'block';
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = window.APP_LANG === 'en' ? '⚠️ Enter the list password to update!' : '⚠️ Wpisz hasło do listy, aby zaktualizować!';
+                return;
+            }
+
+            let btn = document.getElementById('btnDoAnonUpdate');
+            let prevText = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<span>⏳ AKTUALIZACJA...</span>';
+            }
+
+            try {
+                let resp = await fetch('/api/trade/anonymous_update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        server_url: serverUrl,
+                        list_id: listId,
+                        password: password,
+                        title: title,
+                        description: description,
+                        update_items: updateItems,
+                        list_name: window.ACTIVE_TRADE_LIST,
+                        item_ids: selectedIds
+                    })
+                });
+
+                let data = await resp.json();
+                if (resp.ok && data.status === 'success') {
+                    resEl.style.display = 'block';
+                    resEl.style.background = '#152b14';
+                    resEl.style.border = '1px solid #32752e';
+                    resEl.style.color = '#8efc88';
+                    resEl.innerHTML = `✓ Pomyślnie zaktualizowano listę handlową (przedmiotów: ${updateItems ? (data.count ?? selectedIds.length) : 'bez zmian'}).`;
+
+                    // Update local storage
+                    let lists = getSavedAnonymousLists();
+                    let idx = lists.findIndex(x => x.id === listId);
+                    if (idx >= 0) {
+                        lists[idx].title = title || lists[idx].title;
+                        lists[idx].description = description;
+                        lists[idx].password = password;
+                        if (updateItems) {
+                            lists[idx].item_count = data.count ?? selectedIds.length;
+                            lists[idx].item_ids = selectedIds;
+                        }
+                        saveAnonymousLists(lists);
+                    }
+                    cancelAnonUpdate();
+                } else {
+                    resEl.style.display = 'block';
+                    resEl.style.background = '#381212';
+                    resEl.style.border = '1px solid #7a2626';
+                    resEl.style.color = '#ff9d9d';
+                    resEl.innerHTML = `❌ ${data.error || 'Błąd aktualizacji listy.'}`;
+                }
+            } catch (err) {
+                resEl.style.display = 'block';
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = `❌ Błąd połączenia: ${err.message}`;
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = prevText;
+                }
+            }
+        }
+
+        async function deleteSavedAnonList(listId) {
+            let lists = getSavedAnonymousLists();
+            let l = lists.find(x => x.id === listId);
+            if (!l) return;
+            let pwd = prompt(window.APP_LANG === 'en' ? `Enter password to delete list "${l.title}" from market:` : `Wpisz hasło do listy "${l.title}", aby usunąć ją z giełdy:`, l.password || '');
+            if (pwd === null) return;
+            if (!pwd) {
+                alert(window.APP_LANG === 'en' ? 'Password is required to delete the list!' : 'Wymagane jest hasło!');
+                return;
+            }
+
+            try {
+                let resp = await fetch('/api/trade/anonymous_delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        server_url: l.server_url || localStorage.getItem('d2_market_url') || 'https://market.d2app.xyz',
+                        list_id: listId,
+                        password: pwd
+                    })
+                });
+                let data = await resp.json();
+                if (resp.ok && data.status === 'success') {
+                    alert('✓ Lista została usunięta z giełdy.');
+                    let newLists = lists.filter(x => x.id !== listId);
+                    saveAnonymousLists(newLists);
+                } else {
+                    alert(`❌ ${data.error || 'Nie udało się usunąć listy.'}`);
+                }
+            } catch (err) {
+                alert(`❌ Błąd połączenia: ${err.message}`);
+            }
+        }
+
+        async function performAnonymousSync() {
+            let serverUrl = (document.getElementById('marketServerUrl')?.value || 'https://market.d2app.xyz').trim();
+            let title = (document.getElementById('marketAnonTitle')?.value || '').trim();
+            let password = document.getElementById('marketAnonPassword')?.value || '';
+            let description = (document.getElementById('marketAnonDescription')?.value || '').trim();
+            let realmScHc = document.getElementById('marketSyncScHc')?.value || 'sc';
+            let realmLadder = document.getElementById('marketSyncLadder')?.value || 'ladder';
+            let realmExp = document.getElementById('marketSyncExpansion')?.value || 'lod';
+
+            let selectedIds = Array.from(document.querySelectorAll('.sync-item-check:checked')).map(c => c.value);
+            let resEl = document.getElementById('marketSyncResult');
+            if (!resEl) return;
+
+            if (selectedIds.length === 0) {
+                resEl.style.display = 'block';
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = window.APP_LANG === 'en' ? '⚠️ Select at least one item to list!' : '⚠️ Wybierz przynajmniej jeden przedmiot do udostępnienia!';
+                return;
+            }
+
+            if (!title) {
+                resEl.style.display = 'block';
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = window.APP_LANG === 'en' ? '⚠️ Provide a list name!' : '⚠️ Podaj nazwę anonimowej listy!';
+                return;
+            }
+
+            if (!password || password.length < 3) {
+                resEl.style.display = 'block';
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = window.APP_LANG === 'en' ? '⚠️ Provide a list password (min. 3 characters) to edit/delete later!' : '⚠️ Podaj hasło do listy (min. 3 znaki) potrzebne do późniejszej edycji lub usunięcia!';
+                return;
+            }
+
+            localStorage.setItem('d2_market_url', serverUrl);
+            localStorage.setItem('d2_market_schc', realmScHc);
+            localStorage.setItem('d2_market_ladder', realmLadder);
+            localStorage.setItem('d2_market_expansion', realmExp);
+
+            let btn = document.getElementById('btnDoMarketSync');
+            let prevBtnText = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = window.APP_LANG === 'en' ? '<span>⏳ PUBLISHING ANONYMOUS LIST...</span>' : '<span>⏳ PUBLIKOWANIE LISTY...</span>';
+            }
+
+            resEl.style.display = 'block';
+            resEl.style.background = '#1a1e2b';
+            resEl.style.border = '1px solid #3d4a66';
+            resEl.style.color = '#ffd27d';
+            resEl.innerHTML = window.APP_LANG === 'en' ? 'Sending anonymous list to market...' : 'Wysyłanie anonimowej listy do sklepu...';
+
+            try {
+                let resp = await fetch('/api/trade/anonymous_sync', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        server_url: serverUrl,
+                        title: title,
+                        password: password,
+                        description: description,
+                        realm_sc_hc: realmScHc,
+                        realm_ladder: realmLadder,
+                        realm_expansion: realmExp,
+                        list_name: window.ACTIVE_TRADE_LIST,
+                        item_ids: selectedIds
+                    })
+                });
+
+                let data = await resp.json();
+                if (resp.ok && data.status === 'success') {
+                    resEl.style.background = '#152b14';
+                    resEl.style.border = '1px solid #32752e';
+                    resEl.style.color = '#8efc88';
+                    let fullUrl = data.full_url || `${serverUrl}${data.url}`;
+                    let successTitle = window.APP_LANG === 'en' ? '✓ Anonymous list published successfully!' : '✓ Anonimowa lista została pomyślnie wystawiona!';
+                    let linkDesc = window.APP_LANG === 'en'
+                        ? `Published <strong>${data.count || selectedIds.length}</strong> items under unique link without Buy/View buttons (hover to view item stats).`
+                        : `Opublikowano <strong>${data.count || selectedIds.length}</strong> przedmiotów pod unikalnym linkiem (podgląd statystyk po najechaniu).`;
+
+                    // Persist to local storage for subsequent updates
+                    let sharedLists = getSavedAnonymousLists();
+                    let newEntry = {
+                        id: data.id,
+                        title: title,
+                        description: description,
+                        password: password,
+                        url: fullUrl,
+                        server_url: serverUrl,
+                        created_at: new Date().toISOString(),
+                        item_count: data.count || selectedIds.length,
+                        item_ids: selectedIds,
+                        list_name: window.ACTIVE_TRADE_LIST,
+                        realm_sc_hc: realmScHc,
+                        realm_ladder: realmLadder,
+                        realm_expansion: realmExp
+                    };
+                    let existIdx = sharedLists.findIndex(x => x.id === data.id);
+                    if (existIdx >= 0) sharedLists[existIdx] = newEntry;
+                    else sharedLists.unshift(newEntry);
+                    saveAnonymousLists(sharedLists);
+
+                    resEl.innerHTML = `
+                        <div style="font-weight:700; font-size:1rem; margin-bottom:6px;">${successTitle}</div>
+                        <div style="font-size:0.85rem; color:#ccc; margin-bottom:10px;">
+                            ${linkDesc}<br>
+                            <span style="color:#ffd27d; font-weight:600;">🔑 Pamiętaj hasło:</span> podane hasło zostało zapamiętane w aplikacji w zakładce „Moje udostępnione listy” i umożliwia aktualizację lub usunięcie oferty.
+                        </div>
+                        <div style="background:rgba(0,0,0,0.5); padding:8px 12px; border-radius:4px; border:1px solid #32752e; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+                            <a href="${fullUrl}" target="_blank" style="color:#ffd27d; font-weight:700; text-decoration:underline; word-break:break-all;">
+                                ↗ ${fullUrl}
+                            </a>
+                            <button type="button" class="btn-d2 btn-stone btn-sm" onclick="navigator.clipboard.writeText('${fullUrl}'); this.textContent='✓ Skopiowano!'; setTimeout(()=>this.textContent='Kopiuj link', 2500);" style="white-space:nowrap;">
+                                Kopiuj link
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    resEl.style.background = '#381212';
+                    resEl.style.border = '1px solid #7a2626';
+                    resEl.style.color = '#ff9d9d';
+                    resEl.innerHTML = `❌ ${data.error || 'Nie udało się wystawić anonimowej listy.'}`;
+                }
+            } catch (err) {
+                resEl.style.background = '#381212';
+                resEl.style.border = '1px solid #7a2626';
+                resEl.style.color = '#ff9d9d';
+                resEl.innerHTML = `❌ Błąd połączenia z serwerem giełdy: ${err.message}`;
             } finally {
                 if (btn) {
                     btn.disabled = false;
@@ -4544,8 +5087,8 @@ async function setAppLanguage(newLang) {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
-                        item_id: itemId, 
-                        price: window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę', 
+                        item_id: itemId,
+                        price: window.APP_LANG === 'en' ? 'Awaiting offer' : 'Czekam na ofertę',
                         notes: '',
                         list_name: targetList
                     })
@@ -4589,7 +5132,7 @@ async function setAppLanguage(newLang) {
       <div id="uber-item-suggestion" hidden></div>
       <label>{{ lang == 'en' and 'Persistent base alias' or 'Stały alias bazy' }}<input id="uber-base_alias" class="input-d2" maxlength="120" placeholder="{{ lang == 'en' and 'e.g. MP, AP, CV, PB, Mon' or 'np. MP, AP, CV, PB, Mon' }}"></label>
       <p style="font-size:0.78rem;color:#888;margin:2px 0 8px;">{{ lang == 'en' and 'Aliases apply to all items with this name or base. Empty restores full name.' or 'Aliasy są wspólne dla wszystkich egzemplarzy o tej nazwie lub bazie. Puste pole przywraca pełną nazwę.' }}</p>
-      
+
       <div id="uber-rolls-selection" hidden></div>
 
       <label>{{ lang == 'en' and 'Socket contents for this item' or 'Co jest w gniazdach tego przedmiotu?' }}<input id="uber-socket_contents" class="input-d2" maxlength="500" placeholder="{{ lang == 'en' and 'e.g. Ist, Ber, 15 IAS / 40 ED Jewel' or 'np. Ist, Ber, Klejnot 15 IAS / 40 ED' }}"></label>
