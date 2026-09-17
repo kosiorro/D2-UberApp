@@ -82,7 +82,9 @@ from translations import get_t, get_item_title, get_roll_label
 @app.context_processor
 def inject_translations():
     lang = get_current_lang()
+    from api_setup import has_api_key
     return {
+        'api_configured': has_api_key(),
         'lang': lang,
         't': get_t(lang),
         'item_title': lambda it: get_item_title(it, lang),

@@ -8,6 +8,12 @@ from recognition import process_image
 from scan_history import begin,finish
 
 def run_capture(service):
+    from api_setup import has_api_key, setup_message, API_KEY_URL
+    if not has_api_key():
+        import config
+        service.last_activity = dict(state='setup', message=setup_message(config.COMPANION_SETTINGS.get('lang')),
+                                     setup_url=API_KEY_URL, timestamp=time.time(), queue_count=0)
+        return
     from capture import capture_screen,play_sound
     mode,character,swap,location=service.scan_mode,service.current_character,service.is_swap,service.current_location
     requested_mode = mode

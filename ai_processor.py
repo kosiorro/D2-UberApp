@@ -14,6 +14,9 @@ _client_key = None
 
 def get_client():
     global _client, _client_key
+    from api_setup import has_api_key, setup_message
+    if not has_api_key():
+        raise ValueError(setup_message(config.COMPANION_SETTINGS.get('lang')))
     if _client is None or _client_key != config.GEMINI_API_KEY:
         _client = genai.Client(api_key=config.GEMINI_API_KEY)
         _client_key = config.GEMINI_API_KEY

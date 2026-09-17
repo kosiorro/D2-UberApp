@@ -108,7 +108,7 @@ try:
 except Exception:
     COMPANION_SETTINGS = {}
 
-GEMINI_API_KEY = COMPANION_SETTINGS.get('api_key', GEMINI_API_KEY)
+GEMINI_API_KEY = str(COMPANION_SETTINGS.get('api_key') or GEMINI_API_KEY or '').strip()
 GEMINI_MODEL = COMPANION_SETTINGS.get('model', GEMINI_MODEL)
 
 raw_hotkey = COMPANION_SETTINGS.get('hotkey', 'F10')

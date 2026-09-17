@@ -150,6 +150,20 @@ class TooltipDetectionTests(unittest.TestCase):
         ImageDraw.Draw(image).line((175, 236, 643, 236), fill=(58, 58, 58))
         self.assertFalse(_check_rune_grid_presence(image))
 
+    def test_manual_runes_accepts_textured_grid_without_six_exact_separators(self):
+        from capture_regions import _manual_rune_grid_presence, _check_rune_grid_presence, crop_for_ai
+        image = Image.new('RGB', (1920, 1080), (20, 20, 20))
+        draw = ImageDraw.Draw(image)
+        draw.line((175, 236, 643, 236), fill=(58, 58, 58))
+        for y in range(245, 490, 52):
+            for x in range(180, 640, 52):
+                draw.rectangle((x, y, x+20, y+25), fill=(120, 100, 70))
+        self.assertTrue(_manual_rune_grid_presence(image))
+        self.assertFalse(_check_rune_grid_presence(image))
+        with patch('tooltip_detection.find_tooltip_crop', return_value=None):
+            crop, bounds = crop_for_ai(image, 'runes')
+        self.assertLess(crop.width * crop.height, image.width * image.height)
+
     def test_english_equipment_over_grey_background(self):
         from capture_regions import resolve_scan_mode, crop_for_ai
         tooltip, rows = example_tooltip()

@@ -1,0 +1,25 @@
+<style>
+.app-service-status {padding:10px 14px;border:1px solid #4a3e20;background:#131710;color:#dfd3b9;font-size:13px;line-height:1.5;flex-shrink:0}
+.app-service-status a {color:#e0bd76;text-decoration:underline}
+.app-service-status p {margin:6px 0}
+.app-service-status summary {cursor:pointer}
+</style>
+<section class="app-service-status full-view-section">
+    <div id="api-onboarding" {% if api_configured %}hidden{% endif %} role="status">
+        <strong>{{ 'Connect Gemini API' if lang == 'en' else 'Podłącz Gemini API' }}</strong>
+        <p>{{ 'Add your Gemini API key in AI settings to start scanning. Your inventory is available without a key.' if lang == 'en' else 'Aby rozpocząć skanowanie, dodaj klucz Gemini API w ustawieniach AI. Bez klucza nadal możesz przeglądać swoje przedmioty.' }}</p>
+        <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">{{ 'Get a Gemini API key' if lang == 'en' else 'Uzyskaj klucz Gemini API' }}</a>
+        <button type="button" onclick="openApiSettings()">{{ 'Open AI settings' if lang == 'en' else 'Otwórz ustawienia AI' }}</button>
+    </div>
+    <details>
+        <summary>{{ 'App updates' if lang == 'en' else 'Aktualizacje aplikacji' }} <span id="update-version"></span> <span id="update-badge"></span></summary>
+        <p id="update-status" role="status"></p>
+        <button type="button" id="update-check" onclick="updateAction('check')">{{ 'Check for updates' if lang == 'en' else 'Sprawdź aktualizacje' }}</button>
+        <button type="button" id="update-download" hidden onclick="updateAction('download')">{{ 'Download update' if lang == 'en' else 'Pobierz aktualizację' }}</button>
+        <button type="button" id="update-install" hidden onclick="installAppUpdate()">{{ 'Install and restart' if lang == 'en' else 'Zainstaluj i uruchom ponownie' }}</button>
+        <p><label><input type="checkbox" id="update-auto" onchange="updateAction('automatic', {enabled:this.checked})"> {{ 'Check automatically on startup' if lang == 'en' else 'Sprawdzaj automatycznie przy uruchomieniu' }}</label></p>
+        <p>{{ 'Updates preserve your characters, items, scans and API key.' if lang == 'en' else 'Aktualizacje zachowują postacie, przedmioty, skany i klucz API.' }}</p>
+        <a href="https://github.com/kosiorro/D2-UberApp/releases/latest" target="_blank" rel="noopener noreferrer">GitHub Releases</a>
+    </details>
+</section>
+<script src="/static/app-updates.js" defer></script>

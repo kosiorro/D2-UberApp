@@ -40,6 +40,21 @@ def resolve_scan_mode(screen, mode):
     return mode
 
 
+def _manual_rune_grid_presence(screen):
+    """Manual selection is a hint: do not require all six exact separators.
+
+    Restore the pre-1.3.1 border tolerance, with a texture guard to avoid
+    accepting a blank grey panel as an empty rune inventory.
+    """
+    arr = np.asarray(screen.convert('RGB'))
+    for top in (207, 236):
+        row = arr[top, 175:643].mean(axis=1)
+        grid = arr[top+2:top+260, 177:641]
+        if np.abs(row - 58).mean() <= 18 and grid.std() > 15:
+            return True
+    return False
+
+
 def crop_for_ai(screen, mode):
     from tooltip_detection import find_tooltip_crop
     width, height = screen.size
@@ -68,7 +83,7 @@ def crop_for_ai(screen, mode):
             )
         # Check if rune grid is actually present
         if width == 1920 and height == 1080:
-            if not _check_rune_grid_presence(screen):
+            if not _manual_rune_grid_presence(screen):
                 raise ValueError(
                     "Odrzucono: Nie wykryto otwartej zakładki run w grze. "
                     "Otwórz skrzynię w grze i przejdź do zakładki z runami, a następnie naciśnij skrót."

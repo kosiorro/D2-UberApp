@@ -4,6 +4,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from release_validation import CATALOG_FILES, validate_package
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -19,14 +20,22 @@ def build():
         print('Instalowanie PyInstaller...')
         subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pyinstaller'])
 
-    dist_dir = BASE_DIR / 'dist'
+    dist_root = BASE_DIR / 'dist'
+    dist_root.mkdir(exist_ok=True)
+    # Never reuse a directory where a previous executable may have saved scans.
+    dist_dir = Path(tempfile.mkdtemp(prefix='release-', dir=dist_root))
     build_dir = BASE_DIR / 'build'
     build_dir.mkdir(exist_ok=True)
     # Bundle only static catalogs and defaults, never the developer's live data.
     package_data = Path(tempfile.mkdtemp(prefix='release-data-', dir=build_dir))
-    for name in ('armor_bases.json', 'item_bases.json', 'catalog.sqlite', 'stack_catalog.json',
-                 'trade_catalog_500.json', 'companion-settings.default.json'):
+    for name in CATALOG_FILES:
         shutil.copy2(BASE_DIR / 'data' / name, package_data / name)
+    import sqlite3
+    with sqlite3.connect(package_data / 'catalog.sqlite') as catalog:
+        catalog.execute('DELETE FROM user_inventory')
+        catalog.commit()
+        catalog.execute('VACUUM')
+    validate_package(package_data)
 
     icon_path = BASE_DIR / 'static' / 'images' / 'uberapp.ico'
 
@@ -36,6 +45,7 @@ def build():
         '--noconfirm',
         '--onedir',
         '--name', 'D2UberApp',
+        '--distpath', str(dist_dir),
         '--add-data', f'{BASE_DIR / "templates"}{os.pathsep}templates',
         '--add-data', f'{BASE_DIR / "static"}{os.pathsep}static',
         '--add-data', f'{package_data}{os.pathsep}data',
@@ -102,6 +112,8 @@ def build():
         if fpath.exists():
             shutil.copy2(fpath, target_app_dir)
 
+    validate_package(target_app_dir)
+    (build_dir / 'release-package.txt').write_text(str(target_app_dir), encoding='utf-8')
     print('\n[SUKCES] Aplikacja skompilowana do folderu:', target_app_dir)
     print('Aby uruchomic na dowolnym Windowsie: dist/D2UberApp/D2UberApp.exe')
 

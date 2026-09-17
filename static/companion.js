@@ -407,6 +407,7 @@ async function refresh() {
         state = await response.json();
         $('capture-state').textContent = formatCompanionStatus(state.status, state.running, state.hotkey);
         $('capture-message').textContent = formatCompanionMessage(state.activity.message);
+        if (!state.has_api_key) $('capture-message').textContent = window.APP_LANG === 'en' ? 'Connect your Gemini API key in Settings to start scanning.' : 'Aby rozpocząć skanowanie, podłącz klucz Gemini API w Ustawieniach.';
         
         // Update toggle button text and icon
         const playIcon = document.querySelector('.toggle-icon-play');

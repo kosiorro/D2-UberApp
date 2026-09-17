@@ -1850,6 +1850,7 @@
 <link rel="stylesheet" href="/static/shared-repair.css">
 </head>
 <body class="{{ 'embedded' if request.args.get('embedded') == '1' else '' }}">
+    {% include 'app-status.html' %}
 
     <!-- AUDIO FOR DIABLO II ITEM SOUNDS (GEM CLICK) -->
     <audio id="sfxGem" src="/static/sfx/gem.wav" preload="auto"></audio>

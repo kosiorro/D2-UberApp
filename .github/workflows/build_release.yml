@@ -38,6 +38,21 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m unittest discover -s tests -p test_scan_diagnostics.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p test_app_updater.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p test_api_setup.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p test_release_validation.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s tests -p test_character_management.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Read release version
+        run: |
+          $releaseVersion = python -c "from app_version import VERSION; print(VERSION)"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($env:GITHUB_REF -like 'refs/tags/*' -and $env:GITHUB_REF_NAME -ne "v$releaseVersion") { throw 'Tag and app version differ' }
+          "APP_VERSION=$releaseVersion" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
       - name: Build Standalone Release with PyInstaller
         run: |
@@ -49,7 +64,17 @@ jobs:
 
       - name: Compile Inno Setup Windows Installer (.exe)
         run: |
-          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+          $packageDir = (Get-Content build/release-package.txt -Raw).Trim()
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "/DPackageDir=$packageDir" "/DReleaseVersion=$env:APP_VERSION" installer.iss
+
+      - name: Upload Windows packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: D2UberApp-Windows-${{ env.APP_VERSION }}
+          path: |
+            Output/D2UberApp_Setup_v${{ env.APP_VERSION }}.exe
+            D2UberApp_Windows_x64.zip
+          if-no-files-found: error
 
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
@@ -60,8 +85,8 @@ jobs:
           prerelease: false
           fail_on_unmatched_files: true
           files: |
-            Output/D2UberApp_Setup_v1.3.1.exe
+            Output/D2UberApp_Setup_v${{ env.APP_VERSION }}.exe
             D2UberApp_Windows_x64.zip
-          body_path: release-notes-v1.3.1.md
+          body_path: release-notes-v${{ env.APP_VERSION }}.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -16,6 +16,13 @@ from scan_history import init_history
 
 class CharacterManagementTests(unittest.TestCase):
     def setUp(self):
+        # These tests exercise persistence with mocked recognition, not API setup or image detection.
+        for target, kwargs in [('api_setup.has_api_key', {'return_value': True}),
+                               ('scan_diagnostics.save_diagnostics', {}),
+                               ('capture_regions.resolve_scan_mode', {'side_effect': lambda screen, mode: mode})]:
+            mock = patch(target, **kwargs)
+            mock.start()
+            self.addCleanup(mock.stop)
         self.temp_dir = tempfile.TemporaryDirectory(ignore_cleanup_errors=True)
         self.test_db_path = Path(self.temp_dir.name) / 'test_stash.sqlite'
         self.patch_config = patch.object(config, 'DB_PATH', self.test_db_path)

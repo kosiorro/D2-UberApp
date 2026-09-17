@@ -65,6 +65,7 @@
             </button>
         </div>
     </header>
+    {% include 'app-status.html' %}
 
     <div class="web-nav-bar full-view-section">
         <div class="panel-kicker">{{ lang == 'en' and 'WEB BROWSER' or 'PRZEGLĄDARKA WWW' }}</div>
@@ -265,6 +266,7 @@
                 </label>
                 <label>{{ lang == 'en' and 'Gemini Model' or 'Model Gemini' }}<input id="set-model" required></label>
                 <label>{{ lang == 'en' and 'API Key' or 'Klucz API' }}<input id="set-key" type="password" placeholder="{{ lang == 'en' and 'Leave empty to keep saved key' or 'Puste pole zachowuje zapisany klucz' }}" autocomplete="off"></label>
+                <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">{{ 'Get a Gemini API key' if lang == 'en' else 'Uzyskaj klucz Gemini API' }}</a>
                 <label>{{ lang == 'en' and 'Stash Location' or 'Lokalizacja skrzyni' }}<input id="set-location"></label>
             </div>
             <label><input id="set-sound" type="checkbox"> {{ lang == 'en' and 'Sound Effects' or 'Dźwięki' }}</label>

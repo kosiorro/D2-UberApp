@@ -5,6 +5,32 @@ from uber_features import edit_character
 from scan_history import recent,finish
 
 def register(app):
+    import config
+    import app_updater
+    from api_setup import has_api_key
+    @app.get('/api/updates')
+    def update_status():
+        return jsonify(**app_updater.snapshot(), has_api_key=has_api_key(),
+                       automatic=config.COMPANION_SETTINGS.get('check_updates', True))
+
+    @app.post('/api/updates')
+    def update_action():
+        if not request.is_json or (request.headers.get('Origin') and request.headers['Origin'] != request.host_url.rstrip('/')):
+            return jsonify(error='Forbidden'), 403
+        command = request.get_json().get('action')
+        try:
+            if command == 'check':
+                app_updater.check()
+            elif command == 'download':
+                app_updater.prepare()
+            elif command == 'automatic':
+                from desktop_companion import persist
+                persist(check_updates=bool(request.get_json().get('enabled')))
+            else:
+                return jsonify(error='Unknown action'), 400
+            return jsonify(success=True)
+        except ValueError:
+            return jsonify(error='Update unavailable'), 409
     from character_creator import register as register_creator
     register_creator(app)
     def busy():return service.queue_count or service.processing_lock.locked()
@@ -18,6 +44,7 @@ def register(app):
         hero_class = character_class(hero) if hero else None
         return jsonify(
             running=service.is_running,
+            has_api_key=has_api_key(),
             status=service.last_status,
             activity=service.last_activity,
             hotkey=config.HOTKEY_NAME,

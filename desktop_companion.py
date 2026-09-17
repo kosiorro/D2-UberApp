@@ -165,6 +165,24 @@ def set_window_topmost(topmost: bool):
 class Bridge:
     exiting = False
 
+    def install_update(self):
+        import app_updater
+        english = config.COMPANION_SETTINGS.get('lang') == 'en'
+        if not service.processing_lock.acquire(blocking=False):
+            return {'error': 'Wait for the scan to finish.' if english else 'Poczekaj na zakończenie skanu.'}
+        try:
+            if service.queue_count or getattr(service, 'creator_context', None) or not _active_window:
+                return {'error': 'Finish scanning and close the character creator first.' if english else 'Zakończ skanowanie i zamknij kreator postaci.'}
+            app_updater.launch()
+            service.stop()
+            self.exiting = True
+            _active_window.destroy()
+            return {'success': True}
+        except Exception:
+            return {'error': 'Could not start the updater.' if english else 'Nie udało się uruchomić aktualizatora.'}
+        finally:
+            service.processing_lock.release()
+
     def reset_hotkeys(self):
         if service.queue_count or service.processing_lock.locked():
             return {'error': 'Poczekaj na zakończenie skanu.'}
@@ -205,8 +223,8 @@ class Bridge:
         model = str(data.get('model', '')).strip()
         hotkey = str(data.get('hotkey', '')).strip()
         parsed_hk = config.parse_hotkey(hotkey)
-        if not key or not model or not parsed_hk:
-            return {'error': 'Sprawdź model, klucz i skrót przechwytywania.'}
+        if not model or not parsed_hk:
+            return {'error': 'Check the model and capture hotkey.' if config.COMPANION_SETTINGS.get('lang') == 'en' else 'Sprawdź model i skrót przechwytywania.'}
         hotkey_mods, hotkey_vk, hotkey_name = parsed_hk
 
         regions = data.get('regions', {})
@@ -316,6 +334,9 @@ def run(app):
 
     threading.Thread(target=server.serve_forever, daemon=True).start()
     app.config['COMPANION_AVAILABLE'] = True
+    import app_updater
+    if config.COMPANION_SETTINGS.get('check_updates', True):
+        app_updater.check()
 
     # Automatically open the web browser to the main UberApp interface
     def _open_browser():

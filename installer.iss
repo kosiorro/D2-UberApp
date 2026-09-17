@@ -1,6 +1,12 @@
 ; Inno Setup Script dla D2 UberApp
 #define MyAppName "D2 UberApp"
-#define MyAppVersion "1.3.1"
+#ifndef ReleaseVersion
+  #error Pass /DReleaseVersion from app_version.py
+#endif
+#define MyAppVersion ReleaseVersion
+#ifndef PackageDir
+  #error Build with build_release.py and pass /DPackageDir from build/release-package.txt
+#endif
 #define MyAppPublisher "D2 Community"
 #define MyAppURL "https://market.d2app.xyz"
 #define MyAppExeName "D2UberApp.exe"
@@ -38,8 +44,8 @@ Name: "{app}\data\screenshots"; Permissions: users-full
 Name: "{app}\data\previews"; Permissions: users-full
 
 [Files]
-Source: "dist\D2UberApp\*"; DestDir: "{app}"; Excludes: "data\companion-settings.json"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "dist\D2UberApp\data\companion-settings.json"; DestDir: "{app}\data"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "{#PackageDir}\*"; DestDir: "{app}"; Excludes: "data\companion-settings.json"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#PackageDir}\data\companion-settings.json"; DestDir: "{app}\data"; Flags: onlyifdoesntexist uninsneveruninstall
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\static\images\uberapp.ico"
