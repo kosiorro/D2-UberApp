@@ -24,6 +24,15 @@ Scan items, characters, stats, skills, runes and more directly from the game.
 <br>
 
 <div align="center">
+  <a href="https://youtu.be/yzvSY37K42A">
+    <img src="https://img.youtube.com/vi/yzvSY37K42A/hqdefault.jpg" alt="Obejrzyj film na YouTube / Watch the video on YouTube" width="760">
+  </a>
+  <p><a href="https://youtu.be/yzvSY37K42A"><strong>▶ Obejrzyj film na YouTube / Watch the video on YouTube</strong></a></p>
+</div>
+
+<br>
+
+<div align="center">
   <img src="docs/screenshots/tooltip.jpg" alt="D2 UberApp - skanowanie tooltipu przedmiotu" width="100%">
 </div>
 
